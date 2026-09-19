@@ -37,9 +37,9 @@ chmod 775 "$SCRIPTS_DIR"
 # Sumber script: API (butuh API key) dengan fallback ke GitHub.
 # API key bisa diberikan lewat env PROTECT_API_KEY sebelum menjalankan installer:
 #   PROTECT_API_KEY="jhy_xxx" bash installmaster.sh
-API_BASE="${PROTECT_API_BASE:-https://hzgavthvdnlrihdrigyt.supabase.co/functions/v1/download}"
+API_BASE="${PROTECT_API_BASE:-https://gsrxnmyrtavtgpaugdqn.supabase.co/functions/v1/download}"
 PROTECT_API_KEY="${PROTECT_API_KEY:-}"
-GITHUB_URL="${GITHUB_URL:-https://raw.githubusercontent.com/danangvalentp/protect-panel/refs/heads/main}"
+GITHUB_URL="${GITHUB_URL:-https://raw.githubusercontent.com/FyzzModss/protected/refs/heads/main}"
 CACHE_BUSTER="$(date +%s)"
 
 # Simpan API key agar Protect Manager bisa memakainya lagi saat update.
@@ -769,12 +769,12 @@ SCRIPT_INSTALLPROTECT13_SH,
         if (is_file($keyFile)) {
             $apiKey = trim((string) @file_get_contents($keyFile));
             if ($apiKey !== '') {
-                $urls[] = 'https://hzgavthvdnlrihdrigyt.supabase.co/functions/v1/download?file='
+                $urls[] = 'https://gsrxnmyrtavtgpaugdqn.supabase.co/functions/v1/download?file='
                     . rawurlencode($filename) . '&key=' . rawurlencode($apiKey);
             }
         }
 
-        $urls[] = 'https://raw.githubusercontent.com/danangvalentp/protect-panel/refs/heads/main/' . $filename;
+        $urls[] = 'https://raw.githubusercontent.com/FyzzModss/protected/refs/heads/main/' . $filename;
 
         return $urls;
     }
