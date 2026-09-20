@@ -16,7 +16,7 @@ CONTROLLER_PATH="$PANEL_DIR/app/Http/Controllers/Admin/ProtectManagerController.
 VIEW_PATH="$PANEL_DIR/resources/views/admin/protect-manager.blade.php"
 
 echo "==========================================="
-echo "🛡️  Protect Manager Panel"
+echo "🛡️  MASTER INSTALLER: Protect Manager Panel"
 echo "==========================================="
 echo ""
 echo "📦 Membuat halaman Protect Manager di Admin Panel"
@@ -27,7 +27,7 @@ echo ""
 # BAGIAN 1: Buat direktori dan config
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "📁 [ 1 ] Setup direktori & konfigurasi"
+echo "📁 BAGIAN 1: Setup direktori & konfigurasi"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 mkdir -p "$SCRIPTS_DIR"
@@ -39,7 +39,7 @@ chmod 775 "$SCRIPTS_DIR"
 #   PROTECT_API_KEY="jhy_xxx" bash installmaster.sh
 API_BASE="${PROTECT_API_BASE:-https://hzgavthvdnlrihdrigyt.supabase.co/functions/v1/download}"
 PROTECT_API_KEY="${PROTECT_API_KEY:-}"
-GITHUB_URL="${GITHUB_URL:-https://github.com/FyzzModss/protected/refs/heads/main}"
+GITHUB_URL="${GITHUB_URL:-https://raw.githubusercontent.com/FyzzModss/protected/main}"
 CACHE_BUSTER="$(date +%s)"
 
 # Simpan API key agar Protect Manager bisa memakainya lagi saat update.
@@ -67,39 +67,168 @@ is_valid_script() {
 
 download_script_file() {
     # $1 = nama file, $2 = tujuan
-    local name="$1" dest="$2"
-    if [ -n "$PROTECT_API_KEY" ]; then
-        curl -fsSL --retry 2 --retry-delay 2 \
-            -H "X-API-Key: ${PROTECT_API_KEY}" \
+    # Download selalu ke /tmp terlebih dahulu agar curl tidak gagal (23)
+    # ketika direktori tujuan belum writable oleh user yang menjalankan installer.
+    local name="$1" dest="$2" tmp url
+    local tmp_dir="${TMPDIR:-/tmp}"
+
+    mkdir -p "$(dirname "$dest")" 2>/dev/null || true
+    tmp="$(mktemp "$tmp_dir/protect-download.XXXXXX")" || {
+        echo "   ❌ Tidak bisa membuat file temporary di $tmp_dir" >&2
+        return 10
+    }
+
+    cleanup_download_tmp() {
+        rm -f "$tmp" 2>/dev/null || true
+    }
+
+    fetch_to_tmp() {
+        local fetch_url="$1"
+        : > "$tmp" 2>/dev/null || return 1
+        curl --fail --silent --show-error --location \
+            --retry 2 --retry-delay 2 --connect-timeout 15 --max-time 180 \
             -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' \
-            -o "$dest" "${API_BASE}?file=${name}&v=${CACHE_BUSTER}" 2>/dev/null && return 0
+            -o "$tmp" "$fetch_url"
+    }
+
+    install_downloaded_file() {
+        # Prioritaskan install/cp agar destination memperoleh permission yang benar.
+        if install -m 0755 "$tmp" "$dest" 2>/dev/null; then
+            cleanup_download_tmp
+            return 0
+        fi
+
+        if command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
+            if sudo install -m 0755 "$tmp" "$dest" 2>/dev/null; then
+                cleanup_download_tmp
+                return 0
+            fi
+        fi
+
+        if cp "$tmp" "$dest" 2>/dev/null; then
+            chmod 0755 "$dest" 2>/dev/null || true
+            cleanup_download_tmp
+            return 0
+        fi
+
+        if command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
+            if sudo cp "$tmp" "$dest" 2>/dev/null; then
+                sudo chmod 0755 "$dest" 2>/dev/null || true
+                cleanup_download_tmp
+                return 0
+            fi
+        fi
+
+        echo "   ❌ Tidak bisa menulis $dest" >&2
+        echo "      Pastikan user installer punya akses tulis ke $SCRIPTS_DIR" >&2
+        return 11
+    }
+
+    # 1) API — sumber utama bila API key tersedia.
+    if [ -n "$PROTECT_API_KEY" ]; then
+        url="${API_BASE}?file=${name}&v=${CACHE_BUSTER}"
+        if fetch_to_tmp "$url"; then
+            if is_valid_script "$tmp" && grep -q "protect5c)" "$tmp"; then
+                if install_downloaded_file; then
+                    return 0
+                fi
+            else
+                echo "   ⚠️ Response API bukan installprotect.sh yang valid." >&2
+            fi
+        fi
     fi
-    curl -fsSL --retry 2 --retry-delay 2 \
-        -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' \
-        -o "$dest" "${GITHUB_URL%/}/${name}?v=${CACHE_BUSTER}" 2>/dev/null
+
+    # 2) GitHub RAW — hindari URL halaman HTML github.com/refs/...
+    local raw_url="https://raw.githubusercontent.com/FyzzModss/protected/main/${name}?v=${CACHE_BUSTER}"
+    if fetch_to_tmp "$raw_url"; then
+        if is_valid_script "$tmp" && grep -q "protect5c)" "$tmp"; then
+            if install_downloaded_file; then
+                return 0
+            fi
+        else
+            echo "   ⚠️ Response GitHub RAW bukan installprotect.sh yang valid." >&2
+        fi
+    fi
+
+    # 3) URL GitHub custom dari environment, untuk kompatibilitas versi lama.
+    url="${GITHUB_URL%/}/${name}?v=${CACHE_BUSTER}"
+    if fetch_to_tmp "$url"; then
+        if is_valid_script "$tmp" && grep -q "protect5c)" "$tmp"; then
+            if install_downloaded_file; then
+                return 0
+            fi
+        else
+            echo "   ⚠️ Response GitHub custom bukan installprotect.sh yang valid." >&2
+        fi
+    fi
+
+    # 4) Jika file tujuan lama masih valid, jangan menghapusnya.
+    if [ -s "$dest" ] && is_valid_script "$dest" && grep -q "protect5c)" "$dest"; then
+        echo "   ⚠️ Download remote gagal, memakai installprotect.sh yang sudah ada." >&2
+        cleanup_download_tmp
+        chmod 0755 "$dest" 2>/dev/null || true
+        return 0
+    fi
+
+    cleanup_download_tmp
+    return 1
 }
 
 if [ -n "$PROTECT_API_KEY" ]; then
-    echo "[ 1 ] Mendownload installprotect.sh..."
+    echo "📥 Mendownload installprotect.sh via API key..."
 else
-    echo "[ 2 ] Mendownload installprotect.sh..."
+    echo "📥 Mendownload installprotect.sh dari GitHub (tanpa API key)..."
 fi
 TARGET="$SCRIPTS_DIR/installprotect.sh"
 DOWNLOADED=false
+
+# Sumber lokal didahulukan agar instalasi tidak bergantung pada jaringan/API.
+# Bisa ditentukan eksplisit dengan PROTECT_LOCAL_SCRIPT=/path/installprotect.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" 2>/dev/null && pwd -P)"
+copy_local_installprotect() {
+    local src
+    local candidates=(
+        "${PROTECT_LOCAL_SCRIPT:-}"
+        "$SCRIPT_DIR/installprotect.sh"
+        "$(pwd)/installprotect.sh"
+        "/root/installprotect.sh"
+        "/tmp/installprotect.sh"
+    )
+
+    for src in "${candidates[@]}"; do
+        [ -n "$src" ] || continue
+        if [ -f "$src" ] && is_valid_script "$src" && grep -q "protect5c)" "$src"; then
+            if install -m 0755 "$src" "$TARGET" 2>/dev/null || cp "$src" "$TARGET" 2>/dev/null; then
+                chmod 0755 "$TARGET" 2>/dev/null || true
+                echo "   ✅ installprotect.sh memakai sumber lokal: $src"
+                return 0
+            fi
+        fi
+    done
+
+    return 1
+}
+
+if copy_local_installprotect; then
+    DOWNLOADED=true
+fi
+
+if [ "$DOWNLOADED" = false ]; then
 for attempt in 1 2 3; do
     if download_script_file "installprotect.sh" "$TARGET"; then
         if is_valid_script "$TARGET" && grep -q "protect5c)" "$TARGET"; then
             chmod +x "$TARGET"
-            echo "  Successed Download installprotect.sh"
+            echo "   ✅ installprotect.sh (semua fitur dalam 1 file)"
             DOWNLOADED=true
             break
         fi
         echo "   ⚠️ Konten installprotect.sh tidak valid/versi lama, coba ulang..."
         rm -f "$TARGET"
     fi
-    echo "   ⌛ Retry ${attempt}/3 untuk installprotect.sh..."
+    echo "   ⏳ Retry ${attempt}/3 untuk installprotect.sh..."
     sleep 2
 done
+fi
 
 if [ "$DOWNLOADED" = false ]; then
     rm -f "$TARGET"
@@ -118,8 +247,8 @@ write_bundled_hotfix_script() {
     return 0
 }
 
-echo "[ Fallback ] Download Script Via GitHub."
-# GitHub mode: tidak ada fallback/base64 lokal agar script selalu dari repository utama.
+echo "📦 Fallback bundle dimatikan: semua script wajib dari GitHub."
+# GitHub-only mode: tidak ada fallback/base64 lokal agar script selalu dari repository utama.
 
 DEFAULT_CONFIG_TMP=$(mktemp)
 cat > "$DEFAULT_CONFIG_TMP" << 'CONFIGEOF'
@@ -373,7 +502,7 @@ echo "✅ BAGIAN 1 SELESAI"
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "[ 2 ] Buat Protect Manager Controller"
+echo "🎮 BAGIAN 2: Buat ProtectManagerController"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 if [ -f "$CONTROLLER_PATH" ]; then
@@ -1650,7 +1779,7 @@ echo "✅ Controller dibuat: $CONTROLLER_PATH"
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "[ 3 ] Buat Blade View"
+echo "🎨 BAGIAN 3: Buat Blade View"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 if [ -f "$VIEW_PATH" ]; then
@@ -2194,7 +2323,7 @@ echo "✅ View dibuat: $VIEW_PATH"
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "[ 4 ] Tambah Route"
+echo "🛣️  BAGIAN 4: Tambah Route"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 ROUTES_FILE="$PANEL_DIR/routes/admin.php"
@@ -2235,7 +2364,7 @@ fi
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "[ 5 ] Tambah Sidebar Menu"
+echo "📌 BAGIAN 5: Tambah Sidebar Menu"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # Cari file sidebar/layout admin
