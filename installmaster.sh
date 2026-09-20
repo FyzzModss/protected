@@ -16,7 +16,7 @@ CONTROLLER_PATH="$PANEL_DIR/app/Http/Controllers/Admin/ProtectManagerController.
 VIEW_PATH="$PANEL_DIR/resources/views/admin/protect-manager.blade.php"
 
 echo "==========================================="
-echo "🛡️  MASTER INSTALLER: Protect Manager Panel"
+echo "🛡️  Protect Manager Panel"
 echo "==========================================="
 echo ""
 echo "📦 Membuat halaman Protect Manager di Admin Panel"
@@ -27,7 +27,7 @@ echo ""
 # BAGIAN 1: Buat direktori dan config
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "📁 BAGIAN 1: Setup direktori & konfigurasi"
+echo "📁 [ 1 ] Setup direktori & konfigurasi"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 mkdir -p "$SCRIPTS_DIR"
@@ -37,9 +37,9 @@ chmod 775 "$SCRIPTS_DIR"
 # Sumber script: API (butuh API key) dengan fallback ke GitHub.
 # API key bisa diberikan lewat env PROTECT_API_KEY sebelum menjalankan installer:
 #   PROTECT_API_KEY="jhy_xxx" bash installmaster.sh
-API_BASE="${PROTECT_API_BASE:-https://gsrxnmyrtavtgpaugdqn.supabase.co/functions/v1/download}"
+API_BASE="${PROTECT_API_BASE:-https://hzgavthvdnlrihdrigyt.supabase.co/functions/v1/download}"
 PROTECT_API_KEY="${PROTECT_API_KEY:-}"
-GITHUB_URL="${GITHUB_URL:-https://raw.githubusercontent.com/FyzzModss/protected/refs/heads/main}"
+GITHUB_URL="${GITHUB_URL:-https://github.com/FyzzModss/protected/refs/heads/main}"
 CACHE_BUSTER="$(date +%s)"
 
 # Simpan API key agar Protect Manager bisa memakainya lagi saat update.
@@ -80,9 +80,9 @@ download_script_file() {
 }
 
 if [ -n "$PROTECT_API_KEY" ]; then
-    echo "📥 Mendownload installprotect.sh via API key..."
+    echo "[ 1 ] Mendownload installprotect.sh..."
 else
-    echo "📥 Mendownload installprotect.sh dari GitHub (tanpa API key)..."
+    echo "[ 2 ] Mendownload installprotect.sh..."
 fi
 TARGET="$SCRIPTS_DIR/installprotect.sh"
 DOWNLOADED=false
@@ -90,14 +90,14 @@ for attempt in 1 2 3; do
     if download_script_file "installprotect.sh" "$TARGET"; then
         if is_valid_script "$TARGET" && grep -q "protect5c)" "$TARGET"; then
             chmod +x "$TARGET"
-            echo "   ✅ installprotect.sh (semua fitur dalam 1 file)"
+            echo "  Successed Download installprotect.sh"
             DOWNLOADED=true
             break
         fi
         echo "   ⚠️ Konten installprotect.sh tidak valid/versi lama, coba ulang..."
         rm -f "$TARGET"
     fi
-    echo "   ⏳ Retry ${attempt}/3 untuk installprotect.sh..."
+    echo "   ⌛ Retry ${attempt}/3 untuk installprotect.sh..."
     sleep 2
 done
 
@@ -118,8 +118,8 @@ write_bundled_hotfix_script() {
     return 0
 }
 
-echo "📦 Fallback bundle dimatikan: semua script wajib dari GitHub."
-# GitHub-only mode: tidak ada fallback/base64 lokal agar script selalu dari repository utama.
+echo "[ Fallback ] Download Script Via GitHub."
+# GitHub mode: tidak ada fallback/base64 lokal agar script selalu dari repository utama.
 
 DEFAULT_CONFIG_TMP=$(mktemp)
 cat > "$DEFAULT_CONFIG_TMP" << 'CONFIGEOF'
@@ -129,9 +129,9 @@ cat > "$DEFAULT_CONFIG_TMP" << 'CONFIGEOF'
     "contact_telegram": "@FyzzModss",
     "contact_telegram_2": "@FyzAbout",
     "brand_label": "FyzzModss",
-    "bot_link": "@upgradeuser_bot",
+    "bot_link": "@VantaxzzMD_bot",
     "welcome_title": "Welcome To Server FyzzModss",
-    "welcome_message": "Butuh panel legal yang anti mokad? langsung aja ke <a href=\"https://t.me/upgradeuser_bot\">@upgradeuser_bot</a>. Jangan Lupa join Channel <a href=\"https://t.me/FyzAbout\">@FyzAbout</a>.",
+    "welcome_message": "Butuh panel legal yang anti mokad? langsung aja ke <a href=\"https://t.me/VantaxzzMD_bot\">@VantaxzzMD_bot</a>. Jangan Lupa join Channel <a href=\"https://t.me/FyzAbout\">@FyzAbout</a>.",
     "protections": {
         "protect1": {
             "name": "Anti Delete Server",
@@ -373,7 +373,7 @@ echo "✅ BAGIAN 1 SELESAI"
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🎮 BAGIAN 2: Buat ProtectManagerController"
+echo "[ 2 ] Buat Protect Manager Controller"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 if [ -f "$CONTROLLER_PATH" ]; then
@@ -603,9 +603,9 @@ class ProtectManagerController extends Controller
                 'contact_telegram' => '@FyzzModss',
                 'contact_telegram_2' => '@FyzAbout',
                 'brand_label' => 'FyzzModss',
-                'bot_link' => '@upgradeuser_bot',
+                'bot_link' => '@VantaxzzMD_bot',
                 'welcome_title' => 'Welcome To Server FyzzModss',
-                'welcome_message' => 'Butuh panel legal yang anti mokad? langsung aja ke <a href=\"https://t.me/upgradeuser_bot\">@upgradeuser_bot</a>. Jangan Lupa join Channel <a href=\"https://t.me/FyzAbout\">@FyzAbout</a>.',
+                'welcome_message' => 'Butuh panel legal yang anti mokad? langsung aja ke <a href=\"https://t.me/VantaxzzMD_bot\">@VantaxzzMD_bot</a>. Jangan Lupa join Channel <a href=\"https://t.me/FyzAbout\">@FyzAbout</a>.',
                 'panel_title' => 'FyzzModss',
                 'deny_msg_admin' => '',
                 'deny_msg_server' => '',
@@ -774,7 +774,7 @@ SCRIPT_INSTALLPROTECT13_SH,
             }
         }
 
-        $urls[] = 'https://raw.githubusercontent.com/FyzzModss/protected/refs/heads/main/' . $filename;
+        $urls[] = 'https://github.com/FyzzModss/protected/refs/heads/main/' . $filename;
 
         return $urls;
     }
@@ -854,7 +854,7 @@ SCRIPT_INSTALLPROTECT13_SH,
             . 'export CONTACT_TELEGRAM=' . escapeshellarg($config['contact_telegram'] ?? '@FyzzModss') . "\n"
             . 'export CONTACT_TELEGRAM_2=' . escapeshellarg($config['contact_telegram_2'] ?? '@FyzAbout') . "\n"
             . 'export BRAND_LABEL=' . escapeshellarg($config['brand_label'] ?? ($config['brand_name'] ?? 'FyzzModss')) . "\n"
-            . 'export BOT_LINK=' . escapeshellarg($config['bot_link'] ?? '@upgradeuser_bot') . "\n"
+            . 'export BOT_LINK=' . escapeshellarg($config['bot_link'] ?? '@VantaxzzMD_bot') . "\n"
             . 'export WELCOME_TITLE=' . escapeshellarg($config['welcome_title'] ?? 'Welcome To Server FyzzModss') . "\n"
             . 'export WELCOME_MESSAGE=' . escapeshellarg($config['welcome_message'] ?? '') . "\n"
             . 'export PANEL_TITLE=' . escapeshellarg($config['panel_title'] ?? ($config['brand_name'] ?? 'FyzzModss')) . "\n"
@@ -949,7 +949,7 @@ $runProtectedScript = function (string $scriptFile, array $config, string $prote
         . 'export CONTACT_TELEGRAM=' . escapeshellarg($config['contact_telegram'] ?? '@FyzzModss') . "\n"
         . 'export CONTACT_TELEGRAM_2=' . escapeshellarg($config['contact_telegram_2'] ?? '@FyzAbout') . "\n"
         . 'export BRAND_LABEL=' . escapeshellarg($config['brand_label'] ?? ($config['brand_name'] ?? 'FyzzModss')) . "\n"
-        . 'export BOT_LINK=' . escapeshellarg($config['bot_link'] ?? '@upgradeuser_bot') . "\n"
+        . 'export BOT_LINK=' . escapeshellarg($config['bot_link'] ?? '@VantaxzzMD_bot') . "\n"
         . 'export WELCOME_TITLE=' . escapeshellarg($config['welcome_title'] ?? 'Welcome To Server FyzzModss') . "\n"
         . 'export WELCOME_MESSAGE=' . escapeshellarg($config['welcome_message'] ?? '') . "\n"
         . 'export PANEL_TITLE=' . escapeshellarg($config['panel_title'] ?? ($config['brand_name'] ?? 'FyzzModss')) . "\n"
@@ -1064,8 +1064,18 @@ PHPJOB;
      */
     private function checkInstalled($protectionKey, $protection)
     {
-        // Hormati flag enabled di config — jika sudah di-uninstall via panel,
-        // anggap tidak terinstall meskipun masih ada sisa marker di file lain.
+        // installprotect.sh membuat stamp setelah fitur benar-benar selesai.
+        // Stamp adalah sumber status utama agar UI tidak bergantung pada marker lama
+        // yang dapat berbeda antar versi fitur.
+        $safeKey = preg_replace('/[^A-Za-z0-9._-]/', '', (string) $protectionKey);
+        if ($safeKey !== '') {
+            $stampFile = $this->panelDir . '/storage/protect-installed/' . $safeKey;
+            if (File::exists($stampFile) && @filesize($stampFile) !== false) {
+                return true;
+            }
+        }
+
+        // Jika pernah di-uninstall dari panel dan tidak ada stamp, tetap nonaktif.
         if (array_key_exists('enabled', $protection) && $protection['enabled'] === false) {
             return false;
         }
@@ -1286,7 +1296,12 @@ PHPJOB;
         // Jalankan fitur yang dipilih dari file tunggal installprotect.sh
         [$output, $returnVar] = $this->runProtectedScript($scriptFile, $config, $key);
 
-        $config['protections'][$key]['enabled'] = ($returnVar === 0);
+        // Jangan hanya mengandalkan exit code. Pastikan status terpasang
+        // benar-benar terdeteksi oleh Protect Manager setelah script selesai.
+        $statusProbe = $config['protections'][$key];
+        $statusProbe['enabled'] = true;
+        $installed = ($returnVar === 0) && $this->checkInstalled($key, $statusProbe);
+        $config['protections'][$key]['enabled'] = $installed;
         $this->saveConfig($config);
 
         // Re-inject sidebar Protect Manager jika hilang setelah install script
@@ -1419,6 +1434,15 @@ PHPJOB;
                 }
             } catch (\Exception $e) {
                 $errors[] = $relPath . ': ' . $e->getMessage();
+            }
+        }
+
+        // Hapus status stamp yang dibuat installprotect.sh agar UI kembali Nonaktif.
+        $safeKey = preg_replace('/[^A-Za-z0-9._-]/', '', (string) $key);
+        if ($safeKey !== '') {
+            $stampFile = $this->panelDir . '/storage/protect-installed/' . $safeKey;
+            if (File::exists($stampFile)) {
+                @unlink($stampFile);
             }
         }
 
@@ -1578,7 +1602,11 @@ PHPJOB;
             try {
                 [$output, $returnVar] = $this->runProtectedScript($scriptFile, $config, $key);
 
-                if ($returnVar === 0) {
+                $statusProbe = $config['protections'][$key];
+                $statusProbe['enabled'] = true;
+                $installed = ($returnVar === 0) && $this->checkInstalled($key, $statusProbe);
+
+                if ($installed) {
                     $config['protections'][$key]['enabled'] = true;
                     $results[] = '✅ ' . ($config['protections'][$key]['name'] ?? $key) . ': Berhasil';
                 } else {
@@ -1622,7 +1650,7 @@ echo "✅ Controller dibuat: $CONTROLLER_PATH"
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🎨 BAGIAN 3: Buat Blade View"
+echo "[ 3 ] Buat Blade View"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 if [ -f "$VIEW_PATH" ]; then
@@ -1984,7 +2012,7 @@ cat > "$VIEW_PATH" << 'VIEWEOF'
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="config-label">Username Bot Telegram</label>
-                        <input type="text" name="bot_link" value="{{ $config['bot_link'] ?? '@upgradeuser_bot' }}" class="config-input" placeholder="@botanda">
+                        <input type="text" name="bot_link" value="{{ $config['bot_link'] ?? '@VantaxzzMD_bot' }}" class="config-input" placeholder="@botanda">
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -2166,7 +2194,7 @@ echo "✅ View dibuat: $VIEW_PATH"
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🛣️  BAGIAN 4: Tambah Route"
+echo "[ 4 ] Tambah Route"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 ROUTES_FILE="$PANEL_DIR/routes/admin.php"
@@ -2207,7 +2235,7 @@ fi
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "📌 BAGIAN 5: Tambah Sidebar Menu"
+echo "[ 5 ] Tambah Sidebar Menu"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # Cari file sidebar/layout admin
