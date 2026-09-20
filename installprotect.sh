@@ -2469,18 +2469,13 @@ else
   var WELCOME_TITLE = '$WELCOME_TITLE_JS';
   var WELCOME_MESSAGE = '$WELCOME_MESSAGE_JS';
 
-  function escapeRegExp(value) {
-    return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  }
-
   function buildTitle(title) {
     var safeTitle = String(title || "");
     if (!BRAND_NAME || safeTitle.indexOf(BRAND_NAME) === -1) {
       return safeTitle;
     }
 
-    return safeTitle.replace(
-      new RegExp(escapeRegExp(BRAND_NAME), "g"),
+    return safeTitle.split(BRAND_NAME).join(
       '<span class="accent">' + BRAND_NAME + '</span>'
     );
   }
