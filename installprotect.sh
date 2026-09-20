@@ -1,14 +1,11 @@
 #!/bin/bash
 # ============================================================================
 # INSTALLPROTECT.SH - SATU FILE UNTUK SEMUA FITUR PROTEKSI
-# Digenerate otomatis oleh tools/build-installprotect.py - JANGAN EDIT MANUAL.
 #
 # Pakai:
 #   bash installprotect.sh <fitur>    contoh: bash installprotect.sh protect5c
 #   bash installprotect.sh list       lihat semua fitur yang tersedia
 #   bash installprotect.sh all        pasang semua fitur sekaligus
-#
-# Bisa juga lewat env: PROTECT_KEY=protect5c bash installprotect.sh
 # ============================================================================
 
 set -o pipefail
@@ -18,1492 +15,5687 @@ PROTECT_KEY="${1:-${PROTECT_KEY:-}}"
 protect_payload() {
   case "$1" in
     protect1)
-      cat << 'PROTECT1_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgoKUEFORUxfRElSPSIvdmFyL3d3dy9wdGVyb2RhY3R5bCIKUkVNT1RFX1BBVEg9
-IiRQQU5FTF9ESVIvYXBwL1NlcnZpY2VzL1NlcnZlcnMvU2VydmVyRGVsZXRpb25TZXJ2aWNlLnBocCIKU0VSVkVSX01PREVMPSIkUEFORUxfRElSL2FwcC9Nb2RlbHMvU2VydmVyLnBocCIKQVBQX1NFUlZFUl9DT05UUk9MTEVSPSIkUEFORUxfRElSL2FwcC9IdHRw
-L0NvbnRyb2xsZXJzL0FwaS9BcHBsaWNhdGlvbi9TZXJ2ZXJzL1NlcnZlckNvbnRyb2xsZXIucGhwIgpUSU1FU1RBTVA9JChkYXRlIC11ICsiJVktJW0tJWQtJUgtJU0tJVMtJU4iKQpCQUNLVVBfUEFUSD0iJHtSRU1PVEVfUEFUSH0uYmFrXyR7VElNRVNUQU1QfSIK
-CmVjaG8gIvCfmoAgTWVtYXNhbmcgcHJvdGVrc2kgQW50aSBEZWxldGUgU2VydmVyLi4uIgoKaWYgWyAtZiAiJFJFTU9URV9QQVRIIiBdOyB0aGVuCiAgbXYgIiRSRU1PVEVfUEFUSCIgIiRCQUNLVVBfUEFUSCIKICBlY2hvICLwn5OmIEJhY2t1cCBmaWxlIGxhbWEg
-ZGlidWF0IGRpICRCQUNLVVBfUEFUSCIKZmkKCm1rZGlyIC1wICIkKGRpcm5hbWUgIiRSRU1PVEVfUEFUSCIpIgpjaG1vZCA3NTUgIiQoZGlybmFtZSAiJFJFTU9URV9QQVRIIikiCgpjYXQgPiAiJFJFTU9URV9QQVRIIiA8PCAnRU9GJwo8P3BocAoKbmFtZXNwYWNl
-IFB0ZXJvZGFjdHlsXFNlcnZpY2VzXFNlcnZlcnM7Cgp1c2UgSWxsdW1pbmF0ZVxTdXBwb3J0XEZhY2FkZXNcQXV0aDsKdXNlIFB0ZXJvZGFjdHlsXEV4Y2VwdGlvbnNcRGlzcGxheUV4Y2VwdGlvbjsKdXNlIElsbHVtaW5hdGVcSHR0cFxSZXNwb25zZTsKdXNlIFB0
-ZXJvZGFjdHlsXE1vZGVsc1xTZXJ2ZXI7CnVzZSBJbGx1bWluYXRlXFN1cHBvcnRcRmFjYWRlc1xMb2c7CnVzZSBJbGx1bWluYXRlXERhdGFiYXNlXENvbm5lY3Rpb25JbnRlcmZhY2U7CnVzZSBQdGVyb2RhY3R5bFxSZXBvc2l0b3JpZXNcV2luZ3NcRGFlbW9uU2Vy
-dmVyUmVwb3NpdG9yeTsKdXNlIFB0ZXJvZGFjdHlsXFNlcnZpY2VzXERhdGFiYXNlc1xEYXRhYmFzZU1hbmFnZW1lbnRTZXJ2aWNlOwp1c2UgUHRlcm9kYWN0eWxcRXhjZXB0aW9uc1xIdHRwXENvbm5lY3Rpb25cRGFlbW9uQ29ubmVjdGlvbkV4Y2VwdGlvbjsKCmNs
-YXNzIFNlcnZlckRlbGV0aW9uU2VydmljZQp7CiAgICBwcm90ZWN0ZWQgYm9vbCAkZm9yY2UgPSBmYWxzZTsKCiAgICAvKioKICAgICAqIFNlcnZlckRlbGV0aW9uU2VydmljZSBjb25zdHJ1Y3Rvci4KICAgICAqLwogICAgcHVibGljIGZ1bmN0aW9uIF9fY29uc3Ry
-dWN0KAogICAgICAgIHByaXZhdGUgQ29ubmVjdGlvbkludGVyZmFjZSAkY29ubmVjdGlvbiwKICAgICAgICBwcml2YXRlIERhZW1vblNlcnZlclJlcG9zaXRvcnkgJGRhZW1vblNlcnZlclJlcG9zaXRvcnksCiAgICAgICAgcHJpdmF0ZSBEYXRhYmFzZU1hbmFnZW1l
-bnRTZXJ2aWNlICRkYXRhYmFzZU1hbmFnZW1lbnRTZXJ2aWNlCiAgICApIHsKICAgIH0KCiAgICAvKioKICAgICAqIFNldCBpZiB0aGUgc2VydmVyIHNob3VsZCBiZSBmb3JjaWJseSBkZWxldGVkIGZyb20gdGhlIHBhbmVsIChpZ25vcmluZyBkYWVtb24gZXJyb3Jz
-KSBvciBub3QuCiAgICAgKi8KICAgIHB1YmxpYyBmdW5jdGlvbiB3aXRoRm9yY2UoYm9vbCAkYm9vbCA9IHRydWUpOiBzZWxmCiAgICB7CiAgICAgICAgJHRoaXMtPmZvcmNlID0gJGJvb2w7CiAgICAgICAgcmV0dXJuICR0aGlzOwogICAgfQoKICAgIC8qKgogICAg
-ICogRGVsZXRlIGEgc2VydmVyIGZyb20gdGhlIHBhbmVsIGFuZCByZW1vdmUgYW55IGFzc29jaWF0ZWQgZGF0YWJhc2VzIGZyb20gaG9zdHMuCiAgICAgKgogICAgICogQHRocm93cyBcVGhyb3dhYmxlCiAgICAgKiBAdGhyb3dzIFxQdGVyb2RhY3R5bFxFeGNlcHRp
-b25zXERpc3BsYXlFeGNlcHRpb24KICAgICAqLwogICAgcHVibGljIGZ1bmN0aW9uIGhhbmRsZShTZXJ2ZXIgJHNlcnZlcik6IHZvaWQKICAgIHsKICAgICAgICAkdGhpcy0+YXNzZXJ0RGVsZXRpb25BbGxvd2VkKCRzZXJ2ZXIpOwoKICAgICAgICB0cnkgewogICAg
-ICAgICAgICAkdGhpcy0+ZGFlbW9uU2VydmVyUmVwb3NpdG9yeS0+c2V0U2VydmVyKCRzZXJ2ZXIpLT5kZWxldGUoKTsKICAgICAgICB9IGNhdGNoIChEYWVtb25Db25uZWN0aW9uRXhjZXB0aW9uICRleGNlcHRpb24pIHsKICAgICAgICAgICAgLy8gQWJhaWthbiBl
-cnJvciA0MDQsIHRhcGkgbGVtcGFyIGVycm9yIGxhaW4gamlrYSB0aWRhayBtb2RlIGZvcmNlCiAgICAgICAgICAgIGlmICghJHRoaXMtPmZvcmNlICYmICRleGNlcHRpb24tPmdldFN0YXR1c0NvZGUoKSAhPT0gUmVzcG9uc2U6OkhUVFBfTk9UX0ZPVU5EKSB7CiAg
-ICAgICAgICAgICAgICB0aHJvdyAkZXhjZXB0aW9uOwogICAgICAgICAgICB9CgogICAgICAgICAgICBMb2c6Ondhcm5pbmcoJGV4Y2VwdGlvbik7CiAgICAgICAgfQoKICAgICAgICAkdGhpcy0+Y29ubmVjdGlvbi0+dHJhbnNhY3Rpb24oZnVuY3Rpb24gKCkgdXNl
-ICgkc2VydmVyKSB7CiAgICAgICAgICAgIGZvcmVhY2ggKCRzZXJ2ZXItPmRhdGFiYXNlcyBhcyAkZGF0YWJhc2UpIHsKICAgICAgICAgICAgICAgIHRyeSB7CiAgICAgICAgICAgICAgICAgICAgJHRoaXMtPmRhdGFiYXNlTWFuYWdlbWVudFNlcnZpY2UtPmRlbGV0
-ZSgkZGF0YWJhc2UpOwogICAgICAgICAgICAgICAgfSBjYXRjaCAoXEV4Y2VwdGlvbiAkZXhjZXB0aW9uKSB7CiAgICAgICAgICAgICAgICAgICAgaWYgKCEkdGhpcy0+Zm9yY2UpIHsKICAgICAgICAgICAgICAgICAgICAgICAgdGhyb3cgJGV4Y2VwdGlvbjsKICAg
-ICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgIC8vIEppa2EgZ2FnYWwgZGVsZXRlIGRhdGFiYXNlIGRpIGhvc3QsIHRldGFwIGhhcHVzIGRhcmkgcGFuZWwKICAgICAgICAgICAgICAgICAgICAkZGF0YWJhc2UtPmRlbGV0ZSgpOwogICAgICAg
-ICAgICAgICAgICAgIExvZzo6d2FybmluZygkZXhjZXB0aW9uKTsKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQoKICAgICAgICAgICAgJHNlcnZlci0+ZGVsZXRlKCk7CiAgICAgICAgfSk7CiAgICB9CgogICAgcHJpdmF0ZSBmdW5jdGlvbiBhc3NlcnRE
-ZWxldGlvbkFsbG93ZWQoU2VydmVyICRzZXJ2ZXIpOiB2b2lkCiAgICB7CiAgICAgICAgLy8gUFJPVEVLU0lfSkhPTkFMRVlfU0VSVkVSX0RFTEVURV9HVUFSRF9WMgogICAgICAgIC8vIE1vZGUga2V0YXQ6IGRlbGV0ZSBzZXJ2ZXIgdmlhIHBhbmVsL0FQSS9QTFRB
-L1BMVEMgaGFueWEgYm9sZWggb2xlaCBVc2VyIElEIDEuCiAgICAgICAgJGFjdG9ySWQgPSAkdGhpcy0+cmVzb2x2ZUFjdG9ySWQoKTsKCiAgICAgICAgaWYgKCRhY3RvcklkID09PSAxKSB7CiAgICAgICAgICAgIHJldHVybjsKICAgICAgICB9CgogICAgICAgIC8v
-IFJlcXVlc3QgSFRUUC9BUEkgdGFucGEgYWN0b3IgSUQgMSB0ZXRhcCBkaXRvbGFrIGFnYXIgdGlkYWsgYnlwYXNzIHZpYSB0b2tlbi9ib3QuCiAgICAgICAgaWYgKCR0aGlzLT5pc0h0dHBSZXF1ZXN0KCkpIHsKICAgICAgICAgICAgdGhyb3cgbmV3IERpc3BsYXlF
-eGNlcHRpb24oJ0Frc2VzIGRpdG9sYWs6IGhhbnlhIEFkbWluIElEIDEgeWFuZyBkYXBhdCBtZW5naGFwdXMgc2VydmVyIHZpYSBwYW5lbC9BUEkvUExUQS9QTFRDIEAg8J2Qj/CdkJHwnZCO8J2Qk/CdkITwnZCC8J2QkyDwnZCB8J2QmCDwnZCJ8J2Qh/CdkI7wnZCN
-8J2QgPCdkIvwnZCE8J2QmCDwnZCT8J2QhPCdkILwnZCHLicpOwogICAgICAgIH0KCiAgICAgICAgLy8gQ0xJL2JhY2tncm91bmQgam9iIGJhd2FhbiBwYW5lbCB0ZXRhcCBhbWFuOyBib3QvQVBJIHRpZGFrIGxld2F0IENMSS4KICAgIH0KCiAgICBwcml2YXRlIGZ1
-bmN0aW9uIHJlc29sdmVBY3RvcklkKCk6ID9pbnQKICAgIHsKICAgICAgICAkcmVxdWVzdCA9IG51bGw7CiAgICAgICAgdHJ5IHsKICAgICAgICAgICAgJHJlcXVlc3QgPSByZXF1ZXN0KCk7CiAgICAgICAgfSBjYXRjaCAoXFRocm93YWJsZSAkZSkge30KCiAgICAg
-ICAgZm9yZWFjaCAoW251bGwsICd3ZWInLCAnYXBpJywgJ2FwcGxpY2F0aW9uJywgJ2NsaWVudCcsICdzYW5jdHVtJ10gYXMgJGd1YXJkKSB7CiAgICAgICAgICAgIHRyeSB7CiAgICAgICAgICAgICAgICAkdXNlciA9ICRndWFyZCA9PT0gbnVsbCA/IEF1dGg6OnVz
-ZXIoKSA6IEF1dGg6Omd1YXJkKCRndWFyZCktPnVzZXIoKTsKICAgICAgICAgICAgICAgICRpZCA9ICR0aGlzLT5leHRyYWN0VXNlcklkKCR1c2VyKTsKICAgICAgICAgICAgICAgIGlmICgkaWQgIT09IG51bGwpIHsKICAgICAgICAgICAgICAgICAgICByZXR1cm4g
-JGlkOwogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9IGNhdGNoIChcVGhyb3dhYmxlICRlKSB7fQogICAgICAgIH0KCiAgICAgICAgdHJ5IHsKICAgICAgICAgICAgJGlkID0gJHRoaXMtPmV4dHJhY3RVc2VySWQoJHJlcXVlc3QgPyAkcmVxdWVzdC0+dXNl
-cigpIDogbnVsbCk7CiAgICAgICAgICAgIGlmICgkaWQgIT09IG51bGwpIHsKICAgICAgICAgICAgICAgIHJldHVybiAkaWQ7CiAgICAgICAgICAgIH0KICAgICAgICB9IGNhdGNoIChcVGhyb3dhYmxlICRlKSB7fQoKICAgICAgICBpZiAoJHJlcXVlc3QpIHsKICAg
-ICAgICAgICAgZm9yZWFjaCAoWydhcGlfa2V5JywgJ2FwaUtleScsICdhcHBsaWNhdGlvbl9hcGlfa2V5JywgJ2FjY291bnRfYXBpX2tleScsICd0b2tlbicsICdzYW5jdHVtX3Rva2VuJ10gYXMgJG5hbWUpIHsKICAgICAgICAgICAgICAgIHRyeSB7CiAgICAgICAg
-ICAgICAgICAgICAgJGlkID0gJHRoaXMtPmV4dHJhY3RBY3RvcklkRnJvbUFwaUtleSgkcmVxdWVzdC0+YXR0cmlidXRlcy0+Z2V0KCRuYW1lKSk7CiAgICAgICAgICAgICAgICAgICAgaWYgKCRpZCAhPT0gbnVsbCkgewogICAgICAgICAgICAgICAgICAgICAgICBy
-ZXR1cm4gJGlkOwogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0gY2F0Y2ggKFxUaHJvd2FibGUgJGUpIHt9CiAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIHJldHVybiBudWxsOwogICAgfQoKICAgIHByaXZhdGUgZnVuY3Rpb24g
-ZXh0cmFjdEFjdG9ySWRGcm9tQXBpS2V5KG1peGVkICRhcGlLZXkpOiA/aW50CiAgICB7CiAgICAgICAgaWYgKCEkYXBpS2V5KSB7CiAgICAgICAgICAgIHJldHVybiBudWxsOwogICAgICAgIH0KCiAgICAgICAgZm9yZWFjaCAoWyd1c2VyX2lkJywgJ293bmVyX2lk
-JywgJ2NyZWF0ZWRfYnknXSBhcyAkZmllbGQpIHsKICAgICAgICAgICAgdHJ5IHsKICAgICAgICAgICAgICAgIGlmIChpc3NldCgkYXBpS2V5LT57JGZpZWxkfSkgJiYgaXNfbnVtZXJpYygkYXBpS2V5LT57JGZpZWxkfSkpIHsKICAgICAgICAgICAgICAgICAgICBy
-ZXR1cm4gKGludCkgJGFwaUtleS0+eyRmaWVsZH07CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0gY2F0Y2ggKFxUaHJvd2FibGUgJGUpIHt9CiAgICAgICAgfQoKICAgICAgICBmb3JlYWNoIChbJ3VzZXInLCAndG9rZW5hYmxlJywgJ293bmVyJ10gYXMg
-JHJlbGF0aW9uKSB7CiAgICAgICAgICAgIHRyeSB7CiAgICAgICAgICAgICAgICAkcmVsYXRlZCA9ICRhcGlLZXktPnskcmVsYXRpb259ID8/IG51bGw7CiAgICAgICAgICAgICAgICBpZiAoISRyZWxhdGVkICYmIG1ldGhvZF9leGlzdHMoJGFwaUtleSwgJHJlbGF0
-aW9uKSkgewogICAgICAgICAgICAgICAgICAgICRyZWxhdGVkID0gJGFwaUtleS0+eyRyZWxhdGlvbn0oKS0+Zmlyc3QoKTsKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICRpZCA9ICR0aGlzLT5leHRyYWN0VXNlcklkKCRyZWxhdGVkKTsKICAgICAg
-ICAgICAgICAgIGlmICgkaWQgIT09IG51bGwpIHsKICAgICAgICAgICAgICAgICAgICByZXR1cm4gJGlkOwogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9IGNhdGNoIChcVGhyb3dhYmxlICRlKSB7fQogICAgICAgIH0KCiAgICAgICAgcmV0dXJuIG51bGw7
-CiAgICB9CgogICAgcHJpdmF0ZSBmdW5jdGlvbiBleHRyYWN0VXNlcklkKG1peGVkICR1c2VyKTogP2ludAogICAgewogICAgICAgIHRyeSB7CiAgICAgICAgICAgIGlmICgkdXNlciAmJiBpc3NldCgkdXNlci0+aWQpICYmIGlzX251bWVyaWMoJHVzZXItPmlkKSkg
-ewogICAgICAgICAgICAgICAgcmV0dXJuIChpbnQpICR1c2VyLT5pZDsKICAgICAgICAgICAgfQogICAgICAgIH0gY2F0Y2ggKFxUaHJvd2FibGUgJGUpIHt9CgogICAgICAgIHJldHVybiBudWxsOwogICAgfQoKICAgIHByaXZhdGUgZnVuY3Rpb24gaXNIdHRwUmVx
-dWVzdCgpOiBib29sCiAgICB7CiAgICAgICAgdHJ5IHsKICAgICAgICAgICAgJHJlcXVlc3QgPSByZXF1ZXN0KCk7CiAgICAgICAgICAgIHJldHVybiAkcmVxdWVzdCAmJiBhcHAoKS0+cnVubmluZ0luQ29uc29sZSgpID09PSBmYWxzZTsKICAgICAgICB9IGNhdGNo
-IChcVGhyb3dhYmxlICRlKSB7CiAgICAgICAgICAgIHJldHVybiBmYWxzZTsKICAgICAgICB9CiAgICB9Cn0KRU9GCgpjaG1vZCA2NDQgIiRSRU1PVEVfUEFUSCIKCmNsZWFudXBfbWFya2VyX2Jsb2NrKCkgewogIGxvY2FsIGZpbGU9IiQxIgogIGxvY2FsIG1hcmtl
-cl9yZWdleD0iJDIiCiAgWyAtZiAiJGZpbGUiIF0gfHwgcmV0dXJuIDAKICBpZiBncmVwIC1FcSAiJG1hcmtlcl9yZWdleCIgIiRmaWxlIjsgdGhlbgogICAgbG9jYWwgdG1wX2ZpbGUKICAgIHRtcF9maWxlPSQobWt0ZW1wKQogICAgYXdrIC12IG1hcmtlcj0iJG1h
-cmtlcl9yZWdleCIgJwogICAgICBCRUdJTiB7IHNraXA9MDsgc2tpcF9zaW1wbGU9MDsgZGVwdGg9MCB9CiAgICAgIHNraXBfc2ltcGxlPT0xIHsKICAgICAgICBpZiAoJDAgfiAvdGhyb3cgbmV3IC4qRGlzcGxheUV4Y2VwdGlvbi8pIHsgc2tpcF9zaW1wbGU9MDsg
-bmV4dCB9CiAgICAgICAgc2tpcF9zaW1wbGU9MAogICAgICAgIHByaW50CiAgICAgICAgbmV4dAogICAgICB9CiAgICAgICQwIH4gbWFya2VyIHsKICAgICAgICBpZiAobWFya2VyIH4gL0JMT0NLX0FQUExJQ0FUSU9OX0FQSV9TRVJWRVJfREVMRVRFLykgewogICAg
-ICAgICAgc2tpcF9zaW1wbGU9MQogICAgICAgICAgbmV4dAogICAgICAgIH0KICAgICAgICBza2lwPTEKICAgICAgICBkZXB0aD0wCiAgICAgICAgb3Blbl9jb3VudD1nc3ViKC9cey8sICJ7IikKICAgICAgICBjbG9zZV9jb3VudD1nc3ViKC9cfS8sICJ9IikKICAg
-ICAgICBkZXB0aCArPSBvcGVuX2NvdW50IC0gY2xvc2VfY291bnQKICAgICAgICBuZXh0CiAgICAgIH0KICAgICAgc2tpcD09MSB7CiAgICAgICAgb3Blbl9jb3VudD1nc3ViKC9cey8sICJ7IikKICAgICAgICBjbG9zZV9jb3VudD1nc3ViKC9cfS8sICJ9IikKICAg
-ICAgICBkZXB0aCArPSBvcGVuX2NvdW50IC0gY2xvc2VfY291bnQKICAgICAgICBpZiAoZGVwdGggPD0gMCAmJiAkMCB+IC9eW1s6c3BhY2U6XV0qfVspO10/W1s6c3BhY2U6XV0qJC8pIHsKICAgICAgICAgIHNraXA9MAogICAgICAgIH0KICAgICAgICBuZXh0CiAg
-ICAgIH0KICAgICAgeyBwcmludCB9CiAgICAnICIkZmlsZSIgPiAiJHRtcF9maWxlIiAmJiBtdiAiJHRtcF9maWxlIiAiJGZpbGUiCiAgZmkKfQoKIyBCZXJzaWhrYW4gZ3VhcmQgbGFtYSB5YW5nIG1lbWJsb2tpciBzZW11YSBBUEkvUExUQSBhZ2FyIHVwZGF0ZSB0
-aWRhayBrZS1za2lwLgpmb3IgRiBpbiAiJFNFUlZFUl9NT0RFTCIgIiRBUFBfU0VSVkVSX0NPTlRST0xMRVIiOyBkbwogIFsgLWYgIiRGIiBdICYmIGNwICIkRiIgIiR7Rn0uYmFrXyR7VElNRVNUQU1QfV9wcmVjbGVhbiIgMj4vZGV2L251bGwgfHwgdHJ1ZQpkb25l
-CmNsZWFudXBfbWFya2VyX2Jsb2NrICIkU0VSVkVSX01PREVMIiAiUFJPVEVLU0lfSkhPTkFMRVlfU0VSVkVSX01PREVMX0RFTEVURV9HVUFSRCIKY2xlYW51cF9tYXJrZXJfYmxvY2sgIiRBUFBfU0VSVkVSX0NPTlRST0xMRVIiICJQUk9URUtTSV9KSE9OQUxFWV9C
-TE9DS19BUFBMSUNBVElPTl9BUElfU0VSVkVSX0RFTEVURSIKCiMgRmFsbGJhY2sgdGFtYmFoYW46IHBhc2FuZyBndWFyZCBkaSBtb2RlbCBTZXJ2ZXIgYWdhciBqYWx1ciBmb3JjZS9vZmZsaW5lL0FQSSB5YW5nIGJ5cGFzcyBTZXJ2ZXJEZWxldGlvblNlcnZpY2Ug
-dGV0YXAgZGl2YWxpZGFzaS4KaWYgWyAtZiAiJFNFUlZFUl9NT0RFTCIgXTsgdGhlbgogIGNwICIkU0VSVkVSX01PREVMIiAiJHtTRVJWRVJfTU9ERUx9LmJha18ke1RJTUVTVEFNUH0iCiAgaWYgISBncmVwIC1xICJQUk9URUtTSV9KSE9OQUxFWV9TRVJWRVJfTU9E
-RUxfREVMRVRFX0dVQVJEX1YyIiAiJFNFUlZFUl9NT0RFTCI7IHRoZW4KICAgIFRNUF9GSUxFPSQobWt0ZW1wKQogICAgYXdrICcKICAgICAgQkVHSU4geyBpbnNlcnRlZD0wIH0KICAgICAgL159W1s6c3BhY2U6XV0qJC8gJiYgaW5zZXJ0ZWQ9PTAgewogICAgICAg
-IHByaW50ICIiCiAgICAgICAgcHJpbnQgIiAgICAvLyBQUk9URUtTSV9KSE9OQUxFWV9TRVJWRVJfTU9ERUxfREVMRVRFX0dVQVJEX1YyOiBmYWxsYmFjayBhbnRpIGRlbGV0ZSBzZXJ2ZXIsIGhhbnlhIGFjdG9yIFVzZXIgSUQgMSIKICAgICAgICBwcmludCAiICAg
-IHByb3RlY3RlZCBzdGF0aWMgZnVuY3Rpb24gYm9vdGVkKCk6IHZvaWQiCiAgICAgICAgcHJpbnQgIiAgICB7IgogICAgICAgIHByaW50ICIgICAgICAgIHN0YXRpYzo6ZGVsZXRpbmcoZnVuY3Rpb24gKCRzZXJ2ZXIpIHsiCiAgICAgICAgcHJpbnQgIiAgICAgICAg
-ICAgIHRyeSB7IgogICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgaWYgKGFwcCgpLT5ydW5uaW5nSW5Db25zb2xlKCkpIHsgcmV0dXJuOyB9IgogICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgJHJlcXVlc3QgPSByZXF1ZXN0KCk7IgogICAgICAgIHBy
-aW50ICIgICAgICAgICAgICAgICAgJGFjdG9ySWQgPSBudWxsOyIKICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgIGZvcmVhY2ggKFtudWxsLCAnXCcnd2ViJ1wnJywgJ1wnJ2FwaSdcJycsICdcJydhcHBsaWNhdGlvbidcJycsICdcJydjbGllbnQnXCcnLCAn
-XCcnc2FuY3R1bSdcJyddIGFzICRndWFyZCkgeyIKICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICB0cnkgeyIKICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgJHVzZXIgPSAkZ3VhcmQgPT09IG51bGwgPyBcXElsbHVtaW5hdGVc
-XFN1cHBvcnRcXEZhY2FkZXNcXEF1dGg6OnVzZXIoKSA6IFxcSWxsdW1pbmF0ZVxcU3VwcG9ydFxcRmFjYWRlc1xcQXV0aDo6Z3VhcmQoJGd1YXJkKS0+dXNlcigpOyIKICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCR1c2VyICYmIGlz
-c2V0KCR1c2VyLT5pZCkgJiYgaXNfbnVtZXJpYygkdXNlci0+aWQpKSB7ICRhY3RvcklkID0gKGludCkgJHVzZXItPmlkOyBicmVhazsgfSIKICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICB9IGNhdGNoIChcXFRocm93YWJsZSAkZSkge30iCiAgICAg
-ICAgcHJpbnQgIiAgICAgICAgICAgICAgICB9IgogICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgaWYgKCRhY3RvcklkID09PSBudWxsICYmICRyZXF1ZXN0KSB7IgogICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgIHRyeSB7ICR1c2VyID0gJHJl
-cXVlc3QtPnVzZXIoKTsgaWYgKCR1c2VyICYmIGlzc2V0KCR1c2VyLT5pZCkgJiYgaXNfbnVtZXJpYygkdXNlci0+aWQpKSB7ICRhY3RvcklkID0gKGludCkgJHVzZXItPmlkOyB9IH0gY2F0Y2ggKFxcVGhyb3dhYmxlICRlKSB7fSIKICAgICAgICBwcmludCAiICAg
-ICAgICAgICAgICAgIH0iCiAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICBpZiAoJGFjdG9ySWQgPT09IG51bGwgJiYgJHJlcXVlc3QpIHsiCiAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgZm9yZWFjaCAoWydcJydhcGlfa2V5J1wnJywgJ1wn
-J2FwaUtleSdcJycsICdcJydhcHBsaWNhdGlvbl9hcGlfa2V5J1wnJywgJ1wnJ2FjY291bnRfYXBpX2tleSdcJycsICdcJyd0b2tlbidcJycsICdcJydzYW5jdHVtX3Rva2VuJ1wnJ10gYXMgJG5hbWUpIHsiCiAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAg
-ICAgICAgIHRyeSB7IgogICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICAgICAgJGFwaUtleSA9ICRyZXF1ZXN0LT5hdHRyaWJ1dGVzLT5nZXQoJG5hbWUpOyIKICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICgh
-JGFwaUtleSkgeyBjb250aW51ZTsgfSIKICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZvcmVhY2ggKFsnXCcndXNlcl9pZCdcJycsICdcJydvd25lcl9pZCdcJycsICdcJydjcmVhdGVkX2J5J1wnJ10gYXMgJGZpZWxkKSB7IGlmIChp
-c3NldCgkYXBpS2V5LT57JGZpZWxkfSkgJiYgaXNfbnVtZXJpYygkYXBpS2V5LT57JGZpZWxkfSkpIHsgJGFjdG9ySWQgPSAoaW50KSAkYXBpS2V5LT57JGZpZWxkfTsgYnJlYWsgMjsgfSB9IgogICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgZm9yZWFjaCAoWydcJyd1c2VyJ1wnJywgJ1wnJ3Rva2VuYWJsZSdcJycsICdcJydvd25lcidcJyddIGFzICRyZWxhdGlvbikgeyIKICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAkcmVsYXRlZCA9ICRhcGlLZXktPnskcmVs
-YXRpb259ID8/IG51bGw7IgogICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICghJHJlbGF0ZWQgJiYgbWV0aG9kX2V4aXN0cygkYXBpS2V5LCAkcmVsYXRpb24pKSB7ICRyZWxhdGVkID0gJGFwaUtleS0+eyRyZWxhdGlvbn0o
-KS0+Zmlyc3QoKTsgfSIKICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoJHJlbGF0ZWQgJiYgaXNzZXQoJHJlbGF0ZWQtPmlkKSAmJiBpc19udW1lcmljKCRyZWxhdGVkLT5pZCkpIHsgJGFjdG9ySWQgPSAoaW50KSAkcmVs
-YXRlZC0+aWQ7IGJyZWFrIDI7IH0iCiAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9IgogICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICB9IGNhdGNoIChcXFRocm93YWJsZSAkZSkge30iCiAgICAgICAgcHJpbnQg
-IiAgICAgICAgICAgICAgICAgICAgfSIKICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgIH0iCiAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICBpZiAoJGFjdG9ySWQgIT09IDEpIHsiCiAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgdGhy
-b3cgbmV3IFxcUHRlcm9kYWN0eWxcXEV4Y2VwdGlvbnNcXERpc3BsYXlFeGNlcHRpb24oJ1wnJ0Frc2VzIGRpdG9sYWs6IGhhbnlhIEFkbWluIElEIDEgeWFuZyBkYXBhdCBtZW5naGFwdXMgc2VydmVyIHZpYSBwYW5lbC9BUEkvUExUQS9QTFRDIEAg8J2Qj/CdkJHw
-nZCO8J2Qk/CdkITwnZCC8J2QkyDwnZCB8J2QmCDwnZCJ8J2Qh/CdkI7wnZCN8J2QgPCdkIvwnZCE8J2QmCDwnZCT8J2QhPCdkILwnZCHLidcJycpOyIKICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgIH0iCiAgICAgICAgcHJpbnQgIiAgICAgICAgICAgIH0g
-Y2F0Y2ggKFxcUHRlcm9kYWN0eWxcXEV4Y2VwdGlvbnNcXERpc3BsYXlFeGNlcHRpb24gJGUpIHsiCiAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICB0aHJvdyAkZTsiCiAgICAgICAgcHJpbnQgIiAgICAgICAgICAgIH0gY2F0Y2ggKFxcVGhyb3dhYmxlICRl
-KSB7IgogICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgdGhyb3cgbmV3IFxcUHRlcm9kYWN0eWxcXEV4Y2VwdGlvbnNcXERpc3BsYXlFeGNlcHRpb24oJ1wnJ0Frc2VzIGRpdG9sYWs6IHZhbGlkYXNpIGhhcHVzIHNlcnZlciBnYWdhbCBAIPCdkI/wnZCR8J2Q
-jvCdkJPwnZCE8J2QgvCdkJMg8J2QgfCdkJgg8J2QifCdkIfwnZCO8J2QjfCdkIDwnZCL8J2QhPCdkJgg8J2Qk/CdkITwnZCC8J2Qhy4nXCcnKTsiCiAgICAgICAgcHJpbnQgIiAgICAgICAgICAgIH0iCiAgICAgICAgcHJpbnQgIiAgICAgICAgfSk7IgogICAgICAg
-IHByaW50ICIgICAgfSIKICAgICAgICBpbnNlcnRlZD0xCiAgICAgIH0KICAgICAgeyBwcmludCB9CiAgICAnICIkU0VSVkVSX01PREVMIiA+ICIkVE1QX0ZJTEUiICYmIG12ICIkVE1QX0ZJTEUiICIkU0VSVkVSX01PREVMIgogICAgY2htb2QgNjQ0ICIkU0VSVkVS
-X01PREVMIgogICAgaWYgcGhwIC1sICIkU0VSVkVSX01PREVMIiA+L2Rldi9udWxsIDI+JjE7IHRoZW4KICAgICAgZWNobyAi4pyFIEZhbGxiYWNrIGd1YXJkIFNlcnZlciBtb2RlbCBWMiB0ZXJwYXNhbmcuIgogICAgZWxzZQogICAgICBlY2hvICLinYwgU3ludGF4
-IGVycm9yIFNlcnZlciBtb2RlbCBzZXRlbGFoIGluamVjdCDigJQgcm9sbGJhY2sgb3RvbWF0aXMuIgogICAgICBjcCAiJHtTRVJWRVJfTU9ERUx9LmJha18ke1RJTUVTVEFNUH0iICIkU0VSVkVSX01PREVMIgogICAgZmkKICBlbHNlCiAgICBlY2hvICLimqDvuI8g
-RmFsbGJhY2sgZ3VhcmQgU2VydmVyIG1vZGVsIFYyIHN1ZGFoIGFkYSwgc2tpcC4iCiAgZmkKZWxzZQogIGVjaG8gIuKaoO+4jyBTZXJ2ZXIgbW9kZWwgdGlkYWsgZGl0ZW11a2FuLCBmYWxsYmFjayBndWFyZCBkaWxld2F0aTogJFNFUlZFUl9NT0RFTCIKZmkKCiMg
-RmFsbGJhY2sga2h1c3VzIFBMVEEvQXBwbGljYXRpb24gQVBJOiBqYW5nYW4gYmxvayB0b3RhbCwgdmFsaWRhc2kgcGVtaWxpayBBUEkga2V5IGhhcnVzIFVzZXIgSUQgMS4KaWYgWyAtZiAiJEFQUF9TRVJWRVJfQ09OVFJPTExFUiIgXTsgdGhlbgogIGNwICIkQVBQ
-X1NFUlZFUl9DT05UUk9MTEVSIiAiJHtBUFBfU0VSVkVSX0NPTlRST0xMRVJ9LmJha18ke1RJTUVTVEFNUH0iCiAgaWYgISBncmVwIC1xICJQUk9URUtTSV9KSE9OQUxFWV9BUFBMSUNBVElPTl9BUElfU0VSVkVSX0RFTEVURV9WMiIgIiRBUFBfU0VSVkVSX0NPTlRS
-T0xMRVIiOyB0aGVuCiAgICBUTVBfRklMRT0kKG1rdGVtcCkKICAgIGF3ayAnCiAgICAgIEJFR0lOIHsgaW5fZGVsZXRlPTA7IGluc2VydGVkPTAgfQogICAgICAvZnVuY3Rpb25bWzpzcGFjZTpdXStkZWxldGVbWzpzcGFjZTpdXSpbKF0vIHsgaW5fZGVsZXRlPTEg
-fQogICAgICB7CiAgICAgICAgcHJpbnQKICAgICAgICBpZiAoaW5fZGVsZXRlPT0xICYmIGluc2VydGVkPT0wICYmICQwIH4gL15bWzpzcGFjZTpdXSpce1tbOnNwYWNlOl1dKiQvKSB7CiAgICAgICAgICBwcmludCAiICAgICAgICAvLyBQUk9URUtTSV9KSE9OQUxF
-WV9BUFBMSUNBVElPTl9BUElfU0VSVkVSX0RFTEVURV9WMjogQXBwbGljYXRpb24gQVBJIGRlbGV0ZSBoYW55YSBBUEkga2V5L0FkbWluIElEIDEiCiAgICAgICAgICBwcmludCAiICAgICAgICAkX19hY3RvcklkID0gbnVsbDsiCiAgICAgICAgICBwcmludCAiICAg
-ICAgICB0cnkgeyIKICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAkX19yZXEgPSByZXF1ZXN0KCk7IgogICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgIGZvcmVhY2ggKFtudWxsLCAnXCcnd2ViJ1wnJywgJ1wnJ2FwaSdcJycsICdcJydhcHBsaWNhdGlvbidc
-JycsICdcJydjbGllbnQnXCcnLCAnXCcnc2FuY3R1bSdcJyddIGFzICRfX2d1YXJkKSB7IgogICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICB0cnkgeyIKICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICRfX3VzZXIgPSAkX19ndWFyZCA9
-PT0gbnVsbCA/IFxcSWxsdW1pbmF0ZVxcU3VwcG9ydFxcRmFjYWRlc1xcQXV0aDo6dXNlcigpIDogXFxJbGx1bWluYXRlXFxTdXBwb3J0XFxGYWNhZGVzXFxBdXRoOjpndWFyZCgkX19ndWFyZCktPnVzZXIoKTsiCiAgICAgICAgICBwcmludCAiICAgICAgICAgICAg
-ICAgICAgICBpZiAoJF9fdXNlciAmJiBpc3NldCgkX191c2VyLT5pZCkgJiYgaXNfbnVtZXJpYygkX191c2VyLT5pZCkpIHsgJF9fYWN0b3JJZCA9IChpbnQpICRfX3VzZXItPmlkOyBicmVhazsgfSIKICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgfSBj
-YXRjaCAoXFxUaHJvd2FibGUgJGUpIHt9IgogICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgIH0iCiAgICAgICAgICBwcmludCAiICAgICAgICAgICAgaWYgKCRfX2FjdG9ySWQgPT09IG51bGwgJiYgJF9fcmVxKSB7IHRyeSB7ICRfX3VzZXIgPSAkX19yZXEtPnVz
-ZXIoKTsgaWYgKCRfX3VzZXIgJiYgaXNzZXQoJF9fdXNlci0+aWQpICYmIGlzX251bWVyaWMoJF9fdXNlci0+aWQpKSB7ICRfX2FjdG9ySWQgPSAoaW50KSAkX191c2VyLT5pZDsgfSB9IGNhdGNoIChcXFRocm93YWJsZSAkZSkge30gfSIKICAgICAgICAgIHByaW50
-ICIgICAgICAgICAgICBpZiAoJF9fYWN0b3JJZCA9PT0gbnVsbCAmJiAkX19yZXEpIHsiCiAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgIGZvcmVhY2ggKFsnXCcnYXBpX2tleSdcJycsICdcJydhcGlLZXknXCcnLCAnXCcnYXBwbGljYXRpb25fYXBpX2tl
-eSdcJycsICdcJydhY2NvdW50X2FwaV9rZXknXCcnLCAnXCcndG9rZW4nXCcnLCAnXCcnc2FuY3R1bV90b2tlbidcJyddIGFzICRfX25hbWUpIHsiCiAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICB0cnkgeyIKICAgICAgICAgIHByaW50ICIgICAg
-ICAgICAgICAgICAgICAgICAgICAkX19hcGlLZXkgPSAkX19yZXEtPmF0dHJpYnV0ZXMtPmdldCgkX19uYW1lKTsiCiAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCEkX19hcGlLZXkpIHsgY29udGludWU7IH0iCiAgICAgICAgICBw
-cmludCAiICAgICAgICAgICAgICAgICAgICAgICAgZm9yZWFjaCAoWydcJyd1c2VyX2lkJ1wnJywgJ1wnJ293bmVyX2lkJ1wnJywgJ1wnJ2NyZWF0ZWRfYnknXCcnXSBhcyAkX19maWVsZCkgeyBpZiAoaXNzZXQoJF9fYXBpS2V5LT57JF9fZmllbGR9KSAmJiBpc19u
-dW1lcmljKCRfX2FwaUtleS0+eyRfX2ZpZWxkfSkpIHsgJF9fYWN0b3JJZCA9IChpbnQpICRfX2FwaUtleS0+eyRfX2ZpZWxkfTsgYnJlYWsgMjsgfSB9IgogICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgICAgIGZvcmVhY2ggKFsnXCcndXNlcidc
-JycsICdcJyd0b2tlbmFibGUnXCcnLCAnXCcnb3duZXInXCcnXSBhcyAkX19yZWwpIHsiCiAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgICAgICRfX3JlbGF0ZWQgPSAkX19hcGlLZXktPnskX19yZWx9ID8/IG51bGw7IgogICAgICAgICAg
-cHJpbnQgIiAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoISRfX3JlbGF0ZWQgJiYgbWV0aG9kX2V4aXN0cygkX19hcGlLZXksICRfX3JlbCkpIHsgJF9fcmVsYXRlZCA9ICRfX2FwaUtleS0+eyRfX3JlbH0oKS0+Zmlyc3QoKTsgfSIKICAgICAgICAgIHBy
-aW50ICIgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCRfX3JlbGF0ZWQgJiYgaXNzZXQoJF9fcmVsYXRlZC0+aWQpICYmIGlzX251bWVyaWMoJF9fcmVsYXRlZC0+aWQpKSB7ICRfX2FjdG9ySWQgPSAoaW50KSAkX19yZWxhdGVkLT5pZDsgYnJlYWsgMjsg
-fSIKICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICB9IgogICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgfSBjYXRjaCAoXFxUaHJvd2FibGUgJGUpIHt9IgogICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICB9Igog
-ICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgIH0iCiAgICAgICAgICBwcmludCAiICAgICAgICB9IGNhdGNoIChcXFRocm93YWJsZSAkZSkge30iCiAgICAgICAgICBwcmludCAiICAgICAgICBpZiAoJF9fYWN0b3JJZCAhPT0gMSkgeyIKICAgICAgICAgIHByaW50
-ICIgICAgICAgICAgICB0aHJvdyBuZXcgXFxQdGVyb2RhY3R5bFxcRXhjZXB0aW9uc1xcRGlzcGxheUV4Y2VwdGlvbignXCcnQWtzZXMgZGl0b2xhazogaGFwdXMgc2VydmVyIHZpYSBBUEkvUExUQSBoYW55YSBib2xlaCBtZW1ha2FpIEFQSSBrZXkvQWRtaW4gSUQg
-MSBAIPCdkI/wnZCR8J2QjvCdkJPwnZCE8J2QgvCdkJMg8J2QgfCdkJgg8J2QifCdkIfwnZCO8J2QjfCdkIDwnZCL8J2QhPCdkJgg8J2Qk/CdkITwnZCC8J2Qhy4nXCcnKTsiCiAgICAgICAgICBwcmludCAiICAgICAgICB9IgogICAgICAgICAgaW5zZXJ0ZWQ9MQog
-ICAgICAgICAgaW5fZGVsZXRlPTAKICAgICAgICB9CiAgICAgIH0KICAgICcgIiRBUFBfU0VSVkVSX0NPTlRST0xMRVIiID4gIiRUTVBfRklMRSIgJiYgbXYgIiRUTVBfRklMRSIgIiRBUFBfU0VSVkVSX0NPTlRST0xMRVIiCiAgICBjaG1vZCA2NDQgIiRBUFBfU0VS
-VkVSX0NPTlRST0xMRVIiCiAgICBpZiBwaHAgLWwgIiRBUFBfU0VSVkVSX0NPTlRST0xMRVIiID4vZGV2L251bGwgMj4mMTsgdGhlbgogICAgICBlY2hvICLinIUgR3VhcmQgQXBwbGljYXRpb24gQVBJIGRlbGV0ZSBzZXJ2ZXIgVjIgdGVycGFzYW5nLiIKICAgIGVs
-c2UKICAgICAgZWNobyAi4p2MIFN5bnRheCBlcnJvciBBcHBsaWNhdGlvbiBBUEkgc2VydmVyIGNvbnRyb2xsZXIgc2V0ZWxhaCBpbmplY3Qg4oCUIHJvbGxiYWNrIG90b21hdGlzLiIKICAgICAgY3AgIiR7QVBQX1NFUlZFUl9DT05UUk9MTEVSfS5iYWtfJHtUSU1F
-U1RBTVB9IiAiJEFQUF9TRVJWRVJfQ09OVFJPTExFUiIKICAgIGZpCiAgZWxzZQogICAgZWNobyAi4pqg77iPIEd1YXJkIEFwcGxpY2F0aW9uIEFQSSBkZWxldGUgc2VydmVyIFYyIHN1ZGFoIGFkYSwgc2tpcC4iCiAgZmkKZWxzZQogIGVjaG8gIuKaoO+4jyBDb250
-cm9sbGVyIEFwcGxpY2F0aW9uIEFQSSBzZXJ2ZXIgdGlkYWsgZGl0ZW11a2FuLCBndWFyZCBQTFRBIGRpbGV3YXRpOiAkQVBQX1NFUlZFUl9DT05UUk9MTEVSIgpmaQoKIyBBcHBseSBicmFuZCBjdXN0b21pemF0aW9uCmZvciBGIGluICIkUkVNT1RFX1BBVEgiICIk
-U0VSVkVSX01PREVMIiAiJEFQUF9TRVJWRVJfQ09OVFJPTExFUiI7IGRvCiAgaWYgWyAtZiAiJEYiIF07IHRoZW4KICAgIHNlZCAtaSAic3xQcm90ZWN0IEJ5IEpob25hbGV5fCR7QlJBTkRfVEVYVH18ZyIgIiRGIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgICBzZWQg
-LWkgInN8SmhvbmFsZXkgVGVjaHwke0JSQU5EX05BTUV9fGciICIkRiIgMj4vZGV2L251bGwgfHwgdHJ1ZQogICAgc2VkIC1pICJzfPCdkI/wnZCR8J2QjvCdkJPwnZCE8J2QgvCdkJMg8J2QgfCdkJgg8J2QifCdkIfwnZCO8J2QjfCdkIDwnZCL8J2QhPCdkJgg8J2Q
-k/CdkITwnZCC8J2Qh3wke0JSQU5EX1RFWFR9fGciICIkRiIgMj4vZGV2L251bGwgfHwgdHJ1ZQogIGZpCmRvbmUKCmNkICIkUEFORUxfRElSIiAyPi9kZXYvbnVsbCAmJiB7CiAgcGhwIGFydGlzYW4gY29uZmlnOmNsZWFyID4vZGV2L251bGwgMj4mMSB8fCB0cnVl
-CiAgcGhwIGFydGlzYW4gY2FjaGU6Y2xlYXIgPi9kZXYvbnVsbCAyPiYxIHx8IHRydWUKICBwaHAgYXJ0aXNhbiB2aWV3OmNsZWFyID4vZGV2L251bGwgMj4mMSB8fCB0cnVlCiAgcGhwIGFydGlzYW4gcm91dGU6Y2xlYXIgPi9kZXYvbnVsbCAyPiYxIHx8IHRydWUK
-fQoKZWNobyAi4pyFIFByb3Rla3NpIEFudGkgRGVsZXRlIFNlcnZlciBiZXJoYXNpbCBkaXBhc2FuZyEiCmVjaG8gIvCfk4IgTG9rYXNpIGZpbGU6ICRSRU1PVEVfUEFUSCIKZWNobyAi8J+Xgu+4jyBCYWNrdXAgZmlsZSBsYW1hOiAkQkFDS1VQX1BBVEggKGppa2Eg
-c2ViZWx1bW55YSBhZGEpIgplY2hvICLwn5SSIEhhcHVzIHNlcnZlciB2aWEgcGFuZWwvQVBJL1BMVEEvUExUQyBoYW55YSBib2xlaCBhY3Rvci9BUEkga2V5IG1pbGlrIEFkbWluIElEIDEuIg==
-PROTECT1_B64
+      cat << 'PROTECT1_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzOffciall.ID}"
+
+PANEL_DIR="/var/www/pterodactyl"
+REMOTE_PATH="$PANEL_DIR/app/Services/Servers/ServerDeletionService.php"
+SERVER_MODEL="$PANEL_DIR/app/Models/Server.php"
+APP_SERVER_CONTROLLER="$PANEL_DIR/app/Http/Controllers/Api/Application/Servers/ServerController.php"
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+BACKUP_PATH="${REMOTE_PATH}.bak_${TIMESTAMP}"
+
+echo "🚀 Memasang proteksi Anti Delete Server..."
+
+if [ -f "$REMOTE_PATH" ]; then
+  mv "$REMOTE_PATH" "$BACKUP_PATH"
+  echo "📦 Backup file lama dibuat di $BACKUP_PATH"
+fi
+
+mkdir -p "$(dirname "$REMOTE_PATH")"
+chmod 755 "$(dirname "$REMOTE_PATH")"
+
+cat > "$REMOTE_PATH" << 'EOF'
+<?php
+
+namespace Pterodactyl\Services\Servers;
+
+use Illuminate\Support\Facades\Auth;
+use Pterodactyl\Exceptions\DisplayException;
+use Illuminate\Http\Response;
+use Pterodactyl\Models\Server;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\ConnectionInterface;
+use Pterodactyl\Repositories\Wings\DaemonServerRepository;
+use Pterodactyl\Services\Databases\DatabaseManagementService;
+use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+
+class ServerDeletionService
+{
+    protected bool $force = false;
+
+    /**
+     * ServerDeletionService constructor.
+     */
+    public function __construct(
+        private ConnectionInterface $connection,
+        private DaemonServerRepository $daemonServerRepository,
+        private DatabaseManagementService $databaseManagementService
+    ) {
+    }
+
+    /**
+     * Set if the server should be forcibly deleted from the panel (ignoring daemon errors) or not.
+     */
+    public function withForce(bool $bool = true): self
+    {
+        $this->force = $bool;
+        return $this;
+    }
+
+    /**
+     * Delete a server from the panel and remove any associated databases from hosts.
+     *
+     * @throws \Throwable
+     * @throws \Pterodactyl\Exceptions\DisplayException
+     */
+    public function handle(Server $server): void
+    {
+        $this->assertDeletionAllowed($server);
+
+        try {
+            $this->daemonServerRepository->setServer($server)->delete();
+        } catch (DaemonConnectionException $exception) {
+            // Abaikan error 404, tapi lempar error lain jika tidak mode force
+            if (!$this->force && $exception->getStatusCode() !== Response::HTTP_NOT_FOUND) {
+                throw $exception;
+            }
+
+            Log::warning($exception);
+        }
+
+        $this->connection->transaction(function () use ($server) {
+            foreach ($server->databases as $database) {
+                try {
+                    $this->databaseManagementService->delete($database);
+                } catch (\Exception $exception) {
+                    if (!$this->force) {
+                        throw $exception;
+                    }
+
+                    // Jika gagal delete database di host, tetap hapus dari panel
+                    $database->delete();
+                    Log::warning($exception);
+                }
+            }
+
+            $server->delete();
+        });
+    }
+
+    private function assertDeletionAllowed(Server $server): void
+    {
+        // PROTEKSI_FIT_SERVER_DELETE_GUARD_V2
+        // Mode ketat: delete server via panel/API/PLTA/PLTC hanya boleh oleh User ID 1.
+        $actorId = $this->resolveActorId();
+
+        if ($actorId === 1) {
+            return;
+        }
+
+        // Request HTTP/API tanpa actor ID 1 tetap ditolak agar tidak bypass via token/bot.
+        if ($this->isHttpRequest()) {
+            throw new DisplayException('Akses ditolak: hanya Admin ID 1 yang dapat menghapus server via panel/API/PLTA/PLTC @ PROTECTED BY VANTAXZMD.');
+        }
+
+        // CLI/background job bawaan panel tetap aman; bot/API tidak lewat CLI.
+    }
+
+    private function resolveActorId(): ?int
+    {
+        $request = null;
+        try {
+            $request = request();
+        } catch (\Throwable $e) {}
+
+        foreach ([null, 'web', 'api', 'application', 'client', 'sanctum'] as $guard) {
+            try {
+                $user = $guard === null ? Auth::user() : Auth::guard($guard)->user();
+                $id = $this->extractUserId($user);
+                if ($id !== null) {
+                    return $id;
+                }
+            } catch (\Throwable $e) {}
+        }
+
+        try {
+            $id = $this->extractUserId($request ? $request->user() : null);
+            if ($id !== null) {
+                return $id;
+            }
+        } catch (\Throwable $e) {}
+
+        if ($request) {
+            foreach (['api_key', 'apiKey', 'application_api_key', 'account_api_key', 'token', 'sanctum_token'] as $name) {
+                try {
+                    $id = $this->extractActorIdFromApiKey($request->attributes->get($name));
+                    if ($id !== null) {
+                        return $id;
+                    }
+                } catch (\Throwable $e) {}
+            }
+        }
+
+        return null;
+    }
+
+    private function extractActorIdFromApiKey(mixed $apiKey): ?int
+    {
+        if (!$apiKey) {
+            return null;
+        }
+
+        foreach (['user_id', 'owner_id', 'created_by'] as $field) {
+            try {
+                if (isset($apiKey->{$field}) && is_numeric($apiKey->{$field})) {
+                    return (int) $apiKey->{$field};
+                }
+            } catch (\Throwable $e) {}
+        }
+
+        foreach (['user', 'tokenable', 'owner'] as $relation) {
+            try {
+                $related = $apiKey->{$relation} ?? null;
+                if (!$related && method_exists($apiKey, $relation)) {
+                    $related = $apiKey->{$relation}()->first();
+                }
+                $id = $this->extractUserId($related);
+                if ($id !== null) {
+                    return $id;
+                }
+            } catch (\Throwable $e) {}
+        }
+
+        return null;
+    }
+
+    private function extractUserId(mixed $user): ?int
+    {
+        try {
+            if ($user && isset($user->id) && is_numeric($user->id)) {
+                return (int) $user->id;
+            }
+        } catch (\Throwable $e) {}
+
+        return null;
+    }
+
+    private function isHttpRequest(): bool
+    {
+        try {
+            $request = request();
+            return $request && app()->runningInConsole() === false;
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+}
+EOF
+
+chmod 644 "$REMOTE_PATH"
+
+cleanup_marker_block() {
+  local file="$1"
+  local marker_regex="$2"
+  [ -f "$file" ] || return 0
+  if grep -Eq "$marker_regex" "$file"; then
+    local tmp_file
+    tmp_file=$(mktemp)
+    awk -v marker="$marker_regex" '
+      BEGIN { skip=0; skip_simple=0; depth=0 }
+      skip_simple==1 {
+        if ($0 ~ /throw new .*DisplayException/) { skip_simple=0; next }
+        skip_simple=0
+        print
+        next
+      }
+      $0 ~ marker {
+        if (marker ~ /BLOCK_APPLICATION_API_SERVER_DELETE/) {
+          skip_simple=1
+          next
+        }
+        skip=1
+        depth=0
+        open_count=gsub(/\{/, "{")
+        close_count=gsub(/\}/, "}")
+        depth += open_count - close_count
+        next
+      }
+      skip==1 {
+        open_count=gsub(/\{/, "{")
+        close_count=gsub(/\}/, "}")
+        depth += open_count - close_count
+        if (depth <= 0 && $0 ~ /^[[:space:]]*}[);]?[[:space:]]*$/) {
+          skip=0
+        }
+        next
+      }
+      { print }
+    ' "$file" > "$tmp_file" && mv "$tmp_file" "$file"
+  fi
+}
+
+# Bersihkan guard lama yang memblokir semua API/PLTA agar update tidak ke-skip.
+for F in "$SERVER_MODEL" "$APP_SERVER_CONTROLLER"; do
+  [ -f "$F" ] && cp "$F" "${F}.bak_${TIMESTAMP}_preclean" 2>/dev/null || true
+done
+cleanup_marker_block "$SERVER_MODEL" "PROTEKSI_FIT_SERVER_MODEL_DELETE_GUARD"
+cleanup_marker_block "$APP_SERVER_CONTROLLER" "PROTEKSI_FIT_BLOCK_APPLICATION_API_SERVER_DELETE"
+
+# Fallback tambahan: pasang guard di model Server agar jalur force/offline/API yang bypass ServerDeletionService tetap divalidasi.
+if [ -f "$SERVER_MODEL" ]; then
+  cp "$SERVER_MODEL" "${SERVER_MODEL}.bak_${TIMESTAMP}"
+  if ! grep -q "PROTEKSI_FIT_SERVER_MODEL_DELETE_GUARD_V2" "$SERVER_MODEL"; then
+    TMP_FILE=$(mktemp)
+    awk '
+      BEGIN { inserted=0 }
+      /^}[[:space:]]*$/ && inserted==0 {
+        print ""
+        print "    // PROTEKSI_FIT_SERVER_MODEL_DELETE_GUARD_V2: fallback anti delete server, hanya actor User ID 1"
+        print "    protected static function booted(): void"
+        print "    {"
+        print "        static::deleting(function ($server) {"
+        print "            try {"
+        print "                if (app()->runningInConsole()) { return; }"
+        print "                $request = request();"
+        print "                $actorId = null;"
+        print "                foreach ([null, '\''web'\'', '\''api'\'', '\''application'\'', '\''client'\'', '\''sanctum'\''] as $guard) {"
+        print "                    try {"
+        print "                        $user = $guard === null ? \\Illuminate\\Support\\Facades\\Auth::user() : \\Illuminate\\Support\\Facades\\Auth::guard($guard)->user();"
+        print "                        if ($user && isset($user->id) && is_numeric($user->id)) { $actorId = (int) $user->id; break; }"
+        print "                    } catch (\\Throwable $e) {}"
+        print "                }"
+        print "                if ($actorId === null && $request) {"
+        print "                    try { $user = $request->user(); if ($user && isset($user->id) && is_numeric($user->id)) { $actorId = (int) $user->id; } } catch (\\Throwable $e) {}"
+        print "                }"
+        print "                if ($actorId === null && $request) {"
+        print "                    foreach (['\''api_key'\'', '\''apiKey'\'', '\''application_api_key'\'', '\''account_api_key'\'', '\''token'\'', '\''sanctum_token'\''] as $name) {"
+        print "                        try {"
+        print "                            $apiKey = $request->attributes->get($name);"
+        print "                            if (!$apiKey) { continue; }"
+        print "                            foreach (['\''user_id'\'', '\''owner_id'\'', '\''created_by'\''] as $field) { if (isset($apiKey->{$field}) && is_numeric($apiKey->{$field})) { $actorId = (int) $apiKey->{$field}; break 2; } }"
+        print "                            foreach (['\''user'\'', '\''tokenable'\'', '\''owner'\''] as $relation) {"
+        print "                                $related = $apiKey->{$relation} ?? null;"
+        print "                                if (!$related && method_exists($apiKey, $relation)) { $related = $apiKey->{$relation}()->first(); }"
+        print "                                if ($related && isset($related->id) && is_numeric($related->id)) { $actorId = (int) $related->id; break 2; }"
+        print "                            }"
+        print "                        } catch (\\Throwable $e) {}"
+        print "                    }"
+        print "                }"
+        print "                if ($actorId !== 1) {"
+        print "                    throw new \\Pterodactyl\\Exceptions\\DisplayException('\''Akses ditolak: hanya Admin ID 1 yang dapat menghapus server via panel/API/PLTA/PLTC @ PROTECTED BY VANTAXZMD.'\'');"
+        print "                }"
+        print "            } catch (\\Pterodactyl\\Exceptions\\DisplayException $e) {"
+        print "                throw $e;"
+        print "            } catch (\\Throwable $e) {"
+        print "                throw new \\Pterodactyl\\Exceptions\\DisplayException('\''Akses ditolak: validasi hapus server gagal @ PROTECTED BY VANTAXZMD.'\'');"
+        print "            }"
+        print "        });"
+        print "    }"
+        inserted=1
+      }
+      { print }
+    ' "$SERVER_MODEL" > "$TMP_FILE" && mv "$TMP_FILE" "$SERVER_MODEL"
+    chmod 644 "$SERVER_MODEL"
+    if php -l "$SERVER_MODEL" >/dev/null 2>&1; then
+      echo "✅ Fallback guard Server model V2 terpasang."
+    else
+      echo "❌ Syntax error Server model setelah inject — rollback otomatis."
+      cp "${SERVER_MODEL}.bak_${TIMESTAMP}" "$SERVER_MODEL"
+    fi
+  else
+    echo "⚠️ Fallback guard Server model V2 sudah ada, skip."
+  fi
+else
+  echo "⚠️ Server model tidak ditemukan, fallback guard dilewati: $SERVER_MODEL"
+fi
+
+# Fallback khusus PLTA/Application API: jangan blok total, validasi pemilik API key harus User ID 1.
+if [ -f "$APP_SERVER_CONTROLLER" ]; then
+  cp "$APP_SERVER_CONTROLLER" "${APP_SERVER_CONTROLLER}.bak_${TIMESTAMP}"
+  if ! grep -q "PROTEKSI_FIT_APPLICATION_API_SERVER_DELETE_V2" "$APP_SERVER_CONTROLLER"; then
+    TMP_FILE=$(mktemp)
+    awk '
+      BEGIN { in_delete=0; inserted=0 }
+      /function[[:space:]]+delete[[:space:]]*[(]/ { in_delete=1 }
+      {
+        print
+        if (in_delete==1 && inserted==0 && $0 ~ /^[[:space:]]*\{[[:space:]]*$/) {
+          print "        // PROTEKSI_FIT_APPLICATION_API_SERVER_DELETE_V2: Application API delete hanya API key/Admin ID 1"
+          print "        $__actorId = null;"
+          print "        try {"
+          print "            $__req = request();"
+          print "            foreach ([null, '\''web'\'', '\''api'\'', '\''application'\'', '\''client'\'', '\''sanctum'\''] as $__guard) {"
+          print "                try {"
+          print "                    $__user = $__guard === null ? \\Illuminate\\Support\\Facades\\Auth::user() : \\Illuminate\\Support\\Facades\\Auth::guard($__guard)->user();"
+          print "                    if ($__user && isset($__user->id) && is_numeric($__user->id)) { $__actorId = (int) $__user->id; break; }"
+          print "                } catch (\\Throwable $e) {}"
+          print "            }"
+          print "            if ($__actorId === null && $__req) { try { $__user = $__req->user(); if ($__user && isset($__user->id) && is_numeric($__user->id)) { $__actorId = (int) $__user->id; } } catch (\\Throwable $e) {} }"
+          print "            if ($__actorId === null && $__req) {"
+          print "                foreach (['\''api_key'\'', '\''apiKey'\'', '\''application_api_key'\'', '\''account_api_key'\'', '\''token'\'', '\''sanctum_token'\''] as $__name) {"
+          print "                    try {"
+          print "                        $__apiKey = $__req->attributes->get($__name);"
+          print "                        if (!$__apiKey) { continue; }"
+          print "                        foreach (['\''user_id'\'', '\''owner_id'\'', '\''created_by'\''] as $__field) { if (isset($__apiKey->{$__field}) && is_numeric($__apiKey->{$__field})) { $__actorId = (int) $__apiKey->{$__field}; break 2; } }"
+          print "                        foreach (['\''user'\'', '\''tokenable'\'', '\''owner'\''] as $__rel) {"
+          print "                            $__related = $__apiKey->{$__rel} ?? null;"
+          print "                            if (!$__related && method_exists($__apiKey, $__rel)) { $__related = $__apiKey->{$__rel}()->first(); }"
+          print "                            if ($__related && isset($__related->id) && is_numeric($__related->id)) { $__actorId = (int) $__related->id; break 2; }"
+          print "                        }"
+          print "                    } catch (\\Throwable $e) {}"
+          print "                }"
+          print "            }"
+          print "        } catch (\\Throwable $e) {}"
+          print "        if ($__actorId !== 1) {"
+          print "            throw new \\Pterodactyl\\Exceptions\\DisplayException('\''Akses ditolak: hapus server via API/PLTA hanya boleh memakai API key/Admin ID 1 @ PROTECTED BY VANTAXZMD.'\'');"
+          print "        }"
+          inserted=1
+          in_delete=0
+        }
+      }
+    ' "$APP_SERVER_CONTROLLER" > "$TMP_FILE" && mv "$TMP_FILE" "$APP_SERVER_CONTROLLER"
+    chmod 644 "$APP_SERVER_CONTROLLER"
+    if php -l "$APP_SERVER_CONTROLLER" >/dev/null 2>&1; then
+      echo "✅ Guard Application API delete server V2 terpasang."
+    else
+      echo "❌ Syntax error Application API server controller setelah inject — rollback otomatis."
+      cp "${APP_SERVER_CONTROLLER}.bak_${TIMESTAMP}" "$APP_SERVER_CONTROLLER"
+    fi
+  else
+    echo "⚠️ Guard Application API delete server V2 sudah ada, skip."
+  fi
+else
+  echo "⚠️ Controller Application API server tidak ditemukan, guard PLTA dilewati: $APP_SERVER_CONTROLLER"
+fi
+
+# Apply brand customization
+for F in "$REMOTE_PATH" "$SERVER_MODEL" "$APP_SERVER_CONTROLLER"; do
+  if [ -f "$F" ]; then
+    sed -i "s|Protect By FyzzOffciall.ID|${BRAND_TEXT}|g" "$F" 2>/dev/null || true
+    sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$F" 2>/dev/null || true
+    sed -i "s|PROTECTED BY VANTAXZMD|${BRAND_TEXT}|g" "$F" 2>/dev/null || true
+  fi
+done
+
+cd "$PANEL_DIR" 2>/dev/null && {
+  php artisan config:clear >/dev/null 2>&1 || true
+  php artisan cache:clear >/dev/null 2>&1 || true
+  php artisan view:clear >/dev/null 2>&1 || true
+  php artisan route:clear >/dev/null 2>&1 || true
+}
+
+echo "✅ Proteksi Anti Delete Server berhasil dipasang!"
+echo "📂 Lokasi file: $REMOTE_PATH"
+echo "🗂️ Backup file lama: $BACKUP_PATH (jika sebelumnya ada)"
+echo "🔒 Hapus server via panel/API/PLTA/PLTC hanya boleh actor/API key milik Admin ID 1."
+PROTECT1_PLAIN
       ;;
     protect2)
-      cat << 'PROTECT2_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgpCUkFORF9MQUJFTD0iJHtCUkFORF9MQUJFTDotJEJSQU5EX05BTUV9IgpDT05U
-QUNUX1RFTEVHUkFNPSIke0NPTlRBQ1RfVEVMRUdSQU06LUBKaG9hbmxleXN0b3JlSWR9IgpDT05UQUNUX1RFTEVHUkFNXzI9IiR7Q09OVEFDVF9URUxFR1JBTV8yOi1AamhvbmFsZXl0ZXN0aTN9IgoKUkVNT1RFX1BBVEg9Ii92YXIvd3d3L3B0ZXJvZGFjdHlsL2Fw
-cC9IdHRwL0NvbnRyb2xsZXJzL0FkbWluL1VzZXJDb250cm9sbGVyLnBocCIKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKQkFDS1VQX1BBVEg9IiR7UkVNT1RFX1BBVEh9LmJha18ke1RJTUVTVEFNUH0iCgplY2hvICLwn5qAIE1l
-bWFzYW5nIHByb3Rla3NpIFVzZXJDb250cm9sbGVyLnBocCBhbnRpIGhhcHVzIGRhbiBhbnRpIHViYWggZGF0YSB1c2VyLi4uIgoKIyBCYWNrdXAgZmlsZSBsYW1hIGppa2EgYWRhCmlmIFsgLWYgIiRSRU1PVEVfUEFUSCIgXTsgdGhlbgogIG12ICIkUkVNT1RFX1BB
-VEgiICIkQkFDS1VQX1BBVEgiCiAgZWNobyAi8J+TpiBCYWNrdXAgZmlsZSBsYW1hIGRpYnVhdCBkaSAkQkFDS1VQX1BBVEgiCmZpCgpta2RpciAtcCAiJChkaXJuYW1lICIkUkVNT1RFX1BBVEgiKSIKY2htb2QgNzU1ICIkKGRpcm5hbWUgIiRSRU1PVEVfUEFUSCIp
-IgoKY2F0ID4gIiRSRU1PVEVfUEFUSCIgPDwnRU9GJwo8P3BocAoKbmFtZXNwYWNlIFB0ZXJvZGFjdHlsXEh0dHBcQ29udHJvbGxlcnNcQWRtaW47Cgp1c2UgSWxsdW1pbmF0ZVxWaWV3XFZpZXc7CnVzZSBJbGx1bWluYXRlXEh0dHBcUmVxdWVzdDsKdXNlIFB0ZXJv
-ZGFjdHlsXE1vZGVsc1xVc2VyOwp1c2UgUHRlcm9kYWN0eWxcTW9kZWxzXE1vZGVsOwp1c2UgSWxsdW1pbmF0ZVxTdXBwb3J0XENvbGxlY3Rpb247CnVzZSBJbGx1bWluYXRlXEh0dHBcUmVkaXJlY3RSZXNwb25zZTsKdXNlIFByb2xvZ3VlXEFsZXJ0c1xBbGVydHNN
-ZXNzYWdlQmFnOwp1c2UgU3BhdGllXFF1ZXJ5QnVpbGRlclxRdWVyeUJ1aWxkZXI7CnVzZSBJbGx1bWluYXRlXFZpZXdcRmFjdG9yeSBhcyBWaWV3RmFjdG9yeTsKdXNlIFB0ZXJvZGFjdHlsXEV4Y2VwdGlvbnNcRGlzcGxheUV4Y2VwdGlvbjsKdXNlIFB0ZXJvZGFj
-dHlsXEh0dHBcQ29udHJvbGxlcnNcQ29udHJvbGxlcjsKdXNlIElsbHVtaW5hdGVcQ29udHJhY3RzXFRyYW5zbGF0aW9uXFRyYW5zbGF0b3I7CnVzZSBQdGVyb2RhY3R5bFxTZXJ2aWNlc1xVc2Vyc1xVc2VyVXBkYXRlU2VydmljZTsKdXNlIFB0ZXJvZGFjdHlsXFRy
-YWl0c1xIZWxwZXJzXEF2YWlsYWJsZUxhbmd1YWdlczsKdXNlIFB0ZXJvZGFjdHlsXFNlcnZpY2VzXFVzZXJzXFVzZXJDcmVhdGlvblNlcnZpY2U7CnVzZSBQdGVyb2RhY3R5bFxTZXJ2aWNlc1xVc2Vyc1xVc2VyRGVsZXRpb25TZXJ2aWNlOwp1c2UgUHRlcm9kYWN0
-eWxcSHR0cFxSZXF1ZXN0c1xBZG1pblxVc2VyRm9ybVJlcXVlc3Q7CnVzZSBQdGVyb2RhY3R5bFxIdHRwXFJlcXVlc3RzXEFkbWluXE5ld1VzZXJGb3JtUmVxdWVzdDsKdXNlIFB0ZXJvZGFjdHlsXENvbnRyYWN0c1xSZXBvc2l0b3J5XFVzZXJSZXBvc2l0b3J5SW50
-ZXJmYWNlOwpjbGFzcyBVc2VyQ29udHJvbGxlciBleHRlbmRzIENvbnRyb2xsZXIKewogICAgdXNlIEF2YWlsYWJsZUxhbmd1YWdlczsKCiAgICAvKioKICAgICAqIFVzZXJDb250cm9sbGVyIGNvbnN0cnVjdG9yLgogICAgICovCiAgICBwdWJsaWMgZnVuY3Rpb24g
-X19jb25zdHJ1Y3QoCiAgICAgICAgcHJvdGVjdGVkIEFsZXJ0c01lc3NhZ2VCYWcgJGFsZXJ0LAogICAgICAgIHByb3RlY3RlZCBVc2VyQ3JlYXRpb25TZXJ2aWNlICRjcmVhdGlvblNlcnZpY2UsCiAgICAgICAgcHJvdGVjdGVkIFVzZXJEZWxldGlvblNlcnZpY2Ug
-JGRlbGV0aW9uU2VydmljZSwKICAgICAgICBwcm90ZWN0ZWQgVHJhbnNsYXRvciAkdHJhbnNsYXRvciwKICAgICAgICBwcm90ZWN0ZWQgVXNlclVwZGF0ZVNlcnZpY2UgJHVwZGF0ZVNlcnZpY2UsCiAgICAgICAgcHJvdGVjdGVkIFVzZXJSZXBvc2l0b3J5SW50ZXJm
-YWNlICRyZXBvc2l0b3J5LAogICAgICAgIHByb3RlY3RlZCBWaWV3RmFjdG9yeSAkdmlldwogICAgKSB7CiAgICB9CgogICAgLyoqCiAgICAgKiBEaXNwbGF5IHVzZXIgaW5kZXggcGFnZS4KICAgICAqLwogICAgcHVibGljIGZ1bmN0aW9uIGluZGV4KFJlcXVlc3Qg
-JHJlcXVlc3QpOiBWaWV3CiAgICB7CiAgICAgICAgLy8g8J+UkiBKaWthIGJ1a2FuIGFkbWluIElEIDEsIHRhbXBpbGthbiBsaXN0IGtvc29uZwogICAgICAgIGlmICgoaW50KSAkcmVxdWVzdC0+dXNlcigpLT5pZCAhPT0gMSkgewogICAgICAgICAgICAkdXNlcnMg
-PSBVc2VyOjpxdWVyeSgpLT53aGVyZVJhdygnMSA9IDAnKS0+cGFnaW5hdGUoNTApOwogICAgICAgICAgICByZXR1cm4gJHRoaXMtPnZpZXctPm1ha2UoJ2FkbWluLnVzZXJzLmluZGV4JywgWyd1c2VycycgPT4gJHVzZXJzXSk7CiAgICAgICAgfQoKICAgICAgICAk
-dXNlcnMgPSBRdWVyeUJ1aWxkZXI6OmZvcigKICAgICAgICAgICAgVXNlcjo6cXVlcnkoKS0+c2VsZWN0KCd1c2Vycy4qJykKICAgICAgICAgICAgICAgIC0+c2VsZWN0UmF3KCdDT1VOVChESVNUSU5DVChzdWJ1c2Vycy5pZCkpIGFzIHN1YnVzZXJfb2ZfY291bnQn
-KQogICAgICAgICAgICAgICAgLT5zZWxlY3RSYXcoJ0NPVU5UKERJU1RJTkNUKHNlcnZlcnMuaWQpKSBhcyBzZXJ2ZXJzX2NvdW50JykKICAgICAgICAgICAgICAgIC0+bGVmdEpvaW4oJ3N1YnVzZXJzJywgJ3N1YnVzZXJzLnVzZXJfaWQnLCAnPScsICd1c2Vycy5p
-ZCcpCiAgICAgICAgICAgICAgICAtPmxlZnRKb2luKCdzZXJ2ZXJzJywgJ3NlcnZlcnMub3duZXJfaWQnLCAnPScsICd1c2Vycy5pZCcpCiAgICAgICAgICAgICAgICAtPmdyb3VwQnkoJ3VzZXJzLmlkJykKICAgICAgICApCiAgICAgICAgICAgIC0+YWxsb3dlZEZp
-bHRlcnMoWyd1c2VybmFtZScsICdlbWFpbCcsICd1dWlkJ10pCiAgICAgICAgICAgIC0+YWxsb3dlZFNvcnRzKFsnaWQnLCAndXVpZCddKQogICAgICAgICAgICAtPnBhZ2luYXRlKDUwKTsKCiAgICAgICAgcmV0dXJuICR0aGlzLT52aWV3LT5tYWtlKCdhZG1pbi51
-c2Vycy5pbmRleCcsIFsndXNlcnMnID0+ICR1c2Vyc10pOwogICAgfQoKICAgIC8qKgogICAgICogRGlzcGxheSBuZXcgdXNlciBwYWdlLgogICAgICovCiAgICBwdWJsaWMgZnVuY3Rpb24gY3JlYXRlKCk6IFZpZXcKICAgIHsKICAgICAgICByZXR1cm4gJHRoaXMt
-PnZpZXctPm1ha2UoJ2FkbWluLnVzZXJzLm5ldycsIFsKICAgICAgICAgICAgJ2xhbmd1YWdlcycgPT4gJHRoaXMtPmdldEF2YWlsYWJsZUxhbmd1YWdlcyh0cnVlKSwKICAgICAgICBdKTsKICAgIH0KCiAgICAvKioKICAgICAqIERpc3BsYXkgdXNlciB2aWV3IHBh
-Z2UuCiAgICAgKi8KICAgIHB1YmxpYyBmdW5jdGlvbiB2aWV3KFJlcXVlc3QgJHJlcXVlc3QsIFVzZXIgJHVzZXIpOiBWaWV3CiAgICB7CiAgICAgICAgLy8g8J+UkiBIYW55YSBhZG1pbiBJRCAxIHlhbmcgYmlzYSBha3NlcyBoYWxhbWFuIHZpZXcgdXNlcgogICAg
-ICAgIGlmICgoaW50KSAkcmVxdWVzdC0+dXNlcigpLT5pZCAhPT0gMSkgewogICAgICAgICAgICBhYm9ydCg0MDMsICfinJbvuI8gQWtzZXMgZGl0b2xhayAtIHByb3RlY3QgYnkgSmhvbmFsZXkgVGVjaCcpOwogICAgICAgIH0KCiAgICAgICAgcmV0dXJuICR0aGlz
-LT52aWV3LT5tYWtlKCdhZG1pbi51c2Vycy52aWV3JywgWwogICAgICAgICAgICAndXNlcicgPT4gJHVzZXIsCiAgICAgICAgICAgICdsYW5ndWFnZXMnID0+ICR0aGlzLT5nZXRBdmFpbGFibGVMYW5ndWFnZXModHJ1ZSksCiAgICAgICAgXSk7CiAgICB9CgogICAg
-LyoqCiAgICAgKiBEZWxldGUgYSB1c2VyIGZyb20gdGhlIHN5c3RlbS4KICAgICAqCiAgICAgKiBAdGhyb3dzIEV4Y2VwdGlvbgogICAgICogQHRocm93cyBQdGVyb2RhY3R5bEV4Y2VwdGlvbnNEaXNwbGF5RXhjZXB0aW9uCiAgICAgKi8KICAgIHB1YmxpYyBmdW5j
-dGlvbiBkZWxldGUoUmVxdWVzdCAkcmVxdWVzdCwgVXNlciAkdXNlcik6IFJlZGlyZWN0UmVzcG9uc2UKICAgIHsKICAgICAgICAvLyA9PT0gRklUVVIgVEFNQkFIQU46IFByb3Rla3NpIGhhcHVzIHVzZXIgPT09CiAgICAgICAgaWYgKChpbnQpICRyZXF1ZXN0LT51
-c2VyKCktPmlkICE9PSAxKSB7CiAgICAgICAgICAgIHRocm93IG5ldyBEaXNwbGF5RXhjZXB0aW9uKCLinYwg8J2WuvCdl4TwnZeM8J2WvvCdl4wg8J2WvfCdl4LwnZeN8J2XiPCdl4XwnZa68J2XhCDwnZeJ8J2Xi/Cdl4jwnZeN8J2WvvCdlrzwnZeNIPCdlrvwnZeS
-IEpob25hbGV5IFRlY2giKTsKICAgICAgICB9CiAgICAgICAgLy8gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KCiAgICAgICAgaWYgKCRyZXF1ZXN0LT51c2VyKCktPmlkID09PSAkdXNlci0+aWQpIHsKICAgICAgICAgICAgdGhy
-b3cgbmV3IERpc3BsYXlFeGNlcHRpb24oJHRoaXMtPnRyYW5zbGF0b3ItPmdldCgnYWRtaW4vdXNlci5leGNlcHRpb25zLnVzZXJfaGFzX3NlcnZlcnMnKSk7CiAgICAgICAgfQoKICAgICAgICAkdGhpcy0+ZGVsZXRpb25TZXJ2aWNlLT5oYW5kbGUoJHVzZXIpOwoK
-ICAgICAgICByZXR1cm4gcmVkaXJlY3QoKS0+cm91dGUoJ2FkbWluLnVzZXJzJyk7CiAgICB9CgogICAgLyoqCiAgICAgKiBDcmVhdGUgYSB1c2VyLgogICAgICoKICAgICAqIEB0aHJvd3MgRXhjZXB0aW9uCiAgICAgKiBAdGhyb3dzIFRocm93YWJsZQogICAgICov
-CiAgICBwdWJsaWMgZnVuY3Rpb24gc3RvcmUoTmV3VXNlckZvcm1SZXF1ZXN0ICRyZXF1ZXN0KTogUmVkaXJlY3RSZXNwb25zZQogICAgewogICAgICAgICR1c2VyID0gJHRoaXMtPmNyZWF0aW9uU2VydmljZS0+aGFuZGxlKCRyZXF1ZXN0LT5ub3JtYWxpemUoKSk7
-CiAgICAgICAgJHRoaXMtPmFsZXJ0LT5zdWNjZXNzKCR0aGlzLT50cmFuc2xhdG9yLT5nZXQoJ2FkbWluL3VzZXIubm90aWNlcy5hY2NvdW50X2NyZWF0ZWQnKSktPmZsYXNoKCk7CgogICAgICAgIHJldHVybiByZWRpcmVjdCgpLT5yb3V0ZSgnYWRtaW4udXNlcnMu
-dmlldycsICR1c2VyLT5pZCk7CiAgICB9CgogICAgLyoqCiAgICAgKiBVcGRhdGUgYSB1c2VyIG9uIHRoZSBzeXN0ZW0uCiAgICAgKgogICAgICogQHRocm93cyBQdGVyb2RhY3R5bEV4Y2VwdGlvbnNNb2RlbERhdGFWYWxpZGF0aW9uRXhjZXB0aW9uCiAgICAgKiBA
-dGhyb3dzIFB0ZXJvZGFjdHlsRXhjZXB0aW9uc1JlcG9zaXRvcnlSZWNvcmROb3RGb3VuZEV4Y2VwdGlvbgogICAgICovCiAgICBwdWJsaWMgZnVuY3Rpb24gdXBkYXRlKFVzZXJGb3JtUmVxdWVzdCAkcmVxdWVzdCwgVXNlciAkdXNlcik6IFJlZGlyZWN0UmVzcG9u
-c2UKICAgIHsKICAgICAgICAvLyA9PT0gRklUVVIgVEFNQkFIQU46IFByb3Rla3NpIHViYWggZGF0YSBwZW50aW5nID09PQogICAgICAgICRyZXN0cmljdGVkRmllbGRzID0gWydlbWFpbCcsICdmaXJzdF9uYW1lJywgJ2xhc3RfbmFtZScsICdwYXNzd29yZCddOwoK
-ICAgICAgICBmb3JlYWNoICgkcmVzdHJpY3RlZEZpZWxkcyBhcyAkZmllbGQpIHsKICAgICAgICAgICAgaWYgKCRyZXF1ZXN0LT5maWxsZWQoJGZpZWxkKSAmJiAoaW50KSAkcmVxdWVzdC0+dXNlcigpLT5pZCAhPT0gMSkgewogICAgICAgICAgICAgICAgdGhyb3cg
-bmV3IERpc3BsYXlFeGNlcHRpb24oIuKaoO+4jyDwnZa68J2XhPCdl4zwnZa+8J2XjCDwnZa98J2XgvCdl43wnZeI8J2XhfCdlrrwnZeEIPCdl4nwnZeL8J2XiPCdl43wnZa+8J2WvPCdl40g8J2Wu/Cdl5IgSmhvbmFsZXkgVGVjaCIpOwogICAgICAgICAgICB9CiAg
-ICAgICAgfQoKICAgICAgICAvLyBDZWdhaCB0dXJ1bmthbiBsZXZlbCBhZG1pbiBrZSB1c2VyIGJpYXNhCiAgICAgICAgaWYgKCR1c2VyLT5yb290X2FkbWluICYmIChpbnQpICRyZXF1ZXN0LT51c2VyKCktPmlkICE9PSAxKSB7CiAgICAgICAgICAgIHRocm93IG5l
-dyBEaXNwbGF5RXhjZXB0aW9uKCLwn5qrIPCdlrrwnZeE8J2XjPCdlr7wnZeMIPCdlr3wnZeC8J2XjfCdl4jwnZeF8J2WuvCdl4Qg8J2XifCdl4vwnZeI8J2XjfCdlr7wnZa88J2XjSDwnZa78J2XkiBKaG9uYWxleSBUZWNoIik7CiAgICAgICAgfQoKICAgICAgICAv
-LyBDZWdhaCBub24tSUQgMSBtZW5ndWJhaCBzdGF0dXMgYWRtaW4gKHByb21vdGUvZGVtb3RlKQogICAgICAgIGlmICgoaW50KSAkcmVxdWVzdC0+dXNlcigpLT5pZCAhPT0gMSkgewogICAgICAgICAgICAkaW5wdXRBZG1pbiA9ICRyZXF1ZXN0LT5pbnB1dCgncm9v
-dF9hZG1pbicsIG51bGwpOwogICAgICAgICAgICAvLyBCbG9jayBqaWthIG1lbmNvYmEgc2V0IHJvb3RfYWRtaW4gYmVyYmVkYSBkYXJpIHN0YXR1cyBzYWF0IGluaQogICAgICAgICAgICBpZiAoJGlucHV0QWRtaW4gIT09IG51bGwgJiYgKGJvb2wpICRpbnB1dEFk
-bWluICE9PSAoYm9vbCkgJHVzZXItPnJvb3RfYWRtaW4pIHsKICAgICAgICAgICAgICAgIHRocm93IG5ldyBEaXNwbGF5RXhjZXB0aW9uKCLwn5qrIPCdlrrwnZeE8J2XjPCdlr7wnZeMIPCdlr3wnZeC8J2XjfCdl4jwnZeF8J2WuvCdl4QgLSBIYW55YSBTdXBlciBB
-ZG1pbiB5YW5nIGJpc2EgbWVuZ3ViYWggc3RhdHVzIGFkbWluLiBQcm90ZWN0IGJ5IEpob25hbGV5IFRlY2giKTsKICAgICAgICAgICAgfQogICAgICAgIH0KICAgICAgICAvLyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09CgogICAgICAgICR0aGlzLT51cGRhdGVTZXJ2aWNlCiAgICAgICAgICAgIC0+c2V0VXNlckxldmVsKFVzZXI6OlVTRVJfTEVWRUxfQURNSU4pCiAgICAgICAgICAgIC0+aGFuZGxlKCR1c2VyLCAkcmVxdWVzdC0+bm9ybWFsaXplKCkpOwoKICAgICAgICAkdGhp
-cy0+YWxlcnQtPnN1Y2Nlc3ModHJhbnMoJ2FkbWluL3VzZXIubm90aWNlcy5hY2NvdW50X3VwZGF0ZWQnKSktPmZsYXNoKCk7CgogICAgICAgIHJldHVybiByZWRpcmVjdCgpLT5yb3V0ZSgnYWRtaW4udXNlcnMudmlldycsICR1c2VyLT5pZCk7CiAgICB9CgogICAg
-LyoqCiAgICAgKiBHZXQgYSBKU09OIHJlc3BvbnNlIG9mIHVzZXJzIG9uIHRoZSBzeXN0ZW0uCiAgICAgKi8KICAgIHB1YmxpYyBmdW5jdGlvbiBqc29uKFJlcXVlc3QgJHJlcXVlc3QpOiBNb2RlbHxDb2xsZWN0aW9uCiAgICB7CiAgICAgICAgJHVzZXJzID0gUXVl
-cnlCdWlsZGVyOjpmb3IoVXNlcjo6cXVlcnkoKSktPmFsbG93ZWRGaWx0ZXJzKFsnZW1haWwnXSktPnBhZ2luYXRlKDI1KTsKCiAgICAgICAgLy8gSGFuZGxlIHNpbmdsZSB1c2VyIHJlcXVlc3RzLgogICAgICAgIGlmICgkcmVxdWVzdC0+cXVlcnkoJ3VzZXJfaWQn
-KSkgewogICAgICAgICAgICAkdXNlciA9IFVzZXI6OnF1ZXJ5KCktPmZpbmRPckZhaWwoJHJlcXVlc3QtPmlucHV0KCd1c2VyX2lkJykpOwogICAgICAgICAgICAkdXNlci0+bWQ1ID0gbWQ1KHN0cnRvbG93ZXIoJHVzZXItPmVtYWlsKSk7CgogICAgICAgICAgICBy
-ZXR1cm4gJHVzZXI7CiAgICAgICAgfQoKICAgICAgICByZXR1cm4gJHVzZXJzLT5tYXAoZnVuY3Rpb24gKCRpdGVtKSB7CiAgICAgICAgICAgICRpdGVtLT5tZDUgPSBtZDUoc3RydG9sb3dlcigkaXRlbS0+ZW1haWwpKTsKCiAgICAgICAgICAgIHJldHVybiAkaXRl
-bTsKICAgICAgICB9KTsKICAgIH0KfQo/PgpFT0YKCmNobW9kIDY0NCAiJFJFTU9URV9QQVRIIgoKIyBBcHBseSBicmFuZCBjdXN0b21pemF0aW9uCnNlZCAtaSAic3xwcm90ZWN0IGJ5IEpob25hbGV5IFRlY2h8JHtCUkFORF9URVhUfXxnIiAiJFJFTU9URV9QQVRI
-IiAyPi9kZXYvbnVsbCB8fCB0cnVlCnNlZCAtaSAic3xKaG9uYWxleSBUZWNofCR7QlJBTkRfTkFNRX18ZyIgIiRSRU1PVEVfUEFUSCIgMj4vZGV2L251bGwgfHwgdHJ1ZQoKZWNobyAi4pyFIFByb3Rla3NpIFVzZXJDb250cm9sbGVyLnBocCBiZXJoYXNpbCBkaXBh
-c2FuZyEiCmVjaG8gIvCfk4IgTG9rYXNpIGZpbGU6ICRSRU1PVEVfUEFUSCIKZWNobyAi8J+Xgu+4jyBCYWNrdXAgZmlsZSBsYW1hOiAkQkFDS1VQX1BBVEgiCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT0KIyBCQUdJQU4gMjogSW5qZWN0IGJhbm5lciAiVXNlciBEaXNlbWJ1bnlpa2FuIC0gUHJvdGVjdGVkIEJ5IiBrZSB1c2VycyBpbmRleAojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT0KVVNFUlNfSU5ERVhfQkxBREU9Ii92YXIvd3d3L3B0ZXJvZGFjdHlsL3Jlc291cmNlcy92aWV3cy9hZG1pbi91c2Vycy9pbmRleC5ibGFkZS5waHAiCgppZiBbIC1mICIkVVNFUlNfSU5ERVhfQkxBREUiIF07IHRoZW4K
-ICAgIGVjaG8gIiIKICAgIGVjaG8gIvCfjqggTWVtYXNhbmcgYmFubmVyICdVc2VyIERpc2VtYnVueWlrYW4nIGRpIGhhbGFtYW4gVXNlcnMuLi4iCgogICAgQkxBREVfQkFDS1VQPSIke1VTRVJTX0lOREVYX0JMQURFfS5iYWtfJHtUSU1FU1RBTVB9IgogICAgY3Ag
-IiRVU0VSU19JTkRFWF9CTEFERSIgIiRCTEFERV9CQUNLVVAiCiAgICBlY2hvICLwn5OmIEJhY2t1cCBibGFkZTogJEJMQURFX0JBQ0tVUCIKCiAgICBleHBvcnQgQlJBTkRfTEFCRUwgQ09OVEFDVF9URUxFR1JBTSBDT05UQUNUX1RFTEVHUkFNXzIgVVNFUlNfSU5E
-RVhfQkxBREUKCiAgICBweXRob24zIDw8J1BZRU9GJwppbXBvcnQgb3MsIHJlCgpwYXRoID0gb3MuZW52aXJvblsnVVNFUlNfSU5ERVhfQkxBREUnXQpicmFuZF9sYWJlbCA9IG9zLmVudmlyb24uZ2V0KCdCUkFORF9MQUJFTCcsICdKaG9uYWxleSBUZWNoJykKdGcx
-ID0gb3MuZW52aXJvbi5nZXQoJ0NPTlRBQ1RfVEVMRUdSQU0nLCAnQEpob2FubGV5c3RvcmVJZCcpCnRnMiA9IG9zLmVudmlyb24uZ2V0KCdDT05UQUNUX1RFTEVHUkFNXzInLCAnQGpob25hbGV5dGVzdGkzJykKCndpdGggb3BlbihwYXRoLCAncicsIGVuY29kaW5n
-PSd1dGYtOCcpIGFzIGY6CiAgICBjb250ZW50ID0gZi5yZWFkKCkKCk1BUktFUiA9ICdQUk9URUtTSV9KSE9OQUxFWV9VU0VSX0JBTk5FUicKCiMgUmVtb3ZlIHByZXZpb3VzIGJhbm5lciBibG9jayAoYmV0d2VlbiBtYXJrZXJzKSBzbyB3ZSBjYW4gcmUtaW5qZWN0
-IGZyZXNoCmNvbnRlbnQgPSByZS5zdWIoCiAgICByJ1x7XHstLVxzKicgKyBNQVJLRVIgKyByJ19TVEFSVC4qPycgKyBNQVJLRVIgKyByJ19FTkRccyotLVx9XH1ccyonLAogICAgJycsCiAgICBjb250ZW50LAogICAgZmxhZ3M9cmUuRE9UQUxMLAopCgpiYW5uZXIg
-PSAoCiAgICAne3stLSAnICsgTUFSS0VSICsgJ19TVEFSVCAtLX19XG4nCiAgICAnQGlmKChpbnQpIGF1dGgoKS0+dXNlcigpLT5pZCAhPT0gMSlcbicKICAgICc8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiMwYTBhMGE7Y29sb3I6I2ZhZmFmYTtib3JkZXI6MnB4IHNv
-bGlkICNkYzI2MjY7Ym9yZGVyLXJhZGl1czowOycKICAgICdwYWRkaW5nOjA7bWFyZ2luOjAgMCAyMHB4IDA7Ym94LXNoYWRvdzo2cHggNnB4IDAgMCAjZGMyNjI2O2ZvbnQtZmFtaWx5OlwnSmV0QnJhaW5zIE1vbm9cJyxcJ0NvdXJpZXIgTmV3XCcsbW9ub3NwYWNl
-O3Bvc2l0aW9uOnJlbGF0aXZlO292ZXJmbG93OmhpZGRlbjsiPlxuJwogICAgJyAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiNkYzI2MjY7Y29sb3I6IzBhMGEwYTtwYWRkaW5nOjZweCAxNHB4O2Rpc3BsYXk6ZmxleDthbGlnbi1pdGVtczpjZW50ZXI7anVzdGlm
-eS1jb250ZW50OnNwYWNlLWJldHdlZW47Ym9yZGVyLWJvdHRvbToycHggc29saWQgIzBhMGEwYTsiPlxuJwogICAgJyAgICAgICAgPHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMXB4O2ZvbnQtd2VpZ2h0OjkwMDtsZXR0ZXItc3BhY2luZzoycHg7dGV4dC10cmFuc2Zv
-cm06dXBwZXJjYXNlOyI+Ly8gU0VDVVJJVFlfTk9USUNFLlNZUzwvc3Bhbj5cbicKICAgICcgICAgICAgIDxzcGFuIHN0eWxlPSJmb250LXNpemU6MTBweDtmb250LXdlaWdodDo5MDA7bGV0dGVyLXNwYWNpbmc6MS41cHg7YmFja2dyb3VuZDojZmJiZjI0O2NvbG9y
-OiMwYTBhMGE7cGFkZGluZzoycHggOHB4O2JvcmRlcjoxLjVweCBzb2xpZCAjMGEwYTBhOyI+4pePIEFDVElWRTwvc3Bhbj5cbicKICAgICcgICAgPC9kaXY+XG4nCiAgICAnICAgIDxkaXYgc3R5bGU9InBhZGRpbmc6MThweCAyMHB4O2Rpc3BsYXk6ZmxleDtnYXA6
-MTZweDthbGlnbi1pdGVtczpmbGV4LXN0YXJ0OyI+XG4nCiAgICAnICAgICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiNkYzI2MjY7Y29sb3I6I2ZhZmFmYTt3aWR0aDo0NHB4O2hlaWdodDo0NHB4O21pbi13aWR0aDo0NHB4O2Rpc3BsYXk6ZmxleDthbGlnbi1p
-dGVtczpjZW50ZXI7anVzdGlmeS1jb250ZW50OmNlbnRlcjtib3JkZXI6MnB4IHNvbGlkICNmYmJmMjQ7Zm9udC1zaXplOjIycHg7Ij5cbicKICAgICcgICAgICAgICAgICA8aSBjbGFzcz0iZmEgZmEtdXNlci1zZWNyZXQiPjwvaT5cbicKICAgICcgICAgICAgIDwv
-ZGl2PlxuJwogICAgJyAgICAgICAgPGRpdiBzdHlsZT0iZmxleDoxOyI+XG4nCiAgICAnICAgICAgICAgICAgPGg0IHN0eWxlPSJtYXJnaW46MCAwIDhweCAwO2NvbG9yOiNmYmJmMjQ7Zm9udC1mYW1pbHk6XCdKZXRCcmFpbnMgTW9ub1wnLG1vbm9zcGFjZTtmb250
-LXNpemU6MThweDtmb250LXdlaWdodDo5MDA7dGV4dC10cmFuc2Zvcm06dXBwZXJjYXNlO2xldHRlci1zcGFjaW5nOjEuNXB4OyI+W1VTRVIgTElTVCBISURERU5dPC9oND5cbicKICAgICcgICAgICAgICAgICA8cCBzdHlsZT0ibWFyZ2luOjAgMCAxMHB4IDA7Zm9u
-dC1zaXplOjEzcHg7Y29sb3I6I2U1ZTVlNTtsaW5lLWhlaWdodDoxLjY7Zm9udC1mYW1pbHk6XCdTZWdvZSBVSVwnLHNhbnMtc2VyaWY7Ij5cbicKICAgICcgICAgICAgICAgICAgICAgRGFmdGFyIHVzZXIgZGlzZW1idW55aWthbi4gSGFueWEgPHN0cm9uZyBzdHls
-ZT0iY29sb3I6I2RjMjYyNjsiPlJPT1QgQURNSU5JU1RSQVRPUiAoSUQ6MSk8L3N0cm9uZz4geWFuZyBtZW1pbGlraSBha3NlcyBwZW51aCBrZSBkYXRhIHVzZXIuXG4nCiAgICAnICAgICAgICAgICAgPC9wPlxuJwogICAgJyAgICAgICAgICAgIDxkaXYgc3R5bGU9
-ImRpc3BsYXk6ZmxleDtnYXA6NnB4O2ZsZXgtd3JhcDp3cmFwO2FsaWduLWl0ZW1zOmNlbnRlcjtmb250LWZhbWlseTpcJ0pldEJyYWlucyBNb25vXCcsbW9ub3NwYWNlOyI+XG4nCiAgICAnICAgICAgICAgICAgICAgIDxzcGFuIHN0eWxlPSJmb250LXNpemU6MTBw
-eDtjb2xvcjojYTNhM2EzO3RleHQtdHJhbnNmb3JtOnVwcGVyY2FzZTtsZXR0ZXItc3BhY2luZzoxcHg7Zm9udC13ZWlnaHQ6NzAwOyI+Jmd0OyBQUk9URUNURURfQlk6PC9zcGFuPlxuJwogICAgJyAgICAgICAgICAgICAgICA8c3BhbiBzdHlsZT0iYmFja2dyb3Vu
-ZDojMGEwYTBhO2NvbG9yOiNmYmJmMjQ7Ym9yZGVyOjEuNXB4IHNvbGlkICNmYmJmMjQ7cGFkZGluZzozcHggOXB4O2ZvbnQtc2l6ZToxMHB4O2ZvbnQtd2VpZ2h0OjkwMDtsZXR0ZXItc3BhY2luZzoxcHg7dGV4dC10cmFuc2Zvcm06dXBwZXJjYXNlOyI+X19CUkFO
-RF9MQUJFTF9fPC9zcGFuPlxuJwogICAgJyAgICAgICAgICAgICAgICA8c3BhbiBzdHlsZT0iYmFja2dyb3VuZDojZGMyNjI2O2NvbG9yOiMwYTBhMGE7Ym9yZGVyOjEuNXB4IHNvbGlkICMwYTBhMGE7cGFkZGluZzozcHggOXB4O2ZvbnQtc2l6ZToxMHB4O2ZvbnQt
-d2VpZ2h0OjkwMDtsZXR0ZXItc3BhY2luZzoxcHg7Ij5fX0NPTlRBQ1RfVEcxX188L3NwYW4+XG4nCiAgICAnICAgICAgICAgICAgICAgIDxzcGFuIHN0eWxlPSJiYWNrZ3JvdW5kOiNmYWZhZmE7Y29sb3I6IzBhMGEwYTtib3JkZXI6MS41cHggc29saWQgIzBhMGEw
-YTtwYWRkaW5nOjNweCA5cHg7Zm9udC1zaXplOjEwcHg7Zm9udC13ZWlnaHQ6OTAwO2xldHRlci1zcGFjaW5nOjFweDsiPl9fQ09OVEFDVF9URzJfXzwvc3Bhbj5cbicKICAgICcgICAgICAgICAgICA8L2Rpdj5cbicKICAgICcgICAgICAgIDwvZGl2PlxuJwogICAg
-JyAgICA8L2Rpdj5cbicKICAgICc8L2Rpdj5cbicKICAgICdAZW5kaWZcbicKICAgICd7ey0tICcgKyBNQVJLRVIgKyAnX0VORCAtLX19XG4nCikKCiMgSW5qZWN0IHJpZ2h0IGFmdGVyIHRoZSBmaXJzdCBAc2VjdGlvbignY29udGVudCcpIG9wZW5pbmcgbGluZQpw
-YXR0ZXJuID0gcmUuY29tcGlsZShyIihAc2VjdGlvblwoXHMqWydcIl1jb250ZW50WydcIl1ccypcKVxzKlxuKSIpCm0gPSBwYXR0ZXJuLnNlYXJjaChjb250ZW50KQppZiBtOgogICAgaW5zZXJ0X2F0ID0gbS5lbmQoKQogICAgbmV3X2NvbnRlbnQgPSBjb250ZW50
-WzppbnNlcnRfYXRdICsgYmFubmVyICsgY29udGVudFtpbnNlcnRfYXQ6XQplbHNlOgogICAgIyBGYWxsYmFjazogcHJlcGVuZAogICAgbmV3X2NvbnRlbnQgPSBiYW5uZXIgKyBjb250ZW50CgojIFN1YnN0aXR1dGUgcGxhY2Vob2xkZXJzCm5ld19jb250ZW50ID0g
-KG5ld19jb250ZW50CiAgICAucmVwbGFjZSgnX19CUkFORF9MQUJFTF9fJywgYnJhbmRfbGFiZWwpCiAgICAucmVwbGFjZSgnX19DT05UQUNUX1RHMV9fJywgdGcxKQogICAgLnJlcGxhY2UoJ19fQ09OVEFDVF9URzJfXycsIHRnMikpCgojIEF0b21pYyB3cml0ZQp0
-bXAgPSBwYXRoICsgJy50bXBfamhvbmFsZXknCndpdGggb3Blbih0bXAsICd3JywgZW5jb2Rpbmc9J3V0Zi04JykgYXMgZjoKICAgIGYud3JpdGUobmV3X2NvbnRlbnQpCm9zLnJlcGxhY2UodG1wLCBwYXRoKQpwcmludCgi4pyFIEJhbm5lciBpbmplY3RlZCBpbnRv
-OiIsIHBhdGgpClBZRU9GCgogICAgY2hvd24gd3d3LWRhdGE6d3d3LWRhdGEgIiRVU0VSU19JTkRFWF9CTEFERSIgMj4vZGV2L251bGwgfHwgdHJ1ZQogICAgY2htb2QgNjQ0ICIkVVNFUlNfSU5ERVhfQkxBREUiCiAgICBlY2hvICLinIUgQmFubmVyICdVc2VyIERp
-c2VtYnVueWlrYW4nIHRlcnBhc2FuZy4iCmVsc2UKICAgIGVjaG8gIuKaoO+4jyBCbGFkZSBmaWxlIHRpZGFrIGRpdGVtdWthbjogJFVTRVJTX0lOREVYX0JMQURFIChza2lwIGJhbm5lcikiCmZpCgo=
-PROTECT2_B64
+      cat << 'PROTECT2_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzOffciall.ID}"
+BRAND_LABEL="${BRAND_LABEL:-$BRAND_NAME}"
+CONTACT_TELEGRAM="${CONTACT_TELEGRAM:-@FyzzModss}"
+CONTACT_TELEGRAM_2="${CONTACT_TELEGRAM_2:-@FyzAbout}"
+
+REMOTE_PATH="/var/www/pterodactyl/app/Http/Controllers/Admin/UserController.php"
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+BACKUP_PATH="${REMOTE_PATH}.bak_${TIMESTAMP}"
+
+echo "🚀 Memasang proteksi UserController.php anti hapus dan anti ubah data user..."
+
+# Backup file lama jika ada
+if [ -f "$REMOTE_PATH" ]; then
+  mv "$REMOTE_PATH" "$BACKUP_PATH"
+  echo "📦 Backup file lama dibuat di $BACKUP_PATH"
+fi
+
+mkdir -p "$(dirname "$REMOTE_PATH")"
+chmod 755 "$(dirname "$REMOTE_PATH")"
+
+cat > "$REMOTE_PATH" <<'EOF'
+<?php
+
+namespace Pterodactyl\Http\Controllers\Admin;
+
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Pterodactyl\Models\User;
+use Pterodactyl\Models\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Http\RedirectResponse;
+use Prologue\Alerts\AlertsMessageBag;
+use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\View\Factory as ViewFactory;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Http\Controllers\Controller;
+use Illuminate\Contracts\Translation\Translator;
+use Pterodactyl\Services\Users\UserUpdateService;
+use Pterodactyl\Traits\Helpers\AvailableLanguages;
+use Pterodactyl\Services\Users\UserCreationService;
+use Pterodactyl\Services\Users\UserDeletionService;
+use Pterodactyl\Http\Requests\Admin\UserFormRequest;
+use Pterodactyl\Http\Requests\Admin\NewUserFormRequest;
+use Pterodactyl\Contracts\Repository\UserRepositoryInterface;
+class UserController extends Controller
+{
+    use AvailableLanguages;
+
+    /**
+     * UserController constructor.
+     */
+    public function __construct(
+        protected AlertsMessageBag $alert,
+        protected UserCreationService $creationService,
+        protected UserDeletionService $deletionService,
+        protected Translator $translator,
+        protected UserUpdateService $updateService,
+        protected UserRepositoryInterface $repository,
+        protected ViewFactory $view
+    ) {
+    }
+
+    /**
+     * Display user index page.
+     */
+    public function index(Request $request): View
+    {
+        // 🔒 Jika bukan admin ID 1, tampilkan list kosong
+        if ((int) $request->user()->id !== 1) {
+            $users = User::query()->whereRaw('1 = 0')->paginate(50);
+            return $this->view->make('admin.users.index', ['users' => $users]);
+        }
+
+        $users = QueryBuilder::for(
+            User::query()->select('users.*')
+                ->selectRaw('COUNT(DISTINCT(subusers.id)) as subuser_of_count')
+                ->selectRaw('COUNT(DISTINCT(servers.id)) as servers_count')
+                ->leftJoin('subusers', 'subusers.user_id', '=', 'users.id')
+                ->leftJoin('servers', 'servers.owner_id', '=', 'users.id')
+                ->groupBy('users.id')
+        )
+            ->allowedFilters(['username', 'email', 'uuid'])
+            ->allowedSorts(['id', 'uuid'])
+            ->paginate(50);
+
+        return $this->view->make('admin.users.index', ['users' => $users]);
+    }
+
+    /**
+     * Display new user page.
+     */
+    public function create(): View
+    {
+        return $this->view->make('admin.users.new', [
+            'languages' => $this->getAvailableLanguages(true),
+        ]);
+    }
+
+    /**
+     * Display user view page.
+     */
+    public function view(Request $request, User $user): View
+    {
+        // 🔒 Hanya admin ID 1 yang bisa akses halaman view user
+        if ((int) $request->user()->id !== 1) {
+            abort(403, '✖️ Akses ditolak - protect by FyzzOffciall.ID');
+        }
+
+        return $this->view->make('admin.users.view', [
+            'user' => $user,
+            'languages' => $this->getAvailableLanguages(true),
+        ]);
+    }
+
+    /**
+     * Delete a user from the system.
+     *
+     * @throws Exception
+     * @throws PterodactylExceptionsDisplayException
+     */
+    public function delete(Request $request, User $user): RedirectResponse
+    {
+        // === FITUR TAMBAHAN: Proteksi hapus user ===
+        if ((int) $request->user()->id !== 1) {
+            throw new DisplayException("❌ 𝖺𝗄𝗌𝖾𝗌 𝖽𝗂𝗍𝗈𝗅𝖺𝗄 𝗉𝗋𝗈𝗍𝖾𝖼𝗍 𝖻𝗒 FyzzOffciall.ID");
+        }
+        // ============================================
+
+        if ($request->user()->id === $user->id) {
+            throw new DisplayException($this->translator->get('admin/user.exceptions.user_has_servers'));
+        }
+
+        $this->deletionService->handle($user);
+
+        return redirect()->route('admin.users');
+    }
+
+    /**
+     * Create a user.
+     *
+     * @throws Exception
+     * @throws Throwable
+     */
+    public function store(NewUserFormRequest $request): RedirectResponse
+    {
+        $user = $this->creationService->handle($request->normalize());
+        $this->alert->success($this->translator->get('admin/user.notices.account_created'))->flash();
+
+        return redirect()->route('admin.users.view', $user->id);
+    }
+
+    /**
+     * Update a user on the system.
+     *
+     * @throws PterodactylExceptionsModelDataValidationException
+     * @throws PterodactylExceptionsRepositoryRecordNotFoundException
+     */
+    public function update(UserFormRequest $request, User $user): RedirectResponse
+    {
+        // === FITUR TAMBAHAN: Proteksi ubah data penting ===
+        $restrictedFields = ['email', 'first_name', 'last_name', 'password'];
+
+        foreach ($restrictedFields as $field) {
+            if ($request->filled($field) && (int) $request->user()->id !== 1) {
+                throw new DisplayException("⚠️ 𝖺𝗄𝗌𝖾𝗌 𝖽𝗂𝗍𝗈𝗅𝖺𝗄 𝗉𝗋𝗈𝗍𝖾𝖼𝗍 𝖻𝗒 FyzzOffciall.ID");
+            }
+        }
+
+        // Cegah turunkan level admin ke user biasa
+        if ($user->root_admin && (int) $request->user()->id !== 1) {
+            throw new DisplayException("🚫 𝖺𝗄𝗌𝖾𝗌 𝖽𝗂𝗍𝗈𝗅𝖺𝗄 𝗉𝗋𝗈𝗍𝖾𝖼𝗍 𝖻𝗒 FyzzOffciall.ID");
+        }
+
+        // Cegah non-ID 1 mengubah status admin (promote/demote)
+        if ((int) $request->user()->id !== 1) {
+            $inputAdmin = $request->input('root_admin', null);
+            // Block jika mencoba set root_admin berbeda dari status saat ini
+            if ($inputAdmin !== null && (bool) $inputAdmin !== (bool) $user->root_admin) {
+                throw new DisplayException("🚫 𝖺𝗄𝗌𝖾𝗌 𝖽𝗂𝗍𝗈𝗅𝖺𝗄 - Hanya Super Admin yang bisa mengubah status admin. Protect by FyzzOffciall.ID");
+            }
+        }
+        // ====================================================
+
+        $this->updateService
+            ->setUserLevel(User::USER_LEVEL_ADMIN)
+            ->handle($user, $request->normalize());
+
+        $this->alert->success(trans('admin/user.notices.account_updated'))->flash();
+
+        return redirect()->route('admin.users.view', $user->id);
+    }
+
+    /**
+     * Get a JSON response of users on the system.
+     */
+    public function json(Request $request): Model|Collection
+    {
+        $users = QueryBuilder::for(User::query())->allowedFilters(['email'])->paginate(25);
+
+        // Handle single user requests.
+        if ($request->query('user_id')) {
+            $user = User::query()->findOrFail($request->input('user_id'));
+            $user->md5 = md5(strtolower($user->email));
+
+            return $user;
+        }
+
+        return $users->map(function ($item) {
+            $item->md5 = md5(strtolower($item->email));
+
+            return $item;
+        });
+    }
+}
+?>
+EOF
+
+chmod 644 "$REMOTE_PATH"
+
+# Apply brand customization
+sed -i "s|protect by FyzzOffciall.ID|${BRAND_TEXT}|g" "$REMOTE_PATH" 2>/dev/null || true
+sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$REMOTE_PATH" 2>/dev/null || true
+
+echo "✅ Proteksi UserController.php berhasil dipasang!"
+echo "📂 Lokasi file: $REMOTE_PATH"
+echo "🗂️ Backup file lama: $BACKUP_PATH"
+
+# ============================================================================
+# BAGIAN 2: Inject banner "User Disembunyikan - Protected By" ke users index
+# ============================================================================
+USERS_INDEX_BLADE="/var/www/pterodactyl/resources/views/admin/users/index.blade.php"
+
+if [ -f "$USERS_INDEX_BLADE" ]; then
+    echo ""
+    echo "🎨 Memasang banner 'User Disembunyikan' di halaman Users..."
+
+    BLADE_BACKUP="${USERS_INDEX_BLADE}.bak_${TIMESTAMP}"
+    cp "$USERS_INDEX_BLADE" "$BLADE_BACKUP"
+    echo "📦 Backup blade: $BLADE_BACKUP"
+
+    export BRAND_LABEL CONTACT_TELEGRAM CONTACT_TELEGRAM_2 USERS_INDEX_BLADE
+
+    python3 <<'PYEOF'
+import os, re
+
+path = os.environ['USERS_INDEX_BLADE']
+brand_label = os.environ.get('BRAND_LABEL', 'FyzzOffciall.ID')
+tg1 = os.environ.get('CONTACT_TELEGRAM', '@FyzzModss')
+tg2 = os.environ.get('CONTACT_TELEGRAM_2', '@FyzAbout')
+
+with open(path, 'r', encoding='utf-8') as f:
+    content = f.read()
+
+MARKER = 'PROTEKSI_FIT_USER_BANNER'
+
+# Remove previous banner block (between markers) so we can re-inject fresh
+content = re.sub(
+    r'\{\{--\s*' + MARKER + r'_START.*?' + MARKER + r'_END\s*--\}\}\s*',
+    '',
+    content,
+    flags=re.DOTALL,
+)
+
+banner = (
+    '{{-- ' + MARKER + '_START --}}\n'
+    '@if((int) auth()->user()->id !== 1)\n'
+    '<div style="background:#0a0a0a;color:#fafafa;border:2px solid #dc2626;border-radius:0;'
+    'padding:0;margin:0 0 20px 0;box-shadow:6px 6px 0 0 #dc2626;font-family:\'JetBrains Mono\',\'Courier New\',monospace;position:relative;overflow:hidden;">\n'
+    '    <div style="background:#dc2626;color:#0a0a0a;padding:6px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #0a0a0a;">\n'
+    '        <span style="font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;">// SECURITY_NOTICE.SYS</span>\n'
+    '        <span style="font-size:10px;font-weight:900;letter-spacing:1.5px;background:#fbbf24;color:#0a0a0a;padding:2px 8px;border:1.5px solid #0a0a0a;">● ACTIVE</span>\n'
+    '    </div>\n'
+    '    <div style="padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">\n'
+    '        <div style="background:#dc2626;color:#fafafa;width:44px;height:44px;min-width:44px;display:flex;align-items:center;justify-content:center;border:2px solid #fbbf24;font-size:22px;">\n'
+    '            <i class="fa fa-user-secret"></i>\n'
+    '        </div>\n'
+    '        <div style="flex:1;">\n'
+    '            <h4 style="margin:0 0 8px 0;color:#fbbf24;font-family:\'JetBrains Mono\',monospace;font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;">[USER LIST HIDDEN]</h4>\n'
+    '            <p style="margin:0 0 10px 0;font-size:13px;color:#e5e5e5;line-height:1.6;font-family:\'Segoe UI\',sans-serif;">\n'
+    '                Daftar user disembunyikan. Hanya <strong style="color:#dc2626;">ROOT ADMINISTRATOR (ID:1)</strong> yang memiliki akses penuh ke data user.\n'
+    '            </p>\n'
+    '            <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-family:\'JetBrains Mono\',monospace;">\n'
+    '                <span style="font-size:10px;color:#a3a3a3;text-transform:uppercase;letter-spacing:1px;font-weight:700;">&gt; PROTECTED_BY:</span>\n'
+    '                <span style="background:#0a0a0a;color:#fbbf24;border:1.5px solid #fbbf24;padding:3px 9px;font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;">__BRAND_LABEL__</span>\n'
+    '                <span style="background:#dc2626;color:#0a0a0a;border:1.5px solid #0a0a0a;padding:3px 9px;font-size:10px;font-weight:900;letter-spacing:1px;">__CONTACT_TG1__</span>\n'
+    '                <span style="background:#fafafa;color:#0a0a0a;border:1.5px solid #0a0a0a;padding:3px 9px;font-size:10px;font-weight:900;letter-spacing:1px;">__CONTACT_TG2__</span>\n'
+    '            </div>\n'
+    '        </div>\n'
+    '    </div>\n'
+    '</div>\n'
+    '@endif\n'
+    '{{-- ' + MARKER + '_END --}}\n'
+)
+
+# Inject right after the first @section('content') opening line
+pattern = re.compile(r"(@section\(\s*['\"]content['\"]\s*\)\s*\n)")
+m = pattern.search(content)
+if m:
+    insert_at = m.end()
+    new_content = content[:insert_at] + banner + content[insert_at:]
+else:
+    # Fallback: prepend
+    new_content = banner + content
+
+# Substitute placeholders
+new_content = (new_content
+    .replace('__BRAND_LABEL__', brand_label)
+    .replace('__CONTACT_TG1__', tg1)
+    .replace('__CONTACT_TG2__', tg2))
+
+# Atomic write
+tmp = path + '.tmp_fyzz'
+with open(tmp, 'w', encoding='utf-8') as f:
+    f.write(new_content)
+os.replace(tmp, path)
+print("✅ Banner injected into:", path)
+PYEOF
+
+    chown www-data:www-data "$USERS_INDEX_BLADE" 2>/dev/null || true
+    chmod 644 "$USERS_INDEX_BLADE"
+    echo "✅ Banner 'User Disembunyikan' terpasang."
+else
+    echo "⚠️ Blade file tidak ditemukan: $USERS_INDEX_BLADE (skip banner)"
+fi
+
+PROTECT2_PLAIN
       ;;
     protect3)
-      cat << 'PROTECT3_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgoKUkVNT1RFX1BBVEg9Ii92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL0Nv
-bnRyb2xsZXJzL0FkbWluL0xvY2F0aW9uQ29udHJvbGxlci5waHAiClRJTUVTVEFNUD0kKGRhdGUgLXUgKyIlWS0lbS0lZC0lSC0lTS0lUy0lTiIpCkJBQ0tVUF9QQVRIPSIke1JFTU9URV9QQVRIfS5iYWtfJHtUSU1FU1RBTVB9IgoKZWNobyAi8J+agCBNZW1hc2Fu
-ZyBwcm90ZWtzaSBBbnRpIEFrc2VzIExvY2F0aW9uLi4uIgoKaWYgWyAtZiAiJFJFTU9URV9QQVRIIiBdOyB0aGVuCiAgbXYgIiRSRU1PVEVfUEFUSCIgIiRCQUNLVVBfUEFUSCIKICBlY2hvICLwn5OmIEJhY2t1cCBmaWxlIGxhbWEgZGlidWF0IGRpICRCQUNLVVBf
-UEFUSCIKZmkKCm1rZGlyIC1wICIkKGRpcm5hbWUgIiRSRU1PVEVfUEFUSCIpIgpjaG1vZCA3NTUgIiQoZGlybmFtZSAiJFJFTU9URV9QQVRIIikiCgpjYXQgPiAiJFJFTU9URV9QQVRIIiA8PCAnRU9GJwo8P3BocAoKbmFtZXNwYWNlIFB0ZXJvZGFjdHlsXEh0dHBc
-Q29udHJvbGxlcnNcQWRtaW47Cgp1c2UgSWxsdW1pbmF0ZVxWaWV3XFZpZXc7CnVzZSBJbGx1bWluYXRlXEh0dHBcUmVkaXJlY3RSZXNwb25zZTsKdXNlIElsbHVtaW5hdGVcU3VwcG9ydFxGYWNhZGVzXEF1dGg7CnVzZSBQdGVyb2RhY3R5bFxNb2RlbHNcTG9jYXRp
-b247CnVzZSBQcm9sb2d1ZVxBbGVydHNcQWxlcnRzTWVzc2FnZUJhZzsKdXNlIElsbHVtaW5hdGVcVmlld1xGYWN0b3J5IGFzIFZpZXdGYWN0b3J5Owp1c2UgUHRlcm9kYWN0eWxcRXhjZXB0aW9uc1xEaXNwbGF5RXhjZXB0aW9uOwp1c2UgUHRlcm9kYWN0eWxcSHR0
-cFxDb250cm9sbGVyc1xDb250cm9sbGVyOwp1c2UgUHRlcm9kYWN0eWxcSHR0cFxSZXF1ZXN0c1xBZG1pblxMb2NhdGlvbkZvcm1SZXF1ZXN0Owp1c2UgUHRlcm9kYWN0eWxcU2VydmljZXNcTG9jYXRpb25zXExvY2F0aW9uVXBkYXRlU2VydmljZTsKdXNlIFB0ZXJv
-ZGFjdHlsXFNlcnZpY2VzXExvY2F0aW9uc1xMb2NhdGlvbkNyZWF0aW9uU2VydmljZTsKdXNlIFB0ZXJvZGFjdHlsXFNlcnZpY2VzXExvY2F0aW9uc1xMb2NhdGlvbkRlbGV0aW9uU2VydmljZTsKdXNlIFB0ZXJvZGFjdHlsXENvbnRyYWN0c1xSZXBvc2l0b3J5XExv
-Y2F0aW9uUmVwb3NpdG9yeUludGVyZmFjZTsKCmNsYXNzIExvY2F0aW9uQ29udHJvbGxlciBleHRlbmRzIENvbnRyb2xsZXIKewogICAgLyoqCiAgICAgKiBMb2NhdGlvbkNvbnRyb2xsZXIgY29uc3RydWN0b3IuCiAgICAgKi8KICAgIHB1YmxpYyBmdW5jdGlvbiBf
-X2NvbnN0cnVjdCgKICAgICAgICBwcm90ZWN0ZWQgQWxlcnRzTWVzc2FnZUJhZyAkYWxlcnQsCiAgICAgICAgcHJvdGVjdGVkIExvY2F0aW9uQ3JlYXRpb25TZXJ2aWNlICRjcmVhdGlvblNlcnZpY2UsCiAgICAgICAgcHJvdGVjdGVkIExvY2F0aW9uRGVsZXRpb25T
-ZXJ2aWNlICRkZWxldGlvblNlcnZpY2UsCiAgICAgICAgcHJvdGVjdGVkIExvY2F0aW9uUmVwb3NpdG9yeUludGVyZmFjZSAkcmVwb3NpdG9yeSwKICAgICAgICBwcm90ZWN0ZWQgTG9jYXRpb25VcGRhdGVTZXJ2aWNlICR1cGRhdGVTZXJ2aWNlLAogICAgICAgIHBy
-b3RlY3RlZCBWaWV3RmFjdG9yeSAkdmlldwogICAgKSB7CiAgICB9CgogICAgLyoqCiAgICAgKiBSZXR1cm4gdGhlIGxvY2F0aW9uIG92ZXJ2aWV3IHBhZ2UuCiAgICAgKi8KICAgIHB1YmxpYyBmdW5jdGlvbiBpbmRleCgpOiBWaWV3CiAgICB7CiAgICAgICAgLy8g
-8J+UkiBDZWdhaCBha3NlcyBzZWxhaW4gYWRtaW4gSUQgMQogICAgICAgICR1c2VyID0gQXV0aDo6dXNlcigpOwogICAgICAgIGlmICghJHVzZXIgfHwgJHVzZXItPmlkICE9PSAxKSB7CiAgICAgICAgICAgIGFib3J0KDQwMywgJ0pob25hbGV5IFByb3RlY3QgLSBB
-a3NlcyBkaXRvbGFrJyk7CiAgICAgICAgfQoKICAgICAgICByZXR1cm4gJHRoaXMtPnZpZXctPm1ha2UoJ2FkbWluLmxvY2F0aW9ucy5pbmRleCcsIFsKICAgICAgICAgICAgJ2xvY2F0aW9ucycgPT4gJHRoaXMtPnJlcG9zaXRvcnktPmdldEFsbFdpdGhEZXRhaWxz
-KCksCiAgICAgICAgXSk7CiAgICB9CgogICAgLyoqCiAgICAgKiBSZXR1cm4gdGhlIGxvY2F0aW9uIHZpZXcgcGFnZS4KICAgICAqCiAgICAgKiBAdGhyb3dzIFxQdGVyb2RhY3R5bFxFeGNlcHRpb25zXFJlcG9zaXRvcnlcUmVjb3JkTm90Rm91bmRFeGNlcHRpb24K
-ICAgICAqLwogICAgcHVibGljIGZ1bmN0aW9uIHZpZXcoaW50ICRpZCk6IFZpZXcKICAgIHsKICAgICAgICAvLyDwn5SSIENlZ2FoIGFrc2VzIHNlbGFpbiBhZG1pbiBJRCAxCiAgICAgICAgJHVzZXIgPSBBdXRoOjp1c2VyKCk7CiAgICAgICAgaWYgKCEkdXNlciB8
-fCAkdXNlci0+aWQgIT09IDEpIHsKICAgICAgICAgICAgYWJvcnQoNDAzLCAnSmhvbmFsZXkgUHJvdGVjdCAtIEFrc2VzIGRpdG9sYWsnKTsKICAgICAgICB9CgogICAgICAgIHJldHVybiAkdGhpcy0+dmlldy0+bWFrZSgnYWRtaW4ubG9jYXRpb25zLnZpZXcnLCBb
-CiAgICAgICAgICAgICdsb2NhdGlvbicgPT4gJHRoaXMtPnJlcG9zaXRvcnktPmdldFdpdGhOb2RlcygkaWQpLAogICAgICAgIF0pOwogICAgfQoKICAgIC8qKgogICAgICogSGFuZGxlIHJlcXVlc3QgdG8gY3JlYXRlIG5ldyBsb2NhdGlvbi4KICAgICAqCiAgICAg
-KiBAdGhyb3dzIFxUaHJvd2FibGUKICAgICAqLwogICAgcHVibGljIGZ1bmN0aW9uIGNyZWF0ZShMb2NhdGlvbkZvcm1SZXF1ZXN0ICRyZXF1ZXN0KTogUmVkaXJlY3RSZXNwb25zZQogICAgewogICAgICAgIC8vIPCflJIgQ2VnYWggYWtzZXMgc2VsYWluIGFkbWlu
-IElEIDEKICAgICAgICAkdXNlciA9IEF1dGg6OnVzZXIoKTsKICAgICAgICBpZiAoISR1c2VyIHx8ICR1c2VyLT5pZCAhPT0gMSkgewogICAgICAgICAgICBhYm9ydCg0MDMsICdKaG9uYWxleSBQcm90ZWN0IC0gQWtzZXMgZGl0b2xhaycpOwogICAgICAgIH0KCiAg
-ICAgICAgJGxvY2F0aW9uID0gJHRoaXMtPmNyZWF0aW9uU2VydmljZS0+aGFuZGxlKCRyZXF1ZXN0LT5ub3JtYWxpemUoKSk7CiAgICAgICAgJHRoaXMtPmFsZXJ0LT5zdWNjZXNzKCdMb2NhdGlvbiB3YXMgY3JlYXRlZCBzdWNjZXNzZnVsbHkuJyktPmZsYXNoKCk7
-CgogICAgICAgIHJldHVybiByZWRpcmVjdCgpLT5yb3V0ZSgnYWRtaW4ubG9jYXRpb25zLnZpZXcnLCAkbG9jYXRpb24tPmlkKTsKICAgIH0KCiAgICAvKioKICAgICAqIEhhbmRsZSByZXF1ZXN0IHRvIHVwZGF0ZSBvciBkZWxldGUgbG9jYXRpb24uCiAgICAgKgog
-ICAgICogQHRocm93cyBcVGhyb3dhYmxlCiAgICAgKi8KICAgIHB1YmxpYyBmdW5jdGlvbiB1cGRhdGUoTG9jYXRpb25Gb3JtUmVxdWVzdCAkcmVxdWVzdCwgTG9jYXRpb24gJGxvY2F0aW9uKTogUmVkaXJlY3RSZXNwb25zZQogICAgewogICAgICAgIC8vIPCflJIg
-Q2VnYWggYWtzZXMgc2VsYWluIGFkbWluIElEIDEKICAgICAgICAkdXNlciA9IEF1dGg6OnVzZXIoKTsKICAgICAgICBpZiAoISR1c2VyIHx8ICR1c2VyLT5pZCAhPT0gMSkgewogICAgICAgICAgICBhYm9ydCg0MDMsICdKaG9uYWxleSBQcm90ZWN0IC0gQWtzZXMg
-ZGl0b2xhaycpOwogICAgICAgIH0KCiAgICAgICAgaWYgKCRyZXF1ZXN0LT5pbnB1dCgnYWN0aW9uJykgPT09ICdkZWxldGUnKSB7CiAgICAgICAgICAgIHJldHVybiAkdGhpcy0+ZGVsZXRlKCRsb2NhdGlvbik7CiAgICAgICAgfQoKICAgICAgICAkdGhpcy0+dXBk
-YXRlU2VydmljZS0+aGFuZGxlKCRsb2NhdGlvbi0+aWQsICRyZXF1ZXN0LT5ub3JtYWxpemUoKSk7CiAgICAgICAgJHRoaXMtPmFsZXJ0LT5zdWNjZXNzKCdMb2NhdGlvbiB3YXMgdXBkYXRlZCBzdWNjZXNzZnVsbHkuJyktPmZsYXNoKCk7CgogICAgICAgIHJldHVy
-biByZWRpcmVjdCgpLT5yb3V0ZSgnYWRtaW4ubG9jYXRpb25zLnZpZXcnLCAkbG9jYXRpb24tPmlkKTsKICAgIH0KCiAgICAvKioKICAgICAqIERlbGV0ZSBhIGxvY2F0aW9uIGZyb20gdGhlIHN5c3RlbS4KICAgICAqCiAgICAgKiBAdGhyb3dzIFxFeGNlcHRpb24K
-ICAgICAqIEB0aHJvd3MgXFB0ZXJvZGFjdHlsXEV4Y2VwdGlvbnNcRGlzcGxheUV4Y2VwdGlvbgogICAgICovCiAgICBwdWJsaWMgZnVuY3Rpb24gZGVsZXRlKExvY2F0aW9uICRsb2NhdGlvbik6IFJlZGlyZWN0UmVzcG9uc2UKICAgIHsKICAgICAgICAvLyDwn5SS
-IENlZ2FoIGFrc2VzIHNlbGFpbiBhZG1pbiBJRCAxCiAgICAgICAgJHVzZXIgPSBBdXRoOjp1c2VyKCk7CiAgICAgICAgaWYgKCEkdXNlciB8fCAkdXNlci0+aWQgIT09IDEpIHsKICAgICAgICAgICAgYWJvcnQoNDAzLCAnSmhvbmFsZXkgUHJvdGVjdCAtIEFrc2Vz
-IGRpdG9sYWsnKTsKICAgICAgICB9CgogICAgICAgIHRyeSB7CiAgICAgICAgICAgICR0aGlzLT5kZWxldGlvblNlcnZpY2UtPmhhbmRsZSgkbG9jYXRpb24tPmlkKTsKICAgICAgICAgICAgcmV0dXJuIHJlZGlyZWN0KCktPnJvdXRlKCdhZG1pbi5sb2NhdGlvbnMn
-KTsKICAgICAgICB9IGNhdGNoIChEaXNwbGF5RXhjZXB0aW9uICRleCkgewogICAgICAgICAgICAkdGhpcy0+YWxlcnQtPmRhbmdlcigkZXgtPmdldE1lc3NhZ2UoKSktPmZsYXNoKCk7CiAgICAgICAgfQoKICAgICAgICByZXR1cm4gcmVkaXJlY3QoKS0+cm91dGUo
-J2FkbWluLmxvY2F0aW9ucy52aWV3JywgJGxvY2F0aW9uLT5pZCk7CiAgICB9Cn0KRU9GCgpjaG1vZCA2NDQgIiRSRU1PVEVfUEFUSCIKCiMgQXBwbHkgYnJhbmQgY3VzdG9taXphdGlvbgpzZWQgLWkgInN8SmhvbmFsZXkgUHJvdGVjdHwke0JSQU5EX1RFWFR9fGci
-ICIkUkVNT1RFX1BBVEgiIDI+L2Rldi9udWxsIHx8IHRydWUKc2VkIC1pICJzfEpob25hbGV5IFRlY2h8JHtCUkFORF9OQU1FfXxnIiAiJFJFTU9URV9QQVRIIiAyPi9kZXYvbnVsbCB8fCB0cnVlCgplY2hvICLinIUgUHJvdGVrc2kgQW50aSBBa3NlcyBMb2NhdGlv
-biBiZXJoYXNpbCBkaXBhc2FuZyEiCmVjaG8gIvCfk4IgTG9rYXNpIGZpbGU6ICRSRU1PVEVfUEFUSCIKZWNobyAi8J+Xgu+4jyBCYWNrdXAgZmlsZSBsYW1hOiAkQkFDS1VQX1BBVEggKGppa2Egc2ViZWx1bW55YSBhZGEpIgplY2hvICLwn5SSIEhhbnlhIEFkbWlu
-IChJRCAxKSB5YW5nIGJpc2EgaGFwdXMgc2VydmVyIGxhaW4uIgoKIyA9PT0gS1VTVE9NSVNBU0kgUEVTQU4gQUtTRVMgRElUT0xBSyAoZGFyaSBQcm90ZWN0IE1hbmFnZXIpID09PQppZiBbIC1uICIkREVOWV9NU0dfQURNSU4iIF0gJiYgWyAtZiAiJFJFTU9URV9Q
-QVRIIiBdOyB0aGVuCiAgcHl0aG9uMyAtICIkUkVNT1RFX1BBVEgiICIkREVOWV9NU0dfQURNSU4iIDw8ICdQWUFCT1JUJwppbXBvcnQgc3lzLCByZQpwYXRoLCBtc2cgPSBzeXMuYXJndlsxXSwgc3lzLmFyZ3ZbMl0Kd2l0aCBvcGVuKHBhdGgsICdyJywgZW5jb2Rp
-bmc9J3V0Zi04JykgYXMgZjoKICAgIGNvbnRlbnQgPSBmLnJlYWQoKQpuZXdfY29udGVudCA9IHJlLnN1YigKICAgIHIiYWJvcnRcKFxzKjQwM1xzKixccyooWydcIl0pKD86XFxcMXwoPyFcMSkuKSpcMVxzKlwpIiwKICAgICJhYm9ydCg0MDMsICIgKyByZXByKG1z
-ZykgKyAiKSIsCiAgICBjb250ZW50CikKaWYgbmV3X2NvbnRlbnQgIT0gY29udGVudDoKICAgIHdpdGggb3BlbihwYXRoLCAndycsIGVuY29kaW5nPSd1dGYtOCcpIGFzIGY6CiAgICAgICAgZi53cml0ZShuZXdfY29udGVudCkKICAgIHByaW50KCLinI/vuI8gIFBl
-c2FuIGFrc2VzIGRpdG9sYWsgZGlrdXN0b21pc2FzaTogIiArIG1zZykKUFlBQk9SVApmaQo=
-PROTECT3_B64
+      cat << 'PROTECT3_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+
+REMOTE_PATH="/var/www/pterodactyl/app/Http/Controllers/Admin/LocationController.php"
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+BACKUP_PATH="${REMOTE_PATH}.bak_${TIMESTAMP}"
+
+echo "🚀 Memasang proteksi Anti Akses Location..."
+
+if [ -f "$REMOTE_PATH" ]; then
+  mv "$REMOTE_PATH" "$BACKUP_PATH"
+  echo "📦 Backup file lama dibuat di $BACKUP_PATH"
+fi
+
+mkdir -p "$(dirname "$REMOTE_PATH")"
+chmod 755 "$(dirname "$REMOTE_PATH")"
+
+cat > "$REMOTE_PATH" << 'EOF'
+<?php
+
+namespace Pterodactyl\Http\Controllers\Admin;
+
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Pterodactyl\Models\Location;
+use Prologue\Alerts\AlertsMessageBag;
+use Illuminate\View\Factory as ViewFactory;
+use Pterodactyl\Exceptions\DisplayException;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Http\Requests\Admin\LocationFormRequest;
+use Pterodactyl\Services\Locations\LocationUpdateService;
+use Pterodactyl\Services\Locations\LocationCreationService;
+use Pterodactyl\Services\Locations\LocationDeletionService;
+use Pterodactyl\Contracts\Repository\LocationRepositoryInterface;
+
+class LocationController extends Controller
+{
+    /**
+     * LocationController constructor.
+     */
+    public function __construct(
+        protected AlertsMessageBag $alert,
+        protected LocationCreationService $creationService,
+        protected LocationDeletionService $deletionService,
+        protected LocationRepositoryInterface $repository,
+        protected LocationUpdateService $updateService,
+        protected ViewFactory $view
+    ) {
+    }
+
+    /**
+     * Return the location overview page.
+     */
+    public function index(): View
+    {
+        // 🔒 Cegah akses selain admin ID 1
+        $user = Auth::user();
+        if (!$user || $user->id !== 1) {
+            abort(403, 'FyzzModss Protect - Akses ditolak');
+        }
+
+        return $this->view->make('admin.locations.index', [
+            'locations' => $this->repository->getAllWithDetails(),
+        ]);
+    }
+
+    /**
+     * Return the location view page.
+     *
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     */
+    public function view(int $id): View
+    {
+        // 🔒 Cegah akses selain admin ID 1
+        $user = Auth::user();
+        if (!$user || $user->id !== 1) {
+            abort(403, 'FyzzModss Protect - Akses ditolak');
+        }
+
+        return $this->view->make('admin.locations.view', [
+            'location' => $this->repository->getWithNodes($id),
+        ]);
+    }
+
+    /**
+     * Handle request to create new location.
+     *
+     * @throws \Throwable
+     */
+    public function create(LocationFormRequest $request): RedirectResponse
+    {
+        // 🔒 Cegah akses selain admin ID 1
+        $user = Auth::user();
+        if (!$user || $user->id !== 1) {
+            abort(403, 'FyzzModss Protect - Akses ditolak');
+        }
+
+        $location = $this->creationService->handle($request->normalize());
+        $this->alert->success('Location was created successfully.')->flash();
+
+        return redirect()->route('admin.locations.view', $location->id);
+    }
+
+    /**
+     * Handle request to update or delete location.
+     *
+     * @throws \Throwable
+     */
+    public function update(LocationFormRequest $request, Location $location): RedirectResponse
+    {
+        // 🔒 Cegah akses selain admin ID 1
+        $user = Auth::user();
+        if (!$user || $user->id !== 1) {
+            abort(403, 'FyzzModss Protect - Akses ditolak');
+        }
+
+        if ($request->input('action') === 'delete') {
+            return $this->delete($location);
+        }
+
+        $this->updateService->handle($location->id, $request->normalize());
+        $this->alert->success('Location was updated successfully.')->flash();
+
+        return redirect()->route('admin.locations.view', $location->id);
+    }
+
+    /**
+     * Delete a location from the system.
+     *
+     * @throws \Exception
+     * @throws \Pterodactyl\Exceptions\DisplayException
+     */
+    public function delete(Location $location): RedirectResponse
+    {
+        // 🔒 Cegah akses selain admin ID 1
+        $user = Auth::user();
+        if (!$user || $user->id !== 1) {
+            abort(403, 'FyzzModss Protect - Akses ditolak');
+        }
+
+        try {
+            $this->deletionService->handle($location->id);
+            return redirect()->route('admin.locations');
+        } catch (DisplayException $ex) {
+            $this->alert->danger($ex->getMessage())->flash();
+        }
+
+        return redirect()->route('admin.locations.view', $location->id);
+    }
+}
+EOF
+
+chmod 644 "$REMOTE_PATH"
+
+# Apply brand customization
+sed -i "s|FyzzModss Protect|${BRAND_TEXT}|g" "$REMOTE_PATH" 2>/dev/null || true
+sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$REMOTE_PATH" 2>/dev/null || true
+
+echo "✅ Proteksi Anti Akses Location berhasil dipasang!"
+echo "📂 Lokasi file: $REMOTE_PATH"
+echo "🗂️ Backup file lama: $BACKUP_PATH (jika sebelumnya ada)"
+echo "🔒 Hanya Admin (ID 1) yang bisa hapus server lain."
+
+# === KUSTOMISASI PESAN AKSES DITOLAK (dari Protect Manager) ===
+if [ -n "$DENY_MSG_ADMIN" ] && [ -f "$REMOTE_PATH" ]; then
+  python3 - "$REMOTE_PATH" "$DENY_MSG_ADMIN" << 'PYABORT'
+import sys, re
+path, msg = sys.argv[1], sys.argv[2]
+with open(path, 'r', encoding='utf-8') as f:
+    content = f.read()
+new_content = re.sub(
+    r"abort\(\s*403\s*,\s*(['\"])(?:\\\1|(?!\1).)*\1\s*\)",
+    "abort(403, " + repr(msg) + ")",
+    content
+)
+if new_content != content:
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    print("✏️  Pesan akses ditolak dikustomisasi: " + msg)
+PYABORT
+fi
+PROTECT3_PLAIN
       ;;
     protect4)
-      cat << 'PROTECT4_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgoKUkVNT1RFX1BBVEg9Ii92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL0Nv
-bnRyb2xsZXJzL0FkbWluL05vZGVzL05vZGVDb250cm9sbGVyLnBocCIKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKQkFDS1VQX1BBVEg9IiR7UkVNT1RFX1BBVEh9LmJha18ke1RJTUVTVEFNUH0iCgplY2hvICLwn5qAIE1lbWFz
-YW5nIHByb3Rla3NpIEFudGkgQWtzZXMgTm9kZXMuLi4iCgppZiBbIC1mICIkUkVNT1RFX1BBVEgiIF07IHRoZW4KICBtdiAiJFJFTU9URV9QQVRIIiAiJEJBQ0tVUF9QQVRIIgogIGVjaG8gIvCfk6YgQmFja3VwIGZpbGUgbGFtYSBkaWJ1YXQgZGkgJEJBQ0tVUF9Q
-QVRIIgpmaQoKbWtkaXIgLXAgIiQoZGlybmFtZSAiJFJFTU9URV9QQVRIIikiCmNobW9kIDc1NSAiJChkaXJuYW1lICIkUkVNT1RFX1BBVEgiKSIKCmNhdCA+ICIkUkVNT1RFX1BBVEgiIDw8ICdFT0YnCjw/cGhwCgpuYW1lc3BhY2UgUHRlcm9kYWN0eWxcSHR0cFxD
-b250cm9sbGVyc1xBZG1pblxOb2RlczsKCnVzZSBJbGx1bWluYXRlXFZpZXdcVmlldzsKdXNlIElsbHVtaW5hdGVcSHR0cFxSZXF1ZXN0Owp1c2UgUHRlcm9kYWN0eWxcTW9kZWxzXE5vZGU7CnVzZSBTcGF0aWVcUXVlcnlCdWlsZGVyXFF1ZXJ5QnVpbGRlcjsKdXNl
-IFB0ZXJvZGFjdHlsXEh0dHBcQ29udHJvbGxlcnNcQ29udHJvbGxlcjsKdXNlIElsbHVtaW5hdGVcQ29udHJhY3RzXFZpZXdcRmFjdG9yeSBhcyBWaWV3RmFjdG9yeTsKdXNlIElsbHVtaW5hdGVcU3VwcG9ydFxGYWNhZGVzXEF1dGg7IC8vIOKchSB0YW1iYWhhbiB1
-bnR1ayBhbWJpbCB1c2VyIGxvZ2luCgpjbGFzcyBOb2RlQ29udHJvbGxlciBleHRlbmRzIENvbnRyb2xsZXIKewogICAgLyoqCiAgICAgKiBOb2RlQ29udHJvbGxlciBjb25zdHJ1Y3Rvci4KICAgICAqLwogICAgcHVibGljIGZ1bmN0aW9uIF9fY29uc3RydWN0KHBy
-aXZhdGUgVmlld0ZhY3RvcnkgJHZpZXcpCiAgICB7CiAgICB9CgogICAgLyoqCiAgICAgKiBSZXR1cm5zIGEgbGlzdGluZyBvZiBub2RlcyBvbiB0aGUgc3lzdGVtLgogICAgICovCiAgICBwdWJsaWMgZnVuY3Rpb24gaW5kZXgoUmVxdWVzdCAkcmVxdWVzdCk6IFZp
-ZXcKICAgIHsKICAgICAgICAvLyA9PT0g8J+UkiBGSVRVUiBUQU1CQUhBTjogQW50aSBha3NlcyBzZWxhaW4gYWRtaW4gSUQgMSA9PT0KICAgICAgICAkdXNlciA9IEF1dGg6OnVzZXIoKTsKICAgICAgICBpZiAoISR1c2VyIHx8ICR1c2VyLT5pZCAhPT0gMSkgewog
-ICAgICAgICAgICBhYm9ydCg0MDMsICfwn5qrIEFrc2VzIGRpdG9sYWshIEhhbnlhIGFkbWluIElEIDEgeWFuZyBkYXBhdCBtZW1idWthIG1lbnUgTm9kZXMuIMKpUHJvdGVjdCBCeSBKaG9uYWxleSBWMi4zJyk7CiAgICAgICAgfQogICAgICAgIC8vID09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQoKICAgICAgICAkbm9kZXMgPSBRdWVyeUJ1aWxkZXI6OmZvcigKICAgICAgICAgICAgTm9kZTo6cXVlcnkoKS0+d2l0aCgnbG9jYXRpb24nKS0+d2l0aENvdW50KCdzZXJ2ZXJzJykK
-ICAgICAgICApCiAgICAgICAgICAgIC0+YWxsb3dlZEZpbHRlcnMoWyd1dWlkJywgJ25hbWUnXSkKICAgICAgICAgICAgLT5hbGxvd2VkU29ydHMoWydpZCddKQogICAgICAgICAgICAtPnBhZ2luYXRlKDI1KTsKCiAgICAgICAgcmV0dXJuICR0aGlzLT52aWV3LT5t
-YWtlKCdhZG1pbi5ub2Rlcy5pbmRleCcsIFsnbm9kZXMnID0+ICRub2Rlc10pOwogICAgfQp9CkVPRgoKY2htb2QgNjQ0ICIkUkVNT1RFX1BBVEgiCgojIEFwcGx5IGJyYW5kIGN1c3RvbWl6YXRpb24Kc2VkIC1pICJzfFByb3RlY3QgQnkgSmhvbmFsZXl8JHtCUkFO
-RF9URVhUfXxnIiAiJFJFTU9URV9QQVRIIiAyPi9kZXYvbnVsbCB8fCB0cnVlCnNlZCAtaSAic3xKaG9uYWxleSBUZWNofCR7QlJBTkRfTkFNRX18ZyIgIiRSRU1PVEVfUEFUSCIgMj4vZGV2L251bGwgfHwgdHJ1ZQoKZWNobyAi4pyFIFByb3Rla3NpIEFudGkgQWtz
-ZXMgTm9kZXMgYmVyaGFzaWwgZGlwYXNhbmchIgplY2hvICLwn5OCIExva2FzaSBmaWxlOiAkUkVNT1RFX1BBVEgiCmVjaG8gIvCfl4LvuI8gQmFja3VwIGZpbGUgbGFtYTogJEJBQ0tVUF9QQVRIIChqaWthIHNlYmVsdW1ueWEgYWRhKSIKZWNobyAi8J+UkiBIYW55
-YSBBZG1pbiAoSUQgMSkgeWFuZyBiaXNhIEFrc2VzIE5vZGVzLiIKCiMgPT09IEtVU1RPTUlTQVNJIFBFU0FOIEFLU0VTIERJVE9MQUsgKGRhcmkgUHJvdGVjdCBNYW5hZ2VyKSA9PT0KaWYgWyAtbiAiJERFTllfTVNHX0FETUlOIiBdICYmIFsgLWYgIiRSRU1PVEVf
-UEFUSCIgXTsgdGhlbgogIHB5dGhvbjMgLSAiJFJFTU9URV9QQVRIIiAiJERFTllfTVNHX0FETUlOIiA8PCAnUFlBQk9SVCcKaW1wb3J0IHN5cywgcmUKcGF0aCwgbXNnID0gc3lzLmFyZ3ZbMV0sIHN5cy5hcmd2WzJdCndpdGggb3BlbihwYXRoLCAncicsIGVuY29k
-aW5nPSd1dGYtOCcpIGFzIGY6CiAgICBjb250ZW50ID0gZi5yZWFkKCkKbmV3X2NvbnRlbnQgPSByZS5zdWIoCiAgICByImFib3J0XChccyo0MDNccyosXHMqKFsnXCJdKSg/OlxcXDF8KD8hXDEpLikqXDFccypcKSIsCiAgICAiYWJvcnQoNDAzLCAiICsgcmVwciht
-c2cpICsgIikiLAogICAgY29udGVudAopCmlmIG5ld19jb250ZW50ICE9IGNvbnRlbnQ6CiAgICB3aXRoIG9wZW4ocGF0aCwgJ3cnLCBlbmNvZGluZz0ndXRmLTgnKSBhcyBmOgogICAgICAgIGYud3JpdGUobmV3X2NvbnRlbnQpCiAgICBwcmludCgi4pyP77iPICBQ
-ZXNhbiBha3NlcyBkaXRvbGFrIGRpa3VzdG9taXNhc2k6ICIgKyBtc2cpClBZQUJPUlQKZmkK
-PROTECT4_B64
+      cat << 'PROTECT4_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+
+REMOTE_PATH="/var/www/pterodactyl/app/Http/Controllers/Admin/Nodes/NodeController.php"
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+BACKUP_PATH="${REMOTE_PATH}.bak_${TIMESTAMP}"
+
+echo "🚀 Memasang proteksi Anti Akses Nodes..."
+
+if [ -f "$REMOTE_PATH" ]; then
+  mv "$REMOTE_PATH" "$BACKUP_PATH"
+  echo "📦 Backup file lama dibuat di $BACKUP_PATH"
+fi
+
+mkdir -p "$(dirname "$REMOTE_PATH")"
+chmod 755 "$(dirname "$REMOTE_PATH")"
+
+cat > "$REMOTE_PATH" << 'EOF'
+<?php
+
+namespace Pterodactyl\Http\Controllers\Admin\Nodes;
+
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Pterodactyl\Models\Node;
+use Spatie\QueryBuilder\QueryBuilder;
+use Pterodactyl\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Support\Facades\Auth; // ✅ tambahan untuk ambil user login
+
+class NodeController extends Controller
+{
+    /**
+     * NodeController constructor.
+     */
+    public function __construct(private ViewFactory $view)
+    {
+    }
+
+    /**
+     * Returns a listing of nodes on the system.
+     */
+    public function index(Request $request): View
+    {
+        // === 🔒 FITUR TAMBAHAN: Anti akses selain admin ID 1 ===
+        $user = Auth::user();
+        if (!$user || $user->id !== 1) {
+            abort(403, '🚫 Akses ditolak! Hanya admin ID 1 yang dapat membuka menu Nodes. ©Protect By FyzzModss V2.3');
+        }
+        // ======================================================
+
+        $nodes = QueryBuilder::for(
+            Node::query()->with('location')->withCount('servers')
+        )
+            ->allowedFilters(['uuid', 'name'])
+            ->allowedSorts(['id'])
+            ->paginate(25);
+
+        return $this->view->make('admin.nodes.index', ['nodes' => $nodes]);
+    }
+}
+EOF
+
+chmod 644 "$REMOTE_PATH"
+
+# Apply brand customization
+sed -i "s|Protect By FyzzModss|${BRAND_TEXT}|g" "$REMOTE_PATH" 2>/dev/null || true
+sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$REMOTE_PATH" 2>/dev/null || true
+
+echo "✅ Proteksi Anti Akses Nodes berhasil dipasang!"
+echo "📂 Lokasi file: $REMOTE_PATH"
+echo "🗂️ Backup file lama: $BACKUP_PATH (jika sebelumnya ada)"
+echo "🔒 Hanya Admin (ID 1) yang bisa Akses Nodes."
+
+# === KUSTOMISASI PESAN AKSES DITOLAK (dari Protect Manager) ===
+if [ -n "$DENY_MSG_ADMIN" ] && [ -f "$REMOTE_PATH" ]; then
+  python3 - "$REMOTE_PATH" "$DENY_MSG_ADMIN" << 'PYABORT'
+import sys, re
+path, msg = sys.argv[1], sys.argv[2]
+with open(path, 'r', encoding='utf-8') as f:
+    content = f.read()
+new_content = re.sub(
+    r"abort\(\s*403\s*,\s*(['\"])(?:\\\1|(?!\1).)*\1\s*\)",
+    "abort(403, " + repr(msg) + ")",
+    content
+)
+if new_content != content:
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    print("✏️  Pesan akses ditolak dikustomisasi: " + msg)
+PYABORT
+fi
+PROTECT4_PLAIN
       ;;
     protect5a)
-      cat << 'PROTECT5A_B64'
-IyEvYmluL2Jhc2gKCnNldCAtZQoKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhv
-bmFsZXl9IgpDT05UQUNUX1RFTEVHUkFNPSIke0NPTlRBQ1RfVEVMRUdSQU06LUBKaG9hbmxleXN0b3JlSWR9IgpCT1RfTElOSz0iJHtCT1RfTElOSzotQHVwZ3JhZGV1c2VyX2JvdH0iCldFTENPTUVfVElUTEU9IiR7V0VMQ09NRV9USVRMRTotV2VsY29tZSBUbyBT
-ZXJ2ZXIgJEJSQU5EX05BTUV9IgpXRUxDT01FX01FU1NBR0U9IiR7V0VMQ09NRV9NRVNTQUdFOi1CdXR1aCBwYW5lbCBsZWdhbCB5YW5nIGFudGkgbW9rYWQ/IGxhbmdzdW5nIGFqYSBrZSA8YSBocmVmPVwiaHR0cHM6Ly90Lm1lL3VwZ3JhZGV1c2VyX2JvdFwiPkB1
-cGdyYWRldXNlcl9ib3Q8L2E+LiBKYW5nYW4gTHVwYSBqb2luIENoYW5uZWwgPGEgaHJlZj1cImh0dHBzOi8vdC5tZS9qaG9uYWxleXRlc3RpM1wiPkBqaG9uYWxleXRlc3RpMzwvYT4ufSIKClRFTEVHUkFNX1VTRVJOQU1FPSIke0NPTlRBQ1RfVEVMRUdSQU0jQH0i
-CkJPVF9VU0VSTkFNRT0iJHtCT1RfTElOSyNAfSIKCmh0bWxfZXNjYXBlKCkgewogIHByaW50ZiAnJXMnICIkMSIgfCBzZWQgXAogICAgLWUgJ3MvJi9cJmFtcDsvZycgXAogICAgLWUgJ3MvPC9cJmx0Oy9nJyBcCiAgICAtZSAncy8+L1wmZ3Q7L2cnIFwKICAgIC1l
-ICdzLyIvXCZxdW90Oy9nJyBcCiAgICAtZSAicy8nL1wmIzM5Oy9nIgp9Cgpqc19lc2NhcGUoKSB7CiAgcHJpbnRmICclcycgIiQxIiB8IHNlZCBcCiAgICAtZSAncy9cXC9cXFxcL2cnIFwKICAgIC1lICJzLycvXFxcXCcvZyIKfQoKc2VkX2VzY2FwZSgpIHsKICBw
-cmludGYgJyVzJyAiJDEiIHwgc2VkIC1lICdzL1tcXC8mXS9cXCYvZycKfQoKQlJBTkRfTkFNRV9IVE1MPSQoaHRtbF9lc2NhcGUgIiRCUkFORF9OQU1FIikKQlJBTkRfVEVYVF9IVE1MPSQoaHRtbF9lc2NhcGUgIiRCUkFORF9URVhUIikKQ09OVEFDVF9URUxFR1JB
-TV9IVE1MPSQoaHRtbF9lc2NhcGUgIiRDT05UQUNUX1RFTEVHUkFNIikKQk9UX0xJTktfSFRNTD0kKGh0bWxfZXNjYXBlICIkQk9UX0xJTksiKQpCUkFORF9OQU1FX0pTPSQoanNfZXNjYXBlICIkQlJBTkRfTkFNRSIpCkNPTlRBQ1RfVEVMRUdSQU1fSlM9JChqc19l
-c2NhcGUgIiRDT05UQUNUX1RFTEVHUkFNIikKV0VMQ09NRV9USVRMRV9KUz0kKGpzX2VzY2FwZSAiJFdFTENPTUVfVElUTEUiKQpXRUxDT01FX01FU1NBR0VfSlM9JChqc19lc2NhcGUgIiRXRUxDT01FX01FU1NBR0UiKQpTQUZFX1RJVExFPSQoc2VkX2VzY2FwZSAi
-JHtQQU5FTF9USVRMRTotUHRlcm9kYWN0eWwgLSAkQlJBTkRfTkFNRX0iKQoKY2FuX21vZGlmeV9maWxlKCkgewogIGxvY2FsIGZpbGU9IiQxIgogIGlmIFsgLWYgIiRmaWxlIiBdICYmIFsgLXcgIiRmaWxlIiBdOyB0aGVuCiAgICByZXR1cm4gMAogIGZpCgogIGxv
-Y2FsIGRpcgogIGRpcj0kKGRpcm5hbWUgIiRmaWxlIikKICBbIC13ICIkZGlyIiBdCn0KCndyaXRlX3RlbXBfdG9fdGFyZ2V0KCkgewogIGxvY2FsIHRlbXBfZmlsZT0iJDEiCiAgbG9jYWwgdGFyZ2V0X2ZpbGU9IiQyIgogIGxvY2FsIGxhYmVsPSIkMyIKCiAgaWYg
-WyAtZiAiJHRhcmdldF9maWxlIiBdOyB0aGVuCiAgICBjaG1vZCB1K3cgIiR0YXJnZXRfZmlsZSIgMj4vZGV2L251bGwgfHwgdHJ1ZQogICAgY2hvd24gLS1yZWZlcmVuY2U9IiR0YXJnZXRfZmlsZSIgIiR0ZW1wX2ZpbGUiIDI+L2Rldi9udWxsIHx8IHRydWUKICAg
-IGNobW9kIC0tcmVmZXJlbmNlPSIkdGFyZ2V0X2ZpbGUiICIkdGVtcF9maWxlIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgZmkKCiAgaWYgY2F0ICIkdGVtcF9maWxlIiA+ICIkdGFyZ2V0X2ZpbGUiIDI+L2Rldi9udWxsOyB0aGVuCiAgICByZXR1cm4gMAogIGZpCgog
-IGlmIGNwICIkdGVtcF9maWxlIiAiJHRhcmdldF9maWxlIiAyPi9kZXYvbnVsbDsgdGhlbgogICAgcmV0dXJuIDAKICBmaQoKICBlY2hvICLimqDvuI8gVGlkYWsgYmlzYSBtZW51bGlzIGtlICRsYWJlbCwgc2tpcC4gQ2VrIHBlcm1pc3Npb24gZmlsZS9mb2xkZXIg
-dGFyZ2V0LiIKICByZXR1cm4gMQp9CgpyZW1vdmVfYmxvY2tfYnlfbWFya2VycygpIHsKICBsb2NhbCBmaWxlPSIkMSIKICBsb2NhbCBzdGFydF9tYXJrZXI9IiQyIgogIGxvY2FsIGVuZF9tYXJrZXI9IiQzIgogIGxvY2FsIHRtcF9maWxlCgogIGlmICEgY2FuX21v
-ZGlmeV9maWxlICIkZmlsZSI7IHRoZW4KICAgIGVjaG8gIuKaoO+4jyBTa2lwIGNsZWFudXAgYnJhbmRpbmcgZGkgJGZpbGUga2FyZW5hIHRpZGFrIHdyaXRhYmxlIgogICAgcmV0dXJuIDAKICBmaQoKICB0bXBfZmlsZT0kKG1rdGVtcCkKICBhd2sgLXYgc3RhcnQ9
-IiRzdGFydF9tYXJrZXIiIC12IGVuZD0iJGVuZF9tYXJrZXIiICcKICAgIGluZGV4KCQwLCBzdGFydCkgeyBza2lwPTE7IG5leHQgfQogICAgc2tpcCAmJiBpbmRleCgkMCwgZW5kKSB7IHNraXA9MDsgbmV4dCB9CiAgICAhc2tpcCB7IHByaW50IH0KICAnICIkZmls
-ZSIgPiAiJHRtcF9maWxlIgoKICB3cml0ZV90ZW1wX3RvX3RhcmdldCAiJHRtcF9maWxlIiAiJGZpbGUiICIkZmlsZSIgfHwgdHJ1ZQogIHJtIC1mICIkdG1wX2ZpbGUiCn0KCmNsZWFudXBfb2xkX2JyYW5kaW5nKCkgewogIGxvY2FsIGZpbGU9IiQxIgogIGxvY2Fs
-IHRtcF9maWxlCgogIGlmICEgY2FuX21vZGlmeV9maWxlICIkZmlsZSI7IHRoZW4KICAgIGVjaG8gIuKaoO+4jyBTa2lwIGJyYW5kaW5nIGNsZWFudXAgZGkgJGZpbGUga2FyZW5hIHRpZGFrIHdyaXRhYmxlIgogICAgcmV0dXJuIDAKICBmaQoKICByZW1vdmVfYmxv
-Y2tfYnlfbWFya2VycyAiJGZpbGUiICI8IS0tIEJSQU5ESU5HX0pIT05BTEVZX1NUQVJUIC0tPiIgIjwhLS0gQlJBTkRJTkdfSkhPTkFMRVlfRU5EIC0tPiIKICByZW1vdmVfYmxvY2tfYnlfbWFya2VycyAiJGZpbGUiICI8IS0tIEJSQU5ESU5HX0pIT05BTEVZOiBD
-dXN0b20gQnJhbmRpbmcgLS0+IiAiPC9zdHlsZT4iCgogIHRtcF9maWxlPSQobWt0ZW1wKQogIGF3ayAnCiAgICBCRUdJTiB7IHNraXA9MDsgZGVwdGg9MDsgc2Vlbl9kaXY9MCB9CiAgICAvPCEtLSBCUkFORElOR19KSE9OQUxFWTogRm9vdGVyIC0tPi8geyBza2lw
-PTE7IGRlcHRoPTA7IHNlZW5fZGl2PTA7IG5leHQgfQogICAgc2tpcCB7CiAgICAgIGxpbmU9JDAKICAgICAgb3BlbnM9Z3N1YigvPGRpdltePl0qPi8sICImIiwgbGluZSkKICAgICAgY2xvc2VzPWdzdWIoLzxcL2Rpdj4vLCAiJiIsIGxpbmUpCiAgICAgIGlmIChv
-cGVucyA+IDApIHsKICAgICAgICBkZXB0aCArPSBvcGVucwogICAgICAgIHNlZW5fZGl2ID0gMQogICAgICB9CiAgICAgIGlmIChjbG9zZXMgPiAwKSB7CiAgICAgICAgZGVwdGggLT0gY2xvc2VzCiAgICAgIH0KICAgICAgaWYgKHNlZW5fZGl2ICYmIGRlcHRoIDw9
-IDApIHsKICAgICAgICBza2lwPTAKICAgICAgfQogICAgICBuZXh0CiAgICB9CiAgICB7IHByaW50IH0KICAnICIkZmlsZSIgPiAiJHRtcF9maWxlIgoKICB3cml0ZV90ZW1wX3RvX3RhcmdldCAiJHRtcF9maWxlIiAiJGZpbGUiICIkZmlsZSIgfHwgdHJ1ZQogIHJt
-IC1mICIkdG1wX2ZpbGUiCn0KCmluamVjdF9iZWZvcmVfY2xvc2luZygpIHsKICBsb2NhbCBmaWxlPSIkMSIKICBsb2NhbCBzbmlwcGV0X2ZpbGU9IiQyIgogIGxvY2FsIGxhYmVsPSIkMyIKICBsb2NhbCB0bXBfZmlsZQoKICBpZiAhIGNhbl9tb2RpZnlfZmlsZSAi
-JGZpbGUiOyB0aGVuCiAgICBlY2hvICLimqDvuI8gU2tpcCBpbmplY3Qga2UgJGxhYmVsIGthcmVuYSBmaWxlIHRpZGFrIHdyaXRhYmxlIgogICAgcmV0dXJuIDAKICBmaQoKICB0bXBfZmlsZT0kKG1rdGVtcCkKCiAgaWYgZ3JlcCAtcSAiPC9ib2R5PiIgIiRmaWxl
-IjsgdGhlbgogICAgYXdrIC12IHNuaXBwZXQ9IiRzbmlwcGV0X2ZpbGUiICcKICAgICAgLzxcL2JvZHk+LyB7IHdoaWxlICgoZ2V0bGluZSBsaW5lIDwgc25pcHBldCkgPiAwKSBwcmludCBsaW5lOyBjbG9zZShzbmlwcGV0KSB9CiAgICAgIHsgcHJpbnQgfQogICAg
-JyAiJGZpbGUiID4gIiR0bXBfZmlsZSIKICAgIHdyaXRlX3RlbXBfdG9fdGFyZ2V0ICIkdG1wX2ZpbGUiICIkZmlsZSIgIiRsYWJlbCIgfHwgdHJ1ZQogICAgZWNobyAi4pyFIEtvbnRlbiBkaWluamVrc2kgc2ViZWx1bSA8L2JvZHk+IGRpICRsYWJlbCIKICBlbGlm
-IGdyZXAgLXEgIjwvaHRtbD4iICIkZmlsZSI7IHRoZW4KICAgIGF3ayAtdiBzbmlwcGV0PSIkc25pcHBldF9maWxlIiAnCiAgICAgIC88XC9odG1sPi8geyB3aGlsZSAoKGdldGxpbmUgbGluZSA8IHNuaXBwZXQpID4gMCkgcHJpbnQgbGluZTsgY2xvc2Uoc25pcHBl
-dCkgfQogICAgICB7IHByaW50IH0KICAgICcgIiRmaWxlIiA+ICIkdG1wX2ZpbGUiCiAgICB3cml0ZV90ZW1wX3RvX3RhcmdldCAiJHRtcF9maWxlIiAiJGZpbGUiICIkbGFiZWwiIHx8IHRydWUKICAgIGVjaG8gIuKchSBLb250ZW4gZGlpbmpla3NpIHNlYmVsdW0g
-PC9odG1sPiBkaSAkbGFiZWwiCiAgZWxzZQogICAgY2F0ICIkc25pcHBldF9maWxlIiA+ICIkdG1wX2ZpbGUiCiAgICBjYXQgIiRmaWxlIiA+PiAiJHRtcF9maWxlIgogICAgd3JpdGVfdGVtcF90b190YXJnZXQgIiR0bXBfZmlsZSIgIiRmaWxlIiAiJGxhYmVsIiB8
-fCB0cnVlCiAgICBlY2hvICLinIUgS29udGVuIGRpdGFtYmFoa2FuIGRpIGFraGlyICRsYWJlbCIKICBmaQoKICBybSAtZiAiJHRtcF9maWxlIgp9CgplY2hvICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IgplY2hvICLwn5SSIFBS
-T1RFQ1QgNUE6IFNlbWJ1bnlpa2FuICYgQmxvY2sgTWVudSBOZXN0cyIKZWNobyAiPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSIKZWNobyAiIgplY2hvICLwn5qAIE1lbWFzYW5nIHByb3Rla3NpIE5lc3RzIChTZW1idW55aWthbiAr
-IEJsb2NrIEFrc2VzKS4uLiIKZWNobyAiIgoKIyA9PT0gTEFOR0tBSCAxOiBSZXN0b3JlIE5lc3RDb250cm9sbGVyIGRhcmkgYmFja3VwIGFzbGkgPT09CkNPTlRST0xMRVI9Ii92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL0NvbnRyb2xsZXJzL0FkbWluL05l
-c3RzL05lc3RDb250cm9sbGVyLnBocCIKTEFURVNUX0JBQ0tVUD0kKGxzIC10ICIke0NPTlRST0xMRVJ9LmJha18iKiAyPi9kZXYvbnVsbCB8IHRhaWwgLTEpCgppZiBbIC1uICIkTEFURVNUX0JBQ0tVUCIgXTsgdGhlbgogIGNwICIkTEFURVNUX0JBQ0tVUCIgIiRD
-T05UUk9MTEVSIgogIGVjaG8gIvCfk6YgQ29udHJvbGxlciBkaS1yZXN0b3JlIGRhcmkgYmFja3VwIHBhbGluZyBhd2FsOiAkTEFURVNUX0JBQ0tVUCIKZWxzZQogIGVjaG8gIuKaoO+4jyBUaWRhayBhZGEgYmFja3VwLCBtZW5nZ3VuYWthbiBmaWxlIHNhYXQgaW5p
-IgpmaQoKY3AgIiRDT05UUk9MTEVSIiAiJHtDT05UUk9MTEVSfS5iYWtfJHtUSU1FU1RBTVB9IgoKIyA9PT0gTEFOR0tBSCAyOiBJbmplY3QgcHJvdGVrc2kga2UgTmVzdENvbnRyb2xsZXIgPT09CnB5dGhvbjMgPDwgJ1BZRU9GJwppbXBvcnQgcmUKCmNvbnRyb2xs
-ZXIgPSAiL3Zhci93d3cvcHRlcm9kYWN0eWwvYXBwL0h0dHAvQ29udHJvbGxlcnMvQWRtaW4vTmVzdHMvTmVzdENvbnRyb2xsZXIucGhwIgoKd2l0aCBvcGVuKGNvbnRyb2xsZXIsICJyIikgYXMgZjoKICAgIGNvbnRlbnQgPSBmLnJlYWQoKQoKaWYgIlBST1RFS1NJ
-X0pIT05BTEVZIiBpbiBjb250ZW50OgogICAgcHJpbnQoIuKaoO+4jyBQcm90ZWtzaSBzdWRhaCBhZGEgZGkgTmVzdENvbnRyb2xsZXIiKQogICAgZXhpdCgwKQoKaWYgInVzZSBJbGx1bWluYXRlXFxTdXBwb3J0XFxGYWNhZGVzXFxBdXRoOyIgbm90IGluIGNvbnRl
-bnQ6CiAgICBjb250ZW50ID0gY29udGVudC5yZXBsYWNlKAogICAgICAgICJ1c2UgUHRlcm9kYWN0eWxcXEh0dHBcXENvbnRyb2xsZXJzXFxDb250cm9sbGVyOyIsCiAgICAgICAgInVzZSBQdGVyb2RhY3R5bFxcSHR0cFxcQ29udHJvbGxlcnNcXENvbnRyb2xsZXI7
-XG51c2UgSWxsdW1pbmF0ZVxcU3VwcG9ydFxcRmFjYWRlc1xcQXV0aDsiCiAgICApCgpsaW5lcyA9IGNvbnRlbnQuc3BsaXQoIlxuIikKbmV3X2xpbmVzID0gW10KaSA9IDAKd2hpbGUgaSA8IGxlbihsaW5lcyk6CiAgICBsaW5lID0gbGluZXNbaV0KICAgIG5ld19s
-aW5lcy5hcHBlbmQobGluZSkKCiAgICBpZiByZS5zZWFyY2gocidwdWJsaWMgZnVuY3Rpb24gKD8hX19jb25zdHJ1Y3QpJywgbGluZSk6CiAgICAgICAgaiA9IGkKICAgICAgICB3aGlsZSBqIDwgbGVuKGxpbmVzKSBhbmQgJ3snIG5vdCBpbiBsaW5lc1tqXToKICAg
-ICAgICAgICAgaiArPSAxCiAgICAgICAgICAgIGlmIGogPiBpOgogICAgICAgICAgICAgICAgbmV3X2xpbmVzLmFwcGVuZChsaW5lc1tqXSkKCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICAvLyBQUk9URUtTSV9KSE9OQUxFWTogSGFueWEgYWRtaW4g
-SUQgMSIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICBpZiAoIUF1dGg6OnVzZXIoKSB8fCAoaW50KSBBdXRoOjp1c2VyKCktPmlkICE9PSAxKSB7IikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgICAgICBhYm9ydCg0MDMsICdBa3Nl
-cyBkaXRvbGFrIC0gcHJvdGVjdCBieSBKaG9uYWxleSBUZWNoJyk7IikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgIH0iKQoKICAgICAgICBpZiBqID4gaToKICAgICAgICAgICAgaSA9IGoKICAgIGkgKz0gMQoKd2l0aCBvcGVuKGNvbnRyb2xsZXIs
-ICJ3IikgYXMgZjoKICAgIGYud3JpdGUoIlxuIi5qb2luKG5ld19saW5lcykpCgpwcmludCgi4pyFIFByb3Rla3NpIGJlcmhhc2lsIGRpaW5qZWtzaSBrZSBOZXN0Q29udHJvbGxlciIpClBZRU9GCgplY2hvICIiCmVjaG8gIvCfk4sgVmVyaWZpa2FzaSBOZXN0Q29u
-dHJvbGxlciAoY2FyaSBQUk9URUtTSSk6IgpncmVwIC1uICJQUk9URUtTSV9KSE9OQUxFWSIgIiRDT05UUk9MTEVSIgplY2hvICIiCgojID09PSBMQU5HS0FIIDM6IFByb3Rla3NpIGp1Z2EgRWdnQ29udHJvbGxlciAoaGFsYW1hbiBlZ2cgZGkgZGFsYW0gbmVzdCkg
-PT09CkVHR19DT05UUk9MTEVSPSIvdmFyL3d3dy9wdGVyb2RhY3R5bC9hcHAvSHR0cC9Db250cm9sbGVycy9BZG1pbi9OZXN0cy9FZ2dDb250cm9sbGVyLnBocCIKaWYgWyAtZiAiJEVHR19DT05UUk9MTEVSIiBdOyB0aGVuCiAgaWYgISBncmVwIC1xICJQUk9URUtT
-SV9KSE9OQUxFWSIgIiRFR0dfQ09OVFJPTExFUiI7IHRoZW4KICAgIGNwICIkRUdHX0NPTlRST0xMRVIiICIke0VHR19DT05UUk9MTEVSfS5iYWtfJHtUSU1FU1RBTVB9IgoKICAgIHB5dGhvbjMgPDwgJ1BZRU9GMicKaW1wb3J0IHJlCgpjb250cm9sbGVyID0gIi92
-YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL0NvbnRyb2xsZXJzL0FkbWluL05lc3RzL0VnZ0NvbnRyb2xsZXIucGhwIgoKd2l0aCBvcGVuKGNvbnRyb2xsZXIsICJyIikgYXMgZjoKICAgIGNvbnRlbnQgPSBmLnJlYWQoKQoKaWYgIlBST1RFS1NJX0pIT05BTEVZ
-IiBpbiBjb250ZW50OgogICAgcHJpbnQoIuKaoO+4jyBTdWRhaCBhZGEgcHJvdGVrc2kgZGkgRWdnQ29udHJvbGxlciIpCiAgICBleGl0KDApCgppZiAidXNlIElsbHVtaW5hdGVcXFN1cHBvcnRcXEZhY2FkZXNcXEF1dGg7IiBub3QgaW4gY29udGVudDoKICAgIGNv
-bnRlbnQgPSBjb250ZW50LnJlcGxhY2UoCiAgICAgICAgInVzZSBQdGVyb2RhY3R5bFxcSHR0cFxcQ29udHJvbGxlcnNcXENvbnRyb2xsZXI7IiwKICAgICAgICAidXNlIFB0ZXJvZGFjdHlsXFxIdHRwXFxDb250cm9sbGVyc1xcQ29udHJvbGxlcjtcbnVzZSBJbGx1
-bWluYXRlXFxTdXBwb3J0XFxGYWNhZGVzXFxBdXRoOyIKICAgICkKCmxpbmVzID0gY29udGVudC5zcGxpdCgiXG4iKQpuZXdfbGluZXMgPSBbXQppID0gMAp3aGlsZSBpIDwgbGVuKGxpbmVzKToKICAgIGxpbmUgPSBsaW5lc1tpXQogICAgbmV3X2xpbmVzLmFwcGVu
-ZChsaW5lKQoKICAgIGlmIHJlLnNlYXJjaChyJ3B1YmxpYyBmdW5jdGlvbiAoPyFfX2NvbnN0cnVjdCknLCBsaW5lKToKICAgICAgICBqID0gaQogICAgICAgIHdoaWxlIGogPCBsZW4obGluZXMpIGFuZCAneycgbm90IGluIGxpbmVzW2pdOgogICAgICAgICAgICBq
-ICs9IDEKICAgICAgICAgICAgaWYgaiA+IGk6CiAgICAgICAgICAgICAgICBuZXdfbGluZXMuYXBwZW5kKGxpbmVzW2pdKQoKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgIC8vIFBST1RFS1NJX0pIT05BTEVZOiBIYW55YSBhZG1pbiBJRCAxIikKICAg
-ICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgIGlmICghQXV0aDo6dXNlcigpIHx8IChpbnQpIEF1dGg6OnVzZXIoKS0+aWQgIT09IDEpIHsiKQogICAgICAgIG5ld19saW5lcy5hcHBlbmQoIiAgICAgICAgICAgIGFib3J0KDQwMywgJ0Frc2VzIGRpdG9sYWsg
-LSBwcm90ZWN0IGJ5IEpob25hbGV5IFRlY2gnKTsiKQogICAgICAgIG5ld19saW5lcy5hcHBlbmQoIiAgICAgICAgfSIpCgogICAgICAgIGlmIGogPiBpOgogICAgICAgICAgICBpID0gagogICAgaSArPSAxCgp3aXRoIG9wZW4oY29udHJvbGxlciwgInciKSBhcyBm
-OgogICAgZi53cml0ZSgiXG4iLmpvaW4obmV3X2xpbmVzKSkKCnByaW50KCLinIUgRWdnQ29udHJvbGxlciBqdWdhIGRpcHJvdGVrc2kiKQpQWUVPRjIKICBlbHNlCiAgICBlY2hvICLimqDvuI8gRWdnQ29udHJvbGxlciBzdWRhaCBkaXByb3Rla3NpIgogIGZpCmZp
-CgojID09PSBMQU5HS0FIIDQ6IFNlbWJ1bnlpa2FuIG1lbnUgTmVzdHMgZGkgc2lkZWJhciA9PT0KZWNobyAi8J+UpyBNZW55ZW1idW55aWthbiBtZW51IE5lc3RzIGRhcmkgc2lkZWJhci4uLiIKClNJREVCQVJfRklMRVM9KAogICIvdmFyL3d3dy9wdGVyb2RhY3R5
-bC9yZXNvdXJjZXMvdmlld3MvcGFydGlhbHMvYWRtaW4vc2lkZWJhci5ibGFkZS5waHAiCiAgIi92YXIvd3d3L3B0ZXJvZGFjdHlsL3Jlc291cmNlcy92aWV3cy9sYXlvdXRzL2FkbWluLmJsYWRlLnBocCIKICAiL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2Vz
-L3ZpZXdzL2xheW91dHMvYXBwLmJsYWRlLnBocCIKKQoKU0lERUJBUl9GT1VORD0iIgpmb3IgU0YgaW4gIiR7U0lERUJBUl9GSUxFU1tAXX0iOyBkbwogIGlmIFsgLWYgIiRTRiIgXSAmJiBncmVwIC1xICJhZG1pbi5uZXN0cyIgIiRTRiIgMj4vZGV2L251bGw7IHRo
-ZW4KICAgIFNJREVCQVJfRk9VTkQ9IiRTRiIKICAgIGJyZWFrCiAgZmkKZG9uZQoKaWYgWyAteiAiJFNJREVCQVJfRk9VTkQiIF07IHRoZW4KICBTSURFQkFSX0ZPVU5EPSQoZ3JlcCAtcmwgImFkbWluLm5lc3RzIiAvdmFyL3d3dy9wdGVyb2RhY3R5bC9yZXNvdXJj
-ZXMvdmlld3MvcGFydGlhbHMvIDI+L2Rldi9udWxsIHwgaGVhZCAtMSkKICBpZiBbIC16ICIkU0lERUJBUl9GT1VORCIgXTsgdGhlbgogICAgU0lERUJBUl9GT1VORD0kKGdyZXAgLXJsICJhZG1pbi5uZXN0cyIgL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2Vz
-L3ZpZXdzL2xheW91dHMvIDI+L2Rldi9udWxsIHwgaGVhZCAtMSkKICBmaQpmaQoKaWYgWyAtbiAiJFNJREVCQVJfRk9VTkQiIF07IHRoZW4KICBlY2hvICLwn5OCIFNpZGViYXIgZGl0ZW11a2FuOiAkU0lERUJBUl9GT1VORCIKCiAgZWNobyAi8J+TiyBCYXJpcyB0
-ZXJrYWl0IE5lc3RzIGRpIHNpZGViYXI6IgogIGdyZXAgLW4gLWkgIm5lc3QiICIkU0lERUJBUl9GT1VORCIgfCBoZWFkIC0xMAogIGVjaG8gIiIKCiAgaWYgISBjYW5fbW9kaWZ5X2ZpbGUgIiRTSURFQkFSX0ZPVU5EIjsgdGhlbgogICAgZWNobyAi4pqg77iPIFNp
-ZGViYXIgdGlkYWsgd3JpdGFibGUsIHNraXAgc2VtYnVueWlrYW4gbWVudSBOZXN0cy4iCiAgZWxzZQogICAgY3AgIiRTSURFQkFSX0ZPVU5EIiAiJHtTSURFQkFSX0ZPVU5EfS5iYWtfJHtUSU1FU1RBTVB9IiAyPi9kZXYvbnVsbCB8fCB0cnVlCgogICAgU0lERUJB
-Ul9URU1QPSQobWt0ZW1wKQogICAgZXhwb3J0IFNJREVCQVJfRk9VTkQgU0lERUJBUl9URU1QCiAgICBweXRob24zIDw8ICdQWUVPRjMnCmltcG9ydCBvcwoKc2lkZWJhciA9IG9zLmVudmlyb25bIlNJREVCQVJfRk9VTkQiXQpzaWRlYmFyX3RlbXAgPSBvcy5lbnZp
-cm9uWyJTSURFQkFSX1RFTVAiXQoKd2l0aCBvcGVuKHNpZGViYXIsICJyIikgYXMgZjoKICAgIGNvbnRlbnQgPSBmLnJlYWQoKQoKaWYgIlBST1RFS1NJX05FU1RTX1NJREVCQVIiIGluIGNvbnRlbnQ6CiAgICBwcmludCgi4pqg77iPIFNpZGViYXIgTmVzdHMgc3Vk
-YWggZGlwcm90ZWtzaSIpCiAgICByYWlzZSBTeXN0ZW1FeGl0KDApCgpsaW5lcyA9IGNvbnRlbnQuc3BsaXQoIlxuIikKbmV3X2xpbmVzID0gW10KaSA9IDAKCndoaWxlIGkgPCBsZW4obGluZXMpOgogICAgbGluZSA9IGxpbmVzW2ldCgogICAgaWYgKCdhZG1pbi5u
-ZXN0cycgaW4gbGluZSBvciAicm91dGUoJ2FkbWluLm5lc3RzJykiIGluIGxpbmUpIGFuZCAnYWRtaW4ubmVzdHMudmlldycgbm90IGluIGxpbmUgYW5kICdhZG1pbi5uZXN0cy5lZ2cnIG5vdCBpbiBsaW5lOgogICAgICAgIGxpX3N0YXJ0ID0gbGVuKG5ld19saW5l
-cykgLSAxCiAgICAgICAgd2hpbGUgbGlfc3RhcnQgPj0gMCBhbmQgJzxsaScgbm90IGluIG5ld19saW5lc1tsaV9zdGFydF06CiAgICAgICAgICAgIGxpX3N0YXJ0IC09IDEKCiAgICAgICAgaWYgbGlfc3RhcnQgPj0gMDoKICAgICAgICAgICAgbmV3X2xpbmVzLmlu
-c2VydChsaV9zdGFydCwgInt7LS0gUFJPVEVLU0lfTkVTVFNfU0lERUJBUiAtLX19IikKICAgICAgICAgICAgbmV3X2xpbmVzLmluc2VydChsaV9zdGFydCwgIkBpZigoaW50KSBBdXRoOjp1c2VyKCktPmlkID09PSAxKSIpCgogICAgICAgICAgICBuZXdfbGluZXMu
-YXBwZW5kKGxpbmUpCiAgICAgICAgICAgIGkgKz0gMQoKICAgICAgICAgICAgbGlfZGVwdGggPSAxCiAgICAgICAgICAgIHdoaWxlIGkgPCBsZW4obGluZXMpIGFuZCBsaV9kZXB0aCA+IDA6CiAgICAgICAgICAgICAgICBjdXJyID0gbGluZXNbaV0KICAgICAgICAg
-ICAgICAgIGxpX2RlcHRoICs9IGN1cnIuY291bnQoJzxsaScpIC0gY3Vyci5jb3VudCgnPC9saScpCiAgICAgICAgICAgICAgICBuZXdfbGluZXMuYXBwZW5kKGN1cnIpCiAgICAgICAgICAgICAgICBpICs9IDEKCiAgICAgICAgICAgIG5ld19saW5lcy5hcHBlbmQo
-IkBlbmRpZiIpCiAgICAgICAgICAgIGNvbnRpbnVlCgogICAgbmV3X2xpbmVzLmFwcGVuZChsaW5lKQogICAgaSArPSAxCgp3aXRoIG9wZW4oc2lkZWJhcl90ZW1wLCAidyIpIGFzIGY6CiAgICBmLndyaXRlKCJcbiIuam9pbihuZXdfbGluZXMpKQoKcHJpbnQoIuKc
-hSBUZW1wIHNpZGViYXIgYmVyaGFzaWwgZGlidWF0IikKUFlFT0YzCgogICAgaWYgd3JpdGVfdGVtcF90b190YXJnZXQgIiRTSURFQkFSX1RFTVAiICIkU0lERUJBUl9GT1VORCIgIiRTSURFQkFSX0ZPVU5EIjsgdGhlbgogICAgICBlY2hvICLinIUgTWVudSBOZXN0
-cyBkaXNlbWJ1bnlpa2FuIGRhcmkgc2lkZWJhciIKICAgIGVsc2UKICAgICAgZWNobyAi4pqg77iPIEdhZ2FsIG1lbnVsaXMgcGVydWJhaGFuIHNpZGViYXIsIHNraXAgbGFuZ2thaCBzZW1idW55aWthbiBtZW51LiIKICAgIGZpCgogICAgcm0gLWYgIiRTSURFQkFS
-X1RFTVAiCiAgZmkKZWxzZQogIGVjaG8gIuKaoO+4jyBGaWxlIHNpZGViYXIgdGlkYWsgZGl0ZW11a2FuLiIKZmkKCiMgPT09IExBTkdLQUggNTogQ2FjaGUgY2xlYXIgZGktaGFuZGxlIG9sZWggY29udHJvbGxlciA9PT0KZWNobyAi4oS577iPIENhY2hlIGNsZWFy
-IGFrYW4gZGlsYWt1a2FuIG9sZWggUHJvdGVjdCBNYW5hZ2VyIGNvbnRyb2xsZXIgc2V0ZWxhaCBpbnN0YWxsIHNlbGVzYWkiCgplY2hvICIiCmVjaG8gIj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0iCmVjaG8gIuKchSBQcm90ZWtz
-aSBOZXN0cyBMRU5HS0FQIHNlbGVzYWkhIgplY2hvICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IgplY2hvICLwn5SSIE1lbnUgTmVzdHMgZGlzZW1idW55aWthbiBkYXJpIHNpZGViYXIgKHNlbGFpbiBJRCAxKSIKZWNobyAi8J+U
-kiBBa3NlcyAvYWRtaW4vbmVzdHMgZGlibG9jayAoc2VsYWluIElEIDEpIgplY2hvICLwn5SSIEFrc2VzIC9hZG1pbi9uZXN0cy92aWV3LyogZGlibG9jayAoc2VsYWluIElEIDEpIgplY2hvICLwn5SSIEVnZ0NvbnRyb2xsZXIganVnYSBkaXByb3Rla3NpIgplY2hv
-ICLwn5qAIFBhbmVsIHRldGFwIG5vcm1hbCwgc2VydmVyIHRldGFwIGphbGFuIgplY2hvICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IgplY2hvICIiCmVjaG8gIuKaoO+4jyBKaWthIGFkYSBtYXNhbGFoLCByZXN0b3JlOiIKZWNo
-byAiICAgY3AgJHtDT05UUk9MTEVSfS5iYWtfJHtUSU1FU1RBTVB9ICRDT05UUk9MTEVSIgppZiBbIC1uICIkU0lERUJBUl9GT1VORCIgXTsgdGhlbgogIGVjaG8gIiAgIGNwICR7U0lERUJBUl9GT1VORH0uYmFrXyR7VElNRVNUQU1QfSAkU0lERUJBUl9GT1VORCIK
-ZmkKZWNobyAiICAgY2QgL3Zhci93d3cvcHRlcm9kYWN0eWwgJiYgcGhwIGFydGlzYW4gdmlldzpjbGVhciAmJiBwaHAgYXJ0aXNhbiByb3V0ZTpjbGVhciIKCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PQojIFJFLUlOSkVDVCBTSURFQkFSIFBST1RFQ1QgTUFOQUdFUiAoamlrYSBoaWxhbmcgc2V0ZWxhaCBtb2RpZmlrYXNpIGFkbWluLmJsYWRlLnBocCkKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09CkFETUlOX0xBWU9VVD0iIgpmb3IgQ0FORElEQVRFIGluIFwKICAiL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2VzL3ZpZXdzL3BhcnRpYWxzL2FkbWluL3NpZGViYXIuYmxhZGUucGhwIiBcCiAgIi92YXIvd3d3L3B0ZXJvZGFjdHls
-L3Jlc291cmNlcy92aWV3cy9sYXlvdXRzL2FkbWluLmJsYWRlLnBocCIgXAogICIvdmFyL3d3dy9wdGVyb2RhY3R5bC9yZXNvdXJjZXMvdmlld3MvbGF5b3V0cy9hcHAuYmxhZGUucGhwIjsgZG8KICBpZiBbIC1mICIkQ0FORElEQVRFIiBdOyB0aGVuCiAgICBBRE1J
-Tl9MQVlPVVQ9IiRDQU5ESURBVEUiCiAgICBicmVhawogIGZpCmRvbmUKCmlmIFsgLWYgIiRBRE1JTl9MQVlPVVQiIF0gJiYgISBncmVwIC1xICJQUk9URUtTSV9KSE9OQUxFWV9NQVNURVJfU0lERUJBUiIgIiRBRE1JTl9MQVlPVVQiIDI+L2Rldi9udWxsOyB0aGVu
-CiAgZWNobyAi8J+UpyBSZS1pbmplY3Qgc2lkZWJhciBQcm90ZWN0IE1hbmFnZXIuLi4iCgogIFNJREVCQVJfU05JUFBFVD0kKG1rdGVtcCkKICBjYXQgPiAiJFNJREVCQVJfU05JUFBFVCIgPDwgJ1NJREVCQVJfUE1fRU9GJwogICAgICAgICAgICAgICAge3stLSBQ
-Uk9URUtTSV9KSE9OQUxFWV9NQVNURVJfU0lERUJBUjogUHJvdGVjdCBNYW5hZ2VyIE1lbnUgLS19fQogICAgICAgICAgICAgICAgQGlmKEF1dGg6OnVzZXIoKSAmJiBBdXRoOjp1c2VyKCktPmlkID09PSAxKQogICAgICAgICAgICAgICAgPGxpIGNsYXNzPSJ7eyBS
-b3V0ZTo6Y3VycmVudFJvdXRlTmFtZSgpID09PSAnYWRtaW4ucHJvdGVjdC1tYW5hZ2VyJyA/ICdhY3RpdmUnIDogJycgfX0iPgogICAgICAgICAgICAgICAgICAgIDxhIGhyZWY9Int7IHJvdXRlKCdhZG1pbi5wcm90ZWN0LW1hbmFnZXInKSB9fSI+CiAgICAgICAg
-ICAgICAgICAgICAgICAgIDxpIGNsYXNzPSJmYSBmYS1zaGllbGQiPjwvaT4gPHNwYW4+UHJvdGVjdCBNYW5hZ2VyPC9zcGFuPgogICAgICAgICAgICAgICAgICAgIDwvYT4KICAgICAgICAgICAgICAgIDwvbGk+CiAgICAgICAgICAgICAgICBAZW5kaWYKICAgICAg
-ICAgICAgICAgIHt7LS0gRU5EIFBST1RFS1NJX0pIT05BTEVZX01BU1RFUl9TSURFQkFSIC0tfX0KU0lERUJBUl9QTV9FT0YKCiAgSU5TRVJUX0xJTkU9IiIKICBTRVRUSU5HU19MSU5FPSQoZ3JlcCAtbiAiYWRtaW4uc2V0dGluZ3NcfENvbmZpZ3VyYXRpb25cfFNl
-dHRpbmdzXHxzZXR0aW5ncyIgIiRBRE1JTl9MQVlPVVQiIDI+L2Rldi9udWxsIHwgaGVhZCAtMSB8IGN1dCAtZDogLWYxKQogIGlmIFsgLW4gIiRTRVRUSU5HU19MSU5FIiBdOyB0aGVuCiAgICBJTlNFUlRfTElORT0kKChTRVRUSU5HU19MSU5FIC0gMSkpCiAgICB3
-aGlsZSBbICIkSU5TRVJUX0xJTkUiIC1ndCAwIF07IGRvCiAgICAgIGlmIHNlZCAtbiAiJHtJTlNFUlRfTElORX1wIiAiJEFETUlOX0xBWU9VVCIgfCBncmVwIC1xICI8bGkiOyB0aGVuCiAgICAgICAgYnJlYWsKICAgICAgZmkKICAgICAgSU5TRVJUX0xJTkU9JCgo
-SU5TRVJUX0xJTkUgLSAxKSkKICAgIGRvbmUKICBmaQoKICBpZiBbIC16ICIkSU5TRVJUX0xJTkUiIF0gfHwgWyAiJElOU0VSVF9MSU5FIiAtbGUgMCBdOyB0aGVuCiAgICBJTlNFUlRfTElORT0kKGdyZXAgLW4gIjwvdWw+IiAiJEFETUlOX0xBWU9VVCIgfCB0YWls
-IC0xIHwgY3V0IC1kOiAtZjEpCiAgICBpZiBbIC1uICIkSU5TRVJUX0xJTkUiIF07IHRoZW4KICAgICAgSU5TRVJUX0xJTkU9JCgoSU5TRVJUX0xJTkUgLSAxKSkKICAgIGZpCiAgZmkKCiAgaWYgWyAtbiAiJElOU0VSVF9MSU5FIiBdICYmIFsgIiRJTlNFUlRfTElO
-RSIgLWd0IDAgXTsgdGhlbgogICAgVEVNUF9MQVlPVVQ9JChta3RlbXApCiAgICBoZWFkIC1uICIkSU5TRVJUX0xJTkUiICIkQURNSU5fTEFZT1VUIiA+ICIkVEVNUF9MQVlPVVQiCiAgICBjYXQgIiRTSURFQkFSX1NOSVBQRVQiID4+ICIkVEVNUF9MQVlPVVQiCiAg
-ICB0YWlsIC1uICsiJCgoSU5TRVJUX0xJTkUgKyAxKSkiICIkQURNSU5fTEFZT1VUIiA+PiAiJFRFTVBfTEFZT1VUIgogICAgaWYgY2F0ICIkVEVNUF9MQVlPVVQiID4gIiRBRE1JTl9MQVlPVVQiIDI+L2Rldi9udWxsOyB0aGVuCiAgICAgIGVjaG8gIuKchSBTaWRl
-YmFyIFByb3RlY3QgTWFuYWdlciBiZXJoYXNpbCBkaS1yZS1pbmplY3QiCiAgICBlbHNlCiAgICAgIGVjaG8gIuKaoO+4jyBHYWdhbCByZS1pbmplY3Qgc2lkZWJhciwgc2tpcCIKICAgIGZpCiAgICBybSAtZiAiJFRFTVBfTEFZT1VUIgogIGVsc2UKICAgIGVjaG8g
-IuKaoO+4jyBUaWRhayBiaXNhIG1lbmVtdWthbiBwb3Npc2kgc2lkZWJhciB1bnR1ayByZS1pbmplY3QiCiAgZmkKICBybSAtZiAiJFNJREVCQVJfU05JUFBFVCIKZmkKCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PQojIENMRUFSIENBQ0hFIC0gcGFrc2EgY2xlYXIgZGkgc2luaSBhZ2FyIHdlbGNvbWUgYmFubmVyIGxhbmdzdW5nIHRhbXBpbAojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT0KaWYgWyAtZCAvdmFyL3d3dy9wdGVyb2RhY3R5bCBdOyB0aGVuCiAgY2QgL3Zhci93d3cvcHRlcm9kYWN0eWwKICBwaHAgYXJ0aXNhbiB2aWV3OmNsZWFyIDI+L2Rldi9udWxsIHx8IHRydWUKICBwaHAgYXJ0aXNhbiBjYWNoZTpjbGVhciAyPi9kZXYv
-bnVsbCB8fCB0cnVlCiAgcm0gLXJmIC92YXIvd3d3L3B0ZXJvZGFjdHlsL3N0b3JhZ2UvZnJhbWV3b3JrL3ZpZXdzLyoucGhwIDI+L2Rldi9udWxsIHx8IHRydWUKICBlY2hvICLinIUgVmlldyAmIGNvbXBpbGVkIGJsYWRlIGNhY2hlIGRpYmVyc2loa2FuIgpmaQoK
-CmVjaG8gIiIKZWNobyAi4pyFIFBST1RFQ1QgNUEgU0VMRVNBSTogTWVudSBOZXN0cyBkaXNlbWJ1bnlpa2FuICYgZGlibG9raXIgKHNlbGFpbiBJRCAxKSIKCiMgPT09IEtVU1RPTUlTQVNJIFBFU0FOIEFLU0VTIERJVE9MQUsgKGRhcmkgUHJvdGVjdCBNYW5hZ2Vy
-KSA9PT0KaWYgWyAtbiAiJERFTllfTVNHX0FETUlOIiBdOyB0aGVuCiAgZm9yIEYgaW4gIiRDT05UUk9MTEVSIiAiJEVHR19DT05UUk9MTEVSIjsgZG8KICAgIFsgLWYgIiRGIiBdIHx8IGNvbnRpbnVlCiAgICBweXRob24zIC0gIiRGIiAiJERFTllfTVNHX0FETUlO
-IiA8PCAnUFlBQk9SVCcKaW1wb3J0IHN5cywgcmUKcGF0aCwgbXNnID0gc3lzLmFyZ3ZbMV0sIHN5cy5hcmd2WzJdCndpdGggb3BlbihwYXRoLCAncicsIGVuY29kaW5nPSd1dGYtOCcpIGFzIGY6CiAgICBjb250ZW50ID0gZi5yZWFkKCkKbmV3X2NvbnRlbnQgPSBy
-ZS5zdWIoCiAgICByImFib3J0XChccyo0MDNccyosXHMqKFsnXCJdKSg/OlxcXDF8KD8hXDEpLikqXDFccypcKSIsCiAgICAiYWJvcnQoNDAzLCAiICsgcmVwcihtc2cpICsgIikiLAogICAgY29udGVudAopCmlmIG5ld19jb250ZW50ICE9IGNvbnRlbnQ6CiAgICB3
-aXRoIG9wZW4ocGF0aCwgJ3cnLCBlbmNvZGluZz0ndXRmLTgnKSBhcyBmOgogICAgICAgIGYud3JpdGUobmV3X2NvbnRlbnQpCiAgICBwcmludCgi4pyP77iPICBQZXNhbiBha3NlcyBkaXRvbGFrIGRpa3VzdG9taXNhc2kgZGkgIiArIHBhdGgpClBZQUJPUlQKICBk
-b25lCmZpCg==
-PROTECT5A_B64
+      cat << 'PROTECT5A_PLAIN'
+#!/bin/bash
+
+set -e
+
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+CONTACT_TELEGRAM="${CONTACT_TELEGRAM:-@FyzzModss}"
+BOT_LINK="${BOT_LINK:-@upgradeuser_bot}"
+WELCOME_TITLE="${WELCOME_TITLE:-Welcome To Server $BRAND_NAME}"
+WELCOME_MESSAGE="${WELCOME_MESSAGE:-Butuh panel legal yang anti mokad? langsung aja ke <a href=\"https://t.me/upgradeuser_bot\">@upgradeuser_bot</a>. Jangan Lupa join Channel <a href=\"https://t.me/FyzAbout\">@FyzAbout</a>.}"
+
+TELEGRAM_USERNAME="${CONTACT_TELEGRAM#@}"
+BOT_USERNAME="${BOT_LINK#@}"
+
+html_escape() {
+  printf '%s' "$1" | sed \
+    -e 's/&/\&amp;/g' \
+    -e 's/</\&lt;/g' \
+    -e 's/>/\&gt;/g' \
+    -e 's/"/\&quot;/g' \
+    -e "s/'/\&#39;/g"
+}
+
+js_escape() {
+  printf '%s' "$1" | sed \
+    -e 's/\\/\\\\/g' \
+    -e "s/'/\\\\'/g"
+}
+
+sed_escape() {
+  printf '%s' "$1" | sed -e 's/[\\/&]/\\&/g'
+}
+
+BRAND_NAME_HTML=$(html_escape "$BRAND_NAME")
+BRAND_TEXT_HTML=$(html_escape "$BRAND_TEXT")
+CONTACT_TELEGRAM_HTML=$(html_escape "$CONTACT_TELEGRAM")
+BOT_LINK_HTML=$(html_escape "$BOT_LINK")
+BRAND_NAME_JS=$(js_escape "$BRAND_NAME")
+CONTACT_TELEGRAM_JS=$(js_escape "$CONTACT_TELEGRAM")
+WELCOME_TITLE_JS=$(js_escape "$WELCOME_TITLE")
+WELCOME_MESSAGE_JS=$(js_escape "$WELCOME_MESSAGE")
+SAFE_TITLE=$(sed_escape "${PANEL_TITLE:-Pterodactyl - $BRAND_NAME}")
+
+can_modify_file() {
+  local file="$1"
+  if [ -f "$file" ] && [ -w "$file" ]; then
+    return 0
+  fi
+
+  local dir
+  dir=$(dirname "$file")
+  [ -w "$dir" ]
+}
+
+write_temp_to_target() {
+  local temp_file="$1"
+  local target_file="$2"
+  local label="$3"
+
+  if [ -f "$target_file" ]; then
+    chmod u+w "$target_file" 2>/dev/null || true
+    chown --reference="$target_file" "$temp_file" 2>/dev/null || true
+    chmod --reference="$target_file" "$temp_file" 2>/dev/null || true
+  fi
+
+  if cat "$temp_file" > "$target_file" 2>/dev/null; then
+    return 0
+  fi
+
+  if cp "$temp_file" "$target_file" 2>/dev/null; then
+    return 0
+  fi
+
+  echo "⚠️ Tidak bisa menulis ke $label, skip. Cek permission file/folder target."
+  return 1
+}
+
+remove_block_by_markers() {
+  local file="$1"
+  local start_marker="$2"
+  local end_marker="$3"
+  local tmp_file
+
+  if ! can_modify_file "$file"; then
+    echo "⚠️ Skip cleanup branding di $file karena tidak writable"
+    return 0
+  fi
+
+  tmp_file=$(mktemp)
+  awk -v start="$start_marker" -v end="$end_marker" '
+    index($0, start) { skip=1; next }
+    skip && index($0, end) { skip=0; next }
+    !skip { print }
+  ' "$file" > "$tmp_file"
+
+  write_temp_to_target "$tmp_file" "$file" "$file" || true
+  rm -f "$tmp_file"
+}
+
+cleanup_old_branding() {
+  local file="$1"
+  local tmp_file
+
+  if ! can_modify_file "$file"; then
+    echo "⚠️ Skip branding cleanup di $file karena tidak writable"
+    return 0
+  fi
+
+  remove_block_by_markers "$file" "<!-- BRANDING_FIT_START -->" "<!-- BRANDING_FIT_END -->"
+  remove_block_by_markers "$file" "<!-- BRANDING_FIT: Custom Branding -->" "</style>"
+
+  tmp_file=$(mktemp)
+  awk '
+    BEGIN { skip=0; depth=0; seen_div=0 }
+    /<!-- BRANDING_FIT: Footer -->/ { skip=1; depth=0; seen_div=0; next }
+    skip {
+      line=$0
+      opens=gsub(/<div[^>]*>/, "&", line)
+      closes=gsub(/<\/div>/, "&", line)
+      if (opens > 0) {
+        depth += opens
+        seen_div = 1
+      }
+      if (closes > 0) {
+        depth -= closes
+      }
+      if (seen_div && depth <= 0) {
+        skip=0
+      }
+      next
+    }
+    { print }
+  ' "$file" > "$tmp_file"
+
+  write_temp_to_target "$tmp_file" "$file" "$file" || true
+  rm -f "$tmp_file"
+}
+
+inject_before_closing() {
+  local file="$1"
+  local snippet_file="$2"
+  local label="$3"
+  local tmp_file
+
+  if ! can_modify_file "$file"; then
+    echo "⚠️ Skip inject ke $label karena file tidak writable"
+    return 0
+  fi
+
+  tmp_file=$(mktemp)
+
+  if grep -q "</body>" "$file"; then
+    awk -v snippet="$snippet_file" '
+      /<\/body>/ { while ((getline line < snippet) > 0) print line; close(snippet) }
+      { print }
+    ' "$file" > "$tmp_file"
+    write_temp_to_target "$tmp_file" "$file" "$label" || true
+    echo "✅ Konten diinjeksi sebelum </body> di $label"
+  elif grep -q "</html>" "$file"; then
+    awk -v snippet="$snippet_file" '
+      /<\/html>/ { while ((getline line < snippet) > 0) print line; close(snippet) }
+      { print }
+    ' "$file" > "$tmp_file"
+    write_temp_to_target "$tmp_file" "$file" "$label" || true
+    echo "✅ Konten diinjeksi sebelum </html> di $label"
+  else
+    cat "$snippet_file" > "$tmp_file"
+    cat "$file" >> "$tmp_file"
+    write_temp_to_target "$tmp_file" "$file" "$label" || true
+    echo "✅ Konten ditambahkan di akhir $label"
+  fi
+
+  rm -f "$tmp_file"
+}
+
+echo "==========================================="
+echo "🔒 PROTECT 5A: Sembunyikan & Block Menu Nests"
+echo "==========================================="
+echo ""
+echo "🚀 Memasang proteksi Nests (Sembunyikan + Block Akses)..."
+echo ""
+
+# === LANGKAH 1: Restore NestController dari backup asli ===
+CONTROLLER="/var/www/pterodactyl/app/Http/Controllers/Admin/Nests/NestController.php"
+LATEST_BACKUP=$(ls -t "${CONTROLLER}.bak_"* 2>/dev/null | tail -1)
+
+if [ -n "$LATEST_BACKUP" ]; then
+  cp "$LATEST_BACKUP" "$CONTROLLER"
+  echo "📦 Controller di-restore dari backup paling awal: $LATEST_BACKUP"
+else
+  echo "⚠️ Tidak ada backup, menggunakan file saat ini"
+fi
+
+cp "$CONTROLLER" "${CONTROLLER}.bak_${TIMESTAMP}"
+
+# === LANGKAH 2: Inject proteksi ke NestController ===
+python3 << 'PYEOF'
+import re
+
+controller = "/var/www/pterodactyl/app/Http/Controllers/Admin/Nests/NestController.php"
+
+with open(controller, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_FIT" in content:
+    print("⚠️ Proteksi sudah ada di NestController")
+    exit(0)
+
+if "use Illuminate\\Support\\Facades\\Auth;" not in content:
+    content = content.replace(
+        "use Pterodactyl\\Http\\Controllers\\Controller;",
+        "use Pterodactyl\\Http\\Controllers\\Controller;\nuse Illuminate\\Support\\Facades\\Auth;"
+    )
+
+lines = content.split("\n")
+new_lines = []
+i = 0
+while i < len(lines):
+    line = lines[i]
+    new_lines.append(line)
+
+    if re.search(r'public function (?!__construct)', line):
+        j = i
+        while j < len(lines) and '{' not in lines[j]:
+            j += 1
+            if j > i:
+                new_lines.append(lines[j])
+
+        new_lines.append("        // PROTEKSI_FIT: Hanya admin ID 1")
+        new_lines.append("        if (!Auth::user() || (int) Auth::user()->id !== 1) {")
+        new_lines.append("            abort(403, 'Akses ditolak - protect by FyzzOffciall.ID');")
+        new_lines.append("        }")
+
+        if j > i:
+            i = j
+    i += 1
+
+with open(controller, "w") as f:
+    f.write("\n".join(new_lines))
+
+print("✅ Proteksi berhasil diinjeksi ke NestController")
+PYEOF
+
+echo ""
+echo "📋 Verifikasi NestController (cari PROTEKSI):"
+grep -n "PROTEKSI_FIT" "$CONTROLLER"
+echo ""
+
+# === LANGKAH 3: Proteksi juga EggController (halaman egg di dalam nest) ===
+EGG_CONTROLLER="/var/www/pterodactyl/app/Http/Controllers/Admin/Nests/EggController.php"
+if [ -f "$EGG_CONTROLLER" ]; then
+  if ! grep -q "PROTEKSI_FIT" "$EGG_CONTROLLER"; then
+    cp "$EGG_CONTROLLER" "${EGG_CONTROLLER}.bak_${TIMESTAMP}"
+
+    python3 << 'PYEOF2'
+import re
+
+controller = "/var/www/pterodactyl/app/Http/Controllers/Admin/Nests/EggController.php"
+
+with open(controller, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_FIT" in content:
+    print("⚠️ Sudah ada proteksi di EggController")
+    exit(0)
+
+if "use Illuminate\\Support\\Facades\\Auth;" not in content:
+    content = content.replace(
+        "use Pterodactyl\\Http\\Controllers\\Controller;",
+        "use Pterodactyl\\Http\\Controllers\\Controller;\nuse Illuminate\\Support\\Facades\\Auth;"
+    )
+
+lines = content.split("\n")
+new_lines = []
+i = 0
+while i < len(lines):
+    line = lines[i]
+    new_lines.append(line)
+
+    if re.search(r'public function (?!__construct)', line):
+        j = i
+        while j < len(lines) and '{' not in lines[j]:
+            j += 1
+            if j > i:
+                new_lines.append(lines[j])
+
+        new_lines.append("        // PROTEKSI_FIT: Hanya admin ID 1")
+        new_lines.append("        if (!Auth::user() || (int) Auth::user()->id !== 1) {")
+        new_lines.append("            abort(403, 'Akses ditolak - protect by FyzzOffciall.ID');")
+        new_lines.append("        }")
+
+        if j > i:
+            i = j
+    i += 1
+
+with open(controller, "w") as f:
+    f.write("\n".join(new_lines))
+
+print("✅ EggController juga diproteksi")
+PYEOF2
+  else
+    echo "⚠️ EggController sudah diproteksi"
+  fi
+fi
+
+# === LANGKAH 4: Sembunyikan menu Nests di sidebar ===
+echo "🔧 Menyembunyikan menu Nests dari sidebar..."
+
+SIDEBAR_FILES=(
+  "/var/www/pterodactyl/resources/views/partials/admin/sidebar.blade.php"
+  "/var/www/pterodactyl/resources/views/layouts/admin.blade.php"
+  "/var/www/pterodactyl/resources/views/layouts/app.blade.php"
+)
+
+SIDEBAR_FOUND=""
+for SF in "${SIDEBAR_FILES[@]}"; do
+  if [ -f "$SF" ] && grep -q "admin.nests" "$SF" 2>/dev/null; then
+    SIDEBAR_FOUND="$SF"
+    break
+  fi
+done
+
+if [ -z "$SIDEBAR_FOUND" ]; then
+  SIDEBAR_FOUND=$(grep -rl "admin.nests" /var/www/pterodactyl/resources/views/partials/ 2>/dev/null | head -1)
+  if [ -z "$SIDEBAR_FOUND" ]; then
+    SIDEBAR_FOUND=$(grep -rl "admin.nests" /var/www/pterodactyl/resources/views/layouts/ 2>/dev/null | head -1)
+  fi
+fi
+
+if [ -n "$SIDEBAR_FOUND" ]; then
+  echo "📂 Sidebar ditemukan: $SIDEBAR_FOUND"
+
+  echo "📋 Baris terkait Nests di sidebar:"
+  grep -n -i "nest" "$SIDEBAR_FOUND" | head -10
+  echo ""
+
+  if ! can_modify_file "$SIDEBAR_FOUND"; then
+    echo "⚠️ Sidebar tidak writable, skip sembunyikan menu Nests."
+  else
+    cp "$SIDEBAR_FOUND" "${SIDEBAR_FOUND}.bak_${TIMESTAMP}" 2>/dev/null || true
+
+    SIDEBAR_TEMP=$(mktemp)
+    export SIDEBAR_FOUND SIDEBAR_TEMP
+    python3 << 'PYEOF3'
+import os
+
+sidebar = os.environ["SIDEBAR_FOUND"]
+sidebar_temp = os.environ["SIDEBAR_TEMP"]
+
+with open(sidebar, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_NESTS_SIDEBAR" in content:
+    print("⚠️ Sidebar Nests sudah diproteksi")
+    raise SystemExit(0)
+
+lines = content.split("\n")
+new_lines = []
+i = 0
+
+while i < len(lines):
+    line = lines[i]
+
+    if ('admin.nests' in line or "route('admin.nests')" in line) and 'admin.nests.view' not in line and 'admin.nests.egg' not in line:
+        li_start = len(new_lines) - 1
+        while li_start >= 0 and '<li' not in new_lines[li_start]:
+            li_start -= 1
+
+        if li_start >= 0:
+            new_lines.insert(li_start, "{{-- PROTEKSI_NESTS_SIDEBAR --}}")
+            new_lines.insert(li_start, "@if((int) Auth::user()->id === 1)")
+
+            new_lines.append(line)
+            i += 1
+
+            li_depth = 1
+            while i < len(lines) and li_depth > 0:
+                curr = lines[i]
+                li_depth += curr.count('<li') - curr.count('</li')
+                new_lines.append(curr)
+                i += 1
+
+            new_lines.append("@endif")
+            continue
+
+    new_lines.append(line)
+    i += 1
+
+with open(sidebar_temp, "w") as f:
+    f.write("\n".join(new_lines))
+
+print("✅ Temp sidebar berhasil dibuat")
+PYEOF3
+
+    if write_temp_to_target "$SIDEBAR_TEMP" "$SIDEBAR_FOUND" "$SIDEBAR_FOUND"; then
+      echo "✅ Menu Nests disembunyikan dari sidebar"
+    else
+      echo "⚠️ Gagal menulis perubahan sidebar, skip langkah sembunyikan menu."
+    fi
+
+    rm -f "$SIDEBAR_TEMP"
+  fi
+else
+  echo "⚠️ File sidebar tidak ditemukan."
+fi
+
+# === LANGKAH 5: Cache clear di-handle oleh controller ===
+echo "ℹ️ Cache clear akan dilakukan oleh Protect Manager controller setelah install selesai"
+
+echo ""
+echo "==========================================="
+echo "✅ Proteksi Nests LENGKAP selesai!"
+echo "==========================================="
+echo "🔒 Menu Nests disembunyikan dari sidebar (selain ID 1)"
+echo "🔒 Akses /admin/nests diblock (selain ID 1)"
+echo "🔒 Akses /admin/nests/view/* diblock (selain ID 1)"
+echo "🔒 EggController juga diproteksi"
+echo "🚀 Panel tetap normal, server tetap jalan"
+echo "==========================================="
+echo ""
+echo "⚠️ Jika ada masalah, restore:"
+echo "   cp ${CONTROLLER}.bak_${TIMESTAMP} $CONTROLLER"
+if [ -n "$SIDEBAR_FOUND" ]; then
+  echo "   cp ${SIDEBAR_FOUND}.bak_${TIMESTAMP} $SIDEBAR_FOUND"
+fi
+echo "   cd /var/www/pterodactyl && php artisan view:clear && php artisan route:clear"
+
+# ===================================================================
+# RE-INJECT SIDEBAR PROTECT MANAGER (jika hilang setelah modifikasi admin.blade.php)
+# ===================================================================
+ADMIN_LAYOUT=""
+for CANDIDATE in \
+  "/var/www/pterodactyl/resources/views/partials/admin/sidebar.blade.php" \
+  "/var/www/pterodactyl/resources/views/layouts/admin.blade.php" \
+  "/var/www/pterodactyl/resources/views/layouts/app.blade.php"; do
+  if [ -f "$CANDIDATE" ]; then
+    ADMIN_LAYOUT="$CANDIDATE"
+    break
+  fi
+done
+
+if [ -f "$ADMIN_LAYOUT" ] && ! grep -q "PROTEKSI_FIT_MASTER_SIDEBAR" "$ADMIN_LAYOUT" 2>/dev/null; then
+  echo "🔧 Re-inject sidebar Protect Manager..."
+
+  SIDEBAR_SNIPPET=$(mktemp)
+  cat > "$SIDEBAR_SNIPPET" << 'SIDEBAR_PM_EOF'
+                {{-- PROTEKSI_FIT_MASTER_SIDEBAR: Protect Manager Menu --}}
+                @if(Auth::user() && Auth::user()->id === 1)
+                <li class="{{ Route::currentRouteName() === 'admin.protect-manager' ? 'active' : '' }}">
+                    <a href="{{ route('admin.protect-manager') }}">
+                        <i class="fa fa-shield"></i> <span>Protect Manager</span>
+                    </a>
+                </li>
+                @endif
+                {{-- END PROTEKSI_FIT_MASTER_SIDEBAR --}}
+SIDEBAR_PM_EOF
+
+  INSERT_LINE=""
+  SETTINGS_LINE=$(grep -n "admin.settings\|Configuration\|Settings\|settings" "$ADMIN_LAYOUT" 2>/dev/null | head -1 | cut -d: -f1)
+  if [ -n "$SETTINGS_LINE" ]; then
+    INSERT_LINE=$((SETTINGS_LINE - 1))
+    while [ "$INSERT_LINE" -gt 0 ]; do
+      if sed -n "${INSERT_LINE}p" "$ADMIN_LAYOUT" | grep -q "<li"; then
+        break
+      fi
+      INSERT_LINE=$((INSERT_LINE - 1))
+    done
+  fi
+
+  if [ -z "$INSERT_LINE" ] || [ "$INSERT_LINE" -le 0 ]; then
+    INSERT_LINE=$(grep -n "</ul>" "$ADMIN_LAYOUT" | tail -1 | cut -d: -f1)
+    if [ -n "$INSERT_LINE" ]; then
+      INSERT_LINE=$((INSERT_LINE - 1))
+    fi
+  fi
+
+  if [ -n "$INSERT_LINE" ] && [ "$INSERT_LINE" -gt 0 ]; then
+    TEMP_LAYOUT=$(mktemp)
+    head -n "$INSERT_LINE" "$ADMIN_LAYOUT" > "$TEMP_LAYOUT"
+    cat "$SIDEBAR_SNIPPET" >> "$TEMP_LAYOUT"
+    tail -n +"$((INSERT_LINE + 1))" "$ADMIN_LAYOUT" >> "$TEMP_LAYOUT"
+    if cat "$TEMP_LAYOUT" > "$ADMIN_LAYOUT" 2>/dev/null; then
+      echo "✅ Sidebar Protect Manager berhasil di-re-inject"
+    else
+      echo "⚠️ Gagal re-inject sidebar, skip"
+    fi
+    rm -f "$TEMP_LAYOUT"
+  else
+    echo "⚠️ Tidak bisa menemukan posisi sidebar untuk re-inject"
+  fi
+  rm -f "$SIDEBAR_SNIPPET"
+fi
+
+# ===================================================================
+# CLEAR CACHE - paksa clear di sini agar welcome banner langsung tampil
+# ===================================================================
+if [ -d /var/www/pterodactyl ]; then
+  cd /var/www/pterodactyl
+  php artisan view:clear 2>/dev/null || true
+  php artisan cache:clear 2>/dev/null || true
+  rm -rf /var/www/pterodactyl/storage/framework/views/*.php 2>/dev/null || true
+  echo "✅ View & compiled blade cache dibersihkan"
+fi
+
+
+echo ""
+echo "✅ PROTECT 5A SELESAI: Menu Nests disembunyikan & diblokir (selain ID 1)"
+
+# === KUSTOMISASI PESAN AKSES DITOLAK (dari Protect Manager) ===
+if [ -n "$DENY_MSG_ADMIN" ]; then
+  for F in "$CONTROLLER" "$EGG_CONTROLLER"; do
+    [ -f "$F" ] || continue
+    python3 - "$F" "$DENY_MSG_ADMIN" << 'PYABORT'
+import sys, re
+path, msg = sys.argv[1], sys.argv[2]
+with open(path, 'r', encoding='utf-8') as f:
+    content = f.read()
+new_content = re.sub(
+    r"abort\(\s*403\s*,\s*(['\"])(?:\\\1|(?!\1).)*\1\s*\)",
+    "abort(403, " + repr(msg) + ")",
+    content
+)
+if new_content != content:
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    print("✏️  Pesan akses ditolak dikustomisasi di " + path)
+PYABORT
+  done
+fi
+PROTECT5A_PLAIN
       ;;
     protect5b)
-      cat << 'PROTECT5B_B64'
-IyEvYmluL2Jhc2gKCnNldCAtZQoKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhv
-bmFsZXl9IgpDT05UQUNUX1RFTEVHUkFNPSIke0NPTlRBQ1RfVEVMRUdSQU06LUBKaG9hbmxleXN0b3JlSWR9IgpCT1RfTElOSz0iJHtCT1RfTElOSzotQHVwZ3JhZGV1c2VyX2JvdH0iCldFTENPTUVfVElUTEU9IiR7V0VMQ09NRV9USVRMRTotV2VsY29tZSBUbyBT
-ZXJ2ZXIgJEJSQU5EX05BTUV9IgpXRUxDT01FX01FU1NBR0U9IiR7V0VMQ09NRV9NRVNTQUdFOi1CdXR1aCBwYW5lbCBsZWdhbCB5YW5nIGFudGkgbW9rYWQ/IGxhbmdzdW5nIGFqYSBrZSA8YSBocmVmPVwiaHR0cHM6Ly90Lm1lL3VwZ3JhZGV1c2VyX2JvdFwiPkB1
-cGdyYWRldXNlcl9ib3Q8L2E+LiBKYW5nYW4gTHVwYSBqb2luIENoYW5uZWwgPGEgaHJlZj1cImh0dHBzOi8vdC5tZS9qaG9uYWxleXRlc3RpM1wiPkBqaG9uYWxleXRlc3RpMzwvYT4ufSIKClRFTEVHUkFNX1VTRVJOQU1FPSIke0NPTlRBQ1RfVEVMRUdSQU0jQH0i
-CkJPVF9VU0VSTkFNRT0iJHtCT1RfTElOSyNAfSIKCmh0bWxfZXNjYXBlKCkgewogIHByaW50ZiAnJXMnICIkMSIgfCBzZWQgXAogICAgLWUgJ3MvJi9cJmFtcDsvZycgXAogICAgLWUgJ3MvPC9cJmx0Oy9nJyBcCiAgICAtZSAncy8+L1wmZ3Q7L2cnIFwKICAgIC1l
-ICdzLyIvXCZxdW90Oy9nJyBcCiAgICAtZSAicy8nL1wmIzM5Oy9nIgp9Cgpqc19lc2NhcGUoKSB7CiAgcHJpbnRmICclcycgIiQxIiB8IHNlZCBcCiAgICAtZSAncy9cXC9cXFxcL2cnIFwKICAgIC1lICJzLycvXFxcXCcvZyIKfQoKc2VkX2VzY2FwZSgpIHsKICBw
-cmludGYgJyVzJyAiJDEiIHwgc2VkIC1lICdzL1tcXC8mXS9cXCYvZycKfQoKQlJBTkRfTkFNRV9IVE1MPSQoaHRtbF9lc2NhcGUgIiRCUkFORF9OQU1FIikKQlJBTkRfVEVYVF9IVE1MPSQoaHRtbF9lc2NhcGUgIiRCUkFORF9URVhUIikKQ09OVEFDVF9URUxFR1JB
-TV9IVE1MPSQoaHRtbF9lc2NhcGUgIiRDT05UQUNUX1RFTEVHUkFNIikKQk9UX0xJTktfSFRNTD0kKGh0bWxfZXNjYXBlICIkQk9UX0xJTksiKQpCUkFORF9OQU1FX0pTPSQoanNfZXNjYXBlICIkQlJBTkRfTkFNRSIpCkNPTlRBQ1RfVEVMRUdSQU1fSlM9JChqc19l
-c2NhcGUgIiRDT05UQUNUX1RFTEVHUkFNIikKV0VMQ09NRV9USVRMRV9KUz0kKGpzX2VzY2FwZSAiJFdFTENPTUVfVElUTEUiKQpXRUxDT01FX01FU1NBR0VfSlM9JChqc19lc2NhcGUgIiRXRUxDT01FX01FU1NBR0UiKQpTQUZFX1RJVExFPSQoc2VkX2VzY2FwZSAi
-JHtQQU5FTF9USVRMRTotUHRlcm9kYWN0eWwgLSAkQlJBTkRfTkFNRX0iKQoKY2FuX21vZGlmeV9maWxlKCkgewogIGxvY2FsIGZpbGU9IiQxIgogIGlmIFsgLWYgIiRmaWxlIiBdICYmIFsgLXcgIiRmaWxlIiBdOyB0aGVuCiAgICByZXR1cm4gMAogIGZpCgogIGxv
-Y2FsIGRpcgogIGRpcj0kKGRpcm5hbWUgIiRmaWxlIikKICBbIC13ICIkZGlyIiBdCn0KCndyaXRlX3RlbXBfdG9fdGFyZ2V0KCkgewogIGxvY2FsIHRlbXBfZmlsZT0iJDEiCiAgbG9jYWwgdGFyZ2V0X2ZpbGU9IiQyIgogIGxvY2FsIGxhYmVsPSIkMyIKCiAgaWYg
-WyAtZiAiJHRhcmdldF9maWxlIiBdOyB0aGVuCiAgICBjaG1vZCB1K3cgIiR0YXJnZXRfZmlsZSIgMj4vZGV2L251bGwgfHwgdHJ1ZQogICAgY2hvd24gLS1yZWZlcmVuY2U9IiR0YXJnZXRfZmlsZSIgIiR0ZW1wX2ZpbGUiIDI+L2Rldi9udWxsIHx8IHRydWUKICAg
-IGNobW9kIC0tcmVmZXJlbmNlPSIkdGFyZ2V0X2ZpbGUiICIkdGVtcF9maWxlIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgZmkKCiAgaWYgY2F0ICIkdGVtcF9maWxlIiA+ICIkdGFyZ2V0X2ZpbGUiIDI+L2Rldi9udWxsOyB0aGVuCiAgICByZXR1cm4gMAogIGZpCgog
-IGlmIGNwICIkdGVtcF9maWxlIiAiJHRhcmdldF9maWxlIiAyPi9kZXYvbnVsbDsgdGhlbgogICAgcmV0dXJuIDAKICBmaQoKICBlY2hvICLimqDvuI8gVGlkYWsgYmlzYSBtZW51bGlzIGtlICRsYWJlbCwgc2tpcC4gQ2VrIHBlcm1pc3Npb24gZmlsZS9mb2xkZXIg
-dGFyZ2V0LiIKICByZXR1cm4gMQp9CgpyZW1vdmVfYmxvY2tfYnlfbWFya2VycygpIHsKICBsb2NhbCBmaWxlPSIkMSIKICBsb2NhbCBzdGFydF9tYXJrZXI9IiQyIgogIGxvY2FsIGVuZF9tYXJrZXI9IiQzIgogIGxvY2FsIHRtcF9maWxlCgogIGlmICEgY2FuX21v
-ZGlmeV9maWxlICIkZmlsZSI7IHRoZW4KICAgIGVjaG8gIuKaoO+4jyBTa2lwIGNsZWFudXAgYnJhbmRpbmcgZGkgJGZpbGUga2FyZW5hIHRpZGFrIHdyaXRhYmxlIgogICAgcmV0dXJuIDAKICBmaQoKICB0bXBfZmlsZT0kKG1rdGVtcCkKICBhd2sgLXYgc3RhcnQ9
-IiRzdGFydF9tYXJrZXIiIC12IGVuZD0iJGVuZF9tYXJrZXIiICcKICAgIGluZGV4KCQwLCBzdGFydCkgeyBza2lwPTE7IG5leHQgfQogICAgc2tpcCAmJiBpbmRleCgkMCwgZW5kKSB7IHNraXA9MDsgbmV4dCB9CiAgICAhc2tpcCB7IHByaW50IH0KICAnICIkZmls
-ZSIgPiAiJHRtcF9maWxlIgoKICB3cml0ZV90ZW1wX3RvX3RhcmdldCAiJHRtcF9maWxlIiAiJGZpbGUiICIkZmlsZSIgfHwgdHJ1ZQogIHJtIC1mICIkdG1wX2ZpbGUiCn0KCmNsZWFudXBfb2xkX2JyYW5kaW5nKCkgewogIGxvY2FsIGZpbGU9IiQxIgogIGxvY2Fs
-IHRtcF9maWxlCgogIGlmICEgY2FuX21vZGlmeV9maWxlICIkZmlsZSI7IHRoZW4KICAgIGVjaG8gIuKaoO+4jyBTa2lwIGJyYW5kaW5nIGNsZWFudXAgZGkgJGZpbGUga2FyZW5hIHRpZGFrIHdyaXRhYmxlIgogICAgcmV0dXJuIDAKICBmaQoKICByZW1vdmVfYmxv
-Y2tfYnlfbWFya2VycyAiJGZpbGUiICI8IS0tIEJSQU5ESU5HX0pIT05BTEVZX1NUQVJUIC0tPiIgIjwhLS0gQlJBTkRJTkdfSkhPTkFMRVlfRU5EIC0tPiIKICByZW1vdmVfYmxvY2tfYnlfbWFya2VycyAiJGZpbGUiICI8IS0tIEJSQU5ESU5HX0pIT05BTEVZOiBD
-dXN0b20gQnJhbmRpbmcgLS0+IiAiPC9zdHlsZT4iCgogIHRtcF9maWxlPSQobWt0ZW1wKQogIGF3ayAnCiAgICBCRUdJTiB7IHNraXA9MDsgZGVwdGg9MDsgc2Vlbl9kaXY9MCB9CiAgICAvPCEtLSBCUkFORElOR19KSE9OQUxFWTogRm9vdGVyIC0tPi8geyBza2lw
-PTE7IGRlcHRoPTA7IHNlZW5fZGl2PTA7IG5leHQgfQogICAgc2tpcCB7CiAgICAgIGxpbmU9JDAKICAgICAgb3BlbnM9Z3N1YigvPGRpdltePl0qPi8sICImIiwgbGluZSkKICAgICAgY2xvc2VzPWdzdWIoLzxcL2Rpdj4vLCAiJiIsIGxpbmUpCiAgICAgIGlmIChv
-cGVucyA+IDApIHsKICAgICAgICBkZXB0aCArPSBvcGVucwogICAgICAgIHNlZW5fZGl2ID0gMQogICAgICB9CiAgICAgIGlmIChjbG9zZXMgPiAwKSB7CiAgICAgICAgZGVwdGggLT0gY2xvc2VzCiAgICAgIH0KICAgICAgaWYgKHNlZW5fZGl2ICYmIGRlcHRoIDw9
-IDApIHsKICAgICAgICBza2lwPTAKICAgICAgfQogICAgICBuZXh0CiAgICB9CiAgICB7IHByaW50IH0KICAnICIkZmlsZSIgPiAiJHRtcF9maWxlIgoKICB3cml0ZV90ZW1wX3RvX3RhcmdldCAiJHRtcF9maWxlIiAiJGZpbGUiICIkZmlsZSIgfHwgdHJ1ZQogIHJt
-IC1mICIkdG1wX2ZpbGUiCn0KCmluamVjdF9iZWZvcmVfY2xvc2luZygpIHsKICBsb2NhbCBmaWxlPSIkMSIKICBsb2NhbCBzbmlwcGV0X2ZpbGU9IiQyIgogIGxvY2FsIGxhYmVsPSIkMyIKICBsb2NhbCB0bXBfZmlsZQoKICBpZiAhIGNhbl9tb2RpZnlfZmlsZSAi
-JGZpbGUiOyB0aGVuCiAgICBlY2hvICLimqDvuI8gU2tpcCBpbmplY3Qga2UgJGxhYmVsIGthcmVuYSBmaWxlIHRpZGFrIHdyaXRhYmxlIgogICAgcmV0dXJuIDAKICBmaQoKICB0bXBfZmlsZT0kKG1rdGVtcCkKCiAgaWYgZ3JlcCAtcSAiPC9ib2R5PiIgIiRmaWxl
-IjsgdGhlbgogICAgYXdrIC12IHNuaXBwZXQ9IiRzbmlwcGV0X2ZpbGUiICcKICAgICAgLzxcL2JvZHk+LyB7IHdoaWxlICgoZ2V0bGluZSBsaW5lIDwgc25pcHBldCkgPiAwKSBwcmludCBsaW5lOyBjbG9zZShzbmlwcGV0KSB9CiAgICAgIHsgcHJpbnQgfQogICAg
-JyAiJGZpbGUiID4gIiR0bXBfZmlsZSIKICAgIHdyaXRlX3RlbXBfdG9fdGFyZ2V0ICIkdG1wX2ZpbGUiICIkZmlsZSIgIiRsYWJlbCIgfHwgdHJ1ZQogICAgZWNobyAi4pyFIEtvbnRlbiBkaWluamVrc2kgc2ViZWx1bSA8L2JvZHk+IGRpICRsYWJlbCIKICBlbGlm
-IGdyZXAgLXEgIjwvaHRtbD4iICIkZmlsZSI7IHRoZW4KICAgIGF3ayAtdiBzbmlwcGV0PSIkc25pcHBldF9maWxlIiAnCiAgICAgIC88XC9odG1sPi8geyB3aGlsZSAoKGdldGxpbmUgbGluZSA8IHNuaXBwZXQpID4gMCkgcHJpbnQgbGluZTsgY2xvc2Uoc25pcHBl
-dCkgfQogICAgICB7IHByaW50IH0KICAgICcgIiRmaWxlIiA+ICIkdG1wX2ZpbGUiCiAgICB3cml0ZV90ZW1wX3RvX3RhcmdldCAiJHRtcF9maWxlIiAiJGZpbGUiICIkbGFiZWwiIHx8IHRydWUKICAgIGVjaG8gIuKchSBLb250ZW4gZGlpbmpla3NpIHNlYmVsdW0g
-PC9odG1sPiBkaSAkbGFiZWwiCiAgZWxzZQogICAgY2F0ICIkc25pcHBldF9maWxlIiA+ICIkdG1wX2ZpbGUiCiAgICBjYXQgIiRmaWxlIiA+PiAiJHRtcF9maWxlIgogICAgd3JpdGVfdGVtcF90b190YXJnZXQgIiR0bXBfZmlsZSIgIiRmaWxlIiAiJGxhYmVsIiB8
-fCB0cnVlCiAgICBlY2hvICLinIUgS29udGVuIGRpdGFtYmFoa2FuIGRpIGFraGlyICRsYWJlbCIKICBmaQoKICBybSAtZiAiJHRtcF9maWxlIgp9CgplY2hvICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IgplY2hvICLwn46oIFBS
-T1RFQ1QgNUI6IEJyYW5kaW5nIEZvb3RlciBQYW5lbCIKZWNobyAiPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSIKZWNobyAiIgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PQojID09PSBCUkFORElORzogSW5qZWN0IGZvb3RlciBicmFuZCBrZSBsYXlvdXQgcGFuZWwgPT09CiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CmVjaG8gIiIKZWNobyAi8J+OqCBNZW1hc2Fu
-ZyBicmFuZGluZyAkQlJBTkRfTkFNRS4uLiIKCkxBWU9VVF9GSUxFUz0oCiAgIi92YXIvd3d3L3B0ZXJvZGFjdHlsL3Jlc291cmNlcy92aWV3cy9sYXlvdXRzL2FkbWluLmJsYWRlLnBocCIKICAiL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2VzL3ZpZXdzL2xh
-eW91dHMvYXBwLmJsYWRlLnBocCIKKQoKIyBDbGVhbnVwIGJyYW5kaW5nIGxhbWEgZGFyaSBtYXN0ZXIuYmxhZGUucGhwIGRhbiBhdXRoLmJsYWRlLnBocCBqaWthIGFkYQpmb3IgQ0xFQU5VUF9GSUxFIGluICIvdmFyL3d3dy9wdGVyb2RhY3R5bC9yZXNvdXJjZXMv
-dmlld3MvbGF5b3V0cy9tYXN0ZXIuYmxhZGUucGhwIiAiL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2VzL3ZpZXdzL2xheW91dHMvYXV0aC5ibGFkZS5waHAiOyBkbwogIGlmIFsgLWYgIiRDTEVBTlVQX0ZJTEUiIF0gJiYgZ3JlcCAtcSAiQlJBTkRJTkdfSkhP
-TkFMRVkiICIkQ0xFQU5VUF9GSUxFIiAyPi9kZXYvbnVsbDsgdGhlbgogICAgY2xlYW51cF9vbGRfYnJhbmRpbmcgIiRDTEVBTlVQX0ZJTEUiCiAgICBlY2hvICLwn6e5IEJyYW5kaW5nIGxhbWEgZGloYXB1cyBkYXJpICQoYmFzZW5hbWUgIiRDTEVBTlVQX0ZJTEUi
-KSIKICBmaQpkb25lCgpCUkFORElOR19GT1VORD0wCgppbmplY3RfYnJhbmRpbmcoKSB7CiAgbG9jYWwgRklMRT0iJDEiCiAgbG9jYWwgTEFCRUw9IiQyIgoKICBpZiBbIC16ICIkRklMRSIgXSB8fCBbICEgLWYgIiRGSUxFIiBdOyB0aGVuCiAgICBlY2hvICLimqDv
-uI8gRmlsZSAkTEFCRUwgdGlkYWsgZGl0ZW11a2FuOiAkRklMRSIKICAgIHJldHVybgogIGZpCgogIEJSQU5ESU5HX0ZPVU5EPTEKCiAgaWYgISBjYW5fbW9kaWZ5X2ZpbGUgIiRGSUxFIjsgdGhlbgogICAgZWNobyAi4pqg77iPIEZpbGUgJExBQkVMIHRpZGFrIHdy
-aXRhYmxlLCBza2lwIGJyYW5kaW5nIGRpIGZpbGUgaW5pIgogICAgcmV0dXJuCiAgZmkKCiAgaWYgWyAhIC1mICIke0ZJTEV9LmJha18ke1RJTUVTVEFNUH0iIF07IHRoZW4KICAgIGNwICIkRklMRSIgIiR7RklMRX0uYmFrXyR7VElNRVNUQU1QfSIgMj4vZGV2L251
-bGwgfHwgdHJ1ZQogIGZpCgogIGNsZWFudXBfb2xkX2JyYW5kaW5nICIkRklMRSIKCiAgQlJBTkRJTkdfVE1QPSIvdG1wL2JyYW5kaW5nX2luamVjdF8ke1RJTUVTVEFNUH1fJChiYXNlbmFtZSAiJEZJTEUiKS5odG1sIgogIGNhdCA+ICIkQlJBTkRJTkdfVE1QIiA8
-PCBCUkFOREhUTUwKPCEtLSBCUkFORElOR19KSE9OQUxFWV9TVEFSVCAtLT4KPHN0eWxlPgogIC5qaG9uYWxleS1mb290ZXIgewogICAgcG9zaXRpb246IGZpeGVkOwogICAgYm90dG9tOiAwOwogICAgbGVmdDogMDsKICAgIHJpZ2h0OiAwOwogICAgei1pbmRleDog
-OTk5OTsKICAgIGJhY2tncm91bmQ6ICMxZjFmMjc7CiAgICBwYWRkaW5nOiA4cHggMThweDsKICAgIGJvcmRlci10b3A6IDFweCBzb2xpZCAjMmMyYzM0OwogICAgZm9udC1mYW1pbHk6ICdTb3VyY2UgU2FucyBQcm8nLCAnSGVsdmV0aWNhIE5ldWUnLCBIZWx2ZXRp
-Y2EsIEFyaWFsLCBzYW5zLXNlcmlmOwogICAgZm9udC1zaXplOiAxMnB4OwogICAgY29sb3I6ICM5YjliYjA7CiAgICBib3gtc2hhZG93OiAwIC0xcHggMCByZ2JhKDAsMCwwLDAuMjUpOwogIH0KICAuamhvbmFsZXktZm9vdGVyIC5qdC1pbm5lciB7CiAgICBkaXNw
-bGF5OiBmbGV4OwogICAgYWxpZ24taXRlbXM6IGNlbnRlcjsKICAgIGp1c3RpZnktY29udGVudDogY2VudGVyOwogICAgZ2FwOiAxNHB4OwogICAgZmxleC13cmFwOiB3cmFwOwogICAgbGluZS1oZWlnaHQ6IDEuNDsKICB9CiAgLmpob25hbGV5LWZvb3RlciAuanQt
-YnJhbmQgewogICAgZGlzcGxheTogaW5saW5lLWZsZXg7CiAgICBhbGlnbi1pdGVtczogY2VudGVyOwogICAgZ2FwOiA2cHg7CiAgICBjb2xvcjogI2M3YzdkMTsKICAgIGZvbnQtd2VpZ2h0OiA2MDA7CiAgICBsZXR0ZXItc3BhY2luZzogMC4ycHg7CiAgfQogIC5q
-aG9uYWxleS1mb290ZXIgLmp0LWJyYW5kLWRvdCB7CiAgICB3aWR0aDogNnB4OwogICAgaGVpZ2h0OiA2cHg7CiAgICBib3JkZXItcmFkaXVzOiA1MCU7CiAgICBiYWNrZ3JvdW5kOiAjMDY5N2UyOwogICAgYm94LXNoYWRvdzogMCAwIDZweCByZ2JhKDYsMTUxLDIy
-NiwwLjYpOwogIH0KICAuamhvbmFsZXktZm9vdGVyIC5qdC1kaXZpZGVyIHsKICAgIHdpZHRoOiAxcHg7CiAgICBoZWlnaHQ6IDEycHg7CiAgICBiYWNrZ3JvdW5kOiAjMzQzNDNmOwogIH0KICAuamhvbmFsZXktZm9vdGVyIGEgewogICAgY29sb3I6ICMwNjk3ZTI7
-CiAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7CiAgICBmb250LXdlaWdodDogNjAwOwogICAgdHJhbnNpdGlvbjogY29sb3IgMC4xNXMgZWFzZTsKICB9CiAgLmpob25hbGV5LWZvb3RlciBhOmhvdmVyIHsKICAgIGNvbG9yOiAjMzhiNmZmOwogICAgdGV4dC1kZWNv
-cmF0aW9uOiB1bmRlcmxpbmU7CiAgfQogIC5qaG9uYWxleS1mb290ZXIgLmp0LXRnIHsKICAgIGRpc3BsYXk6IGlubGluZS1mbGV4OwogICAgYWxpZ24taXRlbXM6IGNlbnRlcjsKICAgIGdhcDogNXB4OwogIH0KICAuamhvbmFsZXktZm9vdGVyIC5qdC10ZyBzdmcg
-ewogICAgd2lkdGg6IDEycHg7CiAgICBoZWlnaHQ6IDEycHg7CiAgICBmaWxsOiBjdXJyZW50Q29sb3I7CiAgICBvcGFjaXR5OiAwLjg1OwogIH0KICBib2R5IHsgcGFkZGluZy1ib3R0b206IDM4cHggIWltcG9ydGFudDsgfQogIEBtZWRpYSAobWF4LXdpZHRoOiA2
-NDBweCkgewogICAgLmpob25hbGV5LWZvb3RlciB7IGZvbnQtc2l6ZTogMTFweDsgcGFkZGluZzogN3B4IDEycHg7IH0KICAgIC5qaG9uYWxleS1mb290ZXIgLmp0LWlubmVyIHsgZ2FwOiAxMHB4OyB9CiAgICAuamhvbmFsZXktZm9vdGVyIC5qdC1kaXZpZGVyIHsg
-ZGlzcGxheTogbm9uZTsgfQogICAgYm9keSB7IHBhZGRpbmctYm90dG9tOiA1NnB4ICFpbXBvcnRhbnQ7IH0KICB9Cjwvc3R5bGU+CjxkaXYgY2xhc3M9Impob25hbGV5LWZvb3RlciI+CiAgPGRpdiBjbGFzcz0ianQtaW5uZXIiPgogICAgPHNwYW4gY2xhc3M9Imp0
-LWJyYW5kIj48c3BhbiBjbGFzcz0ianQtYnJhbmQtZG90Ij48L3NwYW4+JEJSQU5EX1RFWFRfSFRNTDwvc3Bhbj4KICAgIDxzcGFuIGNsYXNzPSJqdC1kaXZpZGVyIj48L3NwYW4+CiAgICA8c3Bhbj5Qb3dlcmVkIGJ5IDxhIGhyZWY9Imh0dHBzOi8vdC5tZS8kVEVM
-RUdSQU1fVVNFUk5BTUUiIHRhcmdldD0iX2JsYW5rIiByZWw9Im5vb3BlbmVyIj4kQlJBTkRfTkFNRV9IVE1MPC9hPjwvc3Bhbj4KICAgIDxzcGFuIGNsYXNzPSJqdC1kaXZpZGVyIj48L3NwYW4+CiAgICA8YSBjbGFzcz0ianQtdGciIGhyZWY9Imh0dHBzOi8vdC5t
-ZS8kVEVMRUdSQU1fVVNFUk5BTUUiIHRhcmdldD0iX2JsYW5rIiByZWw9Im5vb3BlbmVyIj4KICAgICAgPHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGQ9Ik0xMS45NDQgMEExMiAxMiAwIDAgMCAwIDEyYTEyIDEyIDAgMCAwIDEyIDEyIDEyIDEyIDAgMCAw
-IDEyLTEyQTEyIDEyIDAgMCAwIDEyIDBhMTIgMTIgMCAwIDAtLjA1NiAwem00Ljk2MiA3LjIyNGMuMS0uMDAyLjMyMS4wMjMuNDY1LjE0YS41MDYuNTA2IDAgMCAxIC4xNzEuMzI1Yy4wMTYuMDkzLjAzNi4zMDYuMDIuNDcyLS4xOCAxLjg5OC0uOTYyIDYuNTAyLTEu
-MzYgOC42MjctLjE2OC45LS40OTkgMS4yMDEtLjgyIDEuMjMtLjY5Ni4wNjUtMS4yMjUtLjQ2LTEuOS0uOTAyLTEuMDU2LS42OTMtMS42NTMtMS4xMjQtMi42NzgtMS44LTEuMTg1LS43OC0uNDE3LTEuMjEuMjU4LTEuOTEuMTc3LS4xODQgMy4yNDctMi45NzcgMy4z
-MDctMy4yMy4wMDctLjAzMi4wMTQtLjE1LS4wNTYtLjIxMnMtLjE3NC0uMDQxLS4yNDktLjAyNGMtLjEwNi4wMjQtMS43OTMgMS4xNC01LjA2MSAzLjM0NS0uNDguMzMtLjkxMy40OS0xLjMwMi40OC0uNDI4LS4wMDgtMS4yNTItLjI0MS0xLjg2NS0uNDQtLjc1Mi0u
-MjQ1LTEuMzQ5LS4zNzQtMS4yOTctLjc4OS4wMjctLjIxNi4zMjUtLjQzNy44OTMtLjY2MyAzLjQ5OC0xLjUyNCA1LjgzLTIuNTI5IDYuOTk4LTMuMDE0IDMuMzMyLTEuMzg2IDQuMDI1LTEuNjI3IDQuNDc2LTEuNjM1eiIvPjwvc3ZnPgogICAgICAkQ09OVEFDVF9U
-RUxFR1JBTV9IVE1MCiAgICA8L2E+CiAgICA8c3BhbiBjbGFzcz0ianQtZGl2aWRlciI+PC9zcGFuPgogICAgPHNwYW4+T3JkZXIgcGFuZWwgdmlhIDxhIGhyZWY9Imh0dHBzOi8vdC5tZS8kQk9UX1VTRVJOQU1FIiB0YXJnZXQ9Il9ibGFuayIgcmVsPSJub29wZW5l
-ciI+JEJPVF9MSU5LX0hUTUw8L2E+PC9zcGFuPgogIDwvZGl2Pgo8L2Rpdj4KPCEtLSBCUkFORElOR19KSE9OQUxFWV9FTkQgLS0+CkJSQU5ESFRNTAoKICBpbmplY3RfYmVmb3JlX2Nsb3NpbmcgIiRGSUxFIiAiJEJSQU5ESU5HX1RNUCIgIiRMQUJFTCIKICBybSAt
-ZiAiJEJSQU5ESU5HX1RNUCIKICBlY2hvICLinIUgQnJhbmRpbmcgZGlwZXJiYXJ1aSBkaSAkTEFCRUwiCn0KCkJSQU5ESU5HX0FQUExJRUQ9MApmb3IgTEYgaW4gIiR7TEFZT1VUX0ZJTEVTW0BdfSI7IGRvCiAgaWYgWyAtZiAiJExGIiBdOyB0aGVuCiAgICBpbmpl
-Y3RfYnJhbmRpbmcgIiRMRiIgIiQoYmFzZW5hbWUgIiRMRiIpIgogICAgaWYgZ3JlcCAtcSAiQlJBTkRJTkdfSkhPTkFMRVkiICIkTEYiIDI+L2Rldi9udWxsOyB0aGVuCiAgICAgIEJSQU5ESU5HX0FQUExJRUQ9MQogICAgZmkKICBmaQpkb25lCgppZiBbICIkQlJB
-TkRJTkdfQVBQTElFRCIgLWVxIDAgXTsgdGhlbgogIGVjaG8gIuKdjCBCcmFuZGluZyBhZG1pbiBnYWdhbCBkaXBhc2FuZzogbGF5b3V0IGFkbWluIHRpZGFrIGRpdGVtdWthbiBhdGF1IHRpZGFrIHRlcm1vZGlmaWthc2kiCiAgZXhpdCAxCmZpCgpmb3IgTEYgaW4g
-IiR7TEFZT1VUX0ZJTEVTW0BdfSI7IGRvCiAgaWYgWyAtZiAiJExGIiBdICYmIGdyZXAgLXEgIjx0aXRsZT4iICIkTEYiOyB0aGVuCiAgICBzZWQgLWkgInN8PHRpdGxlPi4qPC90aXRsZT58PHRpdGxlPiRTQUZFX1RJVExFPC90aXRsZT58ZyIgIiRMRiIgMj4vZGV2
-L251bGwgfHwgdHJ1ZQogICAgZWNobyAi4pyFIFRpdGxlIGRpdWJhaCBkaSAkKGJhc2VuYW1lICIkTEYiKSIKICBmaQpkb25lCgplY2hvICLinIUgQnJhbmRpbmcgc2VsZXNhaSEiCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT0KIyBSRS1JTkpFQ1QgU0lERUJBUiBQUk9URUNUIE1BTkFHRVIgKGppa2EgaGlsYW5nIHNldGVsYWggbW9kaWZpa2FzaSBhZG1pbi5ibGFkZS5waHApCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PQpBRE1JTl9MQVlPVVQ9IiIKZm9yIENBTkRJREFURSBpbiBcCiAgIi92YXIvd3d3L3B0ZXJvZGFjdHlsL3Jlc291cmNlcy92aWV3cy9wYXJ0aWFscy9hZG1pbi9zaWRlYmFyLmJsYWRlLnBocCIgXAogICIvdmFyL3d3
-dy9wdGVyb2RhY3R5bC9yZXNvdXJjZXMvdmlld3MvbGF5b3V0cy9hZG1pbi5ibGFkZS5waHAiIFwKICAiL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2VzL3ZpZXdzL2xheW91dHMvYXBwLmJsYWRlLnBocCI7IGRvCiAgaWYgWyAtZiAiJENBTkRJREFURSIgXTsg
-dGhlbgogICAgQURNSU5fTEFZT1VUPSIkQ0FORElEQVRFIgogICAgYnJlYWsKICBmaQpkb25lCgppZiBbIC1mICIkQURNSU5fTEFZT1VUIiBdICYmICEgZ3JlcCAtcSAiUFJPVEVLU0lfSkhPTkFMRVlfTUFTVEVSX1NJREVCQVIiICIkQURNSU5fTEFZT1VUIiAyPi9k
-ZXYvbnVsbDsgdGhlbgogIGVjaG8gIvCflKcgUmUtaW5qZWN0IHNpZGViYXIgUHJvdGVjdCBNYW5hZ2VyLi4uIgoKICBTSURFQkFSX1NOSVBQRVQ9JChta3RlbXApCiAgY2F0ID4gIiRTSURFQkFSX1NOSVBQRVQiIDw8ICdTSURFQkFSX1BNX0VPRicKICAgICAgICAg
-ICAgICAgIHt7LS0gUFJPVEVLU0lfSkhPTkFMRVlfTUFTVEVSX1NJREVCQVI6IFByb3RlY3QgTWFuYWdlciBNZW51IC0tfX0KICAgICAgICAgICAgICAgIEBpZihBdXRoOjp1c2VyKCkgJiYgQXV0aDo6dXNlcigpLT5pZCA9PT0gMSkKICAgICAgICAgICAgICAgIDxs
-aSBjbGFzcz0ie3sgUm91dGU6OmN1cnJlbnRSb3V0ZU5hbWUoKSA9PT0gJ2FkbWluLnByb3RlY3QtbWFuYWdlcicgPyAnYWN0aXZlJyA6ICcnIH19Ij4KICAgICAgICAgICAgICAgICAgICA8YSBocmVmPSJ7eyByb3V0ZSgnYWRtaW4ucHJvdGVjdC1tYW5hZ2VyJykg
-fX0iPgogICAgICAgICAgICAgICAgICAgICAgICA8aSBjbGFzcz0iZmEgZmEtc2hpZWxkIj48L2k+IDxzcGFuPlByb3RlY3QgTWFuYWdlcjwvc3Bhbj4KICAgICAgICAgICAgICAgICAgICA8L2E+CiAgICAgICAgICAgICAgICA8L2xpPgogICAgICAgICAgICAgICAg
-QGVuZGlmCiAgICAgICAgICAgICAgICB7ey0tIEVORCBQUk9URUtTSV9KSE9OQUxFWV9NQVNURVJfU0lERUJBUiAtLX19ClNJREVCQVJfUE1fRU9GCgogIElOU0VSVF9MSU5FPSIiCiAgU0VUVElOR1NfTElORT0kKGdyZXAgLW4gImFkbWluLnNldHRpbmdzXHxDb25m
-aWd1cmF0aW9uXHxTZXR0aW5nc1x8c2V0dGluZ3MiICIkQURNSU5fTEFZT1VUIiAyPi9kZXYvbnVsbCB8IGhlYWQgLTEgfCBjdXQgLWQ6IC1mMSkKICBpZiBbIC1uICIkU0VUVElOR1NfTElORSIgXTsgdGhlbgogICAgSU5TRVJUX0xJTkU9JCgoU0VUVElOR1NfTElO
-RSAtIDEpKQogICAgd2hpbGUgWyAiJElOU0VSVF9MSU5FIiAtZ3QgMCBdOyBkbwogICAgICBpZiBzZWQgLW4gIiR7SU5TRVJUX0xJTkV9cCIgIiRBRE1JTl9MQVlPVVQiIHwgZ3JlcCAtcSAiPGxpIjsgdGhlbgogICAgICAgIGJyZWFrCiAgICAgIGZpCiAgICAgIElO
-U0VSVF9MSU5FPSQoKElOU0VSVF9MSU5FIC0gMSkpCiAgICBkb25lCiAgZmkKCiAgaWYgWyAteiAiJElOU0VSVF9MSU5FIiBdIHx8IFsgIiRJTlNFUlRfTElORSIgLWxlIDAgXTsgdGhlbgogICAgSU5TRVJUX0xJTkU9JChncmVwIC1uICI8L3VsPiIgIiRBRE1JTl9M
-QVlPVVQiIHwgdGFpbCAtMSB8IGN1dCAtZDogLWYxKQogICAgaWYgWyAtbiAiJElOU0VSVF9MSU5FIiBdOyB0aGVuCiAgICAgIElOU0VSVF9MSU5FPSQoKElOU0VSVF9MSU5FIC0gMSkpCiAgICBmaQogIGZpCgogIGlmIFsgLW4gIiRJTlNFUlRfTElORSIgXSAmJiBb
-ICIkSU5TRVJUX0xJTkUiIC1ndCAwIF07IHRoZW4KICAgIFRFTVBfTEFZT1VUPSQobWt0ZW1wKQogICAgaGVhZCAtbiAiJElOU0VSVF9MSU5FIiAiJEFETUlOX0xBWU9VVCIgPiAiJFRFTVBfTEFZT1VUIgogICAgY2F0ICIkU0lERUJBUl9TTklQUEVUIiA+PiAiJFRF
-TVBfTEFZT1VUIgogICAgdGFpbCAtbiArIiQoKElOU0VSVF9MSU5FICsgMSkpIiAiJEFETUlOX0xBWU9VVCIgPj4gIiRURU1QX0xBWU9VVCIKICAgIGlmIGNhdCAiJFRFTVBfTEFZT1VUIiA+ICIkQURNSU5fTEFZT1VUIiAyPi9kZXYvbnVsbDsgdGhlbgogICAgICBl
-Y2hvICLinIUgU2lkZWJhciBQcm90ZWN0IE1hbmFnZXIgYmVyaGFzaWwgZGktcmUtaW5qZWN0IgogICAgZWxzZQogICAgICBlY2hvICLimqDvuI8gR2FnYWwgcmUtaW5qZWN0IHNpZGViYXIsIHNraXAiCiAgICBmaQogICAgcm0gLWYgIiRURU1QX0xBWU9VVCIKICBl
-bHNlCiAgICBlY2hvICLimqDvuI8gVGlkYWsgYmlzYSBtZW5lbXVrYW4gcG9zaXNpIHNpZGViYXIgdW50dWsgcmUtaW5qZWN0IgogIGZpCiAgcm0gLWYgIiRTSURFQkFSX1NOSVBQRVQiCmZpCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KIyBDTEVBUiBDQUNIRSAtIHBha3NhIGNsZWFyIGRpIHNpbmkgYWdhciB3ZWxjb21lIGJhbm5lciBsYW5nc3VuZyB0YW1waWwKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09CmlmIFsgLWQgL3Zhci93d3cvcHRlcm9kYWN0eWwgXTsgdGhlbgogIGNkIC92YXIvd3d3L3B0ZXJvZGFjdHlsCiAgcGhwIGFydGlzYW4gdmlldzpjbGVhciAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgcGhwIGFydGlzYW4gY2FjaGU6
-Y2xlYXIgMj4vZGV2L251bGwgfHwgdHJ1ZQogIHJtIC1yZiAvdmFyL3d3dy9wdGVyb2RhY3R5bC9zdG9yYWdlL2ZyYW1ld29yay92aWV3cy8qLnBocCAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgZWNobyAi4pyFIFZpZXcgJiBjb21waWxlZCBibGFkZSBjYWNoZSBkaWJl
-cnNpaGthbiIKZmkKCgplY2hvICIiCmVjaG8gIuKchSBQUk9URUNUIDVCIFNFTEVTQUk6IEJyYW5kaW5nIGZvb3RlciAkQlJBTkRfTkFNRSB0ZXJwYXNhbmciCmVjaG8gIvCfk7EgS29udGFrOiAkQ09OVEFDVF9URUxFR1JBTSIK
-PROTECT5B_B64
+      cat << 'PROTECT5B_PLAIN'
+#!/bin/bash
+
+set -e
+
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+CONTACT_TELEGRAM="${CONTACT_TELEGRAM:-@FyzzModss}"
+BOT_LINK="${BOT_LINK:-@upgradeuser_bot}"
+WELCOME_TITLE="${WELCOME_TITLE:-Welcome To Server $BRAND_NAME}"
+WELCOME_MESSAGE="${WELCOME_MESSAGE:-Butuh panel legal yang anti mokad? langsung aja ke <a href=\"https://t.me/upgradeuser_bot\">@upgradeuser_bot</a>. Jangan Lupa join Channel <a href=\"https://t.me/FyzAbout\">@FyzAbout</a>.}"
+
+TELEGRAM_USERNAME="${CONTACT_TELEGRAM#@}"
+BOT_USERNAME="${BOT_LINK#@}"
+
+html_escape() {
+  printf '%s' "$1" | sed \
+    -e 's/&/\&amp;/g' \
+    -e 's/</\&lt;/g' \
+    -e 's/>/\&gt;/g' \
+    -e 's/"/\&quot;/g' \
+    -e "s/'/\&#39;/g"
+}
+
+js_escape() {
+  printf '%s' "$1" | sed \
+    -e 's/\\/\\\\/g' \
+    -e "s/'/\\\\'/g"
+}
+
+sed_escape() {
+  printf '%s' "$1" | sed -e 's/[\\/&]/\\&/g'
+}
+
+BRAND_NAME_HTML=$(html_escape "$BRAND_NAME")
+BRAND_TEXT_HTML=$(html_escape "$BRAND_TEXT")
+CONTACT_TELEGRAM_HTML=$(html_escape "$CONTACT_TELEGRAM")
+BOT_LINK_HTML=$(html_escape "$BOT_LINK")
+BRAND_NAME_JS=$(js_escape "$BRAND_NAME")
+CONTACT_TELEGRAM_JS=$(js_escape "$CONTACT_TELEGRAM")
+WELCOME_TITLE_JS=$(js_escape "$WELCOME_TITLE")
+WELCOME_MESSAGE_JS=$(js_escape "$WELCOME_MESSAGE")
+SAFE_TITLE=$(sed_escape "${PANEL_TITLE:-Pterodactyl - $BRAND_NAME}")
+
+can_modify_file() {
+  local file="$1"
+  if [ -f "$file" ] && [ -w "$file" ]; then
+    return 0
+  fi
+
+  local dir
+  dir=$(dirname "$file")
+  [ -w "$dir" ]
+}
+
+write_temp_to_target() {
+  local temp_file="$1"
+  local target_file="$2"
+  local label="$3"
+
+  if [ -f "$target_file" ]; then
+    chmod u+w "$target_file" 2>/dev/null || true
+    chown --reference="$target_file" "$temp_file" 2>/dev/null || true
+    chmod --reference="$target_file" "$temp_file" 2>/dev/null || true
+  fi
+
+  if cat "$temp_file" > "$target_file" 2>/dev/null; then
+    return 0
+  fi
+
+  if cp "$temp_file" "$target_file" 2>/dev/null; then
+    return 0
+  fi
+
+  echo "⚠️ Tidak bisa menulis ke $label, skip. Cek permission file/folder target."
+  return 1
+}
+
+remove_block_by_markers() {
+  local file="$1"
+  local start_marker="$2"
+  local end_marker="$3"
+  local tmp_file
+
+  if ! can_modify_file "$file"; then
+    echo "⚠️ Skip cleanup branding di $file karena tidak writable"
+    return 0
+  fi
+
+  tmp_file=$(mktemp)
+  awk -v start="$start_marker" -v end="$end_marker" '
+    index($0, start) { skip=1; next }
+    skip && index($0, end) { skip=0; next }
+    !skip { print }
+  ' "$file" > "$tmp_file"
+
+  write_temp_to_target "$tmp_file" "$file" "$file" || true
+  rm -f "$tmp_file"
+}
+
+cleanup_old_branding() {
+  local file="$1"
+  local tmp_file
+
+  if ! can_modify_file "$file"; then
+    echo "⚠️ Skip branding cleanup di $file karena tidak writable"
+    return 0
+  fi
+
+  remove_block_by_markers "$file" "<!-- BRANDING_FIT_START -->" "<!-- BRANDING_FIT_END -->"
+  remove_block_by_markers "$file" "<!-- BRANDING_FIT: Custom Branding -->" "</style>"
+
+  tmp_file=$(mktemp)
+  awk '
+    BEGIN { skip=0; depth=0; seen_div=0 }
+    /<!-- BRANDING_FIT: Footer -->/ { skip=1; depth=0; seen_div=0; next }
+    skip {
+      line=$0
+      opens=gsub(/<div[^>]*>/, "&", line)
+      closes=gsub(/<\/div>/, "&", line)
+      if (opens > 0) {
+        depth += opens
+        seen_div = 1
+      }
+      if (closes > 0) {
+        depth -= closes
+      }
+      if (seen_div && depth <= 0) {
+        skip=0
+      }
+      next
+    }
+    { print }
+  ' "$file" > "$tmp_file"
+
+  write_temp_to_target "$tmp_file" "$file" "$file" || true
+  rm -f "$tmp_file"
+}
+
+inject_before_closing() {
+  local file="$1"
+  local snippet_file="$2"
+  local label="$3"
+  local tmp_file
+
+  if ! can_modify_file "$file"; then
+    echo "⚠️ Skip inject ke $label karena file tidak writable"
+    return 0
+  fi
+
+  tmp_file=$(mktemp)
+
+  if grep -q "</body>" "$file"; then
+    awk -v snippet="$snippet_file" '
+      /<\/body>/ { while ((getline line < snippet) > 0) print line; close(snippet) }
+      { print }
+    ' "$file" > "$tmp_file"
+    write_temp_to_target "$tmp_file" "$file" "$label" || true
+    echo "✅ Konten diinjeksi sebelum </body> di $label"
+  elif grep -q "</html>" "$file"; then
+    awk -v snippet="$snippet_file" '
+      /<\/html>/ { while ((getline line < snippet) > 0) print line; close(snippet) }
+      { print }
+    ' "$file" > "$tmp_file"
+    write_temp_to_target "$tmp_file" "$file" "$label" || true
+    echo "✅ Konten diinjeksi sebelum </html> di $label"
+  else
+    cat "$snippet_file" > "$tmp_file"
+    cat "$file" >> "$tmp_file"
+    write_temp_to_target "$tmp_file" "$file" "$label" || true
+    echo "✅ Konten ditambahkan di akhir $label"
+  fi
+
+  rm -f "$tmp_file"
+}
+
+echo "==========================================="
+echo "🎨 PROTECT 5B: Branding Footer Panel"
+echo "==========================================="
+echo ""
+# ============================================================
+# === BRANDING: Inject footer brand ke layout panel ===
+# ============================================================
+echo ""
+echo "🎨 Memasang branding $BRAND_NAME..."
+
+LAYOUT_FILES=(
+  "/var/www/pterodactyl/resources/views/layouts/admin.blade.php"
+  "/var/www/pterodactyl/resources/views/layouts/app.blade.php"
+)
+
+# Cleanup branding lama dari master.blade.php dan auth.blade.php jika ada
+for CLEANUP_FILE in "/var/www/pterodactyl/resources/views/layouts/master.blade.php" "/var/www/pterodactyl/resources/views/layouts/auth.blade.php"; do
+  if [ -f "$CLEANUP_FILE" ] && grep -q "BRANDING_FIT" "$CLEANUP_FILE" 2>/dev/null; then
+    cleanup_old_branding "$CLEANUP_FILE"
+    echo "🧹 Branding lama dihapus dari $(basename "$CLEANUP_FILE")"
+  fi
+done
+
+BRANDING_FOUND=0
+
+inject_branding() {
+  local FILE="$1"
+  local LABEL="$2"
+
+  if [ -z "$FILE" ] || [ ! -f "$FILE" ]; then
+    echo "⚠️ File $LABEL tidak ditemukan: $FILE"
+    return
+  fi
+
+  BRANDING_FOUND=1
+
+  if ! can_modify_file "$FILE"; then
+    echo "⚠️ File $LABEL tidak writable, skip branding di file ini"
+    return
+  fi
+
+  if [ ! -f "${FILE}.bak_${TIMESTAMP}" ]; then
+    cp "$FILE" "${FILE}.bak_${TIMESTAMP}" 2>/dev/null || true
+  fi
+
+  cleanup_old_branding "$FILE"
+
+  BRANDING_TMP="/tmp/branding_inject_${TIMESTAMP}_$(basename "$FILE").html"
+  cat > "$BRANDING_TMP" << BRANDHTML
+<!-- BRANDING_FIT_START -->
+<style>
+  .xzsnyc-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: #1f1f27;
+    padding: 8px 18px;
+    border-top: 1px solid #2c2c34;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #9b9bb0;
+    box-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+  }
+  .xzsnyc-footer .jt-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    line-height: 1.4;
+  }
+  .xzsnyc-footer .jt-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #c7c7d1;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+  .xzsnyc-footer .jt-brand-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #0697e2;
+    box-shadow: 0 0 6px rgba(6,151,226,0.6);
+  }
+  .xzsnyc-footer .jt-divider {
+    width: 1px;
+    height: 12px;
+    background: #34343f;
+  }
+  .xzsnyc-footer a {
+    color: #0697e2;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.15s ease;
+  }
+  .xzsnyc-footer a:hover {
+    color: #38b6ff;
+    text-decoration: underline;
+  }
+  .xzsnyc-footer .jt-tg {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .xzsnyc-footer .jt-tg svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+    opacity: 0.85;
+  }
+  body { padding-bottom: 38px !important; }
+  @media (max-width: 640px) {
+    .xzsnyc-footer { font-size: 11px; padding: 7px 12px; }
+    .xzsnyc-footer .jt-inner { gap: 10px; }
+    .xzsnyc-footer .jt-divider { display: none; }
+    body { padding-bottom: 56px !important; }
+  }
+</style>
+<div class="xzsnyc-footer">
+  <div class="jt-inner">
+    <span class="jt-brand"><span class="jt-brand-dot"></span>$BRAND_TEXT_HTML</span>
+    <span class="jt-divider"></span>
+    <span>Powered by <a href="https://t.me/$TELEGRAM_USERNAME" target="_blank" rel="noopener">$BRAND_NAME_HTML</a></span>
+    <span class="jt-divider"></span>
+    <a class="jt-tg" href="https://t.me/$TELEGRAM_USERNAME" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      $CONTACT_TELEGRAM_HTML
+    </a>
+    <span class="jt-divider"></span>
+    <span>Order panel via <a href="https://t.me/$BOT_USERNAME" target="_blank" rel="noopener">$BOT_LINK_HTML</a></span>
+  </div>
+</div>
+<!-- BRANDING_FIT_END -->
+BRANDHTML
+
+  inject_before_closing "$FILE" "$BRANDING_TMP" "$LABEL"
+  rm -f "$BRANDING_TMP"
+  echo "✅ Branding diperbarui di $LABEL"
+}
+
+BRANDING_APPLIED=0
+for LF in "${LAYOUT_FILES[@]}"; do
+  if [ -f "$LF" ]; then
+    inject_branding "$LF" "$(basename "$LF")"
+    if grep -q "BRANDING_FIT" "$LF" 2>/dev/null; then
+      BRANDING_APPLIED=1
+    fi
+  fi
+done
+
+if [ "$BRANDING_APPLIED" -eq 0 ]; then
+  echo "❌ Branding admin gagal dipasang: layout admin tidak ditemukan atau tidak termodifikasi"
+  exit 1
+fi
+
+for LF in "${LAYOUT_FILES[@]}"; do
+  if [ -f "$LF" ] && grep -q "<title>" "$LF"; then
+    sed -i "s|<title>.*</title>|<title>$SAFE_TITLE</title>|g" "$LF" 2>/dev/null || true
+    echo "✅ Title diubah di $(basename "$LF")"
+  fi
+done
+
+echo "✅ Branding selesai!"
+
+# ===================================================================
+# RE-INJECT SIDEBAR PROTECT MANAGER (jika hilang setelah modifikasi admin.blade.php)
+# ===================================================================
+ADMIN_LAYOUT=""
+for CANDIDATE in \
+  "/var/www/pterodactyl/resources/views/partials/admin/sidebar.blade.php" \
+  "/var/www/pterodactyl/resources/views/layouts/admin.blade.php" \
+  "/var/www/pterodactyl/resources/views/layouts/app.blade.php"; do
+  if [ -f "$CANDIDATE" ]; then
+    ADMIN_LAYOUT="$CANDIDATE"
+    break
+  fi
+done
+
+if [ -f "$ADMIN_LAYOUT" ] && ! grep -q "PROTEKSI_FIT_MASTER_SIDEBAR" "$ADMIN_LAYOUT" 2>/dev/null; then
+  echo "🔧 Re-inject sidebar Protect Manager..."
+
+  SIDEBAR_SNIPPET=$(mktemp)
+  cat > "$SIDEBAR_SNIPPET" << 'SIDEBAR_PM_EOF'
+                {{-- PROTEKSI_FIT_MASTER_SIDEBAR: Protect Manager Menu --}}
+                @if(Auth::user() && Auth::user()->id === 1)
+                <li class="{{ Route::currentRouteName() === 'admin.protect-manager' ? 'active' : '' }}">
+                    <a href="{{ route('admin.protect-manager') }}">
+                        <i class="fa fa-shield"></i> <span>Protect Manager</span>
+                    </a>
+                </li>
+                @endif
+                {{-- END PROTEKSI_FIT_MASTER_SIDEBAR --}}
+SIDEBAR_PM_EOF
+
+  INSERT_LINE=""
+  SETTINGS_LINE=$(grep -n "admin.settings\|Configuration\|Settings\|settings" "$ADMIN_LAYOUT" 2>/dev/null | head -1 | cut -d: -f1)
+  if [ -n "$SETTINGS_LINE" ]; then
+    INSERT_LINE=$((SETTINGS_LINE - 1))
+    while [ "$INSERT_LINE" -gt 0 ]; do
+      if sed -n "${INSERT_LINE}p" "$ADMIN_LAYOUT" | grep -q "<li"; then
+        break
+      fi
+      INSERT_LINE=$((INSERT_LINE - 1))
+    done
+  fi
+
+  if [ -z "$INSERT_LINE" ] || [ "$INSERT_LINE" -le 0 ]; then
+    INSERT_LINE=$(grep -n "</ul>" "$ADMIN_LAYOUT" | tail -1 | cut -d: -f1)
+    if [ -n "$INSERT_LINE" ]; then
+      INSERT_LINE=$((INSERT_LINE - 1))
+    fi
+  fi
+
+  if [ -n "$INSERT_LINE" ] && [ "$INSERT_LINE" -gt 0 ]; then
+    TEMP_LAYOUT=$(mktemp)
+    head -n "$INSERT_LINE" "$ADMIN_LAYOUT" > "$TEMP_LAYOUT"
+    cat "$SIDEBAR_SNIPPET" >> "$TEMP_LAYOUT"
+    tail -n +"$((INSERT_LINE + 1))" "$ADMIN_LAYOUT" >> "$TEMP_LAYOUT"
+    if cat "$TEMP_LAYOUT" > "$ADMIN_LAYOUT" 2>/dev/null; then
+      echo "✅ Sidebar Protect Manager berhasil di-re-inject"
+    else
+      echo "⚠️ Gagal re-inject sidebar, skip"
+    fi
+    rm -f "$TEMP_LAYOUT"
+  else
+    echo "⚠️ Tidak bisa menemukan posisi sidebar untuk re-inject"
+  fi
+  rm -f "$SIDEBAR_SNIPPET"
+fi
+
+# ===================================================================
+# CLEAR CACHE - paksa clear di sini agar welcome banner langsung tampil
+# ===================================================================
+if [ -d /var/www/pterodactyl ]; then
+  cd /var/www/pterodactyl
+  php artisan view:clear 2>/dev/null || true
+  php artisan cache:clear 2>/dev/null || true
+  rm -rf /var/www/pterodactyl/storage/framework/views/*.php 2>/dev/null || true
+  echo "✅ View & compiled blade cache dibersihkan"
+fi
+
+
+echo ""
+echo "✅ PROTECT 5B SELESAI: Branding footer $BRAND_NAME terpasang"
+echo "📱 Kontak: $CONTACT_TELEGRAM"
+PROTECT5B_PLAIN
       ;;
     protect5c)
-      cat << 'PROTECT5C_B64'
-IyEvYmluL2Jhc2gKCnNldCAtZQoKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhv
-bmFsZXl9IgpDT05UQUNUX1RFTEVHUkFNPSIke0NPTlRBQ1RfVEVMRUdSQU06LUBKaG9hbmxleXN0b3JlSWR9IgpCT1RfTElOSz0iJHtCT1RfTElOSzotQHVwZ3JhZGV1c2VyX2JvdH0iCldFTENPTUVfVElUTEU9IiR7V0VMQ09NRV9USVRMRTotV2VsY29tZSBUbyBT
-ZXJ2ZXIgJEJSQU5EX05BTUV9IgpXRUxDT01FX01FU1NBR0U9IiR7V0VMQ09NRV9NRVNTQUdFOi1CdXR1aCBwYW5lbCBsZWdhbCB5YW5nIGFudGkgbW9rYWQ/IGxhbmdzdW5nIGFqYSBrZSA8YSBocmVmPVwiaHR0cHM6Ly90Lm1lL3VwZ3JhZGV1c2VyX2JvdFwiPkB1
-cGdyYWRldXNlcl9ib3Q8L2E+LiBKYW5nYW4gTHVwYSBqb2luIENoYW5uZWwgPGEgaHJlZj1cImh0dHBzOi8vdC5tZS9qaG9uYWxleXRlc3RpM1wiPkBqaG9uYWxleXRlc3RpMzwvYT4ufSIKClRFTEVHUkFNX1VTRVJOQU1FPSIke0NPTlRBQ1RfVEVMRUdSQU0jQH0i
-CkJPVF9VU0VSTkFNRT0iJHtCT1RfTElOSyNAfSIKCmh0bWxfZXNjYXBlKCkgewogIHByaW50ZiAnJXMnICIkMSIgfCBzZWQgXAogICAgLWUgJ3MvJi9cJmFtcDsvZycgXAogICAgLWUgJ3MvPC9cJmx0Oy9nJyBcCiAgICAtZSAncy8+L1wmZ3Q7L2cnIFwKICAgIC1l
-ICdzLyIvXCZxdW90Oy9nJyBcCiAgICAtZSAicy8nL1wmIzM5Oy9nIgp9Cgpqc19lc2NhcGUoKSB7CiAgcHJpbnRmICclcycgIiQxIiB8IHNlZCBcCiAgICAtZSAncy9cXC9cXFxcL2cnIFwKICAgIC1lICJzLycvXFxcXCcvZyIKfQoKc2VkX2VzY2FwZSgpIHsKICBw
-cmludGYgJyVzJyAiJDEiIHwgc2VkIC1lICdzL1tcXC8mXS9cXCYvZycKfQoKQlJBTkRfTkFNRV9IVE1MPSQoaHRtbF9lc2NhcGUgIiRCUkFORF9OQU1FIikKQlJBTkRfVEVYVF9IVE1MPSQoaHRtbF9lc2NhcGUgIiRCUkFORF9URVhUIikKQ09OVEFDVF9URUxFR1JB
-TV9IVE1MPSQoaHRtbF9lc2NhcGUgIiRDT05UQUNUX1RFTEVHUkFNIikKQk9UX0xJTktfSFRNTD0kKGh0bWxfZXNjYXBlICIkQk9UX0xJTksiKQpCUkFORF9OQU1FX0pTPSQoanNfZXNjYXBlICIkQlJBTkRfTkFNRSIpCkNPTlRBQ1RfVEVMRUdSQU1fSlM9JChqc19l
-c2NhcGUgIiRDT05UQUNUX1RFTEVHUkFNIikKV0VMQ09NRV9USVRMRV9KUz0kKGpzX2VzY2FwZSAiJFdFTENPTUVfVElUTEUiKQpXRUxDT01FX01FU1NBR0VfSlM9JChqc19lc2NhcGUgIiRXRUxDT01FX01FU1NBR0UiKQpTQUZFX1RJVExFPSQoc2VkX2VzY2FwZSAi
-JHtQQU5FTF9USVRMRTotUHRlcm9kYWN0eWwgLSAkQlJBTkRfTkFNRX0iKQoKY2FuX21vZGlmeV9maWxlKCkgewogIGxvY2FsIGZpbGU9IiQxIgogIGlmIFsgLWYgIiRmaWxlIiBdICYmIFsgLXcgIiRmaWxlIiBdOyB0aGVuCiAgICByZXR1cm4gMAogIGZpCgogIGxv
-Y2FsIGRpcgogIGRpcj0kKGRpcm5hbWUgIiRmaWxlIikKICBbIC13ICIkZGlyIiBdCn0KCndyaXRlX3RlbXBfdG9fdGFyZ2V0KCkgewogIGxvY2FsIHRlbXBfZmlsZT0iJDEiCiAgbG9jYWwgdGFyZ2V0X2ZpbGU9IiQyIgogIGxvY2FsIGxhYmVsPSIkMyIKCiAgaWYg
-WyAtZiAiJHRhcmdldF9maWxlIiBdOyB0aGVuCiAgICBjaG1vZCB1K3cgIiR0YXJnZXRfZmlsZSIgMj4vZGV2L251bGwgfHwgdHJ1ZQogICAgY2hvd24gLS1yZWZlcmVuY2U9IiR0YXJnZXRfZmlsZSIgIiR0ZW1wX2ZpbGUiIDI+L2Rldi9udWxsIHx8IHRydWUKICAg
-IGNobW9kIC0tcmVmZXJlbmNlPSIkdGFyZ2V0X2ZpbGUiICIkdGVtcF9maWxlIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgZmkKCiAgaWYgY2F0ICIkdGVtcF9maWxlIiA+ICIkdGFyZ2V0X2ZpbGUiIDI+L2Rldi9udWxsOyB0aGVuCiAgICByZXR1cm4gMAogIGZpCgog
-IGlmIGNwICIkdGVtcF9maWxlIiAiJHRhcmdldF9maWxlIiAyPi9kZXYvbnVsbDsgdGhlbgogICAgcmV0dXJuIDAKICBmaQoKICBlY2hvICLimqDvuI8gVGlkYWsgYmlzYSBtZW51bGlzIGtlICRsYWJlbCwgc2tpcC4gQ2VrIHBlcm1pc3Npb24gZmlsZS9mb2xkZXIg
-dGFyZ2V0LiIKICByZXR1cm4gMQp9CgpyZW1vdmVfYmxvY2tfYnlfbWFya2VycygpIHsKICBsb2NhbCBmaWxlPSIkMSIKICBsb2NhbCBzdGFydF9tYXJrZXI9IiQyIgogIGxvY2FsIGVuZF9tYXJrZXI9IiQzIgogIGxvY2FsIHRtcF9maWxlCgogIGlmICEgY2FuX21v
-ZGlmeV9maWxlICIkZmlsZSI7IHRoZW4KICAgIGVjaG8gIuKaoO+4jyBTa2lwIGNsZWFudXAgYnJhbmRpbmcgZGkgJGZpbGUga2FyZW5hIHRpZGFrIHdyaXRhYmxlIgogICAgcmV0dXJuIDAKICBmaQoKICB0bXBfZmlsZT0kKG1rdGVtcCkKICBhd2sgLXYgc3RhcnQ9
-IiRzdGFydF9tYXJrZXIiIC12IGVuZD0iJGVuZF9tYXJrZXIiICcKICAgIGluZGV4KCQwLCBzdGFydCkgeyBza2lwPTE7IG5leHQgfQogICAgc2tpcCAmJiBpbmRleCgkMCwgZW5kKSB7IHNraXA9MDsgbmV4dCB9CiAgICAhc2tpcCB7IHByaW50IH0KICAnICIkZmls
-ZSIgPiAiJHRtcF9maWxlIgoKICB3cml0ZV90ZW1wX3RvX3RhcmdldCAiJHRtcF9maWxlIiAiJGZpbGUiICIkZmlsZSIgfHwgdHJ1ZQogIHJtIC1mICIkdG1wX2ZpbGUiCn0KCmNsZWFudXBfb2xkX2JyYW5kaW5nKCkgewogIGxvY2FsIGZpbGU9IiQxIgogIGxvY2Fs
-IHRtcF9maWxlCgogIGlmICEgY2FuX21vZGlmeV9maWxlICIkZmlsZSI7IHRoZW4KICAgIGVjaG8gIuKaoO+4jyBTa2lwIGJyYW5kaW5nIGNsZWFudXAgZGkgJGZpbGUga2FyZW5hIHRpZGFrIHdyaXRhYmxlIgogICAgcmV0dXJuIDAKICBmaQoKICByZW1vdmVfYmxv
-Y2tfYnlfbWFya2VycyAiJGZpbGUiICI8IS0tIEJSQU5ESU5HX0pIT05BTEVZX1NUQVJUIC0tPiIgIjwhLS0gQlJBTkRJTkdfSkhPTkFMRVlfRU5EIC0tPiIKICByZW1vdmVfYmxvY2tfYnlfbWFya2VycyAiJGZpbGUiICI8IS0tIEJSQU5ESU5HX0pIT05BTEVZOiBD
-dXN0b20gQnJhbmRpbmcgLS0+IiAiPC9zdHlsZT4iCgogIHRtcF9maWxlPSQobWt0ZW1wKQogIGF3ayAnCiAgICBCRUdJTiB7IHNraXA9MDsgZGVwdGg9MDsgc2Vlbl9kaXY9MCB9CiAgICAvPCEtLSBCUkFORElOR19KSE9OQUxFWTogRm9vdGVyIC0tPi8geyBza2lw
-PTE7IGRlcHRoPTA7IHNlZW5fZGl2PTA7IG5leHQgfQogICAgc2tpcCB7CiAgICAgIGxpbmU9JDAKICAgICAgb3BlbnM9Z3N1YigvPGRpdltePl0qPi8sICImIiwgbGluZSkKICAgICAgY2xvc2VzPWdzdWIoLzxcL2Rpdj4vLCAiJiIsIGxpbmUpCiAgICAgIGlmIChv
-cGVucyA+IDApIHsKICAgICAgICBkZXB0aCArPSBvcGVucwogICAgICAgIHNlZW5fZGl2ID0gMQogICAgICB9CiAgICAgIGlmIChjbG9zZXMgPiAwKSB7CiAgICAgICAgZGVwdGggLT0gY2xvc2VzCiAgICAgIH0KICAgICAgaWYgKHNlZW5fZGl2ICYmIGRlcHRoIDw9
-IDApIHsKICAgICAgICBza2lwPTAKICAgICAgfQogICAgICBuZXh0CiAgICB9CiAgICB7IHByaW50IH0KICAnICIkZmlsZSIgPiAiJHRtcF9maWxlIgoKICB3cml0ZV90ZW1wX3RvX3RhcmdldCAiJHRtcF9maWxlIiAiJGZpbGUiICIkZmlsZSIgfHwgdHJ1ZQogIHJt
-IC1mICIkdG1wX2ZpbGUiCn0KCmluamVjdF9iZWZvcmVfY2xvc2luZygpIHsKICBsb2NhbCBmaWxlPSIkMSIKICBsb2NhbCBzbmlwcGV0X2ZpbGU9IiQyIgogIGxvY2FsIGxhYmVsPSIkMyIKICBsb2NhbCB0bXBfZmlsZQoKICBpZiAhIGNhbl9tb2RpZnlfZmlsZSAi
-JGZpbGUiOyB0aGVuCiAgICBlY2hvICLimqDvuI8gU2tpcCBpbmplY3Qga2UgJGxhYmVsIGthcmVuYSBmaWxlIHRpZGFrIHdyaXRhYmxlIgogICAgcmV0dXJuIDAKICBmaQoKICB0bXBfZmlsZT0kKG1rdGVtcCkKCiAgaWYgZ3JlcCAtcSAiPC9ib2R5PiIgIiRmaWxl
-IjsgdGhlbgogICAgYXdrIC12IHNuaXBwZXQ9IiRzbmlwcGV0X2ZpbGUiICcKICAgICAgLzxcL2JvZHk+LyB7IHdoaWxlICgoZ2V0bGluZSBsaW5lIDwgc25pcHBldCkgPiAwKSBwcmludCBsaW5lOyBjbG9zZShzbmlwcGV0KSB9CiAgICAgIHsgcHJpbnQgfQogICAg
-JyAiJGZpbGUiID4gIiR0bXBfZmlsZSIKICAgIHdyaXRlX3RlbXBfdG9fdGFyZ2V0ICIkdG1wX2ZpbGUiICIkZmlsZSIgIiRsYWJlbCIgfHwgdHJ1ZQogICAgZWNobyAi4pyFIEtvbnRlbiBkaWluamVrc2kgc2ViZWx1bSA8L2JvZHk+IGRpICRsYWJlbCIKICBlbGlm
-IGdyZXAgLXEgIjwvaHRtbD4iICIkZmlsZSI7IHRoZW4KICAgIGF3ayAtdiBzbmlwcGV0PSIkc25pcHBldF9maWxlIiAnCiAgICAgIC88XC9odG1sPi8geyB3aGlsZSAoKGdldGxpbmUgbGluZSA8IHNuaXBwZXQpID4gMCkgcHJpbnQgbGluZTsgY2xvc2Uoc25pcHBl
-dCkgfQogICAgICB7IHByaW50IH0KICAgICcgIiRmaWxlIiA+ICIkdG1wX2ZpbGUiCiAgICB3cml0ZV90ZW1wX3RvX3RhcmdldCAiJHRtcF9maWxlIiAiJGZpbGUiICIkbGFiZWwiIHx8IHRydWUKICAgIGVjaG8gIuKchSBLb250ZW4gZGlpbmpla3NpIHNlYmVsdW0g
-PC9odG1sPiBkaSAkbGFiZWwiCiAgZWxzZQogICAgY2F0ICIkc25pcHBldF9maWxlIiA+ICIkdG1wX2ZpbGUiCiAgICBjYXQgIiRmaWxlIiA+PiAiJHRtcF9maWxlIgogICAgd3JpdGVfdGVtcF90b190YXJnZXQgIiR0bXBfZmlsZSIgIiRmaWxlIiAiJGxhYmVsIiB8
-fCB0cnVlCiAgICBlY2hvICLinIUgS29udGVuIGRpdGFtYmFoa2FuIGRpIGFraGlyICRsYWJlbCIKICBmaQoKICBybSAtZiAiJHRtcF9maWxlIgp9CgplY2hvICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IgplY2hvICLwn5OLIFBS
-T1RFQ1QgNUM6IFdlbGNvbWUgQmFubmVyIENsaWVudCBEYXNoYm9hcmQiCmVjaG8gIj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0iCmVjaG8gIiIKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT0KIyA9PT0gQkFHSUFOIDM6IFdlbGNvbWUgQmFubmVyIGRpIENsaWVudCBEYXNoYm9hcmQgPT09CiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CmVjaG8gIiIKZWNobyAi4pSB
-4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBIgplY2hvICLwn5OmIEJBR0lBTiAzOiBXZWxjb21l
-IEJhbm5lciBDbGllbnQgRGFzaGJvYXJkIgplY2hvICLilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHi
-lIHilIEiCgpXUkFQUEVSX0ZJTEU9Ii92YXIvd3d3L3B0ZXJvZGFjdHlsL3Jlc291cmNlcy92aWV3cy90ZW1wbGF0ZXMvd3JhcHBlci5ibGFkZS5waHAiCk1BU1RFUl9GSUxFPSIvdmFyL3d3dy9wdGVyb2RhY3R5bC9yZXNvdXJjZXMvdmlld3MvbGF5b3V0cy9tYXN0
-ZXIuYmxhZGUucGhwIgoKV0VMQ09NRV9UQVJHRVQ9IiIKaWYgWyAtZiAiJFdSQVBQRVJfRklMRSIgXTsgdGhlbgogIFdFTENPTUVfVEFSR0VUPSIkV1JBUFBFUl9GSUxFIgplbGlmIFsgLWYgIiRNQVNURVJfRklMRSIgXTsgdGhlbgogIFdFTENPTUVfVEFSR0VUPSIk
-TUFTVEVSX0ZJTEUiCmVsc2UKICBXRUxDT01FX1RBUkdFVD0kKGZpbmQgL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2VzL3ZpZXdzLyAtbmFtZSAid3JhcHBlci5ibGFkZS5waHAiIDI+L2Rldi9udWxsIHwgaGVhZCAtMSkKICBpZiBbIC16ICIkV0VMQ09NRV9U
-QVJHRVQiIF07IHRoZW4KICAgIFdFTENPTUVfVEFSR0VUPSQoZmluZCAvdmFyL3d3dy9wdGVyb2RhY3R5bC9yZXNvdXJjZXMvdmlld3MvdGVtcGxhdGVzLyAtbmFtZSAiKi5ibGFkZS5waHAiIDI+L2Rldi9udWxsIHwgaGVhZCAtMSkKICBmaQpmaQoKaWYgWyAteiAi
-JFdFTENPTUVfVEFSR0VUIiBdIHx8IFsgISAtZiAiJFdFTENPTUVfVEFSR0VUIiBdOyB0aGVuCiAgZWNobyAi4pqg77iPIEZpbGUgbGF5b3V0IGNsaWVudCB0aWRhayBkaXRlbXVrYW4sIHNraXAgd2VsY29tZSBiYW5uZXIuIgplbHNlCiAgZWNobyAi8J+TgiBUYXJn
-ZXQ6ICRXRUxDT01FX1RBUkdFVCIKCiAgY3AgIiRXRUxDT01FX1RBUkdFVCIgIiR7V0VMQ09NRV9UQVJHRVR9LmJha18ke1RJTUVTVEFNUH0iIDI+L2Rldi9udWxsIHx8IHRydWUKICByZW1vdmVfYmxvY2tfYnlfbWFya2VycyAiJFdFTENPTUVfVEFSR0VUIiAiPCEt
-LSBXRUxDT01FX0pIT05BTEVZOiBXZWxjb21lIEJhbm5lciAtLT4iICI8IS0tIC9XRUxDT01FX0pIT05BTEVZIC0tPiIKICAjIEJlcnNpaGthbiBqdWdhIG1hcmtlciBsZWdhY3kgZGFyaSB2ZXJzaSBzZWJlbHVtbnlhCiAgcmVtb3ZlX2Jsb2NrX2J5X21hcmtlcnMg
-IiRXRUxDT01FX1RBUkdFVCIgIjwhLS0gSkhPTkFMRVlfV0VMQ09NRV9TVEFSVCAtLT4iICI8IS0tIEpIT05BTEVZX1dFTENPTUVfRU5EIC0tPiIKICByZW1vdmVfYmxvY2tfYnlfbWFya2VycyAiJFdFTENPTUVfVEFSR0VUIiAiPCEtLSBKSE9OQUxFWV9XRUxDT01F
-OiBXZWxjb21lIEJhbm5lciAtLT4iICI8IS0tIC9KSE9OQUxFWV9XRUxDT01FIC0tPiIKICByZW1vdmVfYmxvY2tfYnlfbWFya2VycyAiJFdFTENPTUVfVEFSR0VUIiAiPCEtLSBXRUxDT01FX0pIT05BTEVZX1NUQVJUIC0tPiIgIjwhLS0gV0VMQ09NRV9KSE9OQUxF
-WV9FTkQgLS0+IgoKICBXRUxDT01FX1RFTVA9JChta3RlbXApCiAgY2F0ID4gIiRXRUxDT01FX1RFTVAiIDw8IFdFTENPTUVfRU9GCjwhLS0gV0VMQ09NRV9KSE9OQUxFWTogV2VsY29tZSBCYW5uZXIgLS0+CjxzdHlsZT4KICAuamhvbmFsZXktd2VsY29tZSB7CiAg
-ICBiYWNrZ3JvdW5kOiAjMGEwYTBhOwogICAgYm9yZGVyOiAycHggc29saWQgI2RjMjYyNjsKICAgIGJvcmRlci1yYWRpdXM6IDA7CiAgICBtYXJnaW46IDIwcHggMjRweCAwIDI0cHg7CiAgICBmb250LWZhbWlseTogJ0pldEJyYWlucyBNb25vJywgJ0NvdXJpZXIg
-TmV3JywgbW9ub3NwYWNlOwogICAgY29sb3I6ICNmYWZhZmE7CiAgICBib3gtc2hhZG93OiA2cHggNnB4IDAgMCAjZGMyNjI2OwogICAgb3ZlcmZsb3c6IGhpZGRlbjsKICAgIHBvc2l0aW9uOiByZWxhdGl2ZTsKICB9CiAgLmpob25hbGV5LXdlbGNvbWU6OmJlZm9y
-ZSB7CiAgICBjb250ZW50OiAiIjsKICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTsKICAgIHRvcDogMDsgbGVmdDogMDsgcmlnaHQ6IDA7CiAgICBoZWlnaHQ6IDNweDsKICAgIGJhY2tncm91bmQ6IHJlcGVhdGluZy1saW5lYXItZ3JhZGllbnQoOTBkZWcsICNkYzI2MjYg
-MCAxMnB4LCAjZmJiZjI0IDEycHggMjRweCwgIzBhMGEwYSAyNHB4IDM2cHgpOwogIH0KICAuamhvbmFsZXktd2VsY29tZSAuanctaGVhZGVyIHsKICAgIGRpc3BsYXk6IGZsZXg7CiAgICBhbGlnbi1pdGVtczogY2VudGVyOwogICAgZ2FwOiAxMHB4OwogICAgcGFk
-ZGluZzogOHB4IDE2cHg7CiAgICBiYWNrZ3JvdW5kOiAjZGMyNjI2OwogICAgYm9yZGVyLWJvdHRvbTogMnB4IHNvbGlkICMwYTBhMGE7CiAgfQogIC5qaG9uYWxleS13ZWxjb21lIC5qdy1oZWFkZXIgLmp3LWRvdCB7CiAgICB3aWR0aDogMTBweDsKICAgIGhlaWdo
-dDogMTBweDsKICAgIGJvcmRlci1yYWRpdXM6IDA7CiAgICBiYWNrZ3JvdW5kOiAjZmJiZjI0OwogICAgYm9yZGVyOiAxLjVweCBzb2xpZCAjMGEwYTBhOwogIH0KICAuamhvbmFsZXktd2VsY29tZSAuanctaGVhZGVyIC5qdy10aXRsZSB7CiAgICBjb2xvcjogIzBh
-MGEwYTsKICAgIGZvbnQtc2l6ZTogMTJweDsKICAgIGZvbnQtd2VpZ2h0OiA5MDA7CiAgICB0ZXh0LXRyYW5zZm9ybTogdXBwZXJjYXNlOwogICAgbGV0dGVyLXNwYWNpbmc6IDJweDsKICAgIG1hcmdpbjogMDsKICAgIGZsZXg6IDE7CiAgICBmb250LWZhbWlseTog
-J0pldEJyYWlucyBNb25vJywgbW9ub3NwYWNlOwogIH0KICAuamhvbmFsZXktd2VsY29tZSAuanctaGVhZGVyIC5qdy10YWcgewogICAgZm9udC1zaXplOiAxMHB4OwogICAgZm9udC13ZWlnaHQ6IDkwMDsKICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7CiAg
-ICBsZXR0ZXItc3BhY2luZzogMS41cHg7CiAgICBjb2xvcjogIzBhMGEwYTsKICAgIGJvcmRlcjogMS41cHggc29saWQgIzBhMGEwYTsKICAgIHBhZGRpbmc6IDJweCA4cHg7CiAgICBiYWNrZ3JvdW5kOiAjZmJiZjI0OwogIH0KICAuamhvbmFsZXktd2VsY29tZSAu
-anctYm9keSB7CiAgICBkaXNwbGF5OiBmbGV4OwogICAgYWxpZ24taXRlbXM6IGZsZXgtc3RhcnQ7CiAgICBnYXA6IDE2cHg7CiAgICBwYWRkaW5nOiAyMHB4IDIycHg7CiAgICBiYWNrZ3JvdW5kOiAjMGEwYTBhOwogIH0KICAuamhvbmFsZXktd2VsY29tZSAuanct
-aWNvbiB7CiAgICB3aWR0aDogNDZweDsKICAgIGhlaWdodDogNDZweDsKICAgIG1pbi13aWR0aDogNDZweDsKICAgIGJvcmRlci1yYWRpdXM6IDA7CiAgICBiYWNrZ3JvdW5kOiAjZGMyNjI2OwogICAgY29sb3I6ICNmYWZhZmE7CiAgICBib3JkZXI6IDJweCBzb2xp
-ZCAjZmJiZjI0OwogICAgZGlzcGxheTogZmxleDsKICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7CiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjsKICB9CiAgLmpob25hbGV5LXdlbGNvbWUgLmp3LWljb24gc3ZnIHsgd2lkdGg6IDIycHg7IGhlaWdodDogMjJweDsg
-ZmlsbDogY3VycmVudENvbG9yOyB9CiAgLmpob25hbGV5LXdlbGNvbWUgLmp3LWNvbnRlbnQgeyBmbGV4OiAxOyBtaW4td2lkdGg6IDA7IH0KICAuamhvbmFsZXktd2VsY29tZSAuanctY29udGVudCBoMyB7CiAgICBjb2xvcjogI2ZiYmYyNDsKICAgIGZvbnQtc2l6
-ZTogMThweDsKICAgIGZvbnQtd2VpZ2h0OiA5MDA7CiAgICBtYXJnaW46IDAgMCA2cHggMDsKICAgIGxldHRlci1zcGFjaW5nOiAxLjVweDsKICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7CiAgICBmb250LWZhbWlseTogJ0pldEJyYWlucyBNb25vJywgbW9u
-b3NwYWNlOwogIH0KICAuamhvbmFsZXktd2VsY29tZSAuanctY29udGVudCBoMzo6YmVmb3JlIHsKICAgIGNvbnRlbnQ6ICJbICI7CiAgICBjb2xvcjogI2RjMjYyNjsKICB9CiAgLmpob25hbGV5LXdlbGNvbWUgLmp3LWNvbnRlbnQgaDM6OmFmdGVyIHsKICAgIGNv
-bnRlbnQ6ICIgXSI7CiAgICBjb2xvcjogI2RjMjYyNjsKICB9CiAgLmpob25hbGV5LXdlbGNvbWUgLmp3LWNvbnRlbnQgcCB7CiAgICBjb2xvcjogI2U1ZTVlNTsKICAgIGZvbnQtc2l6ZTogMTNweDsKICAgIG1hcmdpbjogMDsKICAgIGxpbmUtaGVpZ2h0OiAxLjY1
-OwogICAgZm9udC1mYW1pbHk6ICdTZWdvZSBVSScsIHN5c3RlbS11aSwgc2Fucy1zZXJpZjsKICB9CiAgLmpob25hbGV5LXdlbGNvbWUgLmp3LWNvbnRlbnQgYSB7CiAgICBjb2xvcjogI2ZiYmYyNDsKICAgIGZvbnQtd2VpZ2h0OiA3MDA7CiAgICB0ZXh0LWRlY29y
-YXRpb246IG5vbmU7CiAgICBib3JkZXItYm90dG9tOiAxLjVweCBzb2xpZCAjZGMyNjI2OwogICAgcGFkZGluZzogMCAycHg7CiAgICB0cmFuc2l0aW9uOiBhbGwgMC4xNXMgZWFzZTsKICB9CiAgLmpob25hbGV5LXdlbGNvbWUgLmp3LWNvbnRlbnQgYTpob3ZlciB7
-CiAgICBiYWNrZ3JvdW5kOiAjZGMyNjI2OwogICAgY29sb3I6ICNmYWZhZmE7CiAgICBib3JkZXItYm90dG9tLWNvbG9yOiAjZmJiZjI0OwogIH0KICBAbWVkaWEgKG1heC13aWR0aDogNjQwcHgpIHsKICAgIC5qaG9uYWxleS13ZWxjb21lIHsgbWFyZ2luOiAxNHB4
-IDEycHggMCAxMnB4OyBib3gtc2hhZG93OiA0cHggNHB4IDAgMCAjZGMyNjI2OyB9CiAgICAuamhvbmFsZXktd2VsY29tZSAuanctYm9keSB7IHBhZGRpbmc6IDE2cHg7IGdhcDogMTJweDsgfQogICAgLmpob25hbGV5LXdlbGNvbWUgLmp3LWNvbnRlbnQgaDMgeyBm
-b250LXNpemU6IDE1cHg7IGxldHRlci1zcGFjaW5nOiAxcHg7IH0KICAgIC5qaG9uYWxleS13ZWxjb21lIC5qdy1jb250ZW50IHAgeyBmb250LXNpemU6IDEycHg7IH0KICAgIC5qaG9uYWxleS13ZWxjb21lIC5qdy1oZWFkZXIgLmp3LXRhZyB7IGRpc3BsYXk6IG5v
-bmU7IH0KICB9Cjwvc3R5bGU+CjxzY3JpcHQ+CmRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoIkRPTUNvbnRlbnRMb2FkZWQiLCBmdW5jdGlvbigpIHsKICB2YXIgSUNPTl9TVkcgPSAnPHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3Lncz
-Lm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDFMMyA1djZjMCA1LjU1IDMuODQgMTAuNzQgOSAxMiA1LjE2LTEuMjYgOS02LjQ1IDktMTJWNWwtOS00em0tMiAxNmwtNC00IDEuNDEtMS40MUwxMCAxNC4xN2w2LjU5LTYuNTlMMTggOWwtOCA4eiIvPjwvc3ZnPic7
-CiAgZnVuY3Rpb24gaW5qZWN0V2VsY29tZSgpIHsKICAgIGlmIChkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgiamhvbmFsZXktd2VsY29tZS1iYW5uZXIiKSkgcmV0dXJuOwogICAgdmFyIGNvbnRhaW5lcnMgPSBbCiAgICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3Io
-IltjbGFzcyo9Q29udGVudENvbnRhaW5lcl0iKSwKICAgICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcigiW2NsYXNzKj1jb250ZW50LXdyYXBwZXJdIiksCiAgICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoIiNhcHAgPiBkaXYgPiBkaXY6bGFzdC1jaGlsZCIpLAog
-ICAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCJtYWluIiksCiAgICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoIi5jb250ZW50LXdyYXBwZXIiKSwKICAgICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcigiI2FwcCIpCiAgICBdOwogICAgdmFyIHRhcmdldCA9IG51
-bGw7CiAgICBmb3IgKHZhciBpID0gMDsgaSA8IGNvbnRhaW5lcnMubGVuZ3RoOyBpKyspIHsKICAgICAgaWYgKGNvbnRhaW5lcnNbaV0pIHsgdGFyZ2V0ID0gY29udGFpbmVyc1tpXTsgYnJlYWs7IH0KICAgIH0KICAgIGlmICghdGFyZ2V0KSByZXR1cm47CiAgICB2
-YXIgYmFubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgiZGl2Iik7CiAgICBiYW5uZXIuaWQgPSAiamhvbmFsZXktd2VsY29tZS1iYW5uZXIiOwogICAgYmFubmVyLmNsYXNzTmFtZSA9ICJqaG9uYWxleS13ZWxjb21lIjsKICAgIGJhbm5lci5pbm5lckhUTUwg
-PSAnJwogICAgICArICc8ZGl2IGNsYXNzPSJqdy1oZWFkZXIiPicKICAgICAgKyAgICc8c3BhbiBjbGFzcz0ianctZG90Ij48L3NwYW4+JwogICAgICArICAgJzxoNCBjbGFzcz0ianctdGl0bGUiPi8vIFNZU1RFTV9OT1RJQ0UuU1lTPC9oND4nCiAgICAgICsgICAn
-PHNwYW4gY2xhc3M9Imp3LXRhZyI+4pePIFZFUklGSUVEPC9zcGFuPicKICAgICAgKyAnPC9kaXY+JwogICAgICArICc8ZGl2IGNsYXNzPSJqdy1ib2R5Ij4nCiAgICAgICsgICAnPGRpdiBjbGFzcz0ianctaWNvbiI+JyArIElDT05fU1ZHICsgJzwvZGl2PicKICAg
-ICAgKyAgICc8ZGl2IGNsYXNzPSJqdy1jb250ZW50Ij48aDM+JFdFTENPTUVfVElUTEVfSlM8L2gzPjxwPiRXRUxDT01FX01FU1NBR0VfSlM8L3A+PC9kaXY+JwogICAgICArICc8L2Rpdj4nOwogICAgaWYgKHRhcmdldC5maXJzdENoaWxkKSB7IHRhcmdldC5pbnNl
-cnRCZWZvcmUoYmFubmVyLCB0YXJnZXQuZmlyc3RDaGlsZCk7IH0KICAgIGVsc2UgeyB0YXJnZXQuYXBwZW5kQ2hpbGQoYmFubmVyKTsgfQogIH0KICBpbmplY3RXZWxjb21lKCk7CiAgdmFyIG9ic2VydmVyID0gbmV3IE11dGF0aW9uT2JzZXJ2ZXIoZnVuY3Rpb24o
-KSB7CiAgICBpZiAoIWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJqaG9uYWxleS13ZWxjb21lLWJhbm5lciIpKSBpbmplY3RXZWxjb21lKCk7CiAgfSk7CiAgdmFyIGFwcEVsID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImFwcCIpIHx8IGRvY3VtZW50LmJvZHk7
-CiAgb2JzZXJ2ZXIub2JzZXJ2ZShhcHBFbCwgeyBjaGlsZExpc3Q6IHRydWUsIHN1YnRyZWU6IHRydWUgfSk7Cn0pOwo8L3NjcmlwdD4KPCEtLSAvV0VMQ09NRV9KSE9OQUxFWSAtLT4KV0VMQ09NRV9FT0YKCiAgaW5qZWN0X2JlZm9yZV9jbG9zaW5nICIkV0VMQ09N
-RV9UQVJHRVQiICIkV0VMQ09NRV9URU1QIiAiJChiYXNlbmFtZSAiJFdFTENPTUVfVEFSR0VUIikiCiAgcm0gLWYgIiRXRUxDT01FX1RFTVAiCiAgZWNobyAi4pyFIFdlbGNvbWUgYmFubmVyIGRpcGVyYmFydWkgZGkgJChiYXNlbmFtZSAiJFdFTENPTUVfVEFSR0VU
-IikiCmZpCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KIyBSRS1JTkpFQ1QgU0lERUJBUiBQUk9URUNUIE1BTkFHRVIgKGppa2EgaGlsYW5nIHNldGVsYWggbW9kaWZpa2FzaSBhZG1p
-bi5ibGFkZS5waHApCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQpBRE1JTl9MQVlPVVQ9IiIKZm9yIENBTkRJREFURSBpbiBcCiAgIi92YXIvd3d3L3B0ZXJvZGFjdHlsL3Jlc291cmNl
-cy92aWV3cy9wYXJ0aWFscy9hZG1pbi9zaWRlYmFyLmJsYWRlLnBocCIgXAogICIvdmFyL3d3dy9wdGVyb2RhY3R5bC9yZXNvdXJjZXMvdmlld3MvbGF5b3V0cy9hZG1pbi5ibGFkZS5waHAiIFwKICAiL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2VzL3ZpZXdz
-L2xheW91dHMvYXBwLmJsYWRlLnBocCI7IGRvCiAgaWYgWyAtZiAiJENBTkRJREFURSIgXTsgdGhlbgogICAgQURNSU5fTEFZT1VUPSIkQ0FORElEQVRFIgogICAgYnJlYWsKICBmaQpkb25lCgppZiBbIC1mICIkQURNSU5fTEFZT1VUIiBdICYmICEgZ3JlcCAtcSAi
-UFJPVEVLU0lfSkhPTkFMRVlfTUFTVEVSX1NJREVCQVIiICIkQURNSU5fTEFZT1VUIiAyPi9kZXYvbnVsbDsgdGhlbgogIGVjaG8gIvCflKcgUmUtaW5qZWN0IHNpZGViYXIgUHJvdGVjdCBNYW5hZ2VyLi4uIgoKICBTSURFQkFSX1NOSVBQRVQ9JChta3RlbXApCiAg
-Y2F0ID4gIiRTSURFQkFSX1NOSVBQRVQiIDw8ICdTSURFQkFSX1BNX0VPRicKICAgICAgICAgICAgICAgIHt7LS0gUFJPVEVLU0lfSkhPTkFMRVlfTUFTVEVSX1NJREVCQVI6IFByb3RlY3QgTWFuYWdlciBNZW51IC0tfX0KICAgICAgICAgICAgICAgIEBpZihBdXRo
-Ojp1c2VyKCkgJiYgQXV0aDo6dXNlcigpLT5pZCA9PT0gMSkKICAgICAgICAgICAgICAgIDxsaSBjbGFzcz0ie3sgUm91dGU6OmN1cnJlbnRSb3V0ZU5hbWUoKSA9PT0gJ2FkbWluLnByb3RlY3QtbWFuYWdlcicgPyAnYWN0aXZlJyA6ICcnIH19Ij4KICAgICAgICAg
-ICAgICAgICAgICA8YSBocmVmPSJ7eyByb3V0ZSgnYWRtaW4ucHJvdGVjdC1tYW5hZ2VyJykgfX0iPgogICAgICAgICAgICAgICAgICAgICAgICA8aSBjbGFzcz0iZmEgZmEtc2hpZWxkIj48L2k+IDxzcGFuPlByb3RlY3QgTWFuYWdlcjwvc3Bhbj4KICAgICAgICAg
-ICAgICAgICAgICA8L2E+CiAgICAgICAgICAgICAgICA8L2xpPgogICAgICAgICAgICAgICAgQGVuZGlmCiAgICAgICAgICAgICAgICB7ey0tIEVORCBQUk9URUtTSV9KSE9OQUxFWV9NQVNURVJfU0lERUJBUiAtLX19ClNJREVCQVJfUE1fRU9GCgogIElOU0VSVF9M
-SU5FPSIiCiAgU0VUVElOR1NfTElORT0kKGdyZXAgLW4gImFkbWluLnNldHRpbmdzXHxDb25maWd1cmF0aW9uXHxTZXR0aW5nc1x8c2V0dGluZ3MiICIkQURNSU5fTEFZT1VUIiAyPi9kZXYvbnVsbCB8IGhlYWQgLTEgfCBjdXQgLWQ6IC1mMSkKICBpZiBbIC1uICIk
-U0VUVElOR1NfTElORSIgXTsgdGhlbgogICAgSU5TRVJUX0xJTkU9JCgoU0VUVElOR1NfTElORSAtIDEpKQogICAgd2hpbGUgWyAiJElOU0VSVF9MSU5FIiAtZ3QgMCBdOyBkbwogICAgICBpZiBzZWQgLW4gIiR7SU5TRVJUX0xJTkV9cCIgIiRBRE1JTl9MQVlPVVQi
-IHwgZ3JlcCAtcSAiPGxpIjsgdGhlbgogICAgICAgIGJyZWFrCiAgICAgIGZpCiAgICAgIElOU0VSVF9MSU5FPSQoKElOU0VSVF9MSU5FIC0gMSkpCiAgICBkb25lCiAgZmkKCiAgaWYgWyAteiAiJElOU0VSVF9MSU5FIiBdIHx8IFsgIiRJTlNFUlRfTElORSIgLWxl
-IDAgXTsgdGhlbgogICAgSU5TRVJUX0xJTkU9JChncmVwIC1uICI8L3VsPiIgIiRBRE1JTl9MQVlPVVQiIHwgdGFpbCAtMSB8IGN1dCAtZDogLWYxKQogICAgaWYgWyAtbiAiJElOU0VSVF9MSU5FIiBdOyB0aGVuCiAgICAgIElOU0VSVF9MSU5FPSQoKElOU0VSVF9M
-SU5FIC0gMSkpCiAgICBmaQogIGZpCgogIGlmIFsgLW4gIiRJTlNFUlRfTElORSIgXSAmJiBbICIkSU5TRVJUX0xJTkUiIC1ndCAwIF07IHRoZW4KICAgIFRFTVBfTEFZT1VUPSQobWt0ZW1wKQogICAgaGVhZCAtbiAiJElOU0VSVF9MSU5FIiAiJEFETUlOX0xBWU9V
-VCIgPiAiJFRFTVBfTEFZT1VUIgogICAgY2F0ICIkU0lERUJBUl9TTklQUEVUIiA+PiAiJFRFTVBfTEFZT1VUIgogICAgdGFpbCAtbiArIiQoKElOU0VSVF9MSU5FICsgMSkpIiAiJEFETUlOX0xBWU9VVCIgPj4gIiRURU1QX0xBWU9VVCIKICAgIGlmIGNhdCAiJFRF
-TVBfTEFZT1VUIiA+ICIkQURNSU5fTEFZT1VUIiAyPi9kZXYvbnVsbDsgdGhlbgogICAgICBlY2hvICLinIUgU2lkZWJhciBQcm90ZWN0IE1hbmFnZXIgYmVyaGFzaWwgZGktcmUtaW5qZWN0IgogICAgZWxzZQogICAgICBlY2hvICLimqDvuI8gR2FnYWwgcmUtaW5q
-ZWN0IHNpZGViYXIsIHNraXAiCiAgICBmaQogICAgcm0gLWYgIiRURU1QX0xBWU9VVCIKICBlbHNlCiAgICBlY2hvICLimqDvuI8gVGlkYWsgYmlzYSBtZW5lbXVrYW4gcG9zaXNpIHNpZGViYXIgdW50dWsgcmUtaW5qZWN0IgogIGZpCiAgcm0gLWYgIiRTSURFQkFS
-X1NOSVBQRVQiCmZpCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KIyBDTEVBUiBDQUNIRSAtIHBha3NhIGNsZWFyIGRpIHNpbmkgYWdhciB3ZWxjb21lIGJhbm5lciBsYW5nc3VuZyB0
-YW1waWwKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CmlmIFsgLWQgL3Zhci93d3cvcHRlcm9kYWN0eWwgXTsgdGhlbgogIGNkIC92YXIvd3d3L3B0ZXJvZGFjdHlsCiAgcGhwIGFydGlz
-YW4gdmlldzpjbGVhciAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgcGhwIGFydGlzYW4gY2FjaGU6Y2xlYXIgMj4vZGV2L251bGwgfHwgdHJ1ZQogIHJtIC1yZiAvdmFyL3d3dy9wdGVyb2RhY3R5bC9zdG9yYWdlL2ZyYW1ld29yay92aWV3cy8qLnBocCAyPi9kZXYvbnVs
-bCB8fCB0cnVlCiAgZWNobyAi4pyFIFZpZXcgJiBjb21waWxlZCBibGFkZSBjYWNoZSBkaWJlcnNpaGthbiIKZmkKCgplY2hvICIiCmVjaG8gIuKchSBQUk9URUNUIDVDIFNFTEVTQUk6IFdlbGNvbWUgYmFubmVyIHRlcnBhc2FuZyBkaSBkYXNoYm9hcmQgY2xpZW50
-Igo=
-PROTECT5C_B64
+      cat << 'PROTECT5C_PLAIN'
+#!/bin/bash
+
+set -e
+
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+CONTACT_TELEGRAM="${CONTACT_TELEGRAM:-@FyzzModss}"
+BOT_LINK="${BOT_LINK:-@upgradeuser_bot}"
+WELCOME_TITLE="${WELCOME_TITLE:-Welcome To $BRAND_NAME}"
+WELCOME_MESSAGE="${WELCOME_MESSAGE:-Butuh panel legal? Hubungi <a href=\"https://t.me/upgradeuser_bot\">@upgradeuser_bot</a> untuk informasi lebih lanjut.}"
+
+TELEGRAM_USERNAME="${CONTACT_TELEGRAM#@}"
+BOT_USERNAME="${BOT_LINK#@}"
+
+html_escape() {
+  printf '%s' "$1" | sed \
+    -e 's/&/\&amp;/g' \
+    -e 's/</\&lt;/g' \
+    -e 's/>/\&gt;/g' \
+    -e 's/"/\&quot;/g' \
+    -e "s/'/\&#39;/g"
+}
+
+js_escape() {
+  printf '%s' "$1" | sed \
+    -e 's/\\/\\\\/g' \
+    -e "s/'/\\\\'/g"
+}
+
+sed_escape() {
+  printf '%s' "$1" | sed -e 's/[\\/&]/\\&/g'
+}
+
+BRAND_NAME_HTML=$(html_escape "$BRAND_NAME")
+BRAND_TEXT_HTML=$(html_escape "$BRAND_TEXT")
+CONTACT_TELEGRAM_HTML=$(html_escape "$CONTACT_TELEGRAM")
+BOT_LINK_HTML=$(html_escape "$BOT_LINK")
+BRAND_NAME_JS=$(js_escape "$BRAND_NAME")
+CONTACT_TELEGRAM_JS=$(js_escape "$CONTACT_TELEGRAM")
+WELCOME_TITLE_JS=$(js_escape "$WELCOME_TITLE")
+WELCOME_MESSAGE_JS=$(js_escape "$WELCOME_MESSAGE")
+SAFE_TITLE=$(sed_escape "${PANEL_TITLE:-Pterodactyl - $BRAND_NAME}")
+
+can_modify_file() {
+  local file="$1"
+  if [ -f "$file" ] && [ -w "$file" ]; then
+    return 0
+  fi
+
+  local dir
+  dir=$(dirname "$file")
+  [ -w "$dir" ]
+}
+
+write_temp_to_target() {
+  local temp_file="$1"
+  local target_file="$2"
+  local label="$3"
+
+  if [ -f "$target_file" ]; then
+    chmod u+w "$target_file" 2>/dev/null || true
+    chown --reference="$target_file" "$temp_file" 2>/dev/null || true
+    chmod --reference="$target_file" "$temp_file" 2>/dev/null || true
+  fi
+
+  if cat "$temp_file" > "$target_file" 2>/dev/null; then
+    return 0
+  fi
+
+  if cp "$temp_file" "$target_file" 2>/dev/null; then
+    return 0
+  fi
+
+  echo "⚠️ Tidak bisa menulis ke $label, skip. Cek permission file/folder target."
+  return 1
+}
+
+remove_block_by_markers() {
+  local file="$1"
+  local start_marker="$2"
+  local end_marker="$3"
+  local tmp_file
+
+  if ! can_modify_file "$file"; then
+    echo "⚠️ Skip cleanup branding di $file karena tidak writable"
+    return 0
+  fi
+
+  tmp_file=$(mktemp)
+  awk -v start="$start_marker" -v end="$end_marker" '
+    index($0, start) { skip=1; next }
+    skip && index($0, end) { skip=0; next }
+    !skip { print }
+  ' "$file" > "$tmp_file"
+
+  write_temp_to_target "$tmp_file" "$file" "$file" || true
+  rm -f "$tmp_file"
+}
+
+cleanup_old_branding() {
+  local file="$1"
+  local tmp_file
+
+  if ! can_modify_file "$file"; then
+    echo "⚠️ Skip branding cleanup di $file karena tidak writable"
+    return 0
+  fi
+
+  remove_block_by_markers "$file" "<!-- BRANDING_FIT_START -->" "<!-- BRANDING_FIT_END -->"
+  remove_block_by_markers "$file" "<!-- BRANDING_FIT: Custom Branding -->" "</style>"
+
+  tmp_file=$(mktemp)
+  awk '
+    BEGIN { skip=0; depth=0; seen_div=0 }
+    /<!-- BRANDING_FIT: Footer -->/ { skip=1; depth=0; seen_div=0; next }
+    skip {
+      line=$0
+      opens=gsub(/<div[^>]*>/, "&", line)
+      closes=gsub(/<\/div>/, "&", line)
+      if (opens > 0) {
+        depth += opens
+        seen_div = 1
+      }
+      if (closes > 0) {
+        depth -= closes
+      }
+      if (seen_div && depth <= 0) {
+        skip=0
+      }
+      next
+    }
+    { print }
+  ' "$file" > "$tmp_file"
+
+  write_temp_to_target "$tmp_file" "$file" "$file" || true
+  rm -f "$tmp_file"
+}
+
+inject_before_closing() {
+  local file="$1"
+  local snippet_file="$2"
+  local label="$3"
+  local tmp_file
+
+  if ! can_modify_file "$file"; then
+    echo "⚠️ Skip inject ke $label karena file tidak writable"
+    return 0
+  fi
+
+  tmp_file=$(mktemp)
+
+  if grep -q "</body>" "$file"; then
+    awk -v snippet="$snippet_file" '
+      /<\/body>/ { while ((getline line < snippet) > 0) print line; close(snippet) }
+      { print }
+    ' "$file" > "$tmp_file"
+    write_temp_to_target "$tmp_file" "$file" "$label" || true
+    echo "✅ Konten diinjeksi sebelum </body> di $label"
+  elif grep -q "</html>" "$file"; then
+    awk -v snippet="$snippet_file" '
+      /<\/html>/ { while ((getline line < snippet) > 0) print line; close(snippet) }
+      { print }
+    ' "$file" > "$tmp_file"
+    write_temp_to_target "$tmp_file" "$file" "$label" || true
+    echo "✅ Konten diinjeksi sebelum </html> di $label"
+  else
+    cat "$snippet_file" > "$tmp_file"
+    cat "$file" >> "$tmp_file"
+    write_temp_to_target "$tmp_file" "$file" "$label" || true
+    echo "✅ Konten ditambahkan di akhir $label"
+  fi
+
+  rm -f "$tmp_file"
+}
+
+echo "==========================================="
+echo "📋 PROTECT 5C: Welcome Banner Client Dashboard"
+echo "==========================================="
+echo ""
+# ============================================================
+# === BAGIAN 3: Welcome Banner di Client Dashboard ===
+# ============================================================
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📦 BAGIAN 3: Welcome Banner Client Dashboard"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+WRAPPER_FILE="/var/www/pterodactyl/resources/views/templates/wrapper.blade.php"
+MASTER_FILE="/var/www/pterodactyl/resources/views/layouts/master.blade.php"
+
+WELCOME_TARGET=""
+if [ -f "$WRAPPER_FILE" ]; then
+  WELCOME_TARGET="$WRAPPER_FILE"
+elif [ -f "$MASTER_FILE" ]; then
+  WELCOME_TARGET="$MASTER_FILE"
+else
+  WELCOME_TARGET=$(find /var/www/pterodactyl/resources/views/ -name "wrapper.blade.php" 2>/dev/null | head -1)
+  if [ -z "$WELCOME_TARGET" ]; then
+    WELCOME_TARGET=$(find /var/www/pterodactyl/resources/views/templates/ -name "*.blade.php" 2>/dev/null | head -1)
+  fi
+fi
+
+if [ -z "$WELCOME_TARGET" ] || [ ! -f "$WELCOME_TARGET" ]; then
+  echo "⚠️ File layout client tidak ditemukan, skip welcome banner."
+else
+  echo "📂 Target: $WELCOME_TARGET"
+
+  cp "$WELCOME_TARGET" "${WELCOME_TARGET}.bak_${TIMESTAMP}" 2>/dev/null || true
+  remove_block_by_markers "$WELCOME_TARGET" "<!-- WELCOME_FIT: Welcome Banner -->" "<!-- /WELCOME_FIT -->"
+  # Bersihkan juga marker legacy dari versi sebelumnya
+  remove_block_by_markers "$WELCOME_TARGET" "<!-- FIT_WELCOME_START -->" "<!-- FIT_WELCOME_END -->"
+  remove_block_by_markers "$WELCOME_TARGET" "<!-- FIT_WELCOME: Welcome Banner -->" "<!-- /FIT_WELCOME -->"
+  remove_block_by_markers "$WELCOME_TARGET" "<!-- WELCOME_FIT_START -->" "<!-- WELCOME_FIT_END -->"
+
+  WELCOME_TEMP=$(mktemp)
+  cat > "$WELCOME_TEMP" << WELCOME_EOF
+<!-- Welcome Banner -->
+<style>
+  .xzsnyc-welcome {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 18px 0 0 0;
+    border: 1px solid rgba(56, 111, 168, 0.34);
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(12, 30, 50, 0.97), rgba(5, 15, 27, 0.99));
+    color: #eaf3ff;
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.025);
+    font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .xzsnyc-welcome::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg, #0b5fae 0%, #2188e8 42%, #62b5ff 58%, #0b5fae 100%);
+    pointer-events: none;
+  }
+
+  .xzsnyc-welcome::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    top: -175px;
+    right: -85px;
+    border-radius: 50%;
+    background: rgba(32, 137, 231, 0.08);
+    filter: blur(22px);
+    pointer-events: none;
+  }
+
+  .xzsnyc-welcome .jw-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 17px;
+    border-bottom: 1px solid rgba(57, 107, 157, 0.22);
+    background: rgba(10, 27, 46, 0.62);
+  }
+
+  .xzsnyc-welcome .jw-indicator {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    border-radius: 50%;
+    background: #45a7ff;
+    box-shadow: 0 0 0 4px rgba(69, 167, 255, 0.07), 0 0 16px rgba(69, 167, 255, 0.48);
+  }
+
+  .xzsnyc-welcome .jw-label {
+    color: #a8c8e6;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .xzsnyc-welcome .jw-server {
+    margin-left: auto;
+    max-width: 62%;
+    overflow: hidden;
+    color: #f0f7ff;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .xzsnyc-welcome .jw-body {
+    position: relative;
+    z-index: 1;
+    padding: 24px 22px 21px;
+  }
+
+  .xzsnyc-welcome .jw-content {
+    max-width: 760px;
+  }
+
+  .xzsnyc-welcome .jw-content h3 {
+    margin: 0 0 9px;
+    color: #f4f9ff;
+    font-size: clamp(20px, 3vw, 27px);
+    line-height: 1.22;
+    font-weight: 800;
+    letter-spacing: -0.45px;
+  }
+
+  .xzsnyc-welcome .jw-content h3 .accent {
+    color: #57adff;
+  }
+
+  .xzsnyc-welcome .jw-content p {
+    margin: 0;
+    max-width: 700px;
+    color: #90abc5;
+    font-size: 13px;
+    line-height: 1.72;
+  }
+
+  .xzsnyc-welcome .jw-content a {
+    color: #4da8ff;
+    font-weight: 750;
+    text-decoration: none;
+    transition: color 0.18s ease, opacity 0.18s ease;
+  }
+
+  .xzsnyc-welcome .jw-content a:hover {
+    color: #91ccff;
+    text-decoration: underline;
+  }
+
+  .xzsnyc-welcome .jw-footer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 42px;
+    padding: 9px 22px;
+    border-top: 1px solid rgba(47, 96, 145, 0.20);
+    background: rgba(4, 13, 23, 0.42);
+    color: #7892ac;
+    font-size: 10.5px;
+    line-height: 1.5;
+  }
+
+  .xzsnyc-welcome .jw-footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    color: #c7ddf2;
+    font-weight: 750;
+    letter-spacing: 0.15px;
+  }
+
+  .xzsnyc-welcome .jw-footer-dot {
+    width: 6px;
+    height: 6px;
+    flex: 0 0 6px;
+    border-radius: 50%;
+    background: #49a9ff;
+    box-shadow: 0 0 10px rgba(73, 169, 255, 0.48);
+  }
+
+  .xzsnyc-welcome .jw-footer-meta {
+    color: #68839e;
+    white-space: nowrap;
+  }
+
+  .xzsnyc-welcome .jw-footer-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 26px;
+    padding: 4px 9px;
+    border: 1px solid rgba(69, 167, 255, 0.20);
+    border-radius: 7px;
+    background: rgba(69, 167, 255, 0.07);
+    color: #8fc9ff;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  }
+
+  .xzsnyc-welcome .jw-footer-link:hover {
+    background: rgba(69, 167, 255, 0.13);
+    border-color: rgba(69, 167, 255, 0.34);
+    color: #c2e3ff;
+  }
+
+  @media (max-width: 640px) {
+    .xzsnyc-welcome {
+      margin-top: 14px;
+      border-radius: 13px;
+    }
+
+    .xzsnyc-welcome .jw-header {
+      min-height: 48px;
+      padding: 0 14px;
+    }
+
+    .xzsnyc-welcome .jw-label {
+      font-size: 9px;
+    }
+
+    .xzsnyc-welcome .jw-server {
+      max-width: 58%;
+      font-size: 11px;
+    }
+
+    .xzsnyc-welcome .jw-body {
+      padding: 20px 16px 18px;
+    }
+
+    .xzsnyc-welcome .jw-content h3 {
+      font-size: 19px;
+      letter-spacing: -0.25px;
+    }
+
+    .xzsnyc-welcome .jw-content p {
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .xzsnyc-welcome .jw-footer {
+      padding: 8px 16px 9px;
+      font-size: 9.5px;
+      gap: 8px;
+    }
+
+    .xzsnyc-welcome .jw-footer-meta {
+      display: none;
+    }
+
+    .xzsnyc-welcome .jw-footer-link {
+      min-height: 24px;
+      padding: 3px 8px;
+    }
+  }
+</style>
+
+<script>
+(function() {
+  var BRAND_NAME = '$BRAND_NAME_JS';
+  var BRAND_TEXT = '$BRAND_TEXT_HTML';
+  var CONTACT_TELEGRAM = '$CONTACT_TELEGRAM_JS';
+  var WELCOME_TITLE = '$WELCOME_TITLE_JS';
+  var WELCOME_MESSAGE = '$WELCOME_MESSAGE_JS';
+
+  function escapeRegExp(value) {
+    return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function buildTitle(title) {
+    var safeTitle = String(title || "");
+    if (!BRAND_NAME || safeTitle.indexOf(BRAND_NAME) === -1) {
+      return safeTitle;
+    }
+
+    return safeTitle.replace(
+      new RegExp(escapeRegExp(BRAND_NAME), "g"),
+      '<span class="accent">' + BRAND_NAME + '</span>'
+    );
+  }
+
+  function injectWelcome() {
+    if (document.getElementById("xzsnyc-welcome-banner")) return;
+
+    var containers = [
+      document.querySelector("[class*=ContentContainer]"),
+      document.querySelector("[class*=content-wrapper]"),
+      document.querySelector("main"),
+      document.querySelector(".content-wrapper"),
+      document.querySelector("#app > div > div:last-child"),
+      document.querySelector("#app")
+    ];
+
+    var target = null;
+
+    for (var i = 0; i < containers.length; i++) {
+      if (containers[i]) {
+        target = containers[i];
+        break;
+      }
+    }
+
+    if (!target) return;
+
+    var banner = document.createElement("div");
+    banner.id = "xzsnyc-welcome-banner";
+    banner.className = "xzsnyc-welcome";
+
+    banner.innerHTML =
+      '<div class="jw-header">' +
+        '<span class="jw-indicator" aria-hidden="true"></span>' +
+        '<span class="jw-label">Welcome</span>' +
+        '<span class="jw-server">' + BRAND_NAME + '</span>' +
+      '</div>' +
+
+      '<div class="jw-body">' +
+        '<div class="jw-content">' +
+          '<h3>' + buildTitle(WELCOME_TITLE) + '</h3>' +
+          '<p>' + WELCOME_MESSAGE + '</p>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="jw-footer">' +
+        '<div class="jw-footer-brand">' +
+          '<span class="jw-footer-dot" aria-hidden="true"></span>' +
+          '<span>' + BRAND_NAME + '</span>' +
+        '</div>' +
+        '<span class="jw-footer-meta">Official Server</span>' +
+        '<a class="jw-footer-link" href="https://t.me/' + String(CONTACT_TELEGRAM || '').replace(/^@/, '') + '" target="_blank" rel="noopener">' + CONTACT_TELEGRAM + '</a>' +
+      '</div>';
+
+    if (target.firstChild) {
+      target.insertBefore(banner, target.firstChild);
+    } else {
+      target.appendChild(banner);
+    }
+  }
+
+  function bootWelcome() {
+    injectWelcome();
+
+    var appEl = document.getElementById("app") || document.body;
+    if (!appEl || appEl.__xzsnycWelcomeObserver) return;
+
+    var observer = new MutationObserver(function() {
+      if (!document.getElementById("xzsnyc-welcome-banner")) {
+        injectWelcome();
+      }
+    });
+
+    observer.observe(appEl, {
+      childList: true,
+      subtree: true
+    });
+
+    appEl.__xzsnycWelcomeObserver = observer;
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootWelcome, { once: true });
+  } else {
+    bootWelcome();
+  }
+})();
+</script>
+<!-- /WELCOME_FIT -->
+WELCOME_EOF
+
+  inject_before_closing "$WELCOME_TARGET" "$WELCOME_TEMP" "$(basename "$WELCOME_TARGET")"
+  rm -f "$WELCOME_TEMP"
+  echo "✅ Welcome banner diperbarui di $(basename "$WELCOME_TARGET")"
+fi
+
+# ===================================================================
+# RE-INJECT SIDEBAR PROTECT MANAGER (jika hilang setelah modifikasi admin.blade.php)
+# ===================================================================
+ADMIN_LAYOUT=""
+for CANDIDATE in \
+  "/var/www/pterodactyl/resources/views/partials/admin/sidebar.blade.php" \
+  "/var/www/pterodactyl/resources/views/layouts/admin.blade.php" \
+  "/var/www/pterodactyl/resources/views/layouts/app.blade.php"; do
+  if [ -f "$CANDIDATE" ]; then
+    ADMIN_LAYOUT="$CANDIDATE"
+    break
+  fi
+done
+
+if [ -f "$ADMIN_LAYOUT" ] && ! grep -q "PROTEKSI_FIT_MASTER_SIDEBAR" "$ADMIN_LAYOUT" 2>/dev/null; then
+  echo "🔧 Re-inject sidebar Protect Manager..."
+
+  SIDEBAR_SNIPPET=$(mktemp)
+  cat > "$SIDEBAR_SNIPPET" << 'SIDEBAR_PM_EOF'
+                {{-- PROTEKSI_FIT_MASTER_SIDEBAR: Protect Manager Menu --}}
+                @if(Auth::user() && Auth::user()->id === 1)
+                <li class="{{ Route::currentRouteName() === 'admin.protect-manager' ? 'active' : '' }}">
+                    <a href="{{ route('admin.protect-manager') }}">
+                        <i class="fa fa-shield"></i> <span>Protect Manager</span>
+                    </a>
+                </li>
+                @endif
+                {{-- END PROTEKSI_FIT_MASTER_SIDEBAR --}}
+SIDEBAR_PM_EOF
+
+  INSERT_LINE=""
+  SETTINGS_LINE=$(grep -n "admin.settings\|Configuration\|Settings\|settings" "$ADMIN_LAYOUT" 2>/dev/null | head -1 | cut -d: -f1)
+  if [ -n "$SETTINGS_LINE" ]; then
+    INSERT_LINE=$((SETTINGS_LINE - 1))
+    while [ "$INSERT_LINE" -gt 0 ]; do
+      if sed -n "${INSERT_LINE}p" "$ADMIN_LAYOUT" | grep -q "<li"; then
+        break
+      fi
+      INSERT_LINE=$((INSERT_LINE - 1))
+    done
+  fi
+
+  if [ -z "$INSERT_LINE" ] || [ "$INSERT_LINE" -le 0 ]; then
+    INSERT_LINE=$(grep -n "</ul>" "$ADMIN_LAYOUT" | tail -1 | cut -d: -f1)
+    if [ -n "$INSERT_LINE" ]; then
+      INSERT_LINE=$((INSERT_LINE - 1))
+    fi
+  fi
+
+  if [ -n "$INSERT_LINE" ] && [ "$INSERT_LINE" -gt 0 ]; then
+    TEMP_LAYOUT=$(mktemp)
+    head -n "$INSERT_LINE" "$ADMIN_LAYOUT" > "$TEMP_LAYOUT"
+    cat "$SIDEBAR_SNIPPET" >> "$TEMP_LAYOUT"
+    tail -n +"$((INSERT_LINE + 1))" "$ADMIN_LAYOUT" >> "$TEMP_LAYOUT"
+    if cat "$TEMP_LAYOUT" > "$ADMIN_LAYOUT" 2>/dev/null; then
+      echo "✅ Sidebar Protect Manager berhasil di-re-inject"
+    else
+      echo "⚠️ Gagal re-inject sidebar, skip"
+    fi
+    rm -f "$TEMP_LAYOUT"
+  else
+    echo "⚠️ Tidak bisa menemukan posisi sidebar untuk re-inject"
+  fi
+  rm -f "$SIDEBAR_SNIPPET"
+fi
+
+# ===================================================================
+# CLEAR CACHE - paksa clear di sini agar welcome banner langsung tampil
+# ===================================================================
+if [ -d /var/www/pterodactyl ]; then
+  cd /var/www/pterodactyl
+  php artisan view:clear 2>/dev/null || true
+  php artisan cache:clear 2>/dev/null || true
+  rm -rf /var/www/pterodactyl/storage/framework/views/*.php 2>/dev/null || true
+  echo "✅ View & compiled blade cache dibersihkan"
+fi
+
+
+echo ""
+echo "✅ PROTECT 5C SELESAI: Welcome banner terpasang di dashboard client"
+PROTECT5C_PLAIN
       ;;
     protect6)
-      cat << 'PROTECT6_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgoKUkVNT1RFX1BBVEg9Ii92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL0Nv
-bnRyb2xsZXJzL0FkbWluL1NldHRpbmdzL0luZGV4Q29udHJvbGxlci5waHAiClRJTUVTVEFNUD0kKGRhdGUgLXUgKyIlWS0lbS0lZC0lSC0lTS0lUy0lTiIpCkJBQ0tVUF9QQVRIPSIke1JFTU9URV9QQVRIfS5iYWtfJHtUSU1FU1RBTVB9IgoKZWNobyAi8J+agCBN
-ZW1hc2FuZyBwcm90ZWtzaSBBbnRpIEFrc2VzIFNldHRpbmdzLi4uIgoKaWYgWyAtZiAiJFJFTU9URV9QQVRIIiBdOyB0aGVuCiAgbXYgIiRSRU1PVEVfUEFUSCIgIiRCQUNLVVBfUEFUSCIKICBlY2hvICLwn5OmIEJhY2t1cCBmaWxlIGxhbWEgZGlidWF0IGRpICRC
-QUNLVVBfUEFUSCIKZmkKCm1rZGlyIC1wICIkKGRpcm5hbWUgIiRSRU1PVEVfUEFUSCIpIgpjaG1vZCA3NTUgIiQoZGlybmFtZSAiJFJFTU9URV9QQVRIIikiCgpjYXQgPiAiJFJFTU9URV9QQVRIIiA8PCAnRU9GJwo8P3BocAoKbmFtZXNwYWNlIFB0ZXJvZGFjdHls
-XEh0dHBcQ29udHJvbGxlcnNcQWRtaW5cU2V0dGluZ3M7Cgp1c2UgSWxsdW1pbmF0ZVxWaWV3XFZpZXc7CnVzZSBJbGx1bWluYXRlXEh0dHBcUmVkaXJlY3RSZXNwb25zZTsKdXNlIElsbHVtaW5hdGVcU3VwcG9ydFxGYWNhZGVzXEF1dGg7CnVzZSBQcm9sb2d1ZVxB
-bGVydHNcQWxlcnRzTWVzc2FnZUJhZzsKdXNlIElsbHVtaW5hdGVcQ29udHJhY3RzXENvbnNvbGVcS2VybmVsOwp1c2UgSWxsdW1pbmF0ZVxWaWV3XEZhY3RvcnkgYXMgVmlld0ZhY3Rvcnk7CnVzZSBQdGVyb2RhY3R5bFxIdHRwXENvbnRyb2xsZXJzXENvbnRyb2xs
-ZXI7CnVzZSBQdGVyb2RhY3R5bFxUcmFpdHNcSGVscGVyc1xBdmFpbGFibGVMYW5ndWFnZXM7CnVzZSBQdGVyb2RhY3R5bFxTZXJ2aWNlc1xIZWxwZXJzXFNvZnR3YXJlVmVyc2lvblNlcnZpY2U7CnVzZSBQdGVyb2RhY3R5bFxDb250cmFjdHNcUmVwb3NpdG9yeVxT
-ZXR0aW5nc1JlcG9zaXRvcnlJbnRlcmZhY2U7CnVzZSBQdGVyb2RhY3R5bFxIdHRwXFJlcXVlc3RzXEFkbWluXFNldHRpbmdzXEJhc2VTZXR0aW5nc0Zvcm1SZXF1ZXN0OwoKY2xhc3MgSW5kZXhDb250cm9sbGVyIGV4dGVuZHMgQ29udHJvbGxlcgp7CiAgICB1c2Ug
-QXZhaWxhYmxlTGFuZ3VhZ2VzOwoKICAgIC8qKgogICAgICogSW5kZXhDb250cm9sbGVyIGNvbnN0cnVjdG9yLgogICAgICovCiAgICBwdWJsaWMgZnVuY3Rpb24gX19jb25zdHJ1Y3QoCiAgICAgICAgcHJpdmF0ZSBBbGVydHNNZXNzYWdlQmFnICRhbGVydCwKICAg
-ICAgICBwcml2YXRlIEtlcm5lbCAka2VybmVsLAogICAgICAgIHByaXZhdGUgU2V0dGluZ3NSZXBvc2l0b3J5SW50ZXJmYWNlICRzZXR0aW5ncywKICAgICAgICBwcml2YXRlIFNvZnR3YXJlVmVyc2lvblNlcnZpY2UgJHZlcnNpb25TZXJ2aWNlLAogICAgICAgIHBy
-aXZhdGUgVmlld0ZhY3RvcnkgJHZpZXcKICAgICkgewogICAgfQoKICAgIC8qKgogICAgICogUmVuZGVyIHRoZSBVSSBmb3IgYmFzaWMgUGFuZWwgc2V0dGluZ3MuCiAgICAgKi8KICAgIHB1YmxpYyBmdW5jdGlvbiBpbmRleCgpOiBWaWV3CiAgICB7CiAgICAgICAg
-Ly8g8J+UkiBBbnRpIGFrc2VzIG1lbnUgU2V0dGluZ3Mgc2VsYWluIHVzZXIgSUQgMQogICAgICAgICR1c2VyID0gQXV0aDo6dXNlcigpOwogICAgICAgIGlmICghJHVzZXIgfHwgJHVzZXItPmlkICE9PSAxKSB7CiAgICAgICAgICAgIGFib3J0KDQwMywgJ0pob25h
-bGV5IFByb3RlY3QgLSBBa3NlcyBkaXRvbGFr4p2MJyk7CiAgICAgICAgfQoKICAgICAgICByZXR1cm4gJHRoaXMtPnZpZXctPm1ha2UoJ2FkbWluLnNldHRpbmdzLmluZGV4JywgWwogICAgICAgICAgICAndmVyc2lvbicgPT4gJHRoaXMtPnZlcnNpb25TZXJ2aWNl
-LAogICAgICAgICAgICAnbGFuZ3VhZ2VzJyA9PiAkdGhpcy0+Z2V0QXZhaWxhYmxlTGFuZ3VhZ2VzKHRydWUpLAogICAgICAgIF0pOwogICAgfQoKICAgIC8qKgogICAgICogSGFuZGxlIHNldHRpbmdzIHVwZGF0ZS4KICAgICAqCiAgICAgKiBAdGhyb3dzIFxQdGVy
-b2RhY3R5bFxFeGNlcHRpb25zXE1vZGVsXERhdGFWYWxpZGF0aW9uRXhjZXB0aW9uCiAgICAgKiBAdGhyb3dzIFxQdGVyb2RhY3R5bFxFeGNlcHRpb25zXFJlcG9zaXRvcnlcUmVjb3JkTm90Rm91bmRFeGNlcHRpb24KICAgICAqLwogICAgcHVibGljIGZ1bmN0aW9u
-IHVwZGF0ZShCYXNlU2V0dGluZ3NGb3JtUmVxdWVzdCAkcmVxdWVzdCk6IFJlZGlyZWN0UmVzcG9uc2UKICAgIHsKICAgICAgICAvLyDwn5SSIEFudGkgYWtzZXMgdXBkYXRlIHNldHRpbmdzIHNlbGFpbiB1c2VyIElEIDEKICAgICAgICAkdXNlciA9IEF1dGg6OnVz
-ZXIoKTsKICAgICAgICBpZiAoISR1c2VyIHx8ICR1c2VyLT5pZCAhPT0gMSkgewogICAgICAgICAgICBhYm9ydCg0MDMsICdKaG9uYWxleSBQcm90ZWN0IHQubWUvSmhvbmFsZXkgLSBBa3NlcyBkaXRvbGFrJyk7CiAgICAgICAgfQoKICAgICAgICBmb3JlYWNoICgk
-cmVxdWVzdC0+bm9ybWFsaXplKCkgYXMgJGtleSA9PiAkdmFsdWUpIHsKICAgICAgICAgICAgJHRoaXMtPnNldHRpbmdzLT5zZXQoJ3NldHRpbmdzOjonIC4gJGtleSwgJHZhbHVlKTsKICAgICAgICB9CgogICAgICAgICR0aGlzLT5rZXJuZWwtPmNhbGwoJ3F1ZXVl
-OnJlc3RhcnQnKTsKICAgICAgICAkdGhpcy0+YWxlcnQtPnN1Y2Nlc3MoCiAgICAgICAgICAgICdQYW5lbCBzZXR0aW5ncyBoYXZlIGJlZW4gdXBkYXRlZCBzdWNjZXNzZnVsbHkgYW5kIHRoZSBxdWV1ZSB3b3JrZXIgd2FzIHJlc3RhcnRlZCB0byBhcHBseSB0aGVz
-ZSBjaGFuZ2VzLicKICAgICAgICApLT5mbGFzaCgpOwoKICAgICAgICByZXR1cm4gcmVkaXJlY3QoKS0+cm91dGUoJ2FkbWluLnNldHRpbmdzJyk7CiAgICB9Cn0KRU9GCgpjaG1vZCA2NDQgIiRSRU1PVEVfUEFUSCIKCiMgQXBwbHkgYnJhbmQgY3VzdG9taXphdGlv
-bgpzZWQgLWkgInN8SmhvbmFsZXkgUHJvdGVjdHwke0JSQU5EX1RFWFR9fGciICIkUkVNT1RFX1BBVEgiIDI+L2Rldi9udWxsIHx8IHRydWUKc2VkIC1pICJzfEpob25hbGV5IFRlY2h8JHtCUkFORF9OQU1FfXxnIiAiJFJFTU9URV9QQVRIIiAyPi9kZXYvbnVsbCB8
-fCB0cnVlCgplY2hvICLinIUgUHJvdGVrc2kgQW50aSBBa3NlcyBTZXR0aW5ncyBiZXJoYXNpbCBkaXBhc2FuZyEiCmVjaG8gIvCfk4IgTG9rYXNpIGZpbGU6ICRSRU1PVEVfUEFUSCIKZWNobyAi8J+Xgu+4jyBCYWNrdXAgZmlsZSBsYW1hOiAkQkFDS1VQX1BBVEgg
-KGppa2Egc2ViZWx1bW55YSBhZGEpIgplY2hvICLwn5SSIEhhbnlhIEFkbWluIChJRCAxKSB5YW5nIGJpc2EgQWtzZXMgU2V0dGluZ3MuIgoKIyA9PT0gS1VTVE9NSVNBU0kgUEVTQU4gQUtTRVMgRElUT0xBSyAoZGFyaSBQcm90ZWN0IE1hbmFnZXIpID09PQppZiBb
-IC1uICIkREVOWV9NU0dfQURNSU4iIF0gJiYgWyAtZiAiJFJFTU9URV9QQVRIIiBdOyB0aGVuCiAgcHl0aG9uMyAtICIkUkVNT1RFX1BBVEgiICIkREVOWV9NU0dfQURNSU4iIDw8ICdQWUFCT1JUJwppbXBvcnQgc3lzLCByZQpwYXRoLCBtc2cgPSBzeXMuYXJndlsx
-XSwgc3lzLmFyZ3ZbMl0Kd2l0aCBvcGVuKHBhdGgsICdyJywgZW5jb2Rpbmc9J3V0Zi04JykgYXMgZjoKICAgIGNvbnRlbnQgPSBmLnJlYWQoKQpuZXdfY29udGVudCA9IHJlLnN1YigKICAgIHIiYWJvcnRcKFxzKjQwM1xzKixccyooWydcIl0pKD86XFxcMXwoPyFc
-MSkuKSpcMVxzKlwpIiwKICAgICJhYm9ydCg0MDMsICIgKyByZXByKG1zZykgKyAiKSIsCiAgICBjb250ZW50CikKaWYgbmV3X2NvbnRlbnQgIT0gY29udGVudDoKICAgIHdpdGggb3BlbihwYXRoLCAndycsIGVuY29kaW5nPSd1dGYtOCcpIGFzIGY6CiAgICAgICAg
-Zi53cml0ZShuZXdfY29udGVudCkKICAgIHByaW50KCLinI/vuI8gIFBlc2FuIGFrc2VzIGRpdG9sYWsgZGlrdXN0b21pc2FzaTogIiArIG1zZykKUFlBQk9SVApmaQo=
-PROTECT6_B64
+      cat << 'PROTECT6_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+
+REMOTE_PATH="/var/www/pterodactyl/app/Http/Controllers/Admin/Settings/IndexController.php"
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+BACKUP_PATH="${REMOTE_PATH}.bak_${TIMESTAMP}"
+
+echo "🚀 Memasang proteksi Anti Akses Settings..."
+
+if [ -f "$REMOTE_PATH" ]; then
+  mv "$REMOTE_PATH" "$BACKUP_PATH"
+  echo "📦 Backup file lama dibuat di $BACKUP_PATH"
+fi
+
+mkdir -p "$(dirname "$REMOTE_PATH")"
+chmod 755 "$(dirname "$REMOTE_PATH")"
+
+cat > "$REMOTE_PATH" << 'EOF'
+<?php
+
+namespace Pterodactyl\Http\Controllers\Admin\Settings;
+
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Prologue\Alerts\AlertsMessageBag;
+use Illuminate\Contracts\Console\Kernel;
+use Illuminate\View\Factory as ViewFactory;
+use Pterodactyl\Http\Controllers\Controller;
+use Pterodactyl\Traits\Helpers\AvailableLanguages;
+use Pterodactyl\Services\Helpers\SoftwareVersionService;
+use Pterodactyl\Contracts\Repository\SettingsRepositoryInterface;
+use Pterodactyl\Http\Requests\Admin\Settings\BaseSettingsFormRequest;
+
+class IndexController extends Controller
+{
+    use AvailableLanguages;
+
+    /**
+     * IndexController constructor.
+     */
+    public function __construct(
+        private AlertsMessageBag $alert,
+        private Kernel $kernel,
+        private SettingsRepositoryInterface $settings,
+        private SoftwareVersionService $versionService,
+        private ViewFactory $view
+    ) {
+    }
+
+    /**
+     * Render the UI for basic Panel settings.
+     */
+    public function index(): View
+    {
+        // 🔒 Anti akses menu Settings selain user ID 1
+        $user = Auth::user();
+        if (!$user || $user->id !== 1) {
+            abort(403, 'FyzzModss Protect - Akses ditolak❌');
+        }
+
+        return $this->view->make('admin.settings.index', [
+            'version' => $this->versionService,
+            'languages' => $this->getAvailableLanguages(true),
+        ]);
+    }
+
+    /**
+     * Handle settings update.
+     *
+     * @throws \Pterodactyl\Exceptions\Model\DataValidationException
+     * @throws \Pterodactyl\Exceptions\Repository\RecordNotFoundException
+     */
+    public function update(BaseSettingsFormRequest $request): RedirectResponse
+    {
+        // 🔒 Anti akses update settings selain user ID 1
+        $user = Auth::user();
+        if (!$user || $user->id !== 1) {
+            abort(403, 'FyzzModss Protect t.me/FyzzModss - Akses ditolak');
+        }
+
+        foreach ($request->normalize() as $key => $value) {
+            $this->settings->set('settings::' . $key, $value);
+        }
+
+        $this->kernel->call('queue:restart');
+        $this->alert->success(
+            'Panel settings have been updated successfully and the queue worker was restarted to apply these changes.'
+        )->flash();
+
+        return redirect()->route('admin.settings');
+    }
+}
+EOF
+
+chmod 644 "$REMOTE_PATH"
+
+# Apply brand customization
+sed -i "s|FyzzModss Protect|${BRAND_TEXT}|g" "$REMOTE_PATH" 2>/dev/null || true
+sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$REMOTE_PATH" 2>/dev/null || true
+
+echo "✅ Proteksi Anti Akses Settings berhasil dipasang!"
+echo "📂 Lokasi file: $REMOTE_PATH"
+echo "🗂️ Backup file lama: $BACKUP_PATH (jika sebelumnya ada)"
+echo "🔒 Hanya Admin (ID 1) yang bisa Akses Settings."
+
+# === KUSTOMISASI PESAN AKSES DITOLAK (dari Protect Manager) ===
+if [ -n "$DENY_MSG_ADMIN" ] && [ -f "$REMOTE_PATH" ]; then
+  python3 - "$REMOTE_PATH" "$DENY_MSG_ADMIN" << 'PYABORT'
+import sys, re
+path, msg = sys.argv[1], sys.argv[2]
+with open(path, 'r', encoding='utf-8') as f:
+    content = f.read()
+new_content = re.sub(
+    r"abort\(\s*403\s*,\s*(['\"])(?:\\\1|(?!\1).)*\1\s*\)",
+    "abort(403, " + repr(msg) + ")",
+    content
+)
+if new_content != content:
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    print("✏️  Pesan akses ditolak dikustomisasi: " + msg)
+PYABORT
+fi
+PROTECT6_PLAIN
       ;;
     protect7)
-      cat << 'PROTECT7_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgoKUkVNT1RFX1BBVEg9Ii92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL0Nv
-bnRyb2xsZXJzL0FwaS9DbGllbnQvU2VydmVycy9GaWxlQ29udHJvbGxlci5waHAiClRJTUVTVEFNUD0kKGRhdGUgLXUgKyIlWS0lbS0lZC0lSC0lTS0lUy0lTiIpCkJBQ0tVUF9QQVRIPSIke1JFTU9URV9QQVRIfS5iYWtfJHtUSU1FU1RBTVB9IgoKZWNobyAi8J+a
-gCBNZW1hc2FuZyBwcm90ZWtzaSBBbnRpIEFrc2VzIFNlcnZlciBGaWxlIENvbnRyb2xsZXIuLi4iCgppZiBbIC1mICIkUkVNT1RFX1BBVEgiIF07IHRoZW4KICBtdiAiJFJFTU9URV9QQVRIIiAiJEJBQ0tVUF9QQVRIIgogIGVjaG8gIvCfk6YgQmFja3VwIGZpbGUg
-bGFtYSBkaWJ1YXQgZGkgJEJBQ0tVUF9QQVRIIgpmaQoKbWtkaXIgLXAgIiQoZGlybmFtZSAiJFJFTU9URV9QQVRIIikiCmNobW9kIDc1NSAiJChkaXJuYW1lICIkUkVNT1RFX1BBVEgiKSIKCmNhdCA+ICIkUkVNT1RFX1BBVEgiIDw8ICdFT0YnCjw/cGhwCgpuYW1l
-c3BhY2UgUHRlcm9kYWN0eWxcSHR0cFxDb250cm9sbGVyc1xBcGlcQ2xpZW50XFNlcnZlcnM7Cgp1c2UgQ2FyYm9uXENhcmJvbkltbXV0YWJsZTsKdXNlIElsbHVtaW5hdGVcSHR0cFxSZXNwb25zZTsKdXNlIElsbHVtaW5hdGVcSHR0cFxKc29uUmVzcG9uc2U7CnVz
-ZSBQdGVyb2RhY3R5bFxNb2RlbHNcU2VydmVyOwp1c2UgUHRlcm9kYWN0eWxcRmFjYWRlc1xBY3Rpdml0eTsKdXNlIFB0ZXJvZGFjdHlsXFNlcnZpY2VzXE5vZGVzXE5vZGVKV1RTZXJ2aWNlOwp1c2UgUHRlcm9kYWN0eWxcUmVwb3NpdG9yaWVzXFdpbmdzXERhZW1v
-bkZpbGVSZXBvc2l0b3J5Owp1c2UgUHRlcm9kYWN0eWxcVHJhbnNmb3JtZXJzXEFwaVxDbGllbnRcRmlsZU9iamVjdFRyYW5zZm9ybWVyOwp1c2UgUHRlcm9kYWN0eWxcSHR0cFxDb250cm9sbGVyc1xBcGlcQ2xpZW50XENsaWVudEFwaUNvbnRyb2xsZXI7CnVzZSBQ
-dGVyb2RhY3R5bFxIdHRwXFJlcXVlc3RzXEFwaVxDbGllbnRcU2VydmVyc1xGaWxlc1xDb3B5RmlsZVJlcXVlc3Q7CnVzZSBQdGVyb2RhY3R5bFxIdHRwXFJlcXVlc3RzXEFwaVxDbGllbnRcU2VydmVyc1xGaWxlc1xQdWxsRmlsZVJlcXVlc3Q7CnVzZSBQdGVyb2Rh
-Y3R5bFxIdHRwXFJlcXVlc3RzXEFwaVxDbGllbnRcU2VydmVyc1xGaWxlc1xMaXN0RmlsZXNSZXF1ZXN0Owp1c2UgUHRlcm9kYWN0eWxcSHR0cFxSZXF1ZXN0c1xBcGlcQ2xpZW50XFNlcnZlcnNcRmlsZXNcQ2htb2RGaWxlc1JlcXVlc3Q7CnVzZSBQdGVyb2RhY3R5
-bFxIdHRwXFJlcXVlc3RzXEFwaVxDbGllbnRcU2VydmVyc1xGaWxlc1xEZWxldGVGaWxlUmVxdWVzdDsKdXNlIFB0ZXJvZGFjdHlsXEh0dHBcUmVxdWVzdHNcQXBpXENsaWVudFxTZXJ2ZXJzXEZpbGVzXFJlbmFtZUZpbGVSZXF1ZXN0Owp1c2UgUHRlcm9kYWN0eWxc
-SHR0cFxSZXF1ZXN0c1xBcGlcQ2xpZW50XFNlcnZlcnNcRmlsZXNcQ3JlYXRlRm9sZGVyUmVxdWVzdDsKdXNlIFB0ZXJvZGFjdHlsXEh0dHBcUmVxdWVzdHNcQXBpXENsaWVudFxTZXJ2ZXJzXEZpbGVzXENvbXByZXNzRmlsZXNSZXF1ZXN0Owp1c2UgUHRlcm9kYWN0
-eWxcSHR0cFxSZXF1ZXN0c1xBcGlcQ2xpZW50XFNlcnZlcnNcRmlsZXNcRGVjb21wcmVzc0ZpbGVzUmVxdWVzdDsKdXNlIFB0ZXJvZGFjdHlsXEh0dHBcUmVxdWVzdHNcQXBpXENsaWVudFxTZXJ2ZXJzXEZpbGVzXEdldEZpbGVDb250ZW50c1JlcXVlc3Q7CnVzZSBQ
-dGVyb2RhY3R5bFxIdHRwXFJlcXVlc3RzXEFwaVxDbGllbnRcU2VydmVyc1xGaWxlc1xXcml0ZUZpbGVDb250ZW50UmVxdWVzdDsKCmNsYXNzIEZpbGVDb250cm9sbGVyIGV4dGVuZHMgQ2xpZW50QXBpQ29udHJvbGxlcgp7CiAgICBwdWJsaWMgZnVuY3Rpb24gX19j
-b25zdHJ1Y3QoCiAgICAgICAgcHJpdmF0ZSBOb2RlSldUU2VydmljZSAkand0U2VydmljZSwKICAgICAgICBwcml2YXRlIERhZW1vbkZpbGVSZXBvc2l0b3J5ICRmaWxlUmVwb3NpdG9yeQogICAgKSB7CiAgICAgICAgcGFyZW50OjpfX2NvbnN0cnVjdCgpOwogICAg
-fQoKICAgIC8qKgogICAgICog8J+UkiBGdW5nc2kgdGFtYmFoYW46IENlZ2FoIGFrc2VzIHNlcnZlciBvcmFuZyBsYWluLgogICAgICogSXppbmthbjogQWRtaW4gSUQgMSwgT3duZXIgc2VydmVyLCBkYW4gU3VidXNlciB5YW5nIHRlcmRhZnRhci4KICAgICAqLwog
-ICAgcHJpdmF0ZSBmdW5jdGlvbiBjaGVja1NlcnZlckFjY2VzcygkcmVxdWVzdCwgU2VydmVyICRzZXJ2ZXIpCiAgICB7CiAgICAgICAgJHVzZXIgPSAkcmVxdWVzdC0+dXNlcigpOwoKICAgICAgICBpZiAoISR1c2VyKSB7CiAgICAgICAgICAgIGFib3J0KDQwMywg
-J0FuZGEgdGlkYWsgbWVtaWxpa2kgYWtzZXMga2Ugc2VydmVyIGluaS4nKTsKICAgICAgICB9CgogICAgICAgIC8vIEFkbWluICh1c2VyIGlkID0gMSkgYmViYXMgYWtzZXMgc2VtdWEKICAgICAgICBpZiAoKGludCkgJHVzZXItPmlkID09PSAxKSB7CiAgICAgICAg
-ICAgIHJldHVybjsKICAgICAgICB9CgogICAgICAgIC8vIE93bmVyIHNlcnZlcgogICAgICAgIGlmICgoaW50KSAkc2VydmVyLT5vd25lcl9pZCA9PT0gKGludCkgJHVzZXItPmlkKSB7CiAgICAgICAgICAgIHJldHVybjsKICAgICAgICB9CgogICAgICAgIC8vIFN1
-YnVzZXIgeWFuZyB0ZXJkYWZ0YXIgZGkgc2VydmVyIGluaSAoUHRlcm9kYWN0eWwgMS4xMi54KQogICAgICAgIHRyeSB7CiAgICAgICAgICAgICRpc1N1YnVzZXIgPSAkc2VydmVyLT5zdWJ1c2VycygpLT53aGVyZSgndXNlcl9pZCcsICR1c2VyLT5pZCktPmV4aXN0
-cygpOwogICAgICAgICAgICBpZiAoJGlzU3VidXNlcikgewogICAgICAgICAgICAgICAgcmV0dXJuOwogICAgICAgICAgICB9CiAgICAgICAgfSBjYXRjaCAoXFRocm93YWJsZSAkZSkgewogICAgICAgICAgICAvLyBmYWxsYmFjayBkaWFtCiAgICAgICAgfQoKICAg
-ICAgICBhYm9ydCg0MDMsICdBbmRhIHRpZGFrIG1lbWlsaWtpIGFrc2VzIGtlIHNlcnZlciBpbmkuJyk7CiAgICB9CgogICAgcHVibGljIGZ1bmN0aW9uIGRpcmVjdG9yeShMaXN0RmlsZXNSZXF1ZXN0ICRyZXF1ZXN0LCBTZXJ2ZXIgJHNlcnZlcik6IGFycmF5CiAg
-ICB7CiAgICAgICAgJHRoaXMtPmNoZWNrU2VydmVyQWNjZXNzKCRyZXF1ZXN0LCAkc2VydmVyKTsKCiAgICAgICAgJGNvbnRlbnRzID0gJHRoaXMtPmZpbGVSZXBvc2l0b3J5CiAgICAgICAgICAgIC0+c2V0U2VydmVyKCRzZXJ2ZXIpCiAgICAgICAgICAgIC0+Z2V0
-RGlyZWN0b3J5KCRyZXF1ZXN0LT5nZXQoJ2RpcmVjdG9yeScpID8/ICcvJyk7CgogICAgICAgIHJldHVybiAkdGhpcy0+ZnJhY3RhbC0+Y29sbGVjdGlvbigkY29udGVudHMpCiAgICAgICAgICAgIC0+dHJhbnNmb3JtV2l0aCgkdGhpcy0+Z2V0VHJhbnNmb3JtZXIo
-RmlsZU9iamVjdFRyYW5zZm9ybWVyOjpjbGFzcykpCiAgICAgICAgICAgIC0+dG9BcnJheSgpOwogICAgfQoKICAgIHB1YmxpYyBmdW5jdGlvbiBjb250ZW50cyhHZXRGaWxlQ29udGVudHNSZXF1ZXN0ICRyZXF1ZXN0LCBTZXJ2ZXIgJHNlcnZlcik6IFJlc3BvbnNl
-CiAgICB7CiAgICAgICAgJHRoaXMtPmNoZWNrU2VydmVyQWNjZXNzKCRyZXF1ZXN0LCAkc2VydmVyKTsKCiAgICAgICAgJHJlc3BvbnNlID0gJHRoaXMtPmZpbGVSZXBvc2l0b3J5LT5zZXRTZXJ2ZXIoJHNlcnZlciktPmdldENvbnRlbnQoCiAgICAgICAgICAgICRy
-ZXF1ZXN0LT5nZXQoJ2ZpbGUnKSwKICAgICAgICAgICAgY29uZmlnKCdwdGVyb2RhY3R5bC5maWxlcy5tYXhfZWRpdF9zaXplJykKICAgICAgICApOwoKICAgICAgICBBY3Rpdml0eTo6ZXZlbnQoJ3NlcnZlcjpmaWxlLnJlYWQnKS0+cHJvcGVydHkoJ2ZpbGUnLCAk
-cmVxdWVzdC0+Z2V0KCdmaWxlJykpLT5sb2coKTsKCiAgICAgICAgcmV0dXJuIG5ldyBSZXNwb25zZSgkcmVzcG9uc2UsIFJlc3BvbnNlOjpIVFRQX09LLCBbJ0NvbnRlbnQtVHlwZScgPT4gJ3RleHQvcGxhaW4nXSk7CiAgICB9CgogICAgcHVibGljIGZ1bmN0aW9u
-IGRvd25sb2FkKEdldEZpbGVDb250ZW50c1JlcXVlc3QgJHJlcXVlc3QsIFNlcnZlciAkc2VydmVyKTogYXJyYXkKICAgIHsKICAgICAgICAkdGhpcy0+Y2hlY2tTZXJ2ZXJBY2Nlc3MoJHJlcXVlc3QsICRzZXJ2ZXIpOwoKICAgICAgICAkand0ID0gJHRoaXMtPmp3
-dFNlcnZpY2UKICAgICAgICAgICAgLT5zZXRFeHBpcmVzQXQoQ2FyYm9uSW1tdXRhYmxlOjpub3coKS0+YWRkTWludXRlcygxNSkpCiAgICAgICAgICAgIC0+c2V0VXNlcigkcmVxdWVzdC0+dXNlcigpKQogICAgICAgICAgICAtPnNldENsYWltcyhbCiAgICAgICAg
-ICAgICAgICAnZmlsZV9wYXRoJyA9PiByYXd1cmxkZWNvZGUoJHJlcXVlc3QtPmdldCgnZmlsZScpKSwKICAgICAgICAgICAgICAgICdzZXJ2ZXJfdXVpZCcgPT4gJHNlcnZlci0+dXVpZCwKICAgICAgICAgICAgXSk7CgogICAgICAgIC8vIFRhbWJhaCBzY29wZSBG
-aWxlRG93bmxvYWQgamlrYSB0ZXJzZWRpYSAoUHRlcm9kYWN0eWwgdmVyc2kgYmFydSB3YWppYikKICAgICAgICBpZiAoY2xhc3NfZXhpc3RzKFxQdGVyb2RhY3R5bFxFbnVtXEp3dFNjb3BlOjpjbGFzcykgJiYgbWV0aG9kX2V4aXN0cygkand0LCAnc2V0U2NvcGVz
-JykpIHsKICAgICAgICAgICAgJGp3dCA9ICRqd3QtPnNldFNjb3BlcyhcUHRlcm9kYWN0eWxcRW51bVxKd3RTY29wZTo6RmlsZURvd25sb2FkKTsKICAgICAgICB9CgogICAgICAgICR0b2tlbiA9ICRqd3QtPmhhbmRsZSgkc2VydmVyLT5ub2RlLCAkcmVxdWVzdC0+
-dXNlcigpLT5pZCAuICRzZXJ2ZXItPnV1aWQpOwoKICAgICAgICBBY3Rpdml0eTo6ZXZlbnQoJ3NlcnZlcjpmaWxlLmRvd25sb2FkJyktPnByb3BlcnR5KCdmaWxlJywgJHJlcXVlc3QtPmdldCgnZmlsZScpKS0+bG9nKCk7CgogICAgICAgIHJldHVybiBbCiAgICAg
-ICAgICAgICdvYmplY3QnID0+ICdzaWduZWRfdXJsJywKICAgICAgICAgICAgJ2F0dHJpYnV0ZXMnID0+IFsKICAgICAgICAgICAgICAgICd1cmwnID0+IHNwcmludGYoCiAgICAgICAgICAgICAgICAgICAgJyVzL2Rvd25sb2FkL2ZpbGU/dG9rZW49JXMnLAogICAg
-ICAgICAgICAgICAgICAgICRzZXJ2ZXItPm5vZGUtPmdldENvbm5lY3Rpb25BZGRyZXNzKCksCiAgICAgICAgICAgICAgICAgICAgJHRva2VuLT50b1N0cmluZygpCiAgICAgICAgICAgICAgICApLAogICAgICAgICAgICBdLAogICAgICAgIF07CiAgICB9CgogICAg
-cHVibGljIGZ1bmN0aW9uIHdyaXRlKFdyaXRlRmlsZUNvbnRlbnRSZXF1ZXN0ICRyZXF1ZXN0LCBTZXJ2ZXIgJHNlcnZlcik6IEpzb25SZXNwb25zZQogICAgewogICAgICAgICR0aGlzLT5jaGVja1NlcnZlckFjY2VzcygkcmVxdWVzdCwgJHNlcnZlcik7CgogICAg
-ICAgICR0aGlzLT5maWxlUmVwb3NpdG9yeS0+c2V0U2VydmVyKCRzZXJ2ZXIpLT5wdXRDb250ZW50KCRyZXF1ZXN0LT5nZXQoJ2ZpbGUnKSwgJHJlcXVlc3QtPmdldENvbnRlbnQoKSk7CgogICAgICAgIEFjdGl2aXR5OjpldmVudCgnc2VydmVyOmZpbGUud3JpdGUn
-KS0+cHJvcGVydHkoJ2ZpbGUnLCAkcmVxdWVzdC0+Z2V0KCdmaWxlJykpLT5sb2coKTsKCiAgICAgICAgcmV0dXJuIG5ldyBKc29uUmVzcG9uc2UoW10sIFJlc3BvbnNlOjpIVFRQX05PX0NPTlRFTlQpOwogICAgfQoKICAgIHB1YmxpYyBmdW5jdGlvbiBjcmVhdGUo
-Q3JlYXRlRm9sZGVyUmVxdWVzdCAkcmVxdWVzdCwgU2VydmVyICRzZXJ2ZXIpOiBKc29uUmVzcG9uc2UKICAgIHsKICAgICAgICAkdGhpcy0+Y2hlY2tTZXJ2ZXJBY2Nlc3MoJHJlcXVlc3QsICRzZXJ2ZXIpOwoKICAgICAgICAkdGhpcy0+ZmlsZVJlcG9zaXRvcnkK
-ICAgICAgICAgICAgLT5zZXRTZXJ2ZXIoJHNlcnZlcikKICAgICAgICAgICAgLT5jcmVhdGVEaXJlY3RvcnkoJHJlcXVlc3QtPmlucHV0KCduYW1lJyksICRyZXF1ZXN0LT5pbnB1dCgncm9vdCcsICcvJykpOwoKICAgICAgICBBY3Rpdml0eTo6ZXZlbnQoJ3NlcnZl
-cjpmaWxlLmNyZWF0ZS1kaXJlY3RvcnknKQogICAgICAgICAgICAtPnByb3BlcnR5KCduYW1lJywgJHJlcXVlc3QtPmlucHV0KCduYW1lJykpCiAgICAgICAgICAgIC0+cHJvcGVydHkoJ2RpcmVjdG9yeScsICRyZXF1ZXN0LT5pbnB1dCgncm9vdCcpKQogICAgICAg
-ICAgICAtPmxvZygpOwoKICAgICAgICByZXR1cm4gbmV3IEpzb25SZXNwb25zZShbXSwgUmVzcG9uc2U6OkhUVFBfTk9fQ09OVEVOVCk7CiAgICB9CgogICAgcHVibGljIGZ1bmN0aW9uIHJlbmFtZShSZW5hbWVGaWxlUmVxdWVzdCAkcmVxdWVzdCwgU2VydmVyICRz
-ZXJ2ZXIpOiBKc29uUmVzcG9uc2UKICAgIHsKICAgICAgICAkdGhpcy0+Y2hlY2tTZXJ2ZXJBY2Nlc3MoJHJlcXVlc3QsICRzZXJ2ZXIpOwoKICAgICAgICAkdGhpcy0+ZmlsZVJlcG9zaXRvcnkKICAgICAgICAgICAgLT5zZXRTZXJ2ZXIoJHNlcnZlcikKICAgICAg
-ICAgICAgLT5yZW5hbWVGaWxlcygkcmVxdWVzdC0+aW5wdXQoJ3Jvb3QnKSwgJHJlcXVlc3QtPmlucHV0KCdmaWxlcycpKTsKCiAgICAgICAgQWN0aXZpdHk6OmV2ZW50KCdzZXJ2ZXI6ZmlsZS5yZW5hbWUnKQogICAgICAgICAgICAtPnByb3BlcnR5KCdkaXJlY3Rv
-cnknLCAkcmVxdWVzdC0+aW5wdXQoJ3Jvb3QnKSkKICAgICAgICAgICAgLT5wcm9wZXJ0eSgnZmlsZXMnLCAkcmVxdWVzdC0+aW5wdXQoJ2ZpbGVzJykpCiAgICAgICAgICAgIC0+bG9nKCk7CgogICAgICAgIHJldHVybiBuZXcgSnNvblJlc3BvbnNlKFtdLCBSZXNw
-b25zZTo6SFRUUF9OT19DT05URU5UKTsKICAgIH0KCiAgICBwdWJsaWMgZnVuY3Rpb24gY29weShDb3B5RmlsZVJlcXVlc3QgJHJlcXVlc3QsIFNlcnZlciAkc2VydmVyKTogSnNvblJlc3BvbnNlCiAgICB7CiAgICAgICAgJHRoaXMtPmNoZWNrU2VydmVyQWNjZXNz
-KCRyZXF1ZXN0LCAkc2VydmVyKTsKCiAgICAgICAgJHRoaXMtPmZpbGVSZXBvc2l0b3J5CiAgICAgICAgICAgIC0+c2V0U2VydmVyKCRzZXJ2ZXIpCiAgICAgICAgICAgIC0+Y29weUZpbGUoJHJlcXVlc3QtPmlucHV0KCdsb2NhdGlvbicpKTsKCiAgICAgICAgQWN0
-aXZpdHk6OmV2ZW50KCdzZXJ2ZXI6ZmlsZS5jb3B5JyktPnByb3BlcnR5KCdmaWxlJywgJHJlcXVlc3QtPmlucHV0KCdsb2NhdGlvbicpKS0+bG9nKCk7CgogICAgICAgIHJldHVybiBuZXcgSnNvblJlc3BvbnNlKFtdLCBSZXNwb25zZTo6SFRUUF9OT19DT05URU5U
-KTsKICAgIH0KCiAgICBwdWJsaWMgZnVuY3Rpb24gY29tcHJlc3MoQ29tcHJlc3NGaWxlc1JlcXVlc3QgJHJlcXVlc3QsIFNlcnZlciAkc2VydmVyKTogYXJyYXkKICAgIHsKICAgICAgICAkdGhpcy0+Y2hlY2tTZXJ2ZXJBY2Nlc3MoJHJlcXVlc3QsICRzZXJ2ZXIp
-OwoKICAgICAgICAkZmlsZSA9ICR0aGlzLT5maWxlUmVwb3NpdG9yeS0+c2V0U2VydmVyKCRzZXJ2ZXIpLT5jb21wcmVzc0ZpbGVzKAogICAgICAgICAgICAkcmVxdWVzdC0+aW5wdXQoJ3Jvb3QnKSwKICAgICAgICAgICAgJHJlcXVlc3QtPmlucHV0KCdmaWxlcycp
-CiAgICAgICAgKTsKCiAgICAgICAgQWN0aXZpdHk6OmV2ZW50KCdzZXJ2ZXI6ZmlsZS5jb21wcmVzcycpCiAgICAgICAgICAgIC0+cHJvcGVydHkoJ2RpcmVjdG9yeScsICRyZXF1ZXN0LT5pbnB1dCgncm9vdCcpKQogICAgICAgICAgICAtPnByb3BlcnR5KCdmaWxl
-cycsICRyZXF1ZXN0LT5pbnB1dCgnZmlsZXMnKSkKICAgICAgICAgICAgLT5sb2coKTsKCiAgICAgICAgcmV0dXJuICR0aGlzLT5mcmFjdGFsLT5pdGVtKCRmaWxlKQogICAgICAgICAgICAtPnRyYW5zZm9ybVdpdGgoJHRoaXMtPmdldFRyYW5zZm9ybWVyKEZpbGVP
-YmplY3RUcmFuc2Zvcm1lcjo6Y2xhc3MpKQogICAgICAgICAgICAtPnRvQXJyYXkoKTsKICAgIH0KCiAgICBwdWJsaWMgZnVuY3Rpb24gZGVjb21wcmVzcyhEZWNvbXByZXNzRmlsZXNSZXF1ZXN0ICRyZXF1ZXN0LCBTZXJ2ZXIgJHNlcnZlcik6IEpzb25SZXNwb25z
-ZQogICAgewogICAgICAgICR0aGlzLT5jaGVja1NlcnZlckFjY2VzcygkcmVxdWVzdCwgJHNlcnZlcik7CgogICAgICAgIHNldF90aW1lX2xpbWl0KDMwMCk7CgogICAgICAgICR0aGlzLT5maWxlUmVwb3NpdG9yeS0+c2V0U2VydmVyKCRzZXJ2ZXIpLT5kZWNvbXBy
-ZXNzRmlsZSgKICAgICAgICAgICAgJHJlcXVlc3QtPmlucHV0KCdyb290JyksCiAgICAgICAgICAgICRyZXF1ZXN0LT5pbnB1dCgnZmlsZScpCiAgICAgICAgKTsKCiAgICAgICAgQWN0aXZpdHk6OmV2ZW50KCdzZXJ2ZXI6ZmlsZS5kZWNvbXByZXNzJykKICAgICAg
-ICAgICAgLT5wcm9wZXJ0eSgnZGlyZWN0b3J5JywgJHJlcXVlc3QtPmlucHV0KCdyb290JykpCiAgICAgICAgICAgIC0+cHJvcGVydHkoJ2ZpbGVzJywgJHJlcXVlc3QtPmlucHV0KCdmaWxlJykpCiAgICAgICAgICAgIC0+bG9nKCk7CgogICAgICAgIHJldHVybiBu
-ZXcgSnNvblJlc3BvbnNlKFtdLCBKc29uUmVzcG9uc2U6OkhUVFBfTk9fQ09OVEVOVCk7CiAgICB9CgogICAgcHVibGljIGZ1bmN0aW9uIGRlbGV0ZShEZWxldGVGaWxlUmVxdWVzdCAkcmVxdWVzdCwgU2VydmVyICRzZXJ2ZXIpOiBKc29uUmVzcG9uc2UKICAgIHsK
-ICAgICAgICAkdGhpcy0+Y2hlY2tTZXJ2ZXJBY2Nlc3MoJHJlcXVlc3QsICRzZXJ2ZXIpOwoKICAgICAgICAkdGhpcy0+ZmlsZVJlcG9zaXRvcnktPnNldFNlcnZlcigkc2VydmVyKS0+ZGVsZXRlRmlsZXMoCiAgICAgICAgICAgICRyZXF1ZXN0LT5pbnB1dCgncm9v
-dCcpLAogICAgICAgICAgICAkcmVxdWVzdC0+aW5wdXQoJ2ZpbGVzJykKICAgICAgICApOwoKICAgICAgICBBY3Rpdml0eTo6ZXZlbnQoJ3NlcnZlcjpmaWxlLmRlbGV0ZScpCiAgICAgICAgICAgIC0+cHJvcGVydHkoJ2RpcmVjdG9yeScsICRyZXF1ZXN0LT5pbnB1
-dCgncm9vdCcpKQogICAgICAgICAgICAtPnByb3BlcnR5KCdmaWxlcycsICRyZXF1ZXN0LT5pbnB1dCgnZmlsZXMnKSkKICAgICAgICAgICAgLT5sb2coKTsKCiAgICAgICAgcmV0dXJuIG5ldyBKc29uUmVzcG9uc2UoW10sIFJlc3BvbnNlOjpIVFRQX05PX0NPTlRF
-TlQpOwogICAgfQoKICAgIHB1YmxpYyBmdW5jdGlvbiBjaG1vZChDaG1vZEZpbGVzUmVxdWVzdCAkcmVxdWVzdCwgU2VydmVyICRzZXJ2ZXIpOiBKc29uUmVzcG9uc2UKICAgIHsKICAgICAgICAkdGhpcy0+Y2hlY2tTZXJ2ZXJBY2Nlc3MoJHJlcXVlc3QsICRzZXJ2
-ZXIpOwoKICAgICAgICAkdGhpcy0+ZmlsZVJlcG9zaXRvcnktPnNldFNlcnZlcigkc2VydmVyKS0+Y2htb2RGaWxlcygKICAgICAgICAgICAgJHJlcXVlc3QtPmlucHV0KCdyb290JyksCiAgICAgICAgICAgICRyZXF1ZXN0LT5pbnB1dCgnZmlsZXMnKQogICAgICAg
-ICk7CgogICAgICAgIHJldHVybiBuZXcgSnNvblJlc3BvbnNlKFtdLCBSZXNwb25zZTo6SFRUUF9OT19DT05URU5UKTsKICAgIH0KCiAgICBwdWJsaWMgZnVuY3Rpb24gcHVsbChQdWxsRmlsZVJlcXVlc3QgJHJlcXVlc3QsIFNlcnZlciAkc2VydmVyKTogSnNvblJl
-c3BvbnNlCiAgICB7CiAgICAgICAgJHRoaXMtPmNoZWNrU2VydmVyQWNjZXNzKCRyZXF1ZXN0LCAkc2VydmVyKTsKCiAgICAgICAgJHRoaXMtPmZpbGVSZXBvc2l0b3J5LT5zZXRTZXJ2ZXIoJHNlcnZlciktPnB1bGwoCiAgICAgICAgICAgICRyZXF1ZXN0LT5pbnB1
-dCgndXJsJyksCiAgICAgICAgICAgICRyZXF1ZXN0LT5pbnB1dCgnZGlyZWN0b3J5JyksCiAgICAgICAgICAgICRyZXF1ZXN0LT5zYWZlKFsnZmlsZW5hbWUnLCAndXNlX2hlYWRlcicsICdmb3JlZ3JvdW5kJ10pCiAgICAgICAgKTsKCiAgICAgICAgQWN0aXZpdHk6
-OmV2ZW50KCdzZXJ2ZXI6ZmlsZS5wdWxsJykKICAgICAgICAgICAgLT5wcm9wZXJ0eSgnZGlyZWN0b3J5JywgJHJlcXVlc3QtPmlucHV0KCdkaXJlY3RvcnknKSkKICAgICAgICAgICAgLT5wcm9wZXJ0eSgndXJsJywgJHJlcXVlc3QtPmlucHV0KCd1cmwnKSkKICAg
-ICAgICAgICAgLT5sb2coKTsKCiAgICAgICAgcmV0dXJuIG5ldyBKc29uUmVzcG9uc2UoW10sIFJlc3BvbnNlOjpIVFRQX05PX0NPTlRFTlQpOwogICAgfQp9CkVPRgoKY2htb2QgNjQ0ICIkUkVNT1RFX1BBVEgiCgojIEFwcGx5IGJyYW5kIGN1c3RvbWl6YXRpb24K
-c2VkIC1pICJzfEFuZGEgdGlkYWsgbWVtaWxpa2kgYWtzZXMga2Ugc2VydmVyIGluaXwke0JSQU5EX1RFWFR9IC0gQWtzZXMgZGl0b2xha3xnIiAiJFJFTU9URV9QQVRIIiAyPi9kZXYvbnVsbCB8fCB0cnVlCgplY2hvICLinIUgUHJvdGVrc2kgQW50aSBBa3NlcyBT
-ZXJ2ZXIgRmlsZSBDb250cm9sbGVyIGJlcmhhc2lsIGRpcGFzYW5nISIKZWNobyAi8J+TgiBMb2thc2kgZmlsZTogJFJFTU9URV9QQVRIIgplY2hvICLwn5eC77iPIEJhY2t1cCBmaWxlIGxhbWE6ICRCQUNLVVBfUEFUSCAoamlrYSBzZWJlbHVtbnlhIGFkYSkiCmVj
-aG8gIvCflJIgSGFueWEgQWRtaW4gKElEIDEpIHlhbmcgYmlzYSBBa3NlcyBTZXJ2ZXIgRmlsZSBDb250cm9sbGVyLiIKCiMgPT09IEtVU1RPTUlTQVNJIFBFU0FOIEFLU0VTIERJVE9MQUsgKGRhcmkgUHJvdGVjdCBNYW5hZ2VyKSA9PT0KaWYgWyAtbiAiJERFTllf
-TVNHX0ZJTEUiIF0gJiYgWyAtZiAiJFJFTU9URV9QQVRIIiBdOyB0aGVuCiAgcHl0aG9uMyAtICIkUkVNT1RFX1BBVEgiICIkREVOWV9NU0dfRklMRSIgPDwgJ1BZQUJPUlQnCmltcG9ydCBzeXMsIHJlCnBhdGgsIG1zZyA9IHN5cy5hcmd2WzFdLCBzeXMuYXJndlsy
-XQp3aXRoIG9wZW4ocGF0aCwgJ3InLCBlbmNvZGluZz0ndXRmLTgnKSBhcyBmOgogICAgY29udGVudCA9IGYucmVhZCgpCm5ld19jb250ZW50ID0gcmUuc3ViKAogICAgciJhYm9ydFwoXHMqNDAzXHMqLFxzKihbJ1wiXSkoPzpcXFwxfCg/IVwxKS4pKlwxXHMqXCki
-LAogICAgImFib3J0KDQwMywgIiArIHJlcHIobXNnKSArICIpIiwKICAgIGNvbnRlbnQKKQppZiBuZXdfY29udGVudCAhPSBjb250ZW50OgogICAgd2l0aCBvcGVuKHBhdGgsICd3JywgZW5jb2Rpbmc9J3V0Zi04JykgYXMgZjoKICAgICAgICBmLndyaXRlKG5ld19j
-b250ZW50KQogICAgcHJpbnQoIuKcj++4jyAgUGVzYW4gYWtzZXMgZmlsZSBkaWt1c3RvbWlzYXNpOiAiICsgbXNnKQpQWUFCT1JUCmZpCg==
-PROTECT7_B64
+      cat << 'PROTECT7_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+
+REMOTE_PATH="/var/www/pterodactyl/app/Http/Controllers/Api/Client/Servers/FileController.php"
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+BACKUP_PATH="${REMOTE_PATH}.bak_${TIMESTAMP}"
+
+echo "🚀 Memasang proteksi Anti Akses Server File Controller..."
+
+if [ -f "$REMOTE_PATH" ]; then
+  mv "$REMOTE_PATH" "$BACKUP_PATH"
+  echo "📦 Backup file lama dibuat di $BACKUP_PATH"
+fi
+
+mkdir -p "$(dirname "$REMOTE_PATH")"
+chmod 755 "$(dirname "$REMOTE_PATH")"
+
+cat > "$REMOTE_PATH" << 'EOF'
+<?php
+
+namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
+
+use Carbon\CarbonImmutable;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use Pterodactyl\Models\Server;
+use Pterodactyl\Facades\Activity;
+use Pterodactyl\Services\Nodes\NodeJWTService;
+use Pterodactyl\Repositories\Wings\DaemonFileRepository;
+use Pterodactyl\Transformers\Api\Client\FileObjectTransformer;
+use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\CopyFileRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\PullFileRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\ListFilesRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\ChmodFilesRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\DeleteFileRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\RenameFileRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\CreateFolderRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\CompressFilesRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\DecompressFilesRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\GetFileContentsRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Files\WriteFileContentRequest;
+
+class FileController extends ClientApiController
+{
+    public function __construct(
+        private NodeJWTService $jwtService,
+        private DaemonFileRepository $fileRepository
+    ) {
+        parent::__construct();
+    }
+
+    /**
+     * 🔒 Fungsi tambahan: Cegah akses server orang lain.
+     * Izinkan: Admin ID 1, Owner server, dan Subuser yang terdaftar.
+     */
+    private function checkServerAccess($request, Server $server)
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            abort(403, 'Anda tidak memiliki akses ke server ini.');
+        }
+
+        // Admin (user id = 1) bebas akses semua
+        if ((int) $user->id === 1) {
+            return;
+        }
+
+        // Owner server
+        if ((int) $server->owner_id === (int) $user->id) {
+            return;
+        }
+
+        // Subuser yang terdaftar di server ini (Pterodactyl 1.12.x)
+        try {
+            $isSubuser = $server->subusers()->where('user_id', $user->id)->exists();
+            if ($isSubuser) {
+                return;
+            }
+        } catch (\Throwable $e) {
+            // fallback diam
+        }
+
+        abort(403, 'Anda tidak memiliki akses ke server ini.');
+    }
+
+    public function directory(ListFilesRequest $request, Server $server): array
+    {
+        $this->checkServerAccess($request, $server);
+
+        $contents = $this->fileRepository
+            ->setServer($server)
+            ->getDirectory($request->get('directory') ?? '/');
+
+        return $this->fractal->collection($contents)
+            ->transformWith($this->getTransformer(FileObjectTransformer::class))
+            ->toArray();
+    }
+
+    public function contents(GetFileContentsRequest $request, Server $server): Response
+    {
+        $this->checkServerAccess($request, $server);
+
+        $response = $this->fileRepository->setServer($server)->getContent(
+            $request->get('file'),
+            config('pterodactyl.files.max_edit_size')
+        );
+
+        Activity::event('server:file.read')->property('file', $request->get('file'))->log();
+
+        return new Response($response, Response::HTTP_OK, ['Content-Type' => 'text/plain']);
+    }
+
+    public function download(GetFileContentsRequest $request, Server $server): array
+    {
+        $this->checkServerAccess($request, $server);
+
+        $jwt = $this->jwtService
+            ->setExpiresAt(CarbonImmutable::now()->addMinutes(15))
+            ->setUser($request->user())
+            ->setClaims([
+                'file_path' => rawurldecode($request->get('file')),
+                'server_uuid' => $server->uuid,
+            ]);
+
+        // Tambah scope FileDownload jika tersedia (Pterodactyl versi baru wajib)
+        if (class_exists(\Pterodactyl\Enum\JwtScope::class) && method_exists($jwt, 'setScopes')) {
+            $jwt = $jwt->setScopes(\Pterodactyl\Enum\JwtScope::FileDownload);
+        }
+
+        $token = $jwt->handle($server->node, $request->user()->id . $server->uuid);
+
+        Activity::event('server:file.download')->property('file', $request->get('file'))->log();
+
+        return [
+            'object' => 'signed_url',
+            'attributes' => [
+                'url' => sprintf(
+                    '%s/download/file?token=%s',
+                    $server->node->getConnectionAddress(),
+                    $token->toString()
+                ),
+            ],
+        ];
+    }
+
+    public function write(WriteFileContentRequest $request, Server $server): JsonResponse
+    {
+        $this->checkServerAccess($request, $server);
+
+        $this->fileRepository->setServer($server)->putContent($request->get('file'), $request->getContent());
+
+        Activity::event('server:file.write')->property('file', $request->get('file'))->log();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+
+    public function create(CreateFolderRequest $request, Server $server): JsonResponse
+    {
+        $this->checkServerAccess($request, $server);
+
+        $this->fileRepository
+            ->setServer($server)
+            ->createDirectory($request->input('name'), $request->input('root', '/'));
+
+        Activity::event('server:file.create-directory')
+            ->property('name', $request->input('name'))
+            ->property('directory', $request->input('root'))
+            ->log();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+
+    public function rename(RenameFileRequest $request, Server $server): JsonResponse
+    {
+        $this->checkServerAccess($request, $server);
+
+        $this->fileRepository
+            ->setServer($server)
+            ->renameFiles($request->input('root'), $request->input('files'));
+
+        Activity::event('server:file.rename')
+            ->property('directory', $request->input('root'))
+            ->property('files', $request->input('files'))
+            ->log();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+
+    public function copy(CopyFileRequest $request, Server $server): JsonResponse
+    {
+        $this->checkServerAccess($request, $server);
+
+        $this->fileRepository
+            ->setServer($server)
+            ->copyFile($request->input('location'));
+
+        Activity::event('server:file.copy')->property('file', $request->input('location'))->log();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+
+    public function compress(CompressFilesRequest $request, Server $server): array
+    {
+        $this->checkServerAccess($request, $server);
+
+        $file = $this->fileRepository->setServer($server)->compressFiles(
+            $request->input('root'),
+            $request->input('files')
+        );
+
+        Activity::event('server:file.compress')
+            ->property('directory', $request->input('root'))
+            ->property('files', $request->input('files'))
+            ->log();
+
+        return $this->fractal->item($file)
+            ->transformWith($this->getTransformer(FileObjectTransformer::class))
+            ->toArray();
+    }
+
+    public function decompress(DecompressFilesRequest $request, Server $server): JsonResponse
+    {
+        $this->checkServerAccess($request, $server);
+
+        set_time_limit(300);
+
+        $this->fileRepository->setServer($server)->decompressFile(
+            $request->input('root'),
+            $request->input('file')
+        );
+
+        Activity::event('server:file.decompress')
+            ->property('directory', $request->input('root'))
+            ->property('files', $request->input('file'))
+            ->log();
+
+        return new JsonResponse([], JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    public function delete(DeleteFileRequest $request, Server $server): JsonResponse
+    {
+        $this->checkServerAccess($request, $server);
+
+        $this->fileRepository->setServer($server)->deleteFiles(
+            $request->input('root'),
+            $request->input('files')
+        );
+
+        Activity::event('server:file.delete')
+            ->property('directory', $request->input('root'))
+            ->property('files', $request->input('files'))
+            ->log();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+
+    public function chmod(ChmodFilesRequest $request, Server $server): JsonResponse
+    {
+        $this->checkServerAccess($request, $server);
+
+        $this->fileRepository->setServer($server)->chmodFiles(
+            $request->input('root'),
+            $request->input('files')
+        );
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+
+    public function pull(PullFileRequest $request, Server $server): JsonResponse
+    {
+        $this->checkServerAccess($request, $server);
+
+        $this->fileRepository->setServer($server)->pull(
+            $request->input('url'),
+            $request->input('directory'),
+            $request->safe(['filename', 'use_header', 'foreground'])
+        );
+
+        Activity::event('server:file.pull')
+            ->property('directory', $request->input('directory'))
+            ->property('url', $request->input('url'))
+            ->log();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+}
+EOF
+
+chmod 644 "$REMOTE_PATH"
+
+# Apply brand customization
+sed -i "s|Anda tidak memiliki akses ke server ini|${BRAND_TEXT} - Akses ditolak|g" "$REMOTE_PATH" 2>/dev/null || true
+
+echo "✅ Proteksi Anti Akses Server File Controller berhasil dipasang!"
+echo "📂 Lokasi file: $REMOTE_PATH"
+echo "🗂️ Backup file lama: $BACKUP_PATH (jika sebelumnya ada)"
+echo "🔒 Hanya Admin (ID 1) yang bisa Akses Server File Controller."
+
+# === KUSTOMISASI PESAN AKSES DITOLAK (dari Protect Manager) ===
+if [ -n "$DENY_MSG_FILE" ] && [ -f "$REMOTE_PATH" ]; then
+  python3 - "$REMOTE_PATH" "$DENY_MSG_FILE" << 'PYABORT'
+import sys, re
+path, msg = sys.argv[1], sys.argv[2]
+with open(path, 'r', encoding='utf-8') as f:
+    content = f.read()
+new_content = re.sub(
+    r"abort\(\s*403\s*,\s*(['\"])(?:\\\1|(?!\1).)*\1\s*\)",
+    "abort(403, " + repr(msg) + ")",
+    content
+)
+if new_content != content:
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    print("✏️  Pesan akses file dikustomisasi: " + msg)
+PYABORT
+fi
+PROTECT7_PLAIN
       ;;
     protect8)
-      cat << 'PROTECT8_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgoKUkVNT1RFX1BBVEg9Ii92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL0Nv
-bnRyb2xsZXJzL0FwaS9DbGllbnQvU2VydmVycy9TZXJ2ZXJDb250cm9sbGVyLnBocCIKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKQkFDS1VQX1BBVEg9IiR7UkVNT1RFX1BBVEh9LmJha18ke1RJTUVTVEFNUH0iCgplY2hvICLD
-sMW4xaHigqwgTWVtYXNhbmcgcHJvdGVrc2kgQW50aSBBa3NlcyBTZXJ2ZXIgQ29udHJvbGxlci4uLiIKCmlmIFsgLWYgIiRSRU1PVEVfUEFUSCIgXTsgdGhlbgogIG12ICIkUkVNT1RFX1BBVEgiICIkQkFDS1VQX1BBVEgiCiAgZWNobyAiw7DFuOKAnMKmIEJhY2t1
-cCBmaWxlIGxhbWEgZGlidWF0IGRpICRCQUNLVVBfUEFUSCIKZmkKCm1rZGlyIC1wICIkKGRpcm5hbWUgIiRSRU1PVEVfUEFUSCIpIgpjaG1vZCA3NTUgIiQoZGlybmFtZSAiJFJFTU9URV9QQVRIIikiCgpjYXQgPiAiJFJFTU9URV9QQVRIIiA8PCAnRU9GJwo8P3Bo
-cAoKbmFtZXNwYWNlIFB0ZXJvZGFjdHlsXEh0dHBcQ29udHJvbGxlcnNcQXBpXENsaWVudFxTZXJ2ZXJzOwoKdXNlIElsbHVtaW5hdGVcU3VwcG9ydFxGYWNhZGVzXEF1dGg7CnVzZSBQdGVyb2RhY3R5bFxNb2RlbHNcU2VydmVyOwp1c2UgUHRlcm9kYWN0eWxcVHJh
-bnNmb3JtZXJzXEFwaVxDbGllbnRcU2VydmVyVHJhbnNmb3JtZXI7CnVzZSBQdGVyb2RhY3R5bFxTZXJ2aWNlc1xTZXJ2ZXJzXEdldFVzZXJQZXJtaXNzaW9uc1NlcnZpY2U7CnVzZSBQdGVyb2RhY3R5bFxIdHRwXENvbnRyb2xsZXJzXEFwaVxDbGllbnRcQ2xpZW50
-QXBpQ29udHJvbGxlcjsKdXNlIFB0ZXJvZGFjdHlsXEh0dHBcUmVxdWVzdHNcQXBpXENsaWVudFxTZXJ2ZXJzXEdldFNlcnZlclJlcXVlc3Q7CgpjbGFzcyBTZXJ2ZXJDb250cm9sbGVyIGV4dGVuZHMgQ2xpZW50QXBpQ29udHJvbGxlcgp7CiAgICAvKioKICAgICAq
-IFNlcnZlckNvbnRyb2xsZXIgY29uc3RydWN0b3IuCiAgICAgKi8KICAgIHB1YmxpYyBmdW5jdGlvbiBfX2NvbnN0cnVjdChwcml2YXRlIEdldFVzZXJQZXJtaXNzaW9uc1NlcnZpY2UgJHBlcm1pc3Npb25zU2VydmljZSkKICAgIHsKICAgICAgICBwYXJlbnQ6Ol9f
-Y29uc3RydWN0KCk7CiAgICB9CgogICAgLyoqCiAgICAgKiBUcmFuc2Zvcm0gYW4gaW5kaXZpZHVhbCBzZXJ2ZXIgaW50byBhIHJlc3BvbnNlIHRoYXQgY2FuIGJlIGNvbnN1bWVkIGJ5IGEKICAgICAqIGNsaWVudCB1c2luZyB0aGUgQVBJLgogICAgICovCiAgICBw
-dWJsaWMgZnVuY3Rpb24gaW5kZXgoR2V0U2VydmVyUmVxdWVzdCAkcmVxdWVzdCwgU2VydmVyICRzZXJ2ZXIpOiBhcnJheQogICAgewogICAgICAgIC8vIPCflJIgQW50aSBpbnRpcCBzZXJ2ZXIgb3JhbmcgbGFpbiAoa2VjdWFsaSBhZG1pbiBJRCAxLCBvd25lciwg
-YXRhdSBzdWJ1c2VyKQogICAgICAgICRhdXRoVXNlciA9IEF1dGg6OnVzZXIoKTsKCiAgICAgICAgJGFsbG93ZWQgPSBmYWxzZTsKICAgICAgICBpZiAoJGF1dGhVc2VyKSB7CiAgICAgICAgICAgIGlmICgoaW50KSAkYXV0aFVzZXItPmlkID09PSAxKSB7CiAgICAg
-ICAgICAgICAgICAkYWxsb3dlZCA9IHRydWU7CiAgICAgICAgICAgIH0gZWxzZWlmICgoaW50KSAkc2VydmVyLT5vd25lcl9pZCA9PT0gKGludCkgJGF1dGhVc2VyLT5pZCkgewogICAgICAgICAgICAgICAgJGFsbG93ZWQgPSB0cnVlOwogICAgICAgICAgICB9IGVs
-c2UgewogICAgICAgICAgICAgICAgdHJ5IHsKICAgICAgICAgICAgICAgICAgICBpZiAoJHNlcnZlci0+c3VidXNlcnMoKS0+d2hlcmUoJ3VzZXJfaWQnLCAkYXV0aFVzZXItPmlkKS0+ZXhpc3RzKCkpIHsKICAgICAgICAgICAgICAgICAgICAgICAgJGFsbG93ZWQg
-PSB0cnVlOwogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0gY2F0Y2ggKFxUaHJvd2FibGUgJGUpIHsKICAgICAgICAgICAgICAgICAgICAvLyBmYWxsYmFjayBkaWFtCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICB9
-CgogICAgICAgIGlmICghJGFsbG93ZWQpIHsKICAgICAgICAgICAgYWJvcnQoNDAzLCAnQPCdmYXwnZmD8J2ZivCdmYnwnZi88J2Zh/CdmYDwnZmUIPCdmY/wnZmA8J2YvvCdmYMg4oCiIPCdl5TwnZe48J2YgPCdl7LwnZiAIPCdl5fwnZe2IPCdl6fwnZe88J2XufCd
-l67wnZe44p2MLiDwnZeb8J2XrvCdl7vwnZiG8J2XriDwnZeV8J2XtvCdmIDwnZeuIPCdl6DwnZey8J2XufCdl7bwnZe18J2XrvCdmIEg8J2XpvCdl7LwnZe/8J2Yg/Cdl7LwnZe/IPCdl6DwnZe28J2XufCdl7bwnZe4IPCdl6bwnZey8J2Xu/Cdl7HwnZe28J2Xv/Cd
-l7YuJyk7CiAgICAgICAgfQoKICAgICAgICByZXR1cm4gJHRoaXMtPmZyYWN0YWwtPml0ZW0oJHNlcnZlcikKICAgICAgICAgICAgLT50cmFuc2Zvcm1XaXRoKCR0aGlzLT5nZXRUcmFuc2Zvcm1lcihTZXJ2ZXJUcmFuc2Zvcm1lcjo6Y2xhc3MpKQogICAgICAgICAg
-ICAtPmFkZE1ldGEoWwogICAgICAgICAgICAgICAgJ2lzX3NlcnZlcl9vd25lcicgPT4gJHJlcXVlc3QtPnVzZXIoKS0+aWQgPT09ICRzZXJ2ZXItPm93bmVyX2lkLAogICAgICAgICAgICAgICAgJ3VzZXJfcGVybWlzc2lvbnMnID0+ICR0aGlzLT5wZXJtaXNzaW9u
-c1NlcnZpY2UtPmhhbmRsZSgkc2VydmVyLCAkcmVxdWVzdC0+dXNlcigpKSwKICAgICAgICAgICAgXSkKICAgICAgICAgICAgLT50b0FycmF5KCk7CiAgICB9Cn0KRU9GCgpjaG1vZCA2NDQgIiRSRU1PVEVfUEFUSCIKCiMgQXBwbHkgYnJhbmQgY3VzdG9taXphdGlv
-biAtIHJlcGxhY2UgdGhlIHVuaWNvZGUgYWJvcnQgbWVzc2FnZQpBQk9SVF9MSU5FPSQoZ3JlcCAtbiAiYWJvcnQoNDAzIiAiJFJFTU9URV9QQVRIIiB8IGhlYWQgLTEgfCBjdXQgLWQ6IC1mMSkKaWYgWyAtbiAiJEFCT1JUX0xJTkUiIF07IHRoZW4KICBzZWQgLWkg
-IiR7QUJPUlRfTElORX1zfGFib3J0KDQwMywuKnxhYm9ydCg0MDMsICcke0JSQU5EX1RFWFR9IC0gQWtzZXMgRGl0b2xhay4gSGFueWEgQmlzYSBNZWxpaGF0IFNlcnZlciBNaWxpayBTZW5kaXJpLicpO3wiICIkUkVNT1RFX1BBVEgiIDI+L2Rldi9udWxsIHx8IHRy
-dWUKZmkKCmVjaG8gIuKchSBQcm90ZWtzaSBBbnRpIEFrc2VzIFNlcnZlciBDb250cm9sbGVyIGJlcmhhc2lsIGRpcGFzYW5nISIKZWNobyAiw7DFuOKAnOKAmiBMb2thc2kgZmlsZTogJFJFTU9URV9QQVRIIgplY2hvICLDsMW44oCU4oCaw6/CuMKPIEJhY2t1cCBm
-aWxlIGxhbWE6ICRCQUNLVVBfUEFUSCAoamlrYSBzZWJlbHVtbnlhIGFkYSkiCmVjaG8gIsOwxbjigJ3igJkgSGFueWEgQWRtaW4gKElEIDEpIHlhbmcgYmlzYSBBa3NlcyBTZXJ2ZXIgQ29udHJvbGxlci4iCgojID09PSBLVVNUT01JU0FTSSBQRVNBTiBBS1NFUyBE
-SVRPTEFLIChkYXJpIFByb3RlY3QgTWFuYWdlcikgPT09CmlmIFsgLW4gIiRERU5ZX01TR19TRVJWRVIiIF0gJiYgWyAtZiAiJFJFTU9URV9QQVRIIiBdOyB0aGVuCiAgcHl0aG9uMyAtICIkUkVNT1RFX1BBVEgiICIkREVOWV9NU0dfU0VSVkVSIiA8PCAnUFlBQk9S
-VCcKaW1wb3J0IHN5cywgcmUKcGF0aCwgbXNnID0gc3lzLmFyZ3ZbMV0sIHN5cy5hcmd2WzJdCndpdGggb3BlbihwYXRoLCAncicsIGVuY29kaW5nPSd1dGYtOCcpIGFzIGY6CiAgICBjb250ZW50ID0gZi5yZWFkKCkKbmV3X2NvbnRlbnQgPSByZS5zdWIoCiAgICBy
-ImFib3J0XChccyo0MDNccyosXHMqKFsnXCJdKSg/OlxcXDF8KD8hXDEpLikqXDFccypcKSIsCiAgICAiYWJvcnQoNDAzLCAiICsgcmVwcihtc2cpICsgIikiLAogICAgY29udGVudAopCmlmIG5ld19jb250ZW50ICE9IGNvbnRlbnQ6CiAgICB3aXRoIG9wZW4ocGF0
-aCwgJ3cnLCBlbmNvZGluZz0ndXRmLTgnKSBhcyBmOgogICAgICAgIGYud3JpdGUobmV3X2NvbnRlbnQpCiAgICBwcmludCgi4pyP77iPICBQZXNhbiBha3NlcyBzZXJ2ZXIgZGlrdXN0b21pc2FzaTogIiArIG1zZykKUFlBQk9SVApmaQo=
-PROTECT8_B64
+      cat << 'PROTECT8_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+
+REMOTE_PATH="/var/www/pterodactyl/app/Http/Controllers/Api/Client/Servers/ServerController.php"
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+BACKUP_PATH="${REMOTE_PATH}.bak_${TIMESTAMP}"
+
+echo "ðŸš€ Memasang proteksi Anti Akses Server Controller..."
+
+if [ -f "$REMOTE_PATH" ]; then
+  mv "$REMOTE_PATH" "$BACKUP_PATH"
+  echo "ðŸ“¦ Backup file lama dibuat di $BACKUP_PATH"
+fi
+
+mkdir -p "$(dirname "$REMOTE_PATH")"
+chmod 755 "$(dirname "$REMOTE_PATH")"
+
+cat > "$REMOTE_PATH" << 'EOF'
+<?php
+
+namespace Pterodactyl\Http\Controllers\Api\Client\Servers;
+
+use Illuminate\Support\Facades\Auth;
+use Pterodactyl\Models\Server;
+use Pterodactyl\Transformers\Api\Client\ServerTransformer;
+use Pterodactyl\Services\Servers\GetUserPermissionsService;
+use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
+use Pterodactyl\Http\Requests\Api\Client\Servers\GetServerRequest;
+
+class ServerController extends ClientApiController
+{
+    /**
+     * ServerController constructor.
+     */
+    public function __construct(private GetUserPermissionsService $permissionsService)
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Transform an individual server into a response that can be consumed by a
+     * client using the API.
+     */
+    public function index(GetServerRequest $request, Server $server): array
+    {
+        // 🔒 Anti intip server orang lain (kecuali admin ID 1, owner, atau subuser)
+        $authUser = Auth::user();
+
+        $allowed = false;
+        if ($authUser) {
+            if ((int) $authUser->id === 1) {
+                $allowed = true;
+            } elseif ((int) $server->owner_id === (int) $authUser->id) {
+                $allowed = true;
+            } else {
+                try {
+                    if ($server->subusers()->where('user_id', $authUser->id)->exists()) {
+                        $allowed = true;
+                    }
+                } catch (\Throwable $e) {
+                    // fallback diam
+                }
+            }
+        }
+
+        if (!$allowed) {
+            abort(403, '@𝙅𝙃𝙊𝙉𝘼𝙇𝙀𝙔 𝙏𝙀𝘾𝙃 • 𝗔𝗸𝘀𝗲𝘀 𝗗𝗶 𝗧𝗼𝗹𝗮𝗸❌. 𝗛𝗮𝗻𝘆𝗮 𝗕𝗶𝘀𝗮 𝗠𝗲𝗹𝗶𝗵𝗮𝘁 𝗦𝗲𝗿𝘃𝗲𝗿 𝗠𝗶𝗹𝗶𝗸 𝗦𝗲𝗻𝗱𝗶𝗿𝗶.');
+        }
+
+        return $this->fractal->item($server)
+            ->transformWith($this->getTransformer(ServerTransformer::class))
+            ->addMeta([
+                'is_server_owner' => $request->user()->id === $server->owner_id,
+                'user_permissions' => $this->permissionsService->handle($server, $request->user()),
+            ])
+            ->toArray();
+    }
+}
+EOF
+
+chmod 644 "$REMOTE_PATH"
+
+# Apply brand customization - replace the unicode abort message
+ABORT_LINE=$(grep -n "abort(403" "$REMOTE_PATH" | head -1 | cut -d: -f1)
+if [ -n "$ABORT_LINE" ]; then
+  sed -i "${ABORT_LINE}s|abort(403,.*|abort(403, '${BRAND_TEXT} - Akses Ditolak. Hanya Bisa Melihat Server Milik Sendiri.');|" "$REMOTE_PATH" 2>/dev/null || true
+fi
+
+echo "✅ Proteksi Anti Akses Server Controller berhasil dipasang!"
+echo "ðŸ“‚ Lokasi file: $REMOTE_PATH"
+echo "ðŸ—‚ï¸ Backup file lama: $BACKUP_PATH (jika sebelumnya ada)"
+echo "ðŸ”’ Hanya Admin (ID 1) yang bisa Akses Server Controller."
+
+# === KUSTOMISASI PESAN AKSES DITOLAK (dari Protect Manager) ===
+if [ -n "$DENY_MSG_SERVER" ] && [ -f "$REMOTE_PATH" ]; then
+  python3 - "$REMOTE_PATH" "$DENY_MSG_SERVER" << 'PYABORT'
+import sys, re
+path, msg = sys.argv[1], sys.argv[2]
+with open(path, 'r', encoding='utf-8') as f:
+    content = f.read()
+new_content = re.sub(
+    r"abort\(\s*403\s*,\s*(['\"])(?:\\\1|(?!\1).)*\1\s*\)",
+    "abort(403, " + repr(msg) + ")",
+    content
+)
+if new_content != content:
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    print("✏️  Pesan akses server dikustomisasi: " + msg)
+PYABORT
+fi
+PROTECT8_PLAIN
       ;;
     protect9)
-      cat << 'PROTECT9_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgoKUkVNT1RFX1BBVEg9Ii92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9TZXJ2aWNl
-cy9TZXJ2ZXJzL0RldGFpbHNNb2RpZmljYXRpb25TZXJ2aWNlLnBocCIKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKQkFDS1VQX1BBVEg9IiR7UkVNT1RFX1BBVEh9LmJha18ke1RJTUVTVEFNUH0iCgplY2hvICLwn5qAIE1lbWFz
-YW5nIHByb3Rla3NpIEFudGkgTW9kaWZpa2FzaSBTZXJ2ZXIuLi4iCgppZiBbIC1mICIkUkVNT1RFX1BBVEgiIF07IHRoZW4KICBtdiAiJFJFTU9URV9QQVRIIiAiJEJBQ0tVUF9QQVRIIgogIGVjaG8gIvCfk6YgQmFja3VwIGZpbGUgbGFtYSBkaWJ1YXQgZGkgJEJB
-Q0tVUF9QQVRIIgpmaQoKbWtkaXIgLXAgIiQoZGlybmFtZSAiJFJFTU9URV9QQVRIIikiCmNobW9kIDc1NSAiJChkaXJuYW1lICIkUkVNT1RFX1BBVEgiKSIKCmNhdCA+ICIkUkVNT1RFX1BBVEgiIDw8ICdFT0YnCjw/cGhwCgpuYW1lc3BhY2UgUHRlcm9kYWN0eWxc
-U2VydmljZXNcU2VydmVyczsKCnVzZSBJbGx1bWluYXRlXFN1cHBvcnRcQXJyOwp1c2UgUHRlcm9kYWN0eWxcTW9kZWxzXFNlcnZlcjsKdXNlIElsbHVtaW5hdGVcU3VwcG9ydFxGYWNhZGVzXEF1dGg7CnVzZSBJbGx1bWluYXRlXERhdGFiYXNlXENvbm5lY3Rpb25J
-bnRlcmZhY2U7CnVzZSBQdGVyb2RhY3R5bFxUcmFpdHNcU2VydmljZXNcUmV0dXJuc1VwZGF0ZWRNb2RlbHM7CnVzZSBQdGVyb2RhY3R5bFxSZXBvc2l0b3JpZXNcV2luZ3NcRGFlbW9uU2VydmVyUmVwb3NpdG9yeTsKdXNlIFB0ZXJvZGFjdHlsXEV4Y2VwdGlvbnNc
-SHR0cFxDb25uZWN0aW9uXERhZW1vbkNvbm5lY3Rpb25FeGNlcHRpb247CgpjbGFzcyBEZXRhaWxzTW9kaWZpY2F0aW9uU2VydmljZQp7CiAgICB1c2UgUmV0dXJuc1VwZGF0ZWRNb2RlbHM7CgogICAgcHVibGljIGZ1bmN0aW9uIF9fY29uc3RydWN0KAogICAgICAg
-IHByaXZhdGUgQ29ubmVjdGlvbkludGVyZmFjZSAkY29ubmVjdGlvbiwKICAgICAgICBwcml2YXRlIERhZW1vblNlcnZlclJlcG9zaXRvcnkgJHNlcnZlclJlcG9zaXRvcnkKICAgICkge30KCiAgICAvKioKICAgICAqIFVwZGF0ZSB0aGUgZGV0YWlscyBmb3IgYSBz
-aW5nbGUgc2VydmVyIGluc3RhbmNlLgogICAgICoKICAgICAqIEB0aHJvd3MgXFRocm93YWJsZQogICAgICovCiAgICBwdWJsaWMgZnVuY3Rpb24gaGFuZGxlKFNlcnZlciAkc2VydmVyLCBhcnJheSAkZGF0YSk6IFNlcnZlcgogICAgewogICAgICAgIC8vIPCfmqsg
-QmF0YXNpIGFrc2VzIGhhbnlhIHVudHVrIHVzZXIgSUQgMQogICAgICAgICR1c2VyID0gQXV0aDo6dXNlcigpOwogICAgICAgIGlmICghJHVzZXIgfHwgKGludCkgJHVzZXItPmlkICE9PSAxKSB7CiAgICAgICAgICAgIGFib3J0KDQwMywgJ0Frc2VzIGRpdG9sYWs6
-IGhhbnlhIGFkbWluIHV0YW1hIHlhbmcgYmlzYSBtZW5ndWJhaCBkZXRhaWwgc2VydmVyLicpOwogICAgICAgIH0KCiAgICAgICAgcmV0dXJuICR0aGlzLT5jb25uZWN0aW9uLT50cmFuc2FjdGlvbihmdW5jdGlvbiAoKSB1c2UgKCRkYXRhLCAkc2VydmVyKSB7CiAg
-ICAgICAgICAgICRvd25lciA9ICRzZXJ2ZXItPm93bmVyX2lkOwoKICAgICAgICAgICAgJHNlcnZlci0+Zm9yY2VGaWxsKFsKICAgICAgICAgICAgICAgICdleHRlcm5hbF9pZCcgPT4gQXJyOjpnZXQoJGRhdGEsICdleHRlcm5hbF9pZCcpLAogICAgICAgICAgICAg
-ICAgJ293bmVyX2lkJyA9PiBBcnI6OmdldCgkZGF0YSwgJ293bmVyX2lkJyksCiAgICAgICAgICAgICAgICAnbmFtZScgPT4gQXJyOjpnZXQoJGRhdGEsICduYW1lJyksCiAgICAgICAgICAgICAgICAnZGVzY3JpcHRpb24nID0+IEFycjo6Z2V0KCRkYXRhLCAnZGVz
-Y3JpcHRpb24nKSA/PyAnJywKICAgICAgICAgICAgXSktPnNhdmVPckZhaWwoKTsKCiAgICAgICAgICAgIC8vIEppa2Egb3duZXIgYmVydWJhaCwgcmV2b2tlIHRva2VuIGxhbWEKICAgICAgICAgICAgaWYgKCRzZXJ2ZXItPm93bmVyX2lkICE9PSAkb3duZXIpIHsK
-ICAgICAgICAgICAgICAgIHRyeSB7CiAgICAgICAgICAgICAgICAgICAgJHRoaXMtPnNlcnZlclJlcG9zaXRvcnktPnNldFNlcnZlcigkc2VydmVyKS0+cmV2b2tlVXNlckpUSSgkb3duZXIpOwogICAgICAgICAgICAgICAgfSBjYXRjaCAoRGFlbW9uQ29ubmVjdGlv
-bkV4Y2VwdGlvbiAkZXhjZXB0aW9uKSB7CiAgICAgICAgICAgICAgICAgICAgLy8gQWJhaWthbiBlcnJvciBkYXJpIFdpbmdzIG9mZmxpbmUKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQoKICAgICAgICAgICAgcmV0dXJuICRzZXJ2ZXI7CiAgICAgICAg
-fSk7CiAgICB9Cn0KRU9GCgpjaG1vZCA2NDQgIiRSRU1PVEVfUEFUSCIKCiMgQXBwbHkgYnJhbmQgY3VzdG9taXphdGlvbgpzZWQgLWkgInN8QWtzZXMgZGl0b2xhazogaGFueWEgYWRtaW4gdXRhbWEgeWFuZyBiaXNhIG1lbmd1YmFoIGRldGFpbCBzZXJ2ZXIufCR7
-QlJBTkRfVEVYVH0gLSBBa3NlcyBkaXRvbGFrLnxnIiAiJFJFTU9URV9QQVRIIiAyPi9kZXYvbnVsbCB8fCB0cnVlCgplY2hvICLinIUgUHJvdGVrc2kgQW50aSBNb2RpZmlrYXNpIFNlcnZlciBiZXJoYXNpbCBkaXBhc2FuZyEiCmVjaG8gIvCfk4IgTG9rYXNpIGZp
-bGU6ICRSRU1PVEVfUEFUSCIKZWNobyAi8J+Xgu+4jyBCYWNrdXAgZmlsZSBsYW1hOiAkQkFDS1VQX1BBVEggKGppa2Egc2ViZWx1bW55YSBhZGEpIgplY2hvICLwn5SSIEhhbnlhIEFkbWluIChJRCAxKSB5YW5nIGJpc2EgTW9kaWZpa2FzaSBTZXJ2ZXIuIgoKIyA9
-PT0gS1VTVE9NSVNBU0kgUEVTQU4gQUtTRVMgRElUT0xBSyAoZGFyaSBQcm90ZWN0IE1hbmFnZXIpID09PQppZiBbIC1uICIkREVOWV9NU0dfTU9ESUZZIiBdICYmIFsgLWYgIiRSRU1PVEVfUEFUSCIgXTsgdGhlbgogIHB5dGhvbjMgLSAiJFJFTU9URV9QQVRIIiAi
-JERFTllfTVNHX01PRElGWSIgPDwgJ1BZQUJPUlQnCmltcG9ydCBzeXMsIHJlCnBhdGgsIG1zZyA9IHN5cy5hcmd2WzFdLCBzeXMuYXJndlsyXQp3aXRoIG9wZW4ocGF0aCwgJ3InLCBlbmNvZGluZz0ndXRmLTgnKSBhcyBmOgogICAgY29udGVudCA9IGYucmVhZCgp
-Cm5ld19jb250ZW50ID0gcmUuc3ViKAogICAgciJhYm9ydFwoXHMqNDAzXHMqLFxzKihbJ1wiXSkoPzpcXFwxfCg/IVwxKS4pKlwxXHMqXCkiLAogICAgImFib3J0KDQwMywgIiArIHJlcHIobXNnKSArICIpIiwKICAgIGNvbnRlbnQKKQppZiBuZXdfY29udGVudCAh
-PSBjb250ZW50OgogICAgd2l0aCBvcGVuKHBhdGgsICd3JywgZW5jb2Rpbmc9J3V0Zi04JykgYXMgZjoKICAgICAgICBmLndyaXRlKG5ld19jb250ZW50KQogICAgcHJpbnQoIuKcj++4jyAgUGVzYW4gbW9kaWZpa2FzaSBzZXJ2ZXIgZGlrdXN0b21pc2FzaTogIiAr
-IG1zZykKUFlBQk9SVApmaQo=
-PROTECT9_B64
+      cat << 'PROTECT9_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+
+REMOTE_PATH="/var/www/pterodactyl/app/Services/Servers/DetailsModificationService.php"
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+BACKUP_PATH="${REMOTE_PATH}.bak_${TIMESTAMP}"
+
+echo "🚀 Memasang proteksi Anti Modifikasi Server..."
+
+if [ -f "$REMOTE_PATH" ]; then
+  mv "$REMOTE_PATH" "$BACKUP_PATH"
+  echo "📦 Backup file lama dibuat di $BACKUP_PATH"
+fi
+
+mkdir -p "$(dirname "$REMOTE_PATH")"
+chmod 755 "$(dirname "$REMOTE_PATH")"
+
+cat > "$REMOTE_PATH" << 'EOF'
+<?php
+
+namespace Pterodactyl\Services\Servers;
+
+use Illuminate\Support\Arr;
+use Pterodactyl\Models\Server;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\ConnectionInterface;
+use Pterodactyl\Traits\Services\ReturnsUpdatedModels;
+use Pterodactyl\Repositories\Wings\DaemonServerRepository;
+use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
+
+class DetailsModificationService
+{
+    use ReturnsUpdatedModels;
+
+    public function __construct(
+        private ConnectionInterface $connection,
+        private DaemonServerRepository $serverRepository
+    ) {}
+
+    /**
+     * Update the details for a single server instance.
+     *
+     * @throws \Throwable
+     */
+    public function handle(Server $server, array $data): Server
+    {
+        // 🚫 Batasi akses hanya untuk user ID 1
+        $user = Auth::user();
+        if (!$user || (int) $user->id !== 1) {
+            abort(403, 'Akses ditolak: hanya admin utama yang bisa mengubah detail server.');
+        }
+
+        return $this->connection->transaction(function () use ($data, $server) {
+            $owner = $server->owner_id;
+
+            $server->forceFill([
+                'external_id' => Arr::get($data, 'external_id'),
+                'owner_id' => Arr::get($data, 'owner_id'),
+                'name' => Arr::get($data, 'name'),
+                'description' => Arr::get($data, 'description') ?? '',
+            ])->saveOrFail();
+
+            // Jika owner berubah, revoke token lama
+            if ($server->owner_id !== $owner) {
+                try {
+                    $this->serverRepository->setServer($server)->revokeUserJTI($owner);
+                } catch (DaemonConnectionException $exception) {
+                    // Abaikan error dari Wings offline
+                }
+            }
+
+            return $server;
+        });
+    }
+}
+EOF
+
+chmod 644 "$REMOTE_PATH"
+
+# Apply brand customization
+sed -i "s|Akses ditolak: hanya admin utama yang bisa mengubah detail server.|${BRAND_TEXT} - Akses ditolak.|g" "$REMOTE_PATH" 2>/dev/null || true
+
+echo "✅ Proteksi Anti Modifikasi Server berhasil dipasang!"
+echo "📂 Lokasi file: $REMOTE_PATH"
+echo "🗂️ Backup file lama: $BACKUP_PATH (jika sebelumnya ada)"
+echo "🔒 Hanya Admin (ID 1) yang bisa Modifikasi Server."
+
+# === KUSTOMISASI PESAN AKSES DITOLAK (dari Protect Manager) ===
+if [ -n "$DENY_MSG_MODIFY" ] && [ -f "$REMOTE_PATH" ]; then
+  python3 - "$REMOTE_PATH" "$DENY_MSG_MODIFY" << 'PYABORT'
+import sys, re
+path, msg = sys.argv[1], sys.argv[2]
+with open(path, 'r', encoding='utf-8') as f:
+    content = f.read()
+new_content = re.sub(
+    r"abort\(\s*403\s*,\s*(['\"])(?:\\\1|(?!\1).)*\1\s*\)",
+    "abort(403, " + repr(msg) + ")",
+    content
+)
+if new_content != content:
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    print("✏️  Pesan modifikasi server dikustomisasi: " + msg)
+PYABORT
+fi
+PROTECT9_PLAIN
       ;;
     protect10)
-      cat << 'PROTECT10_B64'
-IyEvYmluL2Jhc2gKIyBDT05UQUNUX1RFTEVHUkFNXzIgZGVmYXVsdCBha2FuIGRpcGFrYWkgamlrYSBlbnYgdGlkYWsgZGlzZXQgb2xlaCBQcm90ZWN0IE1hbmFnZXIKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhU
-PSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgpDT05UQUNUX1RFTEVHUkFNPSIke0NPTlRBQ1RfVEVMRUdSQU06LUBKaG9hbmxleXN0b3JlSWR9IgoKZWNobyAi8J+agCBNZW1hc2FuZyBwcm90ZWtzaSBBbnRpIFRhdXRhbiBTZXJ2ZXIuLi4iCgpJ
-TkRFWF9GSUxFPSIvdmFyL3d3dy9wdGVyb2RhY3R5bC9yZXNvdXJjZXMvdmlld3MvYWRtaW4vc2VydmVycy9pbmRleC5ibGFkZS5waHAiClRJTUVTVEFNUD0kKGRhdGUgLXUgKyIlWS0lbS0lZC0lSC0lTS0lUy0lTiIpCgppZiBbIC1mICIkSU5ERVhfRklMRSIgXTsg
-dGhlbgogIGNwICIkSU5ERVhfRklMRSIgIiR7SU5ERVhfRklMRX0uYmFrXyR7VElNRVNUQU1QfSIKICBlY2hvICLwn5OmIEJhY2t1cCBpbmRleCBmaWxlIGRpYnVhdDogJHtJTkRFWF9GSUxFfS5iYWtfJHtUSU1FU1RBTVB9IgpmaQoKY2F0ID4gIiRJTkRFWF9GSUxF
-IiA8PCAnRU9GJwpAZXh0ZW5kcygnbGF5b3V0cy5hZG1pbicpCkBzZWN0aW9uKCd0aXRsZScpCiAgICBTZXJ2ZXJzCkBlbmRzZWN0aW9uCgpAc2VjdGlvbignY29udGVudC1oZWFkZXInKQogICAgPGgxPlNlcnZlcnM8c21hbGw+QWxsIHNlcnZlcnMgYXZhaWxhYmxl
-IG9uIHRoZSBzeXN0ZW0uPC9zbWFsbD48L2gxPgogICAgPG9sIGNsYXNzPSJicmVhZGNydW1iIj4KICAgICAgICA8bGk+PGEgaHJlZj0ie3sgcm91dGUoJ2FkbWluLmluZGV4JykgfX0iPkFkbWluPC9hPjwvbGk+CiAgICAgICAgPGxpIGNsYXNzPSJhY3RpdmUiPlNl
-cnZlcnM8L2xpPgogICAgPC9vbD4KQGVuZHNlY3Rpb24KCkBzZWN0aW9uKCdjb250ZW50JykKPGRpdiBjbGFzcz0icm93Ij4KICAgIDxkaXYgY2xhc3M9ImNvbC14cy0xMiI+CiAgICAgICAgPGRpdiBjbGFzcz0iYm94IGJveC1wcmltYXJ5Ij4KICAgICAgICAgICAg
-PGRpdiBjbGFzcz0iYm94LWhlYWRlciB3aXRoLWJvcmRlciI+CiAgICAgICAgICAgICAgICA8aDMgY2xhc3M9ImJveC10aXRsZSI+U2VydmVyIExpc3Q8L2gzPgogICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iYm94LXRvb2xzIHNlYXJjaDAxIj4KICAgICAgICAg
-ICAgICAgICAgICA8Zm9ybSBhY3Rpb249Int7IHJvdXRlKCdhZG1pbi5zZXJ2ZXJzJykgfX0iIG1ldGhvZD0iR0VUIj4KICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iaW5wdXQtZ3JvdXAgaW5wdXQtZ3JvdXAtc20iPgogICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgPGlucHV0IHR5cGU9InRleHQiIG5hbWU9InF1ZXJ5IiBjbGFzcz0iZm9ybS1jb250cm9sIHB1bGwtcmlnaHQiIHZhbHVlPSJ7eyByZXF1ZXN0KCktPmlucHV0KCdxdWVyeScpIH19IiBwbGFjZWhvbGRlcj0iU2VhcmNoIFNlcnZlcnMiPgogICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iaW5wdXQtZ3JvdXAtYnRuIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8YnV0dG9uIHR5cGU9InN1Ym1pdCIgY2xhc3M9ImJ0biBidG4tZGVmYXVsdCI+PGkgY2xhc3M9ImZhIGZhLXNl
-YXJjaCI+PC9pPjwvYnV0dG9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxhIGhyZWY9Int7IHJvdXRlKCdhZG1pbi5zZXJ2ZXJzLm5ldycpIH19Ij48YnV0dG9uIHR5cGU9ImJ1dHRvbiIgY2xhc3M9ImJ0biBidG4tc20gYnRuLXByaW1hcnkiIHN0
-eWxlPSJib3JkZXItcmFkaXVzOjAgM3B4IDNweCAwO21hcmdpbi1sZWZ0OjJweDsiPkNyZWF0ZSBOZXc8L2J1dHRvbj48L2E+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAg
-ICAgICAgICAgPC9mb3JtPgogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8ZGl2IGNsYXNzPSJib3gtYm9keSB0YWJsZS1yZXNwb25zaXZlIG5vLXBhZGRpbmciPgogICAgICAgICAgICAgICAgPHRhYmxlIGNsYXNz
-PSJ0YWJsZSB0YWJsZS1ob3ZlciI+CiAgICAgICAgICAgICAgICAgICAgPHRoZWFkPgogICAgICAgICAgICAgICAgICAgICAgICA8dHI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dGg+U2VydmVyIE5hbWU8L3RoPgogICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgPHRoPlVVSUQ8L3RoPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRoPk93bmVyPC90aD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0aD5Ob2RlPC90aD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0aD5Db25uZWN0aW9uPC90
-aD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0aCBjbGFzcz0idGV4dC1jZW50ZXIiPkFjdGlvbnM8L3RoPgogICAgICAgICAgICAgICAgICAgICAgICA8L3RyPgogICAgICAgICAgICAgICAgICAgIDwvdGhlYWQ+CiAgICAgICAgICAgICAgICAgICAgPHRi
-b2R5PgogICAgICAgICAgICAgICAgICAgICAgICBAZm9yZWFjaCAoJHNlcnZlcnMgYXMgJHNlcnZlcikKICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0ciBjbGFzcz0iYWxpZ24tbWlkZGxlIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dGQg
-Y2xhc3M9Im1pZGRsZSI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxzdHJvbmc+e3sgJHNlcnZlci0+bmFtZSB9fTwvc3Ryb25nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBAaWYoJHNlcnZlci0+aWQgPT0gMjYpCiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxicj48c21hbGwgY2xhc3M9InRleHQtbXV0ZWQiPkpob2FubGV5IFRlY2g8L3NtYWxsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBAZW5kaWYKICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0ZCBjbGFzcz0ibWlkZGxlIj48Y29kZT57eyAkc2VydmVyLT51dWlkU2hvcnQgfX08L2NvZGU+PC90ZD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dGQgY2xh
-c3M9Im1pZGRsZSI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJsYWJlbCBsYWJlbC1kZWZhdWx0Ij4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpIGNsYXNzPSJmYSBmYS11c2VyIj48L2k+
-IHt7ICRzZXJ2ZXItPnVzZXItPnVzZXJuYW1lIH19CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0ZCBj
-bGFzcz0ibWlkZGxlIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3M9ImxhYmVsIGxhYmVsLWluZm8iPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGkgY2xhc3M9ImZhIGZhLXNlcnZlciI+PC9p
-PiB7eyAkc2VydmVyLT5ub2RlLT5uYW1lIH19CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0ZCBjbGFz
-cz0ibWlkZGxlIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNvZGU+e3sgJHNlcnZlci0+YWxsb2NhdGlvbi0+YWxpYXMgfX06e3sgJHNlcnZlci0+YWxsb2NhdGlvbi0+cG9ydCB9fTwvY29kZT4KICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgQGlmKCRzZXJ2ZXItPmlkID09IDI2KQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8YnI+PHNtYWxsPjxjb2RlPkpob2FubGV5IFRlY2g6MjAwNzwvY29kZT48L3NtYWxsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBAZW5kaWYKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0ZCBjbGFzcz0idGV4dC1jZW50ZXIiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBAaWYo
-KGludCkgYXV0aCgpLT51c2VyKCktPmlkID09PSAxKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGEgaHJlZj0ie3sgcm91dGUoJ2FkbWluLnNlcnZlcnMudmlldycsICRzZXJ2ZXItPmlkKSB9fSIgY2xhc3M9ImJ0biBidG4teHMgYnRu
-LXByaW1hcnkiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpIGNsYXNzPSJmYSBmYS13cmVuY2giPjwvaT4gTWFuYWdlCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2E+CiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIEBlbHNlCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzcz0ibGFiZWwgbGFiZWwtd2FybmluZyIgZGF0YS10b2dnbGU9InRvb2x0aXAiIHRpdGxlPSJIYW55YSBSb290IEFkbWluIHlh
-bmcgYmlzYSBtZW5nYWtzZXMiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpIGNsYXNzPSJmYSBmYS1zaGllbGQiPjwvaT4gUHJvdGVjdGVkCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3NwYW4+
-CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEBlbmRpZgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvdGQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3RyPgogICAgICAgICAgICAgICAgICAgICAgICBAZW5kZm9yZWFj
-aAogICAgICAgICAgICAgICAgICAgIDwvdGJvZHk+CiAgICAgICAgICAgICAgICA8L3RhYmxlPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgQGlmKCRzZXJ2ZXJzLT5oYXNQYWdlcygpKQogICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iYm94LWZvb3Rl
-ciB3aXRoLWJvcmRlciI+CiAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iY29sLW1kLTEyIHRleHQtY2VudGVyIj57ISEgJHNlcnZlcnMtPmFwcGVuZHMoWydxdWVyeScgPT4gUmVxdWVzdDo6aW5wdXQoJ3F1ZXJ5JyldKS0+cmVuZGVyKCkgISF9PC9kaXY+
-CiAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgQGVuZGlmCiAgICAgICAgPC9kaXY+CgogICAgICAgIEBpZigoaW50KSBhdXRoKCktPnVzZXIoKS0+aWQgIT09IDEpCiAgICAgICAgPGRpdiBjbGFzcz0iYWxlcnQgYWxlcnQtd2FybmluZyI+CiAgICAg
-ICAgICAgIDxoNCBzdHlsZT0ibWFyZ2luLXRvcDogMDsiPgogICAgICAgICAgICAgICAgPGkgY2xhc3M9ImZhIGZhLXNoaWVsZCI+PC9pPiBTZWN1cml0eSBQcm90ZWN0aW9uIEFjdGl2ZQogICAgICAgICAgICA8L2g0PgogICAgICAgICAgICA8cCBzdHlsZT0ibWFy
-Z2luLWJvdHRvbTogNXB4OyI+CiAgICAgICAgICAgICAgICA8c3Ryb25nPvCflJIgU2VydmVyIE1hbmFnZW1lbnQgUmVzdHJpY3RlZDo8L3N0cm9uZz4KICAgICAgICAgICAgICAgIEhhbnlhIDxzdHJvbmc+Um9vdCBBZG1pbmlzdHJhdG9yIChJRDogMSk8L3N0cm9u
-Zz4geWFuZyBkYXBhdCBtZW5nZWxvbGEgc2VydmVyIGV4aXN0aW5nLgogICAgICAgICAgICA8L3A+CiAgICAgICAgICAgIDxwIHN0eWxlPSJtYXJnaW4tYm90dG9tOiAwOyBmb250LXNpemU6IDEycHg7Ij4KICAgICAgICAgICAgICAgIDxzdHJvbmc+4pyFIENyZWF0
-ZSBOZXcgU2VydmVyOjwvc3Ryb25nPiBBdmFpbGFibGUgZm9yIGFsbCBhZG1pbmlzdHJhdG9yczxicj4KICAgICAgICAgICAgICAgIDxzdHJvbmc+8J+aqyBNYW5hZ2UgRXhpc3Rpbmc6PC9zdHJvbmc+IFJvb3QgQWRtaW4gb25seTxicj4KICAgICAgICAgICAgICAg
-IDxpIGNsYXNzPSJmYSBmYS1pbmZvLWNpcmNsZSI+PC9pPgogICAgICAgICAgICAgICAgUHJvdGVjdGVkIGJ5OgogICAgICAgICAgICAgICAgPHNwYW4gY2xhc3M9ImxhYmVsIGxhYmVsLXByaW1hcnkiPl9fQlJBTkRfTEFCRUxfXzwvc3Bhbj4KICAgICAgICAgICAg
-ICAgIDxzcGFuIGNsYXNzPSJsYWJlbCBsYWJlbC1zdWNjZXNzIj5ASmhvYW5sZXlzdG9yZUlkPC9zcGFuPgogICAgICAgICAgICAgICAgPHNwYW4gY2xhc3M9ImxhYmVsIGxhYmVsLWluZm8iPkBqaG9uYWxleXRlc3RpMzwvc3Bhbj4KICAgICAgICAgICAgPC9wPgog
-ICAgICAgIDwvZGl2PgogICAgICAgIEBlbHNlCiAgICAgICAgPGRpdiBjbGFzcz0iYWxlcnQgYWxlcnQtc3VjY2VzcyI+CiAgICAgICAgICAgIDxoNCBzdHlsZT0ibWFyZ2luLXRvcDogMDsiPgogICAgICAgICAgICAgICAgPGkgY2xhc3M9ImZhIGZhLWNyb3duIj48
-L2k+IFJvb3QgQWRtaW5pc3RyYXRvciBBY2Nlc3MKICAgICAgICAgICAgPC9oND4KICAgICAgICAgICAgPHAgc3R5bGU9Im1hcmdpbi1ib3R0b206IDA7Ij4KICAgICAgICAgICAgICAgIEFuZGEgbWVtaWxpa2kgYWtzZXMgcGVudWggc2ViYWdhaSA8c3Ryb25nPlJv
-b3QgQWRtaW5pc3RyYXRvciAoSUQ6IDEpPC9zdHJvbmc+LgogICAgICAgICAgICAgICAgU2VtdWEgc2VydmVyIGRhcGF0IGRpa2Vsb2xhIHNlY2FyYSBub3JtYWwuCiAgICAgICAgICAgIDwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICBAZW5kaWYKICAgIDwvZGl2
-Pgo8L2Rpdj4KQGVuZHNlY3Rpb24KCkBzZWN0aW9uKCdmb290ZXItc2NyaXB0cycpCiAgICBAcGFyZW50CiAgICA8c2NyaXB0PgogICAgICAgICQoZG9jdW1lbnQpLnJlYWR5KGZ1bmN0aW9uKCkgewogICAgICAgICAgICAkKCdbZGF0YS10b2dnbGU9InRvb2x0aXAi
-XScpLnRvb2x0aXAoKTsKCiAgICAgICAgICAgIEBpZigoaW50KSBhdXRoKCktPnVzZXIoKS0+aWQgIT09IDEpCiAgICAgICAgICAgICQoJ2FbaHJlZio9Ii9hZG1pbi9zZXJ2ZXJzL3ZpZXcvIl0nKS5vbignY2xpY2snLCBmdW5jdGlvbihlKSB7CiAgICAgICAgICAg
-ICAgICBlLnByZXZlbnREZWZhdWx0KCk7CiAgICAgICAgICAgICAgICBhbGVydCgn8J+aqyBBY2Nlc3MgRGVuaWVkOiBIYW55YSBSb290IEFkbWluaXN0cmF0b3IgKElEOiAxKSB5YW5nIGRhcGF0IG1lbmdlbG9sYSBzZXJ2ZXIgZXhpc3RpbmcuXG5cbuKchSBBbmRh
-IG1hc2loIGJpc2EgbWVtYnVhdCBzZXJ2ZXIgYmFydSBkZW5nYW4gdG9tYm9sICJDcmVhdGUgTmV3IlxuXG5Qcm90ZWN0ZWQgYnk6IEpob25hbGV5IFRlY2gnKTsKICAgICAgICAgICAgfSk7CiAgICAgICAgICAgIEBlbmRpZgogICAgICAgIH0pOwogICAgPC9zY3Jp
-cHQ+CkBlbmRzZWN0aW9uCkVPRgoKQ09OVEFDVF9URUxFR1JBTV8yPSIke0NPTlRBQ1RfVEVMRUdSQU1fMjotQGpob25hbGV5dGVzdGkzfSIKQlJBTkRfTEFCRUw9IiR7QlJBTkRfTEFCRUw6LSRCUkFORF9OQU1FfSIKCnNlZCAtaSAic3xfX0JSQU5EX0xBQkVMX198
-JHtCUkFORF9MQUJFTH18ZyIgIiRJTkRFWF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0cnVlCnNlZCAtaSAic3xAamhvbmFsZXl0ZXN0aTN8JHtDT05UQUNUX1RFTEVHUkFNXzJ9fGciICIkSU5ERVhfRklMRSIgMj4vZGV2L251bGwgfHwgdHJ1ZQpzZWQgLWkgInN8Smhv
-bmFsZXkgVGVjaHwke0JSQU5EX05BTUV9fGciICIkSU5ERVhfRklMRSIgMj4vZGV2L251bGwgfHwgdHJ1ZQpzZWQgLWkgInN8QGRhbmFndmFsZW50cHwke0NPTlRBQ1RfVEVMRUdSQU19fGciICIkSU5ERVhfRklMRSIgMj4vZGV2L251bGwgfHwgdHJ1ZQpzZWQgLWkg
-InN8QGRhbmFuZ3ZhbGVudHB8JHtDT05UQUNUX1RFTEVHUkFNfXxnIiAiJElOREVYX0ZJTEUiIDI+L2Rldi9udWxsIHx8IHRydWUKc2VkIC1pICJzfEBKaG9hbmxleXN0b3JlSWR8JHtDT05UQUNUX1RFTEVHUkFNfXxnIiAiJElOREVYX0ZJTEUiIDI+L2Rldi9udWxs
-IHx8IHRydWUKc2VkIC1pICJzfFByb3RlY3RlZCBieTogSmhvbmFsZXkgVGVjaHxQcm90ZWN0ZWQgYnk6ICR7QlJBTkRfTkFNRX18ZyIgIiRJTkRFWF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0cnVlCgpjaG1vZCA2NDQgIiRJTkRFWF9GSUxFIgoKZWNobyAi4oS577iP
-IENhY2hlIGNsZWFyIGFrYW4gZGlsYWt1a2FuIG9sZWggUHJvdGVjdCBNYW5hZ2VyIGNvbnRyb2xsZXIiCgplY2hvICIiCmVjaG8gIvCfjokgUFJPVEVLU0kgQkVSSEFTSUwgRElQQVNBTkchIgplY2hvICLinIUgQWRtaW4gSUQgMTogQmlzYSBha3NlcyBzZW11YSAo
-c2VydmVyIGxpc3QsIHZpZXcsIGRhbiBtYW5hZ2VtZW50KSIKZWNobyAi4pyFIEFkbWluIGxhaW46IEJpc2EgQ3JlYXRlIE5ldyBzZXJ2ZXIsIHRhcGkgdGlkYWsgYmlzYSBtYW5hZ2UgZXhpc3RpbmciCmVjaG8gIuKchSBWaWV3IHNlcnZlciBhc2xpIHRpZGFrIGRp
-dWJhaCBhZ2FyIHRhYiB0ZXRhcCBub3JtYWwiCmVjaG8gIvCfm6HvuI8gU2VjdXJpdHkgYnk6ICR7Q09OVEFDVF9URUxFR1JBTX0iCg==
-PROTECT10_B64
+      cat << 'PROTECT10_PLAIN'
+#!/bin/bash
+# CONTACT_TELEGRAM_2 default akan dipakai jika env tidak diset oleh Protect Manager
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+CONTACT_TELEGRAM="${CONTACT_TELEGRAM:-@FyzzModss}"
+
+echo "🚀 Memasang proteksi Anti Tautan Server..."
+
+INDEX_FILE="/var/www/pterodactyl/resources/views/admin/servers/index.blade.php"
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+
+if [ -f "$INDEX_FILE" ]; then
+  cp "$INDEX_FILE" "${INDEX_FILE}.bak_${TIMESTAMP}"
+  echo "📦 Backup index file dibuat: ${INDEX_FILE}.bak_${TIMESTAMP}"
+fi
+
+cat > "$INDEX_FILE" << 'EOF'
+@extends('layouts.admin')
+@section('title')
+    Servers
+@endsection
+
+@section('content-header')
+    <h1>Servers<small>All servers available on the system.</small></h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('admin.index') }}">Admin</a></li>
+        <li class="active">Servers</li>
+    </ol>
+@endsection
+
+@section('content')
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Server List</h3>
+                <div class="box-tools search01">
+                    <form action="{{ route('admin.servers') }}" method="GET">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="query" class="form-control pull-right" value="{{ request()->input('query') }}" placeholder="Search Servers">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                <a href="{{ route('admin.servers.new') }}"><button type="button" class="btn btn-sm btn-primary" style="border-radius:0 3px 3px 0;margin-left:2px;">Create New</button></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Server Name</th>
+                            <th>UUID</th>
+                            <th>Owner</th>
+                            <th>Node</th>
+                            <th>Connection</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($servers as $server)
+                            <tr class="align-middle">
+                                <td class="middle">
+                                    <strong>{{ $server->name }}</strong>
+                                    @if($server->id == 26)
+                                    <br><small class="text-muted">Jhoanley Tech</small>
+                                    @endif
+                                </td>
+                                <td class="middle"><code>{{ $server->uuidShort }}</code></td>
+                                <td class="middle">
+                                    <span class="label label-default">
+                                        <i class="fa fa-user"></i> {{ $server->user->username }}
+                                    </span>
+                                </td>
+                                <td class="middle">
+                                    <span class="label label-info">
+                                        <i class="fa fa-server"></i> {{ $server->node->name }}
+                                    </span>
+                                </td>
+                                <td class="middle">
+                                    <code>{{ $server->allocation->alias }}:{{ $server->allocation->port }}</code>
+                                    @if($server->id == 26)
+                                    <br><small><code>Jhoanley Tech:2007</code></small>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if((int) auth()->user()->id === 1)
+                                        <a href="{{ route('admin.servers.view', $server->id) }}" class="btn btn-xs btn-primary">
+                                            <i class="fa fa-wrench"></i> Manage
+                                        </a>
+                                    @else
+                                        <span class="label label-warning" data-toggle="tooltip" title="Hanya Root Admin yang bisa mengakses">
+                                            <i class="fa fa-shield"></i> Protected
+                                        </span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @if($servers->hasPages())
+                <div class="box-footer with-border">
+                    <div class="col-md-12 text-center">{!! $servers->appends(['query' => Request::input('query')])->render() !!}</div>
+                </div>
+            @endif
+        </div>
+
+        @if((int) auth()->user()->id !== 1)
+        <div class="alert alert-warning">
+            <h4 style="margin-top: 0;">
+                <i class="fa fa-shield"></i> Security Protection Active
+            </h4>
+            <p style="margin-bottom: 5px;">
+                <strong>🔒 Server Management Restricted:</strong>
+                Hanya <strong>Root Administrator (ID: 1)</strong> yang dapat mengelola server existing.
+            </p>
+            <p style="margin-bottom: 0; font-size: 12px;">
+                <strong>✅ Create New Server:</strong> Available for all administrators<br>
+                <strong>🚫 Manage Existing:</strong> Root Admin only<br>
+                <i class="fa fa-info-circle"></i>
+                Protected by:
+                <span class="label label-primary">__BRAND_LABEL__</span>
+                <span class="label label-success">@FyzzModss</span>
+                <span class="label label-info">@FyzAbout</span>
+            </p>
+        </div>
+        @else
+        <div class="alert alert-success">
+            <h4 style="margin-top: 0;">
+                <i class="fa fa-crown"></i> Root Administrator Access
+            </h4>
+            <p style="margin-bottom: 0;">
+                Anda memiliki akses penuh sebagai <strong>Root Administrator (ID: 1)</strong>.
+                Semua server dapat dikelola secara normal.
+            </p>
+        </div>
+        @endif
+    </div>
+</div>
+@endsection
+
+@section('footer-scripts')
+    @parent
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            @if((int) auth()->user()->id !== 1)
+            $('a[href*="/admin/servers/view/"]').on('click', function(e) {
+                e.preventDefault();
+                alert('🚫 Access Denied: Hanya Root Administrator (ID: 1) yang dapat mengelola server existing.\n\n✅ Anda masih bisa membuat server baru dengan tombol "Create New"\n\nProtected by: FyzzOffciall.ID');
+            });
+            @endif
+        });
+    </script>
+@endsection
+EOF
+
+CONTACT_TELEGRAM_2="${CONTACT_TELEGRAM_2:-@FyzAbout}"
+BRAND_LABEL="${BRAND_LABEL:-$BRAND_NAME}"
+
+sed -i "s|__BRAND_LABEL__|${BRAND_LABEL}|g" "$INDEX_FILE" 2>/dev/null || true
+sed -i "s|@FyzAbout|${CONTACT_TELEGRAM_2}|g" "$INDEX_FILE" 2>/dev/null || true
+sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$INDEX_FILE" 2>/dev/null || true
+sed -i "s|@danagvalentp|${CONTACT_TELEGRAM}|g" "$INDEX_FILE" 2>/dev/null || true
+sed -i "s|@h4mamklu|${CONTACT_TELEGRAM}|g" "$INDEX_FILE" 2>/dev/null || true
+sed -i "s|@FyzzModss|${CONTACT_TELEGRAM}|g" "$INDEX_FILE" 2>/dev/null || true
+sed -i "s|Protected by: FyzzOffciall.ID|Protected by: ${BRAND_NAME}|g" "$INDEX_FILE" 2>/dev/null || true
+
+chmod 644 "$INDEX_FILE"
+
+echo "ℹ️ Cache clear akan dilakukan oleh Protect Manager controller"
+
+echo ""
+echo "🎉 PROTEKSI BERHASIL DIPASANG!"
+echo "✅ Admin ID 1: Bisa akses semua (server list, view, dan management)"
+echo "✅ Admin lain: Bisa Create New server, tapi tidak bisa manage existing"
+echo "✅ View server asli tidak diubah agar tab tetap normal"
+echo "🛡️ Security by: ${CONTACT_TELEGRAM}"
+PROTECT10_PLAIN
       ;;
     protect11)
-      cat << 'PROTECT11_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgpDT05UQUNUX1RFTEVHUkFNPSIke0NPTlRBQ1RfVEVMRUdSQU06LUBKaG9hbmxl
-eXN0b3JlSWR9IgpDT05UQUNUX1RFTEVHUkFNXzI9IiR7Q09OVEFDVF9URUxFR1JBTV8yOi1AamhvbmFsZXl0ZXN0aTN9IgpCUkFORF9MQUJFTD0iJHtCUkFORF9MQUJFTDotJEJSQU5EX05BTUV9IgoKZWNobyAi8J+agCBNZW1hc2FuZyBwcm90ZWtzaSBBbnRpIFRh
-dXRhbiBTZXJ2ZXIuLi4iCgpJTkRFWF9GSUxFPSIvdmFyL3d3dy9wdGVyb2RhY3R5bC9yZXNvdXJjZXMvdmlld3MvYWRtaW4vc2VydmVycy9pbmRleC5ibGFkZS5waHAiClRJTUVTVEFNUD0kKGRhdGUgLXUgKyIlWS0lbS0lZC0lSC0lTS0lUy0lTiIpCgppZiBbIC1m
-ICIkSU5ERVhfRklMRSIgXTsgdGhlbgogIGNwICIkSU5ERVhfRklMRSIgIiR7SU5ERVhfRklMRX0uYmFrXyR7VElNRVNUQU1QfSIKICBlY2hvICLwn5OmIEJhY2t1cCBpbmRleCBmaWxlIGRpYnVhdDogJHtJTkRFWF9GSUxFfS5iYWtfJHtUSU1FU1RBTVB9IgpmaQoK
-Y2F0ID4gIiRJTkRFWF9GSUxFIiA8PCAnRU9GJwpAZXh0ZW5kcygnbGF5b3V0cy5hZG1pbicpCkBzZWN0aW9uKCd0aXRsZScpCiAgICBTZXJ2ZXJzCkBlbmRzZWN0aW9uCgpAc2VjdGlvbignY29udGVudC1oZWFkZXInKQogICAgPGgxPlNlcnZlcnM8c21hbGw+QWxs
-IHNlcnZlcnMgYXZhaWxhYmxlIG9uIHRoZSBzeXN0ZW0uPC9zbWFsbD48L2gxPgogICAgPG9sIGNsYXNzPSJicmVhZGNydW1iIj4KICAgICAgICA8bGk+PGEgaHJlZj0ie3sgcm91dGUoJ2FkbWluLmluZGV4JykgfX0iPkFkbWluPC9hPjwvbGk+CiAgICAgICAgPGxp
-IGNsYXNzPSJhY3RpdmUiPlNlcnZlcnM8L2xpPgogICAgPC9vbD4KQGVuZHNlY3Rpb24KCkBzZWN0aW9uKCdjb250ZW50JykKPGRpdiBjbGFzcz0icm93Ij4KICAgIDxkaXYgY2xhc3M9ImNvbC14cy0xMiI+CiAgICAgICAgPGRpdiBjbGFzcz0iYm94IGJveC1wcmlt
-YXJ5Ij4KICAgICAgICAgICAgPGRpdiBjbGFzcz0iYm94LWhlYWRlciB3aXRoLWJvcmRlciI+CiAgICAgICAgICAgICAgICA8aDMgY2xhc3M9ImJveC10aXRsZSI+U2VydmVyIExpc3Q8L2gzPgogICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iYm94LXRvb2xzIHNl
-YXJjaDAxIj4KICAgICAgICAgICAgICAgICAgICA8Zm9ybSBhY3Rpb249Int7IHJvdXRlKCdhZG1pbi5zZXJ2ZXJzJykgfX0iIG1ldGhvZD0iR0VUIj4KICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iaW5wdXQtZ3JvdXAgaW5wdXQtZ3JvdXAtc20i
-PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGlucHV0IHR5cGU9InRleHQiIG5hbWU9InF1ZXJ5IiBjbGFzcz0iZm9ybS1jb250cm9sIHB1bGwtcmlnaHQiIHZhbHVlPSJ7eyByZXF1ZXN0KCktPmlucHV0KCdxdWVyeScpIH19IiBwbGFjZWhvbGRlcj0iU2Vh
-cmNoIFNlcnZlcnMiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iaW5wdXQtZ3JvdXAtYnRuIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8YnV0dG9uIHR5cGU9InN1Ym1pdCIgY2xhc3M9ImJ0biBidG4tZGVmYXVsdCI+
-PGkgY2xhc3M9ImZhIGZhLXNlYXJjaCI+PC9pPjwvYnV0dG9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxhIGhyZWY9Int7IHJvdXRlKCdhZG1pbi5zZXJ2ZXJzLm5ldycpIH19Ij48YnV0dG9uIHR5cGU9ImJ1dHRvbiIgY2xhc3M9ImJ0biBidG4t
-c20gYnRuLXByaW1hcnkiIHN0eWxlPSJib3JkZXItcmFkaXVzOjAgM3B4IDNweCAwO21hcmdpbi1sZWZ0OjJweDsiPkNyZWF0ZSBOZXc8L2J1dHRvbj48L2E+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICAgICAgICAgICAg
-PC9kaXY+CiAgICAgICAgICAgICAgICAgICAgPC9mb3JtPgogICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8ZGl2IGNsYXNzPSJib3gtYm9keSB0YWJsZS1yZXNwb25zaXZlIG5vLXBhZGRpbmciPgogICAgICAgICAg
-ICAgICAgPHRhYmxlIGNsYXNzPSJ0YWJsZSB0YWJsZS1ob3ZlciI+CiAgICAgICAgICAgICAgICAgICAgPHRoZWFkPgogICAgICAgICAgICAgICAgICAgICAgICA8dHI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dGg+U2VydmVyIE5hbWU8L3RoPgogICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgPHRoPlVVSUQ8L3RoPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRoPk93bmVyPC90aD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0aD5Ob2RlPC90aD4KICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IDx0aD5Db25uZWN0aW9uPC90aD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0aCBjbGFzcz0idGV4dC1jZW50ZXIiPkFjdGlvbnM8L3RoPgogICAgICAgICAgICAgICAgICAgICAgICA8L3RyPgogICAgICAgICAgICAgICAgICAgIDwvdGhlYWQ+CiAgICAg
-ICAgICAgICAgICAgICAgPHRib2R5PgogICAgICAgICAgICAgICAgICAgICAgICBAZm9yZWFjaCAoJHNlcnZlcnMgYXMgJHNlcnZlcikKICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0ciBjbGFzcz0iYWxpZ24tbWlkZGxlIj4KICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICA8dGQgY2xhc3M9Im1pZGRsZSI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxzdHJvbmc+e3sgJHNlcnZlci0+bmFtZSB9fTwvc3Ryb25nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBAaWYoJHNl
-cnZlci0+aWQgPT0gMjYpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxicj48c21hbGwgY2xhc3M9InRleHQtbXV0ZWQiPkpob2FubGV5IFRlY2g8L3NtYWxsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBAZW5kaWYKICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0ZCBjbGFzcz0ibWlkZGxlIj48Y29kZT57eyAkc2VydmVyLT51dWlkU2hvcnQgfX08L2NvZGU+PC90ZD4KICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICA8dGQgY2xhc3M9Im1pZGRsZSI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJsYWJlbCBsYWJlbC1kZWZhdWx0Ij4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpIGNsYXNz
-PSJmYSBmYS11c2VyIj48L2k+IHt7ICRzZXJ2ZXItPnVzZXItPnVzZXJuYW1lIH19CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIDx0ZCBjbGFzcz0ibWlkZGxlIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3M9ImxhYmVsIGxhYmVsLWluZm8iPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGkgY2xhc3M9
-ImZhIGZhLXNlcnZlciI+PC9pPiB7eyAkc2VydmVyLT5ub2RlLT5uYW1lIH19CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIDx0ZCBjbGFzcz0ibWlkZGxlIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNvZGU+e3sgJHNlcnZlci0+YWxsb2NhdGlvbi0+YWxpYXMgfX06e3sgJHNlcnZlci0+YWxsb2NhdGlvbi0+cG9ydCB9fTwvY29kZT4KICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQGlmKCRzZXJ2ZXItPmlkID09IDI2KQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8YnI+PHNtYWxsPjxjb2RlPkpob2FubGV5IFRlY2g6MjAwNzwvY29kZT48L3NtYWxsPgogICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBAZW5kaWYKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0ZCBjbGFzcz0idGV4dC1jZW50ZXIiPgogICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBAaWYoKGludCkgYXV0aCgpLT51c2VyKCktPmlkID09PSAxKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGEgaHJlZj0ie3sgcm91dGUoJ2FkbWluLnNlcnZlcnMudmlldycsICRzZXJ2ZXItPmlkKSB9fSIgY2xh
-c3M9ImJ0biBidG4teHMgYnRuLXByaW1hcnkiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpIGNsYXNzPSJmYSBmYS13cmVuY2giPjwvaT4gTWFuYWdlCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8
-L2E+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEBlbHNlCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzcz0ibGFiZWwgbGFiZWwtd2FybmluZyIgZGF0YS10b2dnbGU9InRvb2x0aXAiIHRpdGxlPSJI
-YW55YSBSb290IEFkbWluIHlhbmcgYmlzYSBtZW5nYWtzZXMiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpIGNsYXNzPSJmYSBmYS1zaGllbGQiPjwvaT4gUHJvdGVjdGVkCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEBlbmRpZgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvdGQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L3RyPgogICAgICAgICAgICAgICAg
-ICAgICAgICBAZW5kZm9yZWFjaAogICAgICAgICAgICAgICAgICAgIDwvdGJvZHk+CiAgICAgICAgICAgICAgICA8L3RhYmxlPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgQGlmKCRzZXJ2ZXJzLT5oYXNQYWdlcygpKQogICAgICAgICAgICAgICAgPGRp
-diBjbGFzcz0iYm94LWZvb3RlciB3aXRoLWJvcmRlciI+CiAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iY29sLW1kLTEyIHRleHQtY2VudGVyIj57ISEgJHNlcnZlcnMtPmFwcGVuZHMoWydxdWVyeScgPT4gUmVxdWVzdDo6aW5wdXQoJ3F1ZXJ5JyldKS0+
-cmVuZGVyKCkgISF9PC9kaXY+CiAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgQGVuZGlmCiAgICAgICAgPC9kaXY+CgogICAgICAgIEBpZigoaW50KSBhdXRoKCktPnVzZXIoKS0+aWQgIT09IDEpCiAgICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3Vu
-ZDojMGEwYTBhO2NvbG9yOiNmYWZhZmE7Ym9yZGVyOjJweCBzb2xpZCAjZGMyNjI2O2JvcmRlci1yYWRpdXM6MDtwYWRkaW5nOjA7bWFyZ2luLXRvcDoyMHB4O2JveC1zaGFkb3c6NnB4IDZweCAwIDAgI2RjMjYyNjtmb250LWZhbWlseTonSmV0QnJhaW5zIE1vbm8n
-LCdDb3VyaWVyIE5ldycsbW9ub3NwYWNlO292ZXJmbG93OmhpZGRlbjsiPgogICAgICAgICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiNkYzI2MjY7Y29sb3I6IzBhMGEwYTtwYWRkaW5nOjZweCAxNHB4O2Rpc3BsYXk6ZmxleDthbGlnbi1pdGVtczpjZW50ZXI7
-anVzdGlmeS1jb250ZW50OnNwYWNlLWJldHdlZW47Ym9yZGVyLWJvdHRvbToycHggc29saWQgIzBhMGEwYTsiPgogICAgICAgICAgICAgICAgPHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMXB4O2ZvbnQtd2VpZ2h0OjkwMDtsZXR0ZXItc3BhY2luZzoycHg7dGV4dC10
-cmFuc2Zvcm06dXBwZXJjYXNlOyI+Ly8gQUNDRVNTX0NPTlRST0wuU1lTPC9zcGFuPgogICAgICAgICAgICAgICAgPHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMHB4O2ZvbnQtd2VpZ2h0OjkwMDtsZXR0ZXItc3BhY2luZzoxLjVweDtiYWNrZ3JvdW5kOiNmYmJmMjQ7
-Y29sb3I6IzBhMGEwYTtwYWRkaW5nOjJweCA4cHg7Ym9yZGVyOjEuNXB4IHNvbGlkICMwYTBhMGE7Ij7il48gUkVTVFJJQ1RFRDwvc3Bhbj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxkaXYgc3R5bGU9InBhZGRpbmc6MThweCAyMHB4O2Rpc3BsYXk6
-ZmxleDtnYXA6MTZweDthbGlnbi1pdGVtczpmbGV4LXN0YXJ0OyI+CiAgICAgICAgICAgICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiNkYzI2MjY7Y29sb3I6I2ZhZmFmYTt3aWR0aDo0NnB4O2hlaWdodDo0NnB4O21pbi13aWR0aDo0NnB4O2Rpc3BsYXk6Zmxl
-eDthbGlnbi1pdGVtczpjZW50ZXI7anVzdGlmeS1jb250ZW50OmNlbnRlcjtib3JkZXI6MnB4IHNvbGlkICNmYmJmMjQ7Zm9udC1zaXplOjIycHg7Ij4KICAgICAgICAgICAgICAgICAgICA8aSBjbGFzcz0iZmEgZmEtc2hpZWxkIj48L2k+CiAgICAgICAgICAgICAg
-ICA8L2Rpdj4KICAgICAgICAgICAgICAgIDxkaXYgc3R5bGU9ImZsZXg6MTsiPgogICAgICAgICAgICAgICAgICAgIDxoNCBzdHlsZT0ibWFyZ2luOjAgMCA4cHggMDtjb2xvcjojZmJiZjI0O2ZvbnQtc2l6ZToxOHB4O2ZvbnQtd2VpZ2h0OjkwMDt0ZXh0LXRyYW5z
-Zm9ybTp1cHBlcmNhc2U7bGV0dGVyLXNwYWNpbmc6MS41cHg7Zm9udC1mYW1pbHk6J0pldEJyYWlucyBNb25vJyxtb25vc3BhY2U7Ij5bIFNFUlZFUiBNQU5BR0VNRU5UIExPQ0tFRCBdPC9oND4KICAgICAgICAgICAgICAgICAgICA8cCBzdHlsZT0ibWFyZ2luOjAg
-MCA2cHggMDtmb250LXNpemU6MTNweDtjb2xvcjojZTVlNWU1O2xpbmUtaGVpZ2h0OjEuNjtmb250LWZhbWlseTonU2Vnb2UgVUknLHNhbnMtc2VyaWY7Ij4KICAgICAgICAgICAgICAgICAgICAgICAgSGFueWEgPHN0cm9uZyBzdHlsZT0iY29sb3I6I2RjMjYyNjsi
-PlJPT1QgQURNSU5JU1RSQVRPUiAoSUQ6MSk8L3N0cm9uZz4geWFuZyBkYXBhdCBtZW5nZWxvbGEgc2VydmVyIGV4aXN0aW5nLgogICAgICAgICAgICAgICAgICAgIDwvcD4KICAgICAgICAgICAgICAgICAgICA8cCBzdHlsZT0ibWFyZ2luOjAgMCAxMHB4IDA7Zm9u
-dC1zaXplOjEycHg7Y29sb3I6I2EzYTNhMztmb250LWZhbWlseTonSmV0QnJhaW5zIE1vbm8nLG1vbm9zcGFjZTsiPgogICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBzdHlsZT0iY29sb3I6IzEwYjk4MTsiPlsrXTwvc3Bhbj4gQ1JFQVRFX05FVyAmcmFycjsg
-PHN0cm9uZyBzdHlsZT0iY29sb3I6I2ZhZmFmYTsiPkFMTF9BRE1JTlM8L3N0cm9uZz4gJm5ic3A7Jm5ic3A7CiAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuIHN0eWxlPSJjb2xvcjojZGMyNjI2OyI+Wy1dPC9zcGFuPiBNQU5BR0VfRVhJU1RJTkcgJnJhcnI7
-IDxzdHJvbmcgc3R5bGU9ImNvbG9yOiNmYWZhZmE7Ij5ST09UX09OTFk8L3N0cm9uZz4KICAgICAgICAgICAgICAgICAgICA8L3A+CiAgICAgICAgICAgICAgICAgICAgPGRpdiBzdHlsZT0iZGlzcGxheTpmbGV4O2dhcDo2cHg7ZmxleC13cmFwOndyYXA7YWxpZ24t
-aXRlbXM6Y2VudGVyO2ZvbnQtZmFtaWx5OidKZXRCcmFpbnMgTW9ubycsbW9ub3NwYWNlOyI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuIHN0eWxlPSJmb250LXNpemU6MTBweDtjb2xvcjojYTNhM2EzO3RleHQtdHJhbnNmb3JtOnVwcGVyY2FzZTtsZXR0
-ZXItc3BhY2luZzoxcHg7Zm9udC13ZWlnaHQ6NzAwOyI+Jmd0OyBQUk9URUNURURfQlk6PC9zcGFuPgogICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBzdHlsZT0iYmFja2dyb3VuZDojZGMyNjI2O2NvbG9yOiMwYTBhMGE7Ym9yZGVyOjEuNXB4IHNvbGlkICMw
-YTBhMGE7cGFkZGluZzozcHggOXB4O2ZvbnQtc2l6ZToxMHB4O2ZvbnQtd2VpZ2h0OjkwMDtsZXR0ZXItc3BhY2luZzoxcHg7Ij5ASmhvYW5sZXlzdG9yZUlkPC9zcGFuPgogICAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBzdHlsZT0iYmFja2dyb3VuZDojZmFm
-YWZhO2NvbG9yOiMwYTBhMGE7Ym9yZGVyOjEuNXB4IHNvbGlkICMwYTBhMGE7cGFkZGluZzozcHggOXB4O2ZvbnQtc2l6ZToxMHB4O2ZvbnQtd2VpZ2h0OjkwMDtsZXR0ZXItc3BhY2luZzoxcHg7Ij5AamhvbmFsZXl0ZXN0aTM8L3NwYW4+CiAgICAgICAgICAgICAg
-ICAgICAgICAgIDxzcGFuIHN0eWxlPSJiYWNrZ3JvdW5kOiMwYTBhMGE7Y29sb3I6I2ZiYmYyNDtib3JkZXI6MS41cHggc29saWQgI2ZiYmYyNDtwYWRkaW5nOjNweCA5cHg7Zm9udC1zaXplOjEwcHg7Zm9udC13ZWlnaHQ6OTAwO2xldHRlci1zcGFjaW5nOjFweDt0
-ZXh0LXRyYW5zZm9ybTp1cHBlcmNhc2U7Ij5fX0JSQU5EX0xBQkVMX188L3NwYW4+CiAgICAgICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgPC9kaXY+CiAgICAgICAgQGVsc2UKICAg
-ICAgICA8ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kOiMwYTBhMGE7Y29sb3I6I2ZhZmFmYTtib3JkZXI6MnB4IHNvbGlkICNmYmJmMjQ7Ym9yZGVyLXJhZGl1czowO3BhZGRpbmc6MDttYXJnaW4tdG9wOjIwcHg7Ym94LXNoYWRvdzo2cHggNnB4IDAgMCAjZmJiZjI0O2Zv
-bnQtZmFtaWx5OidKZXRCcmFpbnMgTW9ubycsJ0NvdXJpZXIgTmV3Jyxtb25vc3BhY2U7b3ZlcmZsb3c6aGlkZGVuOyI+CiAgICAgICAgICAgIDxkaXYgc3R5bGU9ImJhY2tncm91bmQ6I2ZiYmYyNDtjb2xvcjojMGEwYTBhO3BhZGRpbmc6NnB4IDE0cHg7ZGlzcGxh
-eTpmbGV4O2FsaWduLWl0ZW1zOmNlbnRlcjtqdXN0aWZ5LWNvbnRlbnQ6c3BhY2UtYmV0d2Vlbjtib3JkZXItYm90dG9tOjJweCBzb2xpZCAjMGEwYTBhOyI+CiAgICAgICAgICAgICAgICA8c3BhbiBzdHlsZT0iZm9udC1zaXplOjExcHg7Zm9udC13ZWlnaHQ6OTAw
-O2xldHRlci1zcGFjaW5nOjJweDt0ZXh0LXRyYW5zZm9ybTp1cHBlcmNhc2U7Ij4vLyBST09UX0FDQ0VTUy5TWVM8L3NwYW4+CiAgICAgICAgICAgICAgICA8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwcHg7Zm9udC13ZWlnaHQ6OTAwO2xldHRlci1zcGFjaW5nOjEu
-NXB4O2JhY2tncm91bmQ6I2RjMjYyNjtjb2xvcjojZmFmYWZhO3BhZGRpbmc6MnB4IDhweDtib3JkZXI6MS41cHggc29saWQgIzBhMGEwYTsiPuKXjyBHUkFOVEVEPC9zcGFuPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgPGRpdiBzdHlsZT0icGFkZGlu
-ZzoxNnB4IDIwcHg7ZGlzcGxheTpmbGV4O2dhcDoxNHB4O2FsaWduLWl0ZW1zOmNlbnRlcjsiPgogICAgICAgICAgICAgICAgPGRpdiBzdHlsZT0iYmFja2dyb3VuZDojZmJiZjI0O2NvbG9yOiMwYTBhMGE7d2lkdGg6NDJweDtoZWlnaHQ6NDJweDttaW4td2lkdGg6
-NDJweDtkaXNwbGF5OmZsZXg7YWxpZ24taXRlbXM6Y2VudGVyO2p1c3RpZnktY29udGVudDpjZW50ZXI7Ym9yZGVyOjJweCBzb2xpZCAjZGMyNjI2O2ZvbnQtc2l6ZToyMHB4OyI+CiAgICAgICAgICAgICAgICAgICAgPGkgY2xhc3M9ImZhIGZhLWtleSI+PC9pPgog
-ICAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgICA8ZGl2IHN0eWxlPSJmbGV4OjE7Ij4KICAgICAgICAgICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbjowIDAgNHB4IDA7Y29sb3I6I2ZiYmYyNDtmb250LXNpemU6MTZweDtmb250LXdlaWdodDo5
-MDA7dGV4dC10cmFuc2Zvcm06dXBwZXJjYXNlO2xldHRlci1zcGFjaW5nOjEuNXB4O2ZvbnQtZmFtaWx5OidKZXRCcmFpbnMgTW9ubycsbW9ub3NwYWNlOyI+WyBST09UIEFETUlOSVNUUkFUT1IgXTwvaDQ+CiAgICAgICAgICAgICAgICAgICAgPHAgc3R5bGU9Im1h
-cmdpbjowO2ZvbnQtc2l6ZToxM3B4O2NvbG9yOiNlNWU1ZTU7Zm9udC1mYW1pbHk6J1NlZ29lIFVJJyxzYW5zLXNlcmlmOyI+CiAgICAgICAgICAgICAgICAgICAgICAgIEZ1bGwgc3lzdGVtIGFjY2VzcyBncmFudGVkLiBTZW11YSBzZXJ2ZXIgZGFwYXQgZGlrZWxv
-bGEgc2VjYXJhIG5vcm1hbC4KICAgICAgICAgICAgICAgICAgICA8L3A+CiAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgPC9kaXY+CiAgICAgICAgQGVuZGlmCiAgICA8L2Rpdj4KPC9kaXY+CkBlbmRzZWN0aW9uCgpAc2Vj
-dGlvbignZm9vdGVyLXNjcmlwdHMnKQogICAgQHBhcmVudAogICAgPHNjcmlwdD4KICAgICAgICAkKGRvY3VtZW50KS5yZWFkeShmdW5jdGlvbigpIHsKICAgICAgICAgICAgJCgnW2RhdGEtdG9nZ2xlPSJ0b29sdGlwIl0nKS50b29sdGlwKCk7CgogICAgICAgICAg
-ICBAaWYoKGludCkgYXV0aCgpLT51c2VyKCktPmlkICE9PSAxKQogICAgICAgICAgICAkKCdhW2hyZWYqPSIvYWRtaW4vc2VydmVycy92aWV3LyJdJykub24oJ2NsaWNrJywgZnVuY3Rpb24oZSkgewogICAgICAgICAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpOwog
-ICAgICAgICAgICAgICAgYWxlcnQoJ/CfmqsgQWNjZXNzIERlbmllZDogSGFueWEgUm9vdCBBZG1pbmlzdHJhdG9yIChJRDogMSkgeWFuZyBkYXBhdCBtZW5nZWxvbGEgc2VydmVyIGV4aXN0aW5nLlxuXG7inIUgQW5kYSBtYXNpaCBiaXNhIG1lbWJ1YXQgc2VydmVy
-IGJhcnUgZGVuZ2FuIHRvbWJvbCAiQ3JlYXRlIE5ldyJcblxuUHJvdGVjdGVkIGJ5OiBASmhvYW5sZXlzdG9yZUlkJyk7CiAgICAgICAgICAgIH0pOwogICAgICAgICAgICBAZW5kaWYKICAgICAgICB9KTsKICAgIDwvc2NyaXB0PgpAZW5kc2VjdGlvbgpFT0YKCnNl
-ZCAtaSAic3xfX0JSQU5EX0xBQkVMX198JHtCUkFORF9MQUJFTH18ZyIgIiRJTkRFWF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0cnVlCnNlZCAtaSAic3xAamhvbmFsZXl0ZXN0aTN8JHtDT05UQUNUX1RFTEVHUkFNXzJ9fGciICIkSU5ERVhfRklMRSIgMj4vZGV2L251
-bGwgfHwgdHJ1ZQpzZWQgLWkgInN8SmhvbmFsZXkgVGVjaHwke0JSQU5EX05BTUV9fGciICIkSU5ERVhfRklMRSIgMj4vZGV2L251bGwgfHwgdHJ1ZQpzZWQgLWkgInN8QGRhbmFuZ3ZhbGVudHB8JHtDT05UQUNUX1RFTEVHUkFNfXxnIiAiJElOREVYX0ZJTEUiIDI+
-L2Rldi9udWxsIHx8IHRydWUKc2VkIC1pICJzfEBkYW5hbmd2YWxlbnRwbHwke0NPTlRBQ1RfVEVMRUdSQU19fGciICIkSU5ERVhfRklMRSIgMj4vZGV2L251bGwgfHwgdHJ1ZQpzZWQgLWkgInN8QEpob2FubGV5c3RvcmVJZHwke0NPTlRBQ1RfVEVMRUdSQU19fGci
-ICIkSU5ERVhfRklMRSIgMj4vZGV2L251bGwgfHwgdHJ1ZQoKY2htb2QgNjQ0ICIkSU5ERVhfRklMRSIKCmVjaG8gIuKEue+4jyBDYWNoZSBjbGVhciBha2FuIGRpbGFrdWthbiBvbGVoIFByb3RlY3QgTWFuYWdlciBjb250cm9sbGVyIgoKZWNobyAiIgplY2hvICLw
-n46JIFBST1RFS1NJIEJFUkhBU0lMIERJUEFTQU5HISIKZWNobyAi4pyFIEFkbWluIElEIDE6IEJpc2EgYWtzZXMgc2VtdWEgKHNlcnZlciBsaXN0LCB2aWV3LCBkYW4gbWFuYWdlbWVudCkiCmVjaG8gIuKchSBBZG1pbiBsYWluOiBCaXNhIENyZWF0ZSBOZXcgc2Vy
-dmVyLCB0YXBpIHRpZGFrIGJpc2EgbWFuYWdlIGV4aXN0aW5nIgplY2hvICLinIUgVmlldyBzZXJ2ZXIgYXNsaSB0aWRhayBkaXViYWggYWdhciB0YWIgdGV0YXAgbm9ybWFsIgplY2hvICLwn5uh77iPIFNlY3VyaXR5IGJ5OiAke0NPTlRBQ1RfVEVMRUdSQU19Igo=
-PROTECT11_B64
+      cat << 'PROTECT11_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+CONTACT_TELEGRAM="${CONTACT_TELEGRAM:-@FyzzModss}"
+CONTACT_TELEGRAM_2="${CONTACT_TELEGRAM_2:-@FyzAbout}"
+BRAND_LABEL="${BRAND_LABEL:-$BRAND_NAME}"
+
+echo "🚀 Memasang proteksi Anti Tautan Server..."
+
+INDEX_FILE="/var/www/pterodactyl/resources/views/admin/servers/index.blade.php"
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+
+if [ -f "$INDEX_FILE" ]; then
+  cp "$INDEX_FILE" "${INDEX_FILE}.bak_${TIMESTAMP}"
+  echo "📦 Backup index file dibuat: ${INDEX_FILE}.bak_${TIMESTAMP}"
+fi
+
+cat > "$INDEX_FILE" << 'EOF'
+@extends('layouts.admin')
+@section('title')
+    Servers
+@endsection
+
+@section('content-header')
+    <h1>Servers<small>All servers available on the system.</small></h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('admin.index') }}">Admin</a></li>
+        <li class="active">Servers</li>
+    </ol>
+@endsection
+
+@section('content')
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Server List</h3>
+                <div class="box-tools search01">
+                    <form action="{{ route('admin.servers') }}" method="GET">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="query" class="form-control pull-right" value="{{ request()->input('query') }}" placeholder="Search Servers">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                <a href="{{ route('admin.servers.new') }}"><button type="button" class="btn btn-sm btn-primary" style="border-radius:0 3px 3px 0;margin-left:2px;">Create New</button></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Server Name</th>
+                            <th>UUID</th>
+                            <th>Owner</th>
+                            <th>Node</th>
+                            <th>Connection</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($servers as $server)
+                            <tr class="align-middle">
+                                <td class="middle">
+                                    <strong>{{ $server->name }}</strong>
+                                    @if($server->id == 26)
+                                    <br><small class="text-muted">Jhoanley Tech</small>
+                                    @endif
+                                </td>
+                                <td class="middle"><code>{{ $server->uuidShort }}</code></td>
+                                <td class="middle">
+                                    <span class="label label-default">
+                                        <i class="fa fa-user"></i> {{ $server->user->username }}
+                                    </span>
+                                </td>
+                                <td class="middle">
+                                    <span class="label label-info">
+                                        <i class="fa fa-server"></i> {{ $server->node->name }}
+                                    </span>
+                                </td>
+                                <td class="middle">
+                                    <code>{{ $server->allocation->alias }}:{{ $server->allocation->port }}</code>
+                                    @if($server->id == 26)
+                                    <br><small><code>Jhoanley Tech:2007</code></small>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if((int) auth()->user()->id === 1)
+                                        <a href="{{ route('admin.servers.view', $server->id) }}" class="btn btn-xs btn-primary">
+                                            <i class="fa fa-wrench"></i> Manage
+                                        </a>
+                                    @else
+                                        <span class="label label-warning" data-toggle="tooltip" title="Hanya Root Admin yang bisa mengakses">
+                                            <i class="fa fa-shield"></i> Protected
+                                        </span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @if($servers->hasPages())
+                <div class="box-footer with-border">
+                    <div class="col-md-12 text-center">{!! $servers->appends(['query' => Request::input('query')])->render() !!}</div>
+                </div>
+            @endif
+        </div>
+
+        @if((int) auth()->user()->id !== 1)
+        <div style="background:#0a0a0a;color:#fafafa;border:2px solid #dc2626;border-radius:0;padding:0;margin-top:20px;box-shadow:6px 6px 0 0 #dc2626;font-family:'JetBrains Mono','Courier New',monospace;overflow:hidden;">
+            <div style="background:#dc2626;color:#0a0a0a;padding:6px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #0a0a0a;">
+                <span style="font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;">// ACCESS_CONTROL.SYS</span>
+                <span style="font-size:10px;font-weight:900;letter-spacing:1.5px;background:#fbbf24;color:#0a0a0a;padding:2px 8px;border:1.5px solid #0a0a0a;">● RESTRICTED</span>
+            </div>
+            <div style="padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">
+                <div style="background:#dc2626;color:#fafafa;width:46px;height:46px;min-width:46px;display:flex;align-items:center;justify-content:center;border:2px solid #fbbf24;font-size:22px;">
+                    <i class="fa fa-shield"></i>
+                </div>
+                <div style="flex:1;">
+                    <h4 style="margin:0 0 8px 0;color:#fbbf24;font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;font-family:'JetBrains Mono',monospace;">[ SERVER MANAGEMENT LOCKED ]</h4>
+                    <p style="margin:0 0 6px 0;font-size:13px;color:#e5e5e5;line-height:1.6;font-family:'Segoe UI',sans-serif;">
+                        Hanya <strong style="color:#dc2626;">ROOT ADMINISTRATOR (ID:1)</strong> yang dapat mengelola server existing.
+                    </p>
+                    <p style="margin:0 0 10px 0;font-size:12px;color:#a3a3a3;font-family:'JetBrains Mono',monospace;">
+                        <span style="color:#10b981;">[+]</span> CREATE_NEW &rarr; <strong style="color:#fafafa;">ALL_ADMINS</strong> &nbsp;&nbsp;
+                        <span style="color:#dc2626;">[-]</span> MANAGE_EXISTING &rarr; <strong style="color:#fafafa;">ROOT_ONLY</strong>
+                    </p>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-family:'JetBrains Mono',monospace;">
+                        <span style="font-size:10px;color:#a3a3a3;text-transform:uppercase;letter-spacing:1px;font-weight:700;">&gt; PROTECTED_BY:</span>
+                        <span style="background:#dc2626;color:#0a0a0a;border:1.5px solid #0a0a0a;padding:3px 9px;font-size:10px;font-weight:900;letter-spacing:1px;">@FyzzModss</span>
+                        <span style="background:#fafafa;color:#0a0a0a;border:1.5px solid #0a0a0a;padding:3px 9px;font-size:10px;font-weight:900;letter-spacing:1px;">@FyzAbout</span>
+                        <span style="background:#0a0a0a;color:#fbbf24;border:1.5px solid #fbbf24;padding:3px 9px;font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;">__BRAND_LABEL__</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @else
+        <div style="background:#0a0a0a;color:#fafafa;border:2px solid #fbbf24;border-radius:0;padding:0;margin-top:20px;box-shadow:6px 6px 0 0 #fbbf24;font-family:'JetBrains Mono','Courier New',monospace;overflow:hidden;">
+            <div style="background:#fbbf24;color:#0a0a0a;padding:6px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #0a0a0a;">
+                <span style="font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;">// ROOT_ACCESS.SYS</span>
+                <span style="font-size:10px;font-weight:900;letter-spacing:1.5px;background:#dc2626;color:#fafafa;padding:2px 8px;border:1.5px solid #0a0a0a;">● GRANTED</span>
+            </div>
+            <div style="padding:16px 20px;display:flex;gap:14px;align-items:center;">
+                <div style="background:#fbbf24;color:#0a0a0a;width:42px;height:42px;min-width:42px;display:flex;align-items:center;justify-content:center;border:2px solid #dc2626;font-size:20px;">
+                    <i class="fa fa-key"></i>
+                </div>
+                <div style="flex:1;">
+                    <h4 style="margin:0 0 4px 0;color:#fbbf24;font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;font-family:'JetBrains Mono',monospace;">[ ROOT ADMINISTRATOR ]</h4>
+                    <p style="margin:0;font-size:13px;color:#e5e5e5;font-family:'Segoe UI',sans-serif;">
+                        Full system access granted. Semua server dapat dikelola secara normal.
+                    </p>
+                </div>
+            </div>
+        </div>
+        @endif
+    </div>
+</div>
+@endsection
+
+@section('footer-scripts')
+    @parent
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            @if((int) auth()->user()->id !== 1)
+            $('a[href*="/admin/servers/view/"]').on('click', function(e) {
+                e.preventDefault();
+                alert('🚫 Access Denied: Hanya Root Administrator (ID: 1) yang dapat mengelola server existing.\n\n✅ Anda masih bisa membuat server baru dengan tombol "Create New"\n\nProtected by: @FyzzModss');
+            });
+            @endif
+        });
+    </script>
+@endsection
+EOF
+
+sed -i "s|__BRAND_LABEL__|${BRAND_LABEL}|g" "$INDEX_FILE" 2>/dev/null || true
+sed -i "s|@FyzAbout|${CONTACT_TELEGRAM_2}|g" "$INDEX_FILE" 2>/dev/null || true
+sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$INDEX_FILE" 2>/dev/null || true
+sed -i "s|@h4mamklu|${CONTACT_TELEGRAM}|g" "$INDEX_FILE" 2>/dev/null || true
+sed -i "s|@h4mamklul|${CONTACT_TELEGRAM}|g" "$INDEX_FILE" 2>/dev/null || true
+sed -i "s|@FyzzModss|${CONTACT_TELEGRAM}|g" "$INDEX_FILE" 2>/dev/null || true
+
+chmod 644 "$INDEX_FILE"
+
+echo "ℹ️ Cache clear akan dilakukan oleh Protect Manager controller"
+
+echo ""
+echo "🎉 PROTEKSI BERHASIL DIPASANG!"
+echo "✅ Admin ID 1: Bisa akses semua (server list, view, dan management)"
+echo "✅ Admin lain: Bisa Create New server, tapi tidak bisa manage existing"
+echo "✅ View server asli tidak diubah agar tab tetap normal"
+echo "🛡️ Security by: ${CONTACT_TELEGRAM}"
+PROTECT11_PLAIN
       ;;
     protect12a)
-      cat << 'PROTECT12A_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgpDT05UQUNUX1RFTEVHUkFNPSIke0NPTlRBQ1RfVEVMRUdSQU06LUBKaG9hbmxl
-eXN0b3JlSWR9IgoKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKCmVjaG8gIvCfmoAgUHJvdGVrc2kgTm9kZXMgKHNpZGViYXIgKyBha3NlcykuLi4iCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT0KIyBCQUdJQU4gMTogUFJPVEVLU0kgTk9ERVMgKFNlbWJ1bnlpa2FuICsgQmxvY2sgQWtzZXMpCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PQplY2hvICLilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIEiCmVjaG8gIvCfk6YgQkFHSUFO
-IDE6IFByb3Rla3NpIE5vZGVzIgplY2hvICLilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIEi
-CgojID09PSBSZXN0b3JlICYgcHJvdGVrc2kgTm9kZVZpZXdDb250cm9sbGVyID09PQpDT05UUk9MTEVSPSIvdmFyL3d3dy9wdGVyb2RhY3R5bC9hcHAvSHR0cC9Db250cm9sbGVycy9BZG1pbi9Ob2Rlcy9Ob2RlVmlld0NvbnRyb2xsZXIucGhwIgpMQVRFU1RfQkFD
-S1VQPSQobHMgLXQgIiR7Q09OVFJPTExFUn0uYmFrXyIqIDI+L2Rldi9udWxsIHwgdGFpbCAtMSkKCmlmIFsgLW4gIiRMQVRFU1RfQkFDS1VQIiBdOyB0aGVuCiAgY3AgIiRMQVRFU1RfQkFDS1VQIiAiJENPTlRST0xMRVIiCiAgZWNobyAi8J+TpiBOb2RlVmlld0Nv
-bnRyb2xsZXIgZGktcmVzdG9yZSBkYXJpIGJhY2t1cDogJExBVEVTVF9CQUNLVVAiCmVsc2UKICBlY2hvICLimqDvuI8gVGlkYWsgYWRhIGJhY2t1cCBOb2RlVmlld0NvbnRyb2xsZXIsIG1lbmdndW5ha2FuIGZpbGUgc2FhdCBpbmkiCmZpCgpjcCAiJENPTlRST0xM
-RVIiICIke0NPTlRST0xMRVJ9LmJha18ke1RJTUVTVEFNUH0iCgpweXRob24zIDw8ICdQWUVPRicKaW1wb3J0IHJlCgpjb250cm9sbGVyID0gIi92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL0NvbnRyb2xsZXJzL0FkbWluL05vZGVzL05vZGVWaWV3Q29udHJv
-bGxlci5waHAiCgp3aXRoIG9wZW4oY29udHJvbGxlciwgInIiKSBhcyBmOgogICAgY29udGVudCA9IGYucmVhZCgpCgppZiAiUFJPVEVLU0lfSkhPTkFMRVkiIGluIGNvbnRlbnQ6CiAgICBwcmludCgi4pqg77iPIFByb3Rla3NpIHN1ZGFoIGFkYSBkaSBOb2RlVmll
-d0NvbnRyb2xsZXIiKQogICAgZXhpdCgwKQoKaWYgInVzZSBJbGx1bWluYXRlXFxTdXBwb3J0XFxGYWNhZGVzXFxBdXRoOyIgbm90IGluIGNvbnRlbnQ6CiAgICBjb250ZW50ID0gY29udGVudC5yZXBsYWNlKAogICAgICAgICJ1c2UgUHRlcm9kYWN0eWxcXEh0dHBc
-XENvbnRyb2xsZXJzXFxDb250cm9sbGVyOyIsCiAgICAgICAgInVzZSBQdGVyb2RhY3R5bFxcSHR0cFxcQ29udHJvbGxlcnNcXENvbnRyb2xsZXI7XG51c2UgSWxsdW1pbmF0ZVxcU3VwcG9ydFxcRmFjYWRlc1xcQXV0aDsiCiAgICApCgpsaW5lcyA9IGNvbnRlbnQu
-c3BsaXQoIlxuIikKbmV3X2xpbmVzID0gW10KaSA9IDAKd2hpbGUgaSA8IGxlbihsaW5lcyk6CiAgICBsaW5lID0gbGluZXNbaV0KICAgIG5ld19saW5lcy5hcHBlbmQobGluZSkKICAgIAogICAgaWYgcmUuc2VhcmNoKHIncHVibGljIGZ1bmN0aW9uICg/IV9fY29u
-c3RydWN0KScsIGxpbmUpOgogICAgICAgIGogPSBpCiAgICAgICAgd2hpbGUgaiA8IGxlbihsaW5lcykgYW5kICd7JyBub3QgaW4gbGluZXNbal06CiAgICAgICAgICAgIGogKz0gMQogICAgICAgICAgICBpZiBqID4gaToKICAgICAgICAgICAgICAgIG5ld19saW5l
-cy5hcHBlbmQobGluZXNbal0pCiAgICAgICAgCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICAvLyBQUk9URUtTSV9KSE9OQUxFWTogSGFueWEgYWRtaW4gSUQgMSIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICBpZiAoIUF1dGg6OnVz
-ZXIoKSB8fCAoaW50KSBBdXRoOjp1c2VyKCktPmlkICE9PSAxKSB7IikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgICAgICBhYm9ydCg0MDMsICdBa3NlcyBkaXRvbGFrIC0gcHJvdGVjdCBieSBKaG9uYWxleSBUZWNoJyk7IikKICAgICAgICBuZXdf
-bGluZXMuYXBwZW5kKCIgICAgICAgIH0iKQogICAgICAgIAogICAgICAgIGlmIGogPiBpOgogICAgICAgICAgICBpID0gagogICAgaSArPSAxCgp3aXRoIG9wZW4oY29udHJvbGxlciwgInciKSBhcyBmOgogICAgZi53cml0ZSgiXG4iLmpvaW4obmV3X2xpbmVzKSkK
-CnByaW50KCLinIUgUHJvdGVrc2kgYmVyaGFzaWwgZGlpbmpla3NpIGtlIE5vZGVWaWV3Q29udHJvbGxlciIpClBZRU9GCgplY2hvICIiCmdyZXAgLW4gIlBST1RFS1NJX0pIT05BTEVZIiAiJENPTlRST0xMRVIiCgojID09PSBTZW1idW55aWthbiBtZW51IE5vZGVz
-IGRpIHNpZGViYXIgPT09CmVjaG8gIiIKZWNobyAi8J+UpyBNZW55ZW1idW55aWthbiBtZW51IE5vZGVzIGRhcmkgc2lkZWJhci4uLiIKClNJREVCQVJfRklMRVM9KAogICIvdmFyL3d3dy9wdGVyb2RhY3R5bC9yZXNvdXJjZXMvdmlld3MvbGF5b3V0cy9hZG1pbi5i
-bGFkZS5waHAiCiAgIi92YXIvd3d3L3B0ZXJvZGFjdHlsL3Jlc291cmNlcy92aWV3cy9wYXJ0aWFscy9hZG1pbi9zaWRlYmFyLmJsYWRlLnBocCIKKQoKU0lERUJBUl9GT1VORD0iIgpmb3IgU0YgaW4gIiR7U0lERUJBUl9GSUxFU1tAXX0iOyBkbwogIGlmIFsgLWYg
-IiRTRiIgXTsgdGhlbgogICAgU0lERUJBUl9GT1VORD0iJFNGIgogICAgYnJlYWsKICBmaQpkb25lCgppZiBbIC16ICIkU0lERUJBUl9GT1VORCIgXTsgdGhlbgogIFNJREVCQVJfRk9VTkQ9JChncmVwIC1ybCAiYWRtaW4ubm9kZXMiIC92YXIvd3d3L3B0ZXJvZGFj
-dHlsL3Jlc291cmNlcy92aWV3cy9sYXlvdXRzLyAyPi9kZXYvbnVsbCB8IGhlYWQgLTEpCiAgaWYgWyAteiAiJFNJREVCQVJfRk9VTkQiIF07IHRoZW4KICAgIFNJREVCQVJfRk9VTkQ9JChncmVwIC1ybCAiYWRtaW4ubm9kZXMiIC92YXIvd3d3L3B0ZXJvZGFjdHls
-L3Jlc291cmNlcy92aWV3cy9wYXJ0aWFscy8gMj4vZGV2L251bGwgfCBoZWFkIC0xKQogIGZpCmZpCgppZiBbIC1uICIkU0lERUJBUl9GT1VORCIgXTsgdGhlbgogIGlmIFsgISAtZiAiJHtTSURFQkFSX0ZPVU5EfS5iYWtfJHtUSU1FU1RBTVB9IiBdOyB0aGVuCiAg
-ICBjcCAiJFNJREVCQVJfRk9VTkQiICIke1NJREVCQVJfRk9VTkR9LmJha18ke1RJTUVTVEFNUH0iCiAgZmkKICBlY2hvICLwn5OCIFNpZGViYXIgZGl0ZW11a2FuOiAkU0lERUJBUl9GT1VORCIKCiAgcHl0aG9uMyA8PCBQWUVPRjIKc2lkZWJhciA9ICIkU0lERUJB
-Ul9GT1VORCIKCndpdGggb3BlbihzaWRlYmFyLCAiciIpIGFzIGY6CiAgICBjb250ZW50ID0gZi5yZWFkKCkKCmlmICJQUk9URUtTSV9OT0RFU19TSURFQkFSIiBpbiBjb250ZW50OgogICAgcHJpbnQoIuKaoO+4jyBTaWRlYmFyIE5vZGVzIHN1ZGFoIGRpcHJvdGVr
-c2kiKQogICAgZXhpdCgwKQoKaW1wb3J0IHJlCgpsaW5lcyA9IGNvbnRlbnQuc3BsaXQoIlxuIikKbmV3X2xpbmVzID0gW10KaSA9IDAKCndoaWxlIGkgPCBsZW4obGluZXMpOgogICAgbGluZSA9IGxpbmVzW2ldCgogICAgaWYgKCdhZG1pbi5ub2RlcycgaW4gbGlu
-ZSBvciAicm91dGUoJ2FkbWluLm5vZGVzJykiIGluIGxpbmUpIGFuZCAnYWRtaW4ubm9kZXMudmlldycgbm90IGluIGxpbmU6CiAgICAgICAgbGlfc3RhcnQgPSBsZW4obmV3X2xpbmVzKSAtIDEKICAgICAgICB3aGlsZSBsaV9zdGFydCA+PSAwIGFuZCAnPGxpJyBu
-b3QgaW4gbmV3X2xpbmVzW2xpX3N0YXJ0XToKICAgICAgICAgICAgbGlfc3RhcnQgLT0gMQoKICAgICAgICBpZiBsaV9zdGFydCA+PSAwOgogICAgICAgICAgICBuZXdfbGluZXMuaW5zZXJ0KGxpX3N0YXJ0LCAie3stLSBQUk9URUtTSV9OT0RFU19TSURFQkFSIC0t
-fX0iKQogICAgICAgICAgICBuZXdfbGluZXMuaW5zZXJ0KGxpX3N0YXJ0LCAiQGlmKChpbnQpIEF1dGg6OnVzZXIoKS0+aWQgPT09IDEpIikKCiAgICAgICAgICAgIG5ld19saW5lcy5hcHBlbmQobGluZSkKICAgICAgICAgICAgaSArPSAxCgogICAgICAgICAgICBs
-aV9kZXB0aCA9IDEKICAgICAgICAgICAgd2hpbGUgaSA8IGxlbihsaW5lcykgYW5kIGxpX2RlcHRoID4gMDoKICAgICAgICAgICAgICAgIGN1cnIgPSBsaW5lc1tpXQogICAgICAgICAgICAgICAgbGlfZGVwdGggKz0gY3Vyci5jb3VudCgnPGxpJykgLSBjdXJyLmNv
-dW50KCc8L2xpJykKICAgICAgICAgICAgICAgIG5ld19saW5lcy5hcHBlbmQoY3VycikKICAgICAgICAgICAgICAgIGkgKz0gMQoKICAgICAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiQGVuZGlmIikKICAgICAgICAgICAgY29udGludWUKCiAgICBuZXdfbGluZXMu
-YXBwZW5kKGxpbmUpCiAgICBpICs9IDEKCndpdGggb3BlbihzaWRlYmFyLCAidyIpIGFzIGY6CiAgICBmLndyaXRlKCJcbiIuam9pbihuZXdfbGluZXMpKQoKcHJpbnQoIuKchSBNZW51IE5vZGVzIGRpc2VtYnVueWlrYW4gZGFyaSBzaWRlYmFyIikKUFlFT0YyCgpl
-bHNlCiAgZWNobyAi4pqg77iPIEZpbGUgc2lkZWJhciB0aWRhayBkaXRlbXVrYW4uIgpmaQoKIyA9PT0gUHJvdGVrc2kgTm9kZUNvbnRyb2xsZXIgKGhhbGFtYW4gbGlzdCBub2RlcykgPT09Ck5PREVfTElTVD0iL3Zhci93d3cvcHRlcm9kYWN0eWwvYXBwL0h0dHAv
-Q29udHJvbGxlcnMvQWRtaW4vTm9kZXMvTm9kZUNvbnRyb2xsZXIucGhwIgppZiBbIC1mICIkTk9ERV9MSVNUIiBdOyB0aGVuCiAgaWYgISBncmVwIC1xICJQUk9URUtTSV9KSE9OQUxFWSIgIiROT0RFX0xJU1QiOyB0aGVuCiAgICBjcCAiJE5PREVfTElTVCIgIiR7
-Tk9ERV9MSVNUfS5iYWtfJHtUSU1FU1RBTVB9IgogICAgCiAgICBweXRob24zIDw8ICdQWUVPRjMnCmNvbnRyb2xsZXIgPSAiL3Zhci93d3cvcHRlcm9kYWN0eWwvYXBwL0h0dHAvQ29udHJvbGxlcnMvQWRtaW4vTm9kZXMvTm9kZUNvbnRyb2xsZXIucGhwIgoKd2l0
-aCBvcGVuKGNvbnRyb2xsZXIsICJyIikgYXMgZjoKICAgIGNvbnRlbnQgPSBmLnJlYWQoKQoKaWYgIlBST1RFS1NJX0pIT05BTEVZIiBpbiBjb250ZW50OgogICAgcHJpbnQoIuKaoO+4jyBTdWRhaCBhZGEgcHJvdGVrc2kiKQogICAgZXhpdCgwKQoKaWYgInVzZSBJ
-bGx1bWluYXRlXFxTdXBwb3J0XFxGYWNhZGVzXFxBdXRoOyIgbm90IGluIGNvbnRlbnQ6CiAgICBjb250ZW50ID0gY29udGVudC5yZXBsYWNlKAogICAgICAgICJ1c2UgUHRlcm9kYWN0eWxcXEh0dHBcXENvbnRyb2xsZXJzXFxDb250cm9sbGVyOyIsCiAgICAgICAg
-InVzZSBQdGVyb2RhY3R5bFxcSHR0cFxcQ29udHJvbGxlcnNcXENvbnRyb2xsZXI7XG51c2UgSWxsdW1pbmF0ZVxcU3VwcG9ydFxcRmFjYWRlc1xcQXV0aDsiCiAgICApCgppbXBvcnQgcmUKbGluZXMgPSBjb250ZW50LnNwbGl0KCJcbiIpCm5ld19saW5lcyA9IFtd
-CmkgPSAwCndoaWxlIGkgPCBsZW4obGluZXMpOgogICAgbGluZSA9IGxpbmVzW2ldCiAgICBuZXdfbGluZXMuYXBwZW5kKGxpbmUpCiAgICAKICAgIGlmIHJlLnNlYXJjaChyJ3B1YmxpYyBmdW5jdGlvbiAoPyFfX2NvbnN0cnVjdCknLCBsaW5lKToKICAgICAgICBq
-ID0gaQogICAgICAgIHdoaWxlIGogPCBsZW4obGluZXMpIGFuZCAneycgbm90IGluIGxpbmVzW2pdOgogICAgICAgICAgICBqICs9IDEKICAgICAgICAgICAgaWYgaiA+IGk6CiAgICAgICAgICAgICAgICBuZXdfbGluZXMuYXBwZW5kKGxpbmVzW2pdKQogICAgICAg
-IAogICAgICAgIG5ld19saW5lcy5hcHBlbmQoIiAgICAgICAgLy8gUFJPVEVLU0lfSkhPTkFMRVk6IEhhbnlhIGFkbWluIElEIDEiKQogICAgICAgIG5ld19saW5lcy5hcHBlbmQoIiAgICAgICAgaWYgKCFBdXRoOjp1c2VyKCkgfHwgKGludCkgQXV0aDo6dXNlcigp
-LT5pZCAhPT0gMSkgeyIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICAgICAgYWJvcnQoNDAzLCAnQWtzZXMgZGl0b2xhayAtIHByb3RlY3QgYnkgSmhvbmFsZXkgVGVjaCcpOyIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICB9IikK
-ICAgICAgICAKICAgICAgICBpZiBqID4gaToKICAgICAgICAgICAgaSA9IGoKICAgIGkgKz0gMQoKd2l0aCBvcGVuKGNvbnRyb2xsZXIsICJ3IikgYXMgZjoKICAgIGYud3JpdGUoIlxuIi5qb2luKG5ld19saW5lcykpCgpwcmludCgi4pyFIE5vZGVDb250cm9sbGVy
-IGp1Z2EgZGlwcm90ZWtzaSIpClBZRU9GMwogIGVsc2UKICAgIGVjaG8gIuKaoO+4jyBOb2RlQ29udHJvbGxlciBzdWRhaCBkaXByb3Rla3NpIgogIGZpCmZpCgplY2hvICIiCmVjaG8gIuKchSBCQUdJQU4gMSBTRUxFU0FJOiBQcm90ZWtzaSBOb2RlcyB0ZXJwYXNh
-bmciCmVjaG8gIiIKCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KIyBBUFBMWSBCUkFORCBDVVNUT01JWkFUSU9OCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQpmb3IgTU9ESUZJRURfRklMRSBpbiAiJENPTlRST0xMRVIiICIkTk9ERV9MSVNUIjsgZG8KICBpZiBbIC1uICIkTU9ESUZJRURfRklMRSIgXSAmJiBbIC1mICIkTU9ESUZJRURfRklMRSIgXTsgdGhlbgogICAg
-c2VkIC1pICJzfEFrc2VzIGRpdG9sYWsgLSBwcm90ZWN0IGJ5IEpob25hbGV5IFRlY2h8JHtCUkFORF9URVhUfSAtIEFrc2VzIGRpdG9sYWt8ZyIgIiRNT0RJRklFRF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgICBzZWQgLWkgInN8cHJvdGVjdCBieSBKaG9u
-YWxleSBUZWNofCR7QlJBTkRfVEVYVH18ZyIgIiRNT0RJRklFRF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgICBzZWQgLWkgInN8SmhvbmFsZXkgVGVjaHwke0JSQU5EX05BTUV9fGciICIkTU9ESUZJRURfRklMRSIgMj4vZGV2L251bGwgfHwgdHJ1ZQogIGZp
-CmRvbmUKZWNobyAi4oS577iPIENhY2hlIGNsZWFyIGFrYW4gZGlsYWt1a2FuIG9sZWggUHJvdGVjdCBNYW5hZ2VyIGNvbnRyb2xsZXIiCgplY2hvICLinIUgU2VsZXNhaTogUHJvdGVrc2kgTm9kZXMgKHNpZGViYXIgKyBha3NlcykiCg==
-PROTECT12A_B64
+      cat << 'PROTECT12A_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+CONTACT_TELEGRAM="${CONTACT_TELEGRAM:-@FyzzModss}"
+
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+
+echo "🚀 Proteksi Nodes (sidebar + akses)..."
+
+# ===================================================================
+# BAGIAN 1: PROTEKSI NODES (Sembunyikan + Block Akses)
+# ===================================================================
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📦 BAGIAN 1: Proteksi Nodes"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# === Restore & proteksi NodeViewController ===
+CONTROLLER="/var/www/pterodactyl/app/Http/Controllers/Admin/Nodes/NodeViewController.php"
+LATEST_BACKUP=$(ls -t "${CONTROLLER}.bak_"* 2>/dev/null | tail -1)
+
+if [ -n "$LATEST_BACKUP" ]; then
+  cp "$LATEST_BACKUP" "$CONTROLLER"
+  echo "📦 NodeViewController di-restore dari backup: $LATEST_BACKUP"
+else
+  echo "⚠️ Tidak ada backup NodeViewController, menggunakan file saat ini"
+fi
+
+cp "$CONTROLLER" "${CONTROLLER}.bak_${TIMESTAMP}"
+
+python3 << 'PYEOF'
+import re
+
+controller = "/var/www/pterodactyl/app/Http/Controllers/Admin/Nodes/NodeViewController.php"
+
+with open(controller, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_FIT" in content:
+    print("⚠️ Proteksi sudah ada di NodeViewController")
+    exit(0)
+
+if "use Illuminate\\Support\\Facades\\Auth;" not in content:
+    content = content.replace(
+        "use Pterodactyl\\Http\\Controllers\\Controller;",
+        "use Pterodactyl\\Http\\Controllers\\Controller;\nuse Illuminate\\Support\\Facades\\Auth;"
+    )
+
+lines = content.split("\n")
+new_lines = []
+i = 0
+while i < len(lines):
+    line = lines[i]
+    new_lines.append(line)
+    
+    if re.search(r'public function (?!__construct)', line):
+        j = i
+        while j < len(lines) and '{' not in lines[j]:
+            j += 1
+            if j > i:
+                new_lines.append(lines[j])
+        
+        new_lines.append("        // PROTEKSI_FIT: Hanya admin ID 1")
+        new_lines.append("        if (!Auth::user() || (int) Auth::user()->id !== 1) {")
+        new_lines.append("            abort(403, 'Akses ditolak - protect by FyzzOffciall.ID');")
+        new_lines.append("        }")
+        
+        if j > i:
+            i = j
+    i += 1
+
+with open(controller, "w") as f:
+    f.write("\n".join(new_lines))
+
+print("✅ Proteksi berhasil diinjeksi ke NodeViewController")
+PYEOF
+
+echo ""
+grep -n "PROTEKSI_FIT" "$CONTROLLER"
+
+# === Sembunyikan menu Nodes di sidebar ===
+echo ""
+echo "🔧 Menyembunyikan menu Nodes dari sidebar..."
+
+SIDEBAR_FILES=(
+  "/var/www/pterodactyl/resources/views/layouts/admin.blade.php"
+  "/var/www/pterodactyl/resources/views/partials/admin/sidebar.blade.php"
+)
+
+SIDEBAR_FOUND=""
+for SF in "${SIDEBAR_FILES[@]}"; do
+  if [ -f "$SF" ]; then
+    SIDEBAR_FOUND="$SF"
+    break
+  fi
+done
+
+if [ -z "$SIDEBAR_FOUND" ]; then
+  SIDEBAR_FOUND=$(grep -rl "admin.nodes" /var/www/pterodactyl/resources/views/layouts/ 2>/dev/null | head -1)
+  if [ -z "$SIDEBAR_FOUND" ]; then
+    SIDEBAR_FOUND=$(grep -rl "admin.nodes" /var/www/pterodactyl/resources/views/partials/ 2>/dev/null | head -1)
+  fi
+fi
+
+if [ -n "$SIDEBAR_FOUND" ]; then
+  if [ ! -f "${SIDEBAR_FOUND}.bak_${TIMESTAMP}" ]; then
+    cp "$SIDEBAR_FOUND" "${SIDEBAR_FOUND}.bak_${TIMESTAMP}"
+  fi
+  echo "📂 Sidebar ditemukan: $SIDEBAR_FOUND"
+
+  python3 << PYEOF2
+sidebar = "$SIDEBAR_FOUND"
+
+with open(sidebar, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_NODES_SIDEBAR" in content:
+    print("⚠️ Sidebar Nodes sudah diproteksi")
+    exit(0)
+
+import re
+
+lines = content.split("\n")
+new_lines = []
+i = 0
+
+while i < len(lines):
+    line = lines[i]
+
+    if ('admin.nodes' in line or "route('admin.nodes')" in line) and 'admin.nodes.view' not in line:
+        li_start = len(new_lines) - 1
+        while li_start >= 0 and '<li' not in new_lines[li_start]:
+            li_start -= 1
+
+        if li_start >= 0:
+            new_lines.insert(li_start, "{{-- PROTEKSI_NODES_SIDEBAR --}}")
+            new_lines.insert(li_start, "@if((int) Auth::user()->id === 1)")
+
+            new_lines.append(line)
+            i += 1
+
+            li_depth = 1
+            while i < len(lines) and li_depth > 0:
+                curr = lines[i]
+                li_depth += curr.count('<li') - curr.count('</li')
+                new_lines.append(curr)
+                i += 1
+
+            new_lines.append("@endif")
+            continue
+
+    new_lines.append(line)
+    i += 1
+
+with open(sidebar, "w") as f:
+    f.write("\n".join(new_lines))
+
+print("✅ Menu Nodes disembunyikan dari sidebar")
+PYEOF2
+
+else
+  echo "⚠️ File sidebar tidak ditemukan."
+fi
+
+# === Proteksi NodeController (halaman list nodes) ===
+NODE_LIST="/var/www/pterodactyl/app/Http/Controllers/Admin/Nodes/NodeController.php"
+if [ -f "$NODE_LIST" ]; then
+  if ! grep -q "PROTEKSI_FIT" "$NODE_LIST"; then
+    cp "$NODE_LIST" "${NODE_LIST}.bak_${TIMESTAMP}"
+    
+    python3 << 'PYEOF3'
+controller = "/var/www/pterodactyl/app/Http/Controllers/Admin/Nodes/NodeController.php"
+
+with open(controller, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_FIT" in content:
+    print("⚠️ Sudah ada proteksi")
+    exit(0)
+
+if "use Illuminate\\Support\\Facades\\Auth;" not in content:
+    content = content.replace(
+        "use Pterodactyl\\Http\\Controllers\\Controller;",
+        "use Pterodactyl\\Http\\Controllers\\Controller;\nuse Illuminate\\Support\\Facades\\Auth;"
+    )
+
+import re
+lines = content.split("\n")
+new_lines = []
+i = 0
+while i < len(lines):
+    line = lines[i]
+    new_lines.append(line)
+    
+    if re.search(r'public function (?!__construct)', line):
+        j = i
+        while j < len(lines) and '{' not in lines[j]:
+            j += 1
+            if j > i:
+                new_lines.append(lines[j])
+        
+        new_lines.append("        // PROTEKSI_FIT: Hanya admin ID 1")
+        new_lines.append("        if (!Auth::user() || (int) Auth::user()->id !== 1) {")
+        new_lines.append("            abort(403, 'Akses ditolak - protect by FyzzOffciall.ID');")
+        new_lines.append("        }")
+        
+        if j > i:
+            i = j
+    i += 1
+
+with open(controller, "w") as f:
+    f.write("\n".join(new_lines))
+
+print("✅ NodeController juga diproteksi")
+PYEOF3
+  else
+    echo "⚠️ NodeController sudah diproteksi"
+  fi
+fi
+
+echo ""
+echo "✅ BAGIAN 1 SELESAI: Proteksi Nodes terpasang"
+echo ""
+
+
+# ===================================================================
+# APPLY BRAND CUSTOMIZATION
+# ===================================================================
+for MODIFIED_FILE in "$CONTROLLER" "$NODE_LIST"; do
+  if [ -n "$MODIFIED_FILE" ] && [ -f "$MODIFIED_FILE" ]; then
+    sed -i "s|Akses ditolak - protect by FyzzOffciall.ID|${BRAND_TEXT} - Akses ditolak|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|protect by FyzzOffciall.ID|${BRAND_TEXT}|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$MODIFIED_FILE" 2>/dev/null || true
+  fi
+done
+echo "ℹ️ Cache clear akan dilakukan oleh Protect Manager controller"
+
+echo "✅ Selesai: Proteksi Nodes (sidebar + akses)"
+PROTECT12A_PLAIN
       ;;
     protect12b)
-      cat << 'PROTECT12B_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgpDT05UQUNUX1RFTEVHUkFNPSIke0NPTlRBQ1RfVEVMRUdSQU06LUBKaG9hbmxl
-eXN0b3JlSWR9IgoKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKCmVjaG8gIvCfmoAgUHJvdGVrc2kgQ2xpZW50IEFjY291bnQgQVBJLi4uIgoKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09CiMgQkFHSUFOIDI6IFBST1RFS1NJIENMSUVOVCBBQ0NPVU5UIEFQSSAoQmxvY2sgdWJhaCBwYXNzd29yZC9lbWFpbCBhZG1pbiBJRCAxKQojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT0KZWNobyAi4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB
-IgplY2hvICLwn5OmIEJBR0lBTiAyOiBQcm90ZWtzaSBDbGllbnQgQWNjb3VudCBBUEkiCmVjaG8gIuKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKU
-geKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgSIKCkFDQ1RfQ1RSTD0iL3Zhci93d3cvcHRlcm9kYWN0eWwvYXBwL0h0dHAvQ29udHJvbGxlcnMvQXBpL0NsaWVudC9BY2NvdW50Q29udHJvbGxlci5waHAiCgppZiBbICEgLWYgIiRBQ0NUX0NUUkwiIF07IHRo
-ZW4KICBBQ0NUX0NUUkw9JChmaW5kIC92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL0NvbnRyb2xsZXJzL0FwaS9DbGllbnQgLW1heGRlcHRoIDEgLWluYW1lICJBY2NvdW50Q29udHJvbGxlci5waHAiIDI+L2Rldi9udWxsIHwgaGVhZCAtMSkKZmkKCmlmIFsg
-LW4gIiRBQ0NUX0NUUkwiIF0gJiYgWyAtZiAiJEFDQ1RfQ1RSTCIgXTsgdGhlbgogIGVjaG8gIvCfk4IgQ2xpZW50IEFjY291bnRDb250cm9sbGVyIGRpdGVtdWthbjogJEFDQ1RfQ1RSTCIKCiAgQUNDVF9CQUNLVVA9JChscyAtdCAiJHtBQ0NUX0NUUkx9LmJha18i
-KiAyPi9kZXYvbnVsbCB8IHRhaWwgLTEpCiAgaWYgWyAtbiAiJEFDQ1RfQkFDS1VQIiBdOyB0aGVuCiAgICBjcCAiJEFDQ1RfQkFDS1VQIiAiJEFDQ1RfQ1RSTCIKICAgIGVjaG8gIvCfk6YgUmVzdG9yZSBkYXJpIGJhY2t1cDogJEFDQ1RfQkFDS1VQIgogIGZpCgog
-IGNwICIkQUNDVF9DVFJMIiAiJHtBQ0NUX0NUUkx9LmJha18ke1RJTUVTVEFNUH0iCgogIHB5dGhvbjMgPDwgUFlFT0Y0CmltcG9ydCByZQoKY29udHJvbGxlciA9ICIkQUNDVF9DVFJMIgoKd2l0aCBvcGVuKGNvbnRyb2xsZXIsICJyIikgYXMgZjoKICAgIGNvbnRl
-bnQgPSBmLnJlYWQoKQoKaWYgIlBST1RFS1NJX0pIT05BTEVZX0FDQ09VTlQiIGluIGNvbnRlbnQ6CiAgICBwcmludCgi4pqg77iPIFByb3Rla3NpIHN1ZGFoIGFkYSBkaSBBY2NvdW50Q29udHJvbGxlciIpCiAgICBleGl0KDApCgppZiAidXNlIElsbHVtaW5hdGVc
-XFN1cHBvcnRcXEZhY2FkZXNcXEF1dGg7IiBub3QgaW4gY29udGVudDoKICAgIHVzZV9wYXR0ZXJuID0gcicodXNlIFB0ZXJvZGFjdHlsXFxbXjtdKzspJwogICAgbWF0Y2ggPSByZS5zZWFyY2godXNlX3BhdHRlcm4sIGNvbnRlbnQpCiAgICBpZiBtYXRjaDoKICAg
-ICAgICBjb250ZW50ID0gY29udGVudC5yZXBsYWNlKG1hdGNoLmdyb3VwKDApLCBtYXRjaC5ncm91cCgwKSArICJcbnVzZSBJbGx1bWluYXRlXFxTdXBwb3J0XFxGYWNhZGVzXFxBdXRoOyIsIDEpCgpsaW5lcyA9IGNvbnRlbnQuc3BsaXQoIlxuIikKbmV3X2xpbmVz
-ID0gW10KaSA9IDAKCndoaWxlIGkgPCBsZW4obGluZXMpOgogICAgbGluZSA9IGxpbmVzW2ldCiAgICBuZXdfbGluZXMuYXBwZW5kKGxpbmUpCiAgICAKICAgIGlmIHJlLnNlYXJjaChyJ3B1YmxpYyBmdW5jdGlvbiAodXBkYXRlUGFzc3dvcmR8dXBkYXRlRW1haWx8
-dXBkYXRlKVxiJywgbGluZSkgYW5kICdfX2NvbnN0cnVjdCcgbm90IGluIGxpbmU6CiAgICAgICAgaiA9IGkKICAgICAgICB3aGlsZSBqIDwgbGVuKGxpbmVzKSBhbmQgJ3snIG5vdCBpbiBsaW5lc1tqXToKICAgICAgICAgICAgaiArPSAxCiAgICAgICAgICAgIGlm
-IGogPiBpOgogICAgICAgICAgICAgICAgbmV3X2xpbmVzLmFwcGVuZChsaW5lc1tqXSkKICAgICAgICAKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgIC8vIFBST1RFS1NJX0pIT05BTEVZX0FDQ09VTlQ6IEJsb2NrIHViYWggZGF0YSBhZG1pbiBJRCAx
-IikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgIFwkdGFyZ2V0VXNlciA9IFwkcmVxdWVzdC0+dXNlcigpOyIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICBpZiAoKGludCkgXCR0YXJnZXRVc2VyLT5pZCA9PT0gMSAmJiAoIUF1dGg6
-OnVzZXIoKSB8fCAoaW50KSBBdXRoOjp1c2VyKCktPmlkICE9PSAxKSkgeyIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICAgICAgYWJvcnQoNDAzLCAnQWtzZXMgZGl0b2xhayAtIHByb3RlY3QgYnkgSmhvbmFsZXkgVGVjaCcpOyIpCiAgICAgICAg
-bmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICB9IikKICAgICAgICAKICAgICAgICBpZiBqID4gaToKICAgICAgICAgICAgaSA9IGoKICAgIGkgKz0gMQoKd2l0aCBvcGVuKGNvbnRyb2xsZXIsICJ3IikgYXMgZjoKICAgIGYud3JpdGUoIlxuIi5qb2luKG5ld19saW5l
-cykpCgpwcmludCgi4pyFIFByb3Rla3NpIGJlcmhhc2lsIGRpaW5qZWtzaSBrZSBDbGllbnQgQWNjb3VudENvbnRyb2xsZXIiKQpQWUVPRjQKCiAgZWNobyAiIgogIGdyZXAgLW4gIlBST1RFS1NJX0pIT05BTEVZX0FDQ09VTlQiICIkQUNDVF9DVFJMIgplbHNlCiAg
-ZWNobyAi4pqg77iPIENsaWVudCBBY2NvdW50Q29udHJvbGxlciB0aWRhayBkaXRlbXVrYW4sIHNraXAuIgpmaQoKZWNobyAiIgplY2hvICLinIUgQkFHSUFOIDIgU0VMRVNBSTogUHJvdGVrc2kgQ2xpZW50IEFjY291bnQgQVBJIHRlcnBhc2FuZyIKZWNobyAiIgoK
-CiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIEFQUExZIEJSQU5EIENVU1RPTUlaQVRJT04KIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09CmZvciBNT0RJRklFRF9GSUxFIGluICIkQUNDVF9DVFJMIjsgZG8KICBpZiBbIC1uICIkTU9ESUZJRURfRklMRSIgXSAmJiBbIC1mICIkTU9ESUZJRURfRklMRSIgXTsgdGhlbgogICAgc2VkIC1pICJzfEFrc2VzIGRpdG9sYWsgLSBw
-cm90ZWN0IGJ5IEpob25hbGV5IFRlY2h8JHtCUkFORF9URVhUfSAtIEFrc2VzIGRpdG9sYWt8ZyIgIiRNT0RJRklFRF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgICBzZWQgLWkgInN8cHJvdGVjdCBieSBKaG9uYWxleSBUZWNofCR7QlJBTkRfVEVYVH18ZyIg
-IiRNT0RJRklFRF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgICBzZWQgLWkgInN8SmhvbmFsZXkgVGVjaHwke0JSQU5EX05BTUV9fGciICIkTU9ESUZJRURfRklMRSIgMj4vZGV2L251bGwgfHwgdHJ1ZQogIGZpCmRvbmUKZWNobyAi4oS577iPIENhY2hlIGNs
-ZWFyIGFrYW4gZGlsYWt1a2FuIG9sZWggUHJvdGVjdCBNYW5hZ2VyIGNvbnRyb2xsZXIiCgplY2hvICLinIUgU2VsZXNhaTogUHJvdGVrc2kgQ2xpZW50IEFjY291bnQgQVBJIgo=
-PROTECT12B_B64
+      cat << 'PROTECT12B_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+CONTACT_TELEGRAM="${CONTACT_TELEGRAM:-@FyzzModss}"
+
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+
+echo "🚀 Proteksi Client Account API..."
+
+# ===================================================================
+# BAGIAN 2: PROTEKSI CLIENT ACCOUNT API (Block ubah password/email admin ID 1)
+# ===================================================================
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📦 BAGIAN 2: Proteksi Client Account API"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+ACCT_CTRL="/var/www/pterodactyl/app/Http/Controllers/Api/Client/AccountController.php"
+
+if [ ! -f "$ACCT_CTRL" ]; then
+  ACCT_CTRL=$(find /var/www/pterodactyl/app/Http/Controllers/Api/Client -maxdepth 1 -iname "AccountController.php" 2>/dev/null | head -1)
+fi
+
+if [ -n "$ACCT_CTRL" ] && [ -f "$ACCT_CTRL" ]; then
+  echo "📂 Client AccountController ditemukan: $ACCT_CTRL"
+
+  ACCT_BACKUP=$(ls -t "${ACCT_CTRL}.bak_"* 2>/dev/null | tail -1)
+  if [ -n "$ACCT_BACKUP" ]; then
+    cp "$ACCT_BACKUP" "$ACCT_CTRL"
+    echo "📦 Restore dari backup: $ACCT_BACKUP"
+  fi
+
+  cp "$ACCT_CTRL" "${ACCT_CTRL}.bak_${TIMESTAMP}"
+
+  python3 << PYEOF4
+import re
+
+controller = "$ACCT_CTRL"
+
+with open(controller, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_FIT_ACCOUNT" in content:
+    print("⚠️ Proteksi sudah ada di AccountController")
+    exit(0)
+
+if "use Illuminate\\Support\\Facades\\Auth;" not in content:
+    use_pattern = r'(use Pterodactyl\\[^;]+;)'
+    match = re.search(use_pattern, content)
+    if match:
+        content = content.replace(match.group(0), match.group(0) + "\nuse Illuminate\\Support\\Facades\\Auth;", 1)
+
+lines = content.split("\n")
+new_lines = []
+i = 0
+
+while i < len(lines):
+    line = lines[i]
+    new_lines.append(line)
+    
+    if re.search(r'public function (updatePassword|updateEmail|update)\b', line) and '__construct' not in line:
+        j = i
+        while j < len(lines) and '{' not in lines[j]:
+            j += 1
+            if j > i:
+                new_lines.append(lines[j])
+        
+        new_lines.append("        // PROTEKSI_FIT_ACCOUNT: Block ubah data admin ID 1")
+        new_lines.append("        \$targetUser = \$request->user();")
+        new_lines.append("        if ((int) \$targetUser->id === 1 && (!Auth::user() || (int) Auth::user()->id !== 1)) {")
+        new_lines.append("            abort(403, 'Akses ditolak - protect by FyzzOffciall.ID');")
+        new_lines.append("        }")
+        
+        if j > i:
+            i = j
+    i += 1
+
+with open(controller, "w") as f:
+    f.write("\n".join(new_lines))
+
+print("✅ Proteksi berhasil diinjeksi ke Client AccountController")
+PYEOF4
+
+  echo ""
+  grep -n "PROTEKSI_FIT_ACCOUNT" "$ACCT_CTRL"
+else
+  echo "⚠️ Client AccountController tidak ditemukan, skip."
+fi
+
+echo ""
+echo "✅ BAGIAN 2 SELESAI: Proteksi Client Account API terpasang"
+echo ""
+
+
+# ===================================================================
+# APPLY BRAND CUSTOMIZATION
+# ===================================================================
+for MODIFIED_FILE in "$ACCT_CTRL"; do
+  if [ -n "$MODIFIED_FILE" ] && [ -f "$MODIFIED_FILE" ]; then
+    sed -i "s|Akses ditolak - protect by FyzzOffciall.ID|${BRAND_TEXT} - Akses ditolak|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|protect by FyzzOffciall.ID|${BRAND_TEXT}|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$MODIFIED_FILE" 2>/dev/null || true
+  fi
+done
+echo "ℹ️ Cache clear akan dilakukan oleh Protect Manager controller"
+
+echo "✅ Selesai: Proteksi Client Account API"
+PROTECT12B_PLAIN
       ;;
     protect12c)
-      cat << 'PROTECT12C_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgpDT05UQUNUX1RFTEVHUkFNPSIke0NPTlRBQ1RfVEVMRUdSQU06LUBKaG9hbmxl
-eXN0b3JlSWR9IgoKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKCmVjaG8gIvCfmoAgUHJvdGVrc2kgQXBwbGljYXRpb24gQVBJIFVzZXIuLi4iCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT0KIyBCQUdJQU4gMzogUFJPVEVLU0kgQVBQTElDQVRJT04gQVBJIFVTRVIKIyBTdHJhdGVnaTogSW5qZWN0IGF1dGhvcml6ZSgpIGRpIEZvcm0gUmVxdWVzdCArIE1pZGRsZXdhcmUgKyBDb250cm9sbGVyCiMgPT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQplY2hvICLilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHi
-lIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIEiCmVjaG8gIvCfk6YgQkFHSUFOIDM6IFByb3Rla3NpIEFwcGxpY2F0aW9uIEFQSSBVc2VyIgplY2hvICLilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHi
-lIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIEiCgojID09PSBMQU5HS0FIIDNhOiBQcm90ZWtzaSB2aWEgRm9ybSBSZXF1ZXN0IGF1dGhvcml6ZSgpID09PQojIGF1dGhvcml6ZSgpIGph
-bGFuIFNFQkVMVU0gcnVsZXMoKSwgamFkaSBpbmkgcGFsaW5nIGVmZWt0aWYKZWNobyAi8J+UpyBMYW5na2FoIDNhOiBJbmplY3QgcHJvdGVrc2kga2UgRm9ybSBSZXF1ZXN0Li4uIgoKRk9STV9SRVFVRVNUX0RJUj0iL3Zhci93d3cvcHRlcm9kYWN0eWwvYXBwL0h0
-dHAvUmVxdWVzdHMvQXBpL0FwcGxpY2F0aW9uL1VzZXJzIgoKaWYgWyAtZCAiJEZPUk1fUkVRVUVTVF9ESVIiIF07IHRoZW4KICBmb3IgRlJfRklMRSBpbiAiJEZPUk1fUkVRVUVTVF9ESVIiLyoucGhwOyBkbwogICAgaWYgWyAtZiAiJEZSX0ZJTEUiIF07IHRoZW4K
-ICAgICAgRlJfTkFNRT0kKGJhc2VuYW1lICIkRlJfRklMRSIpCiAgICAgIAogICAgICBpZiBncmVwIC1xICJQUk9URUtTSV9KSE9OQUxFWV9GT1JNUkVRIiAiJEZSX0ZJTEUiOyB0aGVuCiAgICAgICAgZWNobyAi4pqg77iPICRGUl9OQU1FIHN1ZGFoIGRpcHJvdGVr
-c2kiCiAgICAgICAgY29udGludWUKICAgICAgZmkKICAgICAgCiAgICAgIGNwICIkRlJfRklMRSIgIiR7RlJfRklMRX0uYmFrXyR7VElNRVNUQU1QfSIKICAgICAgCiAgICAgIHB5dGhvbjMgPDwgUFlFT0ZfRlIKaW1wb3J0IHJlCgpmcl9maWxlID0gIiRGUl9GSUxF
-Igpmcl9uYW1lID0gIiRGUl9OQU1FIgoKd2l0aCBvcGVuKGZyX2ZpbGUsICJyIikgYXMgZjoKICAgIGNvbnRlbnQgPSBmLnJlYWQoKQoKaWYgIlBST1RFS1NJX0pIT05BTEVZX0ZPUk1SRVEiIGluIGNvbnRlbnQ6CiAgICBwcmludChmIuKaoO+4jyB7ZnJfbmFtZX0g
-c3VkYWggZGlwcm90ZWtzaSIpCiAgICBleGl0KDApCgojIENhcmkgbWV0aG9kIGF1dGhvcml6ZSgpCmF1dGhfcGF0dGVybiA9IHInKHB1YmxpYyBmdW5jdGlvbiBhdXRob3JpemVccypcKFxzKlwpW157XSpceyknCm1hdGNoID0gcmUuc2VhcmNoKGF1dGhfcGF0dGVy
-biwgY29udGVudCkKCmlmIG1hdGNoOgogICAgIyBJbmplY3QgY2hlY2sgZGkgYXdhbCBhdXRob3JpemUoKQogICAgaW5qZWN0ID0gJycnCiAgICAgICAgLy8gUFJPVEVLU0lfSkhPTkFMRVlfRk9STVJFUTogQmxvY2sgbW9kaWZpa2FzaSB1c2VyIElEIDEKICAgICAg
-ICBpZiAocHJlZ19tYXRjaCgnIy9hcGkvYXBwbGljYXRpb24vdXNlcnMvMSg/OlxcXD98JHwvKSMnLCByZXF1ZXN0KCktPmdldFBhdGhJbmZvKCkpKSB7CiAgICAgICAgICAgIGlmIChpbl9hcnJheShyZXF1ZXN0KCktPm1ldGhvZCgpLCBbJ1BBVENIJywgJ1BVVCcs
-ICdERUxFVEUnXSkpIHsKICAgICAgICAgICAgICAgIGFib3J0KDQwMywgJ0Frc2VzIGRpdG9sYWsgLSBwcm90ZWN0IGJ5IEpob25hbGV5IFRlY2gnKTsKICAgICAgICAgICAgfQogICAgICAgIH0KJycnCiAgICBjb250ZW50ID0gY29udGVudC5yZXBsYWNlKG1hdGNo
-Lmdyb3VwKDEpLCBtYXRjaC5ncm91cCgxKSArIGluamVjdCkKICAgIAogICAgd2l0aCBvcGVuKGZyX2ZpbGUsICJ3IikgYXMgZjoKICAgICAgICBmLndyaXRlKGNvbnRlbnQpCiAgICBwcmludChmIuKchSB7ZnJfbmFtZX0gZGlwcm90ZWtzaSB2aWEgYXV0aG9yaXpl
-KCkiKQplbHNlOgogICAgIyBUaWRhayBhZGEgYXV0aG9yaXplKCksIHRhbWJhaGthbiBtZXRob2QgYmFydQogICAgIyBDYXJpIGNsYXNzIGJvZHkKICAgIGNsYXNzX3BhdHRlcm4gPSByJyhjbGFzcyBcdytbXntdKlx7KScKICAgIGNsYXNzX21hdGNoID0gcmUuc2Vh
-cmNoKGNsYXNzX3BhdHRlcm4sIGNvbnRlbnQpCiAgICBpZiBjbGFzc19tYXRjaDoKICAgICAgICBpbmplY3RfbWV0aG9kID0gJycnCgogICAgLy8gUFJPVEVLU0lfSkhPTkFMRVlfRk9STVJFUTogQmxvY2sgbW9kaWZpa2FzaSB1c2VyIElEIDEKICAgIHB1YmxpYyBm
-dW5jdGlvbiBhdXRob3JpemUoKTogYm9vbAogICAgewogICAgICAgIGlmIChwcmVnX21hdGNoKCcjL2FwaS9hcHBsaWNhdGlvbi91c2Vycy8xKD86XFxcP3wkfC8pIycsIHJlcXVlc3QoKS0+Z2V0UGF0aEluZm8oKSkpIHsKICAgICAgICAgICAgaWYgKGluX2FycmF5
-KHJlcXVlc3QoKS0+bWV0aG9kKCksIFsnUEFUQ0gnLCAnUFVUJywgJ0RFTEVURSddKSkgewogICAgICAgICAgICAgICAgYWJvcnQoNDAzLCAnQWtzZXMgZGl0b2xhayAtIHByb3RlY3QgYnkgSmhvbmFsZXkgVGVjaCcpOwogICAgICAgICAgICB9CiAgICAgICAgfQog
-ICAgICAgIHJldHVybiB0cnVlOwogICAgfQonJycKICAgICAgICBjb250ZW50ID0gY29udGVudC5yZXBsYWNlKGNsYXNzX21hdGNoLmdyb3VwKDEpLCBjbGFzc19tYXRjaC5ncm91cCgxKSArIGluamVjdF9tZXRob2QpCiAgICAgICAgCiAgICAgICAgd2l0aCBvcGVu
-KGZyX2ZpbGUsICJ3IikgYXMgZjoKICAgICAgICAgICAgZi53cml0ZShjb250ZW50KQogICAgICAgIHByaW50KGYi4pyFIHtmcl9uYW1lfSBkaXByb3Rla3NpIChhdXRob3JpemUoKSBiYXJ1IGRpdGFtYmFoa2FuKSIpCiAgICBlbHNlOgogICAgICAgIHByaW50KGYi
-4p2MIEdhZ2FsIG1lbmVtdWthbiBjbGFzcyBkaSB7ZnJfbmFtZX0iKQoKUFlFT0ZfRlIKICAgIGZpCiAgZG9uZQplbHNlCiAgZWNobyAi4pqg77iPIERpcmVrdG9yaSBGb3JtIFJlcXVlc3QgdGlkYWsgZGl0ZW11a2FuOiAkRk9STV9SRVFVRVNUX0RJUiIKICBlY2hv
-ICLwn5SNIE1lbmNhcmkgRm9ybSBSZXF1ZXN0Li4uIgogIEZPUk1fUkVRVUVTVF9ESVI9JChmaW5kIC92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL1JlcXVlc3RzIC10eXBlIGQgLWluYW1lICJVc2VycyIgLXBhdGggIiovQXBwbGljYXRpb24vKiIgMj4vZGV2
-L251bGwgfCBoZWFkIC0xKQogIGlmIFsgLW4gIiRGT1JNX1JFUVVFU1RfRElSIiBdOyB0aGVuCiAgICBlY2hvICLwn5OCIERpdGVtdWthbjogJEZPUk1fUkVRVUVTVF9ESVIiCiAgICBlY2hvICLimqDvuI8gSmFsYW5rYW4gdWxhbmcgc2NyaXB0IHNldGVsYWggcGF0
-aCBkaXBlcmJhaWtpIgogIGZpCmZpCgojID09PSBMQU5HS0FIIDNiOiBCdWF0IE1pZGRsZXdhcmUgKGxheWVyIHRhbWJhaGFuKSA9PT0KZWNobyAiIgplY2hvICLwn5SnIExhbmdrYWggM2I6IE1pZGRsZXdhcmUgUHJvdGVjdEFkbWluVXNlci4uLiIKTUlERExFV0FS
-RV9ESVI9Ii92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL01pZGRsZXdhcmUiCk1JRERMRVdBUkVfRklMRT0iJHtNSURETEVXQVJFX0RJUn0vUHJvdGVjdEFkbWluVXNlci5waHAiCgpjYXQgPiAiJE1JRERMRVdBUkVfRklMRSIgPDwgJ01XRU9GJwo8P3BocAoK
-bmFtZXNwYWNlIFB0ZXJvZGFjdHlsXEh0dHBcTWlkZGxld2FyZTsKCnVzZSBDbG9zdXJlOwp1c2UgSWxsdW1pbmF0ZVxIdHRwXFJlcXVlc3Q7CgpjbGFzcyBQcm90ZWN0QWRtaW5Vc2VyCnsKICAgIC8qKgogICAgICogUFJPVEVLU0lfSkhPTkFMRVlfTUlERExFV0FS
-RTogQmxvY2sgc2VtdWEgYWtzZXMgQVBJIGtlIFVzZXIgSUQgMQogICAgICovCiAgICBwdWJsaWMgZnVuY3Rpb24gaGFuZGxlKFJlcXVlc3QgJHJlcXVlc3QsIENsb3N1cmUgJG5leHQpCiAgICB7CiAgICAgICAgJHBhdGggPSAkcmVxdWVzdC0+Z2V0UGF0aEluZm8o
-KTsKCiAgICAgICAgaWYgKHByZWdfbWF0Y2goJyMvYXBpL2FwcGxpY2F0aW9uL3VzZXJzLzEoPzpcP3wkfC8pIycsICRwYXRoKSkgewogICAgICAgICAgICBpZiAoaW5fYXJyYXkoJHJlcXVlc3QtPm1ldGhvZCgpLCBbJ1BBVENIJywgJ1BVVCcsICdERUxFVEUnLCAn
-UE9TVCddKSkgewogICAgICAgICAgICAgICAgYWJvcnQoNDAzLCAnQWtzZXMgZGl0b2xhayAtIHByb3RlY3QgYnkgSmhvbmFsZXkgVGVjaCcpOwogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICByZXR1cm4gJG5leHQoJHJlcXVlc3QpOwogICAgfQp9Ck1X
-RU9GCgplY2hvICLinIUgTWlkZGxld2FyZSBQcm90ZWN0QWRtaW5Vc2VyIGRpYnVhdCIKCiMgPT09IExBTkdLQUggM2M6IFJlZ2lzdGVyIG1pZGRsZXdhcmUgZGkgS2VybmVsLnBocCA9PT0KS0VSTkVMPSIvdmFyL3d3dy9wdGVyb2RhY3R5bC9hcHAvSHR0cC9LZXJu
-ZWwucGhwIgoKaWYgWyAtZiAiJEtFUk5FTCIgXTsgdGhlbgogIGlmICEgZ3JlcCAtcSAiUHJvdGVjdEFkbWluVXNlciIgIiRLRVJORUwiOyB0aGVuCiAgICBjcCAiJEtFUk5FTCIgIiR7S0VSTkVMfS5iYWtfJHtUSU1FU1RBTVB9IgoKICAgIHB5dGhvbjMgPDwgJ1BZ
-RU9GNScKaW1wb3J0IHJlCgprZXJuZWwgPSAiL3Zhci93d3cvcHRlcm9kYWN0eWwvYXBwL0h0dHAvS2VybmVsLnBocCIKCndpdGggb3BlbihrZXJuZWwsICJyIikgYXMgZjoKICAgIGNvbnRlbnQgPSBmLnJlYWQoKQoKaWYgIlByb3RlY3RBZG1pblVzZXIiIGluIGNv
-bnRlbnQ6CiAgICBwcmludCgi4pqg77iPIE1pZGRsZXdhcmUgc3VkYWggdGVyZGFmdGFyIGRpIEtlcm5lbCIpCiAgICBleGl0KDApCgojIENhcmkgcHJvdGVjdGVkICRtaWRkbGV3YXJlIGFycmF5CnBhdHRlcm4gPSByJyhwcm90ZWN0ZWQgXCRtaWRkbGV3YXJlXHMq
-PVxzKlxbKSguKj8pKFxdOyknCm1hdGNoID0gcmUuc2VhcmNoKHBhdHRlcm4sIGNvbnRlbnQsIHJlLkRPVEFMTCkKCmlmIG1hdGNoOgogICAgZXhpc3RpbmcgPSBtYXRjaC5ncm91cCgyKS5yc3RyaXAoKQogICAgaWYgbm90IGV4aXN0aW5nLnJzdHJpcCgpLmVuZHN3
-aXRoKCcsJyk6CiAgICAgICAgZXhpc3RpbmcgPSBleGlzdGluZy5yc3RyaXAoKSArICcsJwogICAgbmV3X2NvbnRlbnQgPSBtYXRjaC5ncm91cCgxKSArIGV4aXN0aW5nICsgIlxuICAgICAgICBcXFB0ZXJvZGFjdHlsXFxIdHRwXFxNaWRkbGV3YXJlXFxQcm90ZWN0
-QWRtaW5Vc2VyOjpjbGFzcyxcbiAgICAiICsgbWF0Y2guZ3JvdXAoMykKICAgIGNvbnRlbnQgPSBjb250ZW50WzptYXRjaC5zdGFydCgpXSArIG5ld19jb250ZW50ICsgY29udGVudFttYXRjaC5lbmQoKTpdCmVsc2U6CiAgICAjIEZhbGxiYWNrOiBjYXJpICRtaWRk
-bGV3YXJlR3JvdXBzIGFwaQogICAgYXBpX3BhdHRlcm4gPSByIignYXBpJ1xzKj0+XHMqXFspKC4qPykoXF0sKSIKICAgIGFwaV9tYXRjaCA9IHJlLnNlYXJjaChhcGlfcGF0dGVybiwgY29udGVudCwgcmUuRE9UQUxMKQogICAgaWYgYXBpX21hdGNoOgogICAgICAg
-IGV4aXN0aW5nID0gYXBpX21hdGNoLmdyb3VwKDIpLnJzdHJpcCgpCiAgICAgICAgaWYgbm90IGV4aXN0aW5nLnJzdHJpcCgpLmVuZHN3aXRoKCcsJyk6CiAgICAgICAgICAgIGV4aXN0aW5nID0gZXhpc3RpbmcucnN0cmlwKCkgKyAnLCcKICAgICAgICBuZXdfY29u
-dGVudCA9IGFwaV9tYXRjaC5ncm91cCgxKSArIGV4aXN0aW5nICsgIlxuICAgICAgICAgICAgXFxQdGVyb2RhY3R5bFxcSHR0cFxcTWlkZGxld2FyZVxcUHJvdGVjdEFkbWluVXNlcjo6Y2xhc3MsXG4gICAgICAgICIgKyBhcGlfbWF0Y2guZ3JvdXAoMykKICAgICAg
-ICBjb250ZW50ID0gY29udGVudFs6YXBpX21hdGNoLnN0YXJ0KCldICsgbmV3X2NvbnRlbnQgKyBjb250ZW50W2FwaV9tYXRjaC5lbmQoKTpdCiAgICBlbHNlOgogICAgICAgIHByaW50KCLinYwgVGlkYWsgYmlzYSBtZW5lbXVrYW4gYXJyYXkgbWlkZGxld2FyZSBk
-aSBLZXJuZWwucGhwIikKICAgICAgICBleGl0KDEpCgp3aXRoIG9wZW4oa2VybmVsLCAidyIpIGFzIGY6CiAgICBmLndyaXRlKGNvbnRlbnQpCgpwcmludCgi4pyFIE1pZGRsZXdhcmUgUHJvdGVjdEFkbWluVXNlciBkaWRhZnRhcmthbiBkaSBLZXJuZWwucGhwIikK
-UFlFT0Y1CgogIGVsc2UKICAgIGVjaG8gIuKaoO+4jyBNaWRkbGV3YXJlIFByb3RlY3RBZG1pblVzZXIgc3VkYWggdGVyZGFmdGFyIGRpIEtlcm5lbCIKICBmaQplbHNlCiAgZWNobyAi4p2MIEtlcm5lbC5waHAgdGlkYWsgZGl0ZW11a2FuISIKZmkKCiMgPT09IExB
-TkdLQUggM2Q6IEp1Z2EgcHJvdGVrc2kgY29udHJvbGxlciAoYmFja3VwIHBsYW4pID09PQpBUFBfVVNFUl9DVFJMPSIvdmFyL3d3dy9wdGVyb2RhY3R5bC9hcHAvSHR0cC9Db250cm9sbGVycy9BcGkvQXBwbGljYXRpb24vVXNlcnMvVXNlckNvbnRyb2xsZXIucGhw
-IgoKaWYgWyAhIC1mICIkQVBQX1VTRVJfQ1RSTCIgXTsgdGhlbgogIEFQUF9VU0VSX0NUUkw9JChmaW5kIC92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL0NvbnRyb2xsZXJzL0FwaS9BcHBsaWNhdGlvbiAtaW5hbWUgIlVzZXJDb250cm9sbGVyLnBocCIgMj4v
-ZGV2L251bGwgfCBoZWFkIC0xKQpmaQoKaWYgWyAtbiAiJEFQUF9VU0VSX0NUUkwiIF0gJiYgWyAtZiAiJEFQUF9VU0VSX0NUUkwiIF07IHRoZW4KICBBUFBfQkFDS1VQPSQobHMgLXQgIiR7QVBQX1VTRVJfQ1RSTH0uYmFrXyIqIDI+L2Rldi9udWxsIHwgdGFpbCAt
-MSkKICBpZiBbIC1uICIkQVBQX0JBQ0tVUCIgXTsgdGhlbgogICAgY3AgIiRBUFBfQkFDS1VQIiAiJEFQUF9VU0VSX0NUUkwiCiAgZmkKICBjcCAiJEFQUF9VU0VSX0NUUkwiICIke0FQUF9VU0VSX0NUUkx9LmJha18ke1RJTUVTVEFNUH0iCgogIGlmICEgZ3JlcCAt
-cSAiUFJPVEVLU0lfSkhPTkFMRVlfQVBQVVNFUiIgIiRBUFBfVVNFUl9DVFJMIjsgdGhlbgogICAgcHl0aG9uMyA8PCBQWUVPRjYKaW1wb3J0IHJlCgpjb250cm9sbGVyID0gIiRBUFBfVVNFUl9DVFJMIgoKd2l0aCBvcGVuKGNvbnRyb2xsZXIsICJyIikgYXMgZjoK
-ICAgIGNvbnRlbnQgPSBmLnJlYWQoKQoKaWYgIlBST1RFS1NJX0pIT05BTEVZX0FQUFVTRVIiIGluIGNvbnRlbnQ6CiAgICBleGl0KDApCgpsaW5lcyA9IGNvbnRlbnQuc3BsaXQoIlxuIikKbmV3X2xpbmVzID0gW10KaSA9IDAKCndoaWxlIGkgPCBsZW4obGluZXMp
-OgogICAgbGluZSA9IGxpbmVzW2ldCiAgICBuZXdfbGluZXMuYXBwZW5kKGxpbmUpCiAgICAKICAgIGlmIHJlLnNlYXJjaChyJ3B1YmxpYyBmdW5jdGlvbiAoPyFfX2NvbnN0cnVjdCknLCBsaW5lKToKICAgICAgICBqID0gaQogICAgICAgIHdoaWxlIGogPCBsZW4o
-bGluZXMpIGFuZCAneycgbm90IGluIGxpbmVzW2pdOgogICAgICAgICAgICBqICs9IDEKICAgICAgICAgICAgaWYgaiA+IGk6CiAgICAgICAgICAgICAgICBuZXdfbGluZXMuYXBwZW5kKGxpbmVzW2pdKQogICAgICAgIAogICAgICAgIG5ld19saW5lcy5hcHBlbmQo
-IiAgICAgICAgLy8gUFJPVEVLU0lfSkhPTkFMRVlfQVBQVVNFUjogQmxvY2sgYWtzZXMgQVBJIHVudHVrIGFkbWluIElEIDEiKQogICAgICAgIGlmICdVc2VyIFwkdXNlcicgaW4gbGluZSBvciAoaiA+IGkgYW5kIGFueSgnVXNlciBcJHVzZXInIGluIGxpbmVzW2td
-IGZvciBrIGluIHJhbmdlKGksIG1pbihqKzEsIGxlbihsaW5lcykpKSkpOgogICAgICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgIGlmIChpc3NldChcJHVzZXIpICYmIChpbnQpIFwkdXNlci0+aWQgPT09IDEpIHsiKQogICAgICAgICAgICBuZXdfbGlu
-ZXMuYXBwZW5kKCIgICAgICAgICAgICBhYm9ydCg0MDMsICdBa3NlcyBkaXRvbGFrIC0gcHJvdGVjdCBieSBKaG9uYWxleSBUZWNoJyk7IikKICAgICAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICB9IikKICAgICAgICBlbHNlOgogICAgICAgICAgICBu
-ZXdfbGluZXMuYXBwZW5kKCIgICAgICAgIGlmIChwcmVnX21hdGNoKCcjL3VzZXJzLzEoXFxcXD98XCR8L3xcXFxcYikjJywgXCRyZXF1ZXN0LT5nZXRQYXRoSW5mbygpKSkgeyIpCiAgICAgICAgICAgIG5ld19saW5lcy5hcHBlbmQoIiAgICAgICAgICAgIGFib3J0
-KDQwMywgJ0Frc2VzIGRpdG9sYWsgLSBwcm90ZWN0IGJ5IEpob25hbGV5IFRlY2gnKTsiKQogICAgICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgIH0iKQogICAgICAgIAogICAgICAgIGlmIGogPiBpOgogICAgICAgICAgICBpID0gagogICAgaSArPSAx
-Cgp3aXRoIG9wZW4oY29udHJvbGxlciwgInciKSBhcyBmOgogICAgZi53cml0ZSgiXG4iLmpvaW4obmV3X2xpbmVzKSkKCnByaW50KCLinIUgQ29udHJvbGxlciBVc2VyQ29udHJvbGxlciBqdWdhIGRpcHJvdGVrc2kgKGJhY2t1cCBwbGFuKSIpClBZRU9GNgogIGZp
-CmZpCgplY2hvICIiCmVjaG8gIuKchSBCQUdJQU4gMyBTRUxFU0FJOiBQcm90ZWtzaSBBcHBsaWNhdGlvbiBBUEkgVXNlciB0ZXJwYXNhbmcgKE1pZGRsZXdhcmUgKyBDb250cm9sbGVyKSIKZWNobyAiIgoKCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIEFQUExZIEJSQU5EIENVU1RPTUlaQVRJT04KIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CmZvciBNT0RJRklFRF9G
-SUxFIGluICIkQVBQX1VTRVJfQ1RSTCIgIiRNSURETEVXQVJFX0ZJTEUiOyBkbwogIGlmIFsgLW4gIiRNT0RJRklFRF9GSUxFIiBdICYmIFsgLWYgIiRNT0RJRklFRF9GSUxFIiBdOyB0aGVuCiAgICBzZWQgLWkgInN8QWtzZXMgZGl0b2xhayAtIHByb3RlY3QgYnkg
-SmhvbmFsZXkgVGVjaHwke0JSQU5EX1RFWFR9IC0gQWtzZXMgZGl0b2xha3xnIiAiJE1PRElGSUVEX0ZJTEUiIDI+L2Rldi9udWxsIHx8IHRydWUKICAgIHNlZCAtaSAic3xwcm90ZWN0IGJ5IEpob25hbGV5IFRlY2h8JHtCUkFORF9URVhUfXxnIiAiJE1PRElGSUVE
-X0ZJTEUiIDI+L2Rldi9udWxsIHx8IHRydWUKICAgIHNlZCAtaSAic3xKaG9uYWxleSBUZWNofCR7QlJBTkRfTkFNRX18ZyIgIiRNT0RJRklFRF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgZmkKZG9uZQplY2hvICLihLnvuI8gQ2FjaGUgY2xlYXIgYWthbiBk
-aWxha3VrYW4gb2xlaCBQcm90ZWN0IE1hbmFnZXIgY29udHJvbGxlciIKCmVjaG8gIuKchSBTZWxlc2FpOiBQcm90ZWtzaSBBcHBsaWNhdGlvbiBBUEkgVXNlciIK
-PROTECT12C_B64
+      cat << 'PROTECT12C_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+CONTACT_TELEGRAM="${CONTACT_TELEGRAM:-@FyzzModss}"
+
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+
+echo "🚀 Proteksi Application API User..."
+
+# ===================================================================
+# BAGIAN 3: PROTEKSI APPLICATION API USER
+# Strategi: Inject authorize() di Form Request + Middleware + Controller
+# ===================================================================
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📦 BAGIAN 3: Proteksi Application API User"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# === LANGKAH 3a: Proteksi via Form Request authorize() ===
+# authorize() jalan SEBELUM rules(), jadi ini paling efektif
+echo "🔧 Langkah 3a: Inject proteksi ke Form Request..."
+
+FORM_REQUEST_DIR="/var/www/pterodactyl/app/Http/Requests/Api/Application/Users"
+
+if [ -d "$FORM_REQUEST_DIR" ]; then
+  for FR_FILE in "$FORM_REQUEST_DIR"/*.php; do
+    if [ -f "$FR_FILE" ]; then
+      FR_NAME=$(basename "$FR_FILE")
+      
+      if grep -q "PROTEKSI_FIT_FORMREQ" "$FR_FILE"; then
+        echo "⚠️ $FR_NAME sudah diproteksi"
+        continue
+      fi
+      
+      cp "$FR_FILE" "${FR_FILE}.bak_${TIMESTAMP}"
+      
+      python3 << PYEOF_FR
+import re
+
+fr_file = "$FR_FILE"
+fr_name = "$FR_NAME"
+
+with open(fr_file, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_FIT_FORMREQ" in content:
+    print(f"⚠️ {fr_name} sudah diproteksi")
+    exit(0)
+
+# Cari method authorize()
+auth_pattern = r'(public function authorize\s*\(\s*\)[^{]*\{)'
+match = re.search(auth_pattern, content)
+
+if match:
+    # Inject check di awal authorize()
+    inject = '''
+        // PROTEKSI_FIT_FORMREQ: Block modifikasi user ID 1
+        if (preg_match('#/api/application/users/1(?:\\\?|$|/)#', request()->getPathInfo())) {
+            if (in_array(request()->method(), ['PATCH', 'PUT', 'DELETE'])) {
+                abort(403, 'Akses ditolak - protect by FyzzOffciall.ID');
+            }
+        }
+'''
+    content = content.replace(match.group(1), match.group(1) + inject)
+    
+    with open(fr_file, "w") as f:
+        f.write(content)
+    print(f"✅ {fr_name} diproteksi via authorize()")
+else:
+    # Tidak ada authorize(), tambahkan method baru
+    # Cari class body
+    class_pattern = r'(class \w+[^{]*\{)'
+    class_match = re.search(class_pattern, content)
+    if class_match:
+        inject_method = '''
+
+    // PROTEKSI_FIT_FORMREQ: Block modifikasi user ID 1
+    public function authorize(): bool
+    {
+        if (preg_match('#/api/application/users/1(?:\\\?|$|/)#', request()->getPathInfo())) {
+            if (in_array(request()->method(), ['PATCH', 'PUT', 'DELETE'])) {
+                abort(403, 'Akses ditolak - protect by FyzzOffciall.ID');
+            }
+        }
+        return true;
+    }
+'''
+        content = content.replace(class_match.group(1), class_match.group(1) + inject_method)
+        
+        with open(fr_file, "w") as f:
+            f.write(content)
+        print(f"✅ {fr_name} diproteksi (authorize() baru ditambahkan)")
+    else:
+        print(f"❌ Gagal menemukan class di {fr_name}")
+
+PYEOF_FR
+    fi
+  done
+else
+  echo "⚠️ Direktori Form Request tidak ditemukan: $FORM_REQUEST_DIR"
+  echo "🔍 Mencari Form Request..."
+  FORM_REQUEST_DIR=$(find /var/www/pterodactyl/app/Http/Requests -type d -iname "Users" -path "*/Application/*" 2>/dev/null | head -1)
+  if [ -n "$FORM_REQUEST_DIR" ]; then
+    echo "📂 Ditemukan: $FORM_REQUEST_DIR"
+    echo "⚠️ Jalankan ulang script setelah path diperbaiki"
+  fi
+fi
+
+# === LANGKAH 3b: Buat Middleware (layer tambahan) ===
+echo ""
+echo "🔧 Langkah 3b: Middleware ProtectAdminUser..."
+MIDDLEWARE_DIR="/var/www/pterodactyl/app/Http/Middleware"
+MIDDLEWARE_FILE="${MIDDLEWARE_DIR}/ProtectAdminUser.php"
+
+cat > "$MIDDLEWARE_FILE" << 'MWEOF'
+<?php
+
+namespace Pterodactyl\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class ProtectAdminUser
+{
+    /**
+     * PROTEKSI_FIT_MIDDLEWARE: Block semua akses API ke User ID 1
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        $path = $request->getPathInfo();
+
+        if (preg_match('#/api/application/users/1(?:\?|$|/)#', $path)) {
+            if (in_array($request->method(), ['PATCH', 'PUT', 'DELETE', 'POST'])) {
+                abort(403, 'Akses ditolak - protect by FyzzOffciall.ID');
+            }
+        }
+
+        return $next($request);
+    }
+}
+MWEOF
+
+echo "✅ Middleware ProtectAdminUser dibuat"
+
+# === LANGKAH 3c: Register middleware di Kernel.php ===
+KERNEL="/var/www/pterodactyl/app/Http/Kernel.php"
+
+if [ -f "$KERNEL" ]; then
+  if ! grep -q "ProtectAdminUser" "$KERNEL"; then
+    cp "$KERNEL" "${KERNEL}.bak_${TIMESTAMP}"
+
+    python3 << 'PYEOF5'
+import re
+
+kernel = "/var/www/pterodactyl/app/Http/Kernel.php"
+
+with open(kernel, "r") as f:
+    content = f.read()
+
+if "ProtectAdminUser" in content:
+    print("⚠️ Middleware sudah terdaftar di Kernel")
+    exit(0)
+
+# Cari protected $middleware array
+pattern = r'(protected \$middleware\s*=\s*\[)(.*?)(\];)'
+match = re.search(pattern, content, re.DOTALL)
+
+if match:
+    existing = match.group(2).rstrip()
+    if not existing.rstrip().endswith(','):
+        existing = existing.rstrip() + ','
+    new_content = match.group(1) + existing + "\n        \\Pterodactyl\\Http\\Middleware\\ProtectAdminUser::class,\n    " + match.group(3)
+    content = content[:match.start()] + new_content + content[match.end():]
+else:
+    # Fallback: cari $middlewareGroups api
+    api_pattern = r"('api'\s*=>\s*\[)(.*?)(\],)"
+    api_match = re.search(api_pattern, content, re.DOTALL)
+    if api_match:
+        existing = api_match.group(2).rstrip()
+        if not existing.rstrip().endswith(','):
+            existing = existing.rstrip() + ','
+        new_content = api_match.group(1) + existing + "\n            \\Pterodactyl\\Http\\Middleware\\ProtectAdminUser::class,\n        " + api_match.group(3)
+        content = content[:api_match.start()] + new_content + content[api_match.end():]
+    else:
+        print("❌ Tidak bisa menemukan array middleware di Kernel.php")
+        exit(1)
+
+with open(kernel, "w") as f:
+    f.write(content)
+
+print("✅ Middleware ProtectAdminUser didaftarkan di Kernel.php")
+PYEOF5
+
+  else
+    echo "⚠️ Middleware ProtectAdminUser sudah terdaftar di Kernel"
+  fi
+else
+  echo "❌ Kernel.php tidak ditemukan!"
+fi
+
+# === LANGKAH 3d: Juga proteksi controller (backup plan) ===
+APP_USER_CTRL="/var/www/pterodactyl/app/Http/Controllers/Api/Application/Users/UserController.php"
+
+if [ ! -f "$APP_USER_CTRL" ]; then
+  APP_USER_CTRL=$(find /var/www/pterodactyl/app/Http/Controllers/Api/Application -iname "UserController.php" 2>/dev/null | head -1)
+fi
+
+if [ -n "$APP_USER_CTRL" ] && [ -f "$APP_USER_CTRL" ]; then
+  APP_BACKUP=$(ls -t "${APP_USER_CTRL}.bak_"* 2>/dev/null | tail -1)
+  if [ -n "$APP_BACKUP" ]; then
+    cp "$APP_BACKUP" "$APP_USER_CTRL"
+  fi
+  cp "$APP_USER_CTRL" "${APP_USER_CTRL}.bak_${TIMESTAMP}"
+
+  if ! grep -q "PROTEKSI_FIT_APPUSER" "$APP_USER_CTRL"; then
+    python3 << PYEOF6
+import re
+
+controller = "$APP_USER_CTRL"
+
+with open(controller, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_FIT_APPUSER" in content:
+    exit(0)
+
+lines = content.split("\n")
+new_lines = []
+i = 0
+
+while i < len(lines):
+    line = lines[i]
+    new_lines.append(line)
+    
+    if re.search(r'public function (?!__construct)', line):
+        j = i
+        while j < len(lines) and '{' not in lines[j]:
+            j += 1
+            if j > i:
+                new_lines.append(lines[j])
+        
+        new_lines.append("        // PROTEKSI_FIT_APPUSER: Block akses API untuk admin ID 1")
+        if 'User \$user' in line or (j > i and any('User \$user' in lines[k] for k in range(i, min(j+1, len(lines))))):
+            new_lines.append("        if (isset(\$user) && (int) \$user->id === 1) {")
+            new_lines.append("            abort(403, 'Akses ditolak - protect by FyzzOffciall.ID');")
+            new_lines.append("        }")
+        else:
+            new_lines.append("        if (preg_match('#/users/1(\\\\?|\$|/|\\\\b)#', \$request->getPathInfo())) {")
+            new_lines.append("            abort(403, 'Akses ditolak - protect by FyzzOffciall.ID');")
+            new_lines.append("        }")
+        
+        if j > i:
+            i = j
+    i += 1
+
+with open(controller, "w") as f:
+    f.write("\n".join(new_lines))
+
+print("✅ Controller UserController juga diproteksi (backup plan)")
+PYEOF6
+  fi
+fi
+
+echo ""
+echo "✅ BAGIAN 3 SELESAI: Proteksi Application API User terpasang (Middleware + Controller)"
+echo ""
+
+
+# ===================================================================
+# APPLY BRAND CUSTOMIZATION
+# ===================================================================
+for MODIFIED_FILE in "$APP_USER_CTRL" "$MIDDLEWARE_FILE"; do
+  if [ -n "$MODIFIED_FILE" ] && [ -f "$MODIFIED_FILE" ]; then
+    sed -i "s|Akses ditolak - protect by FyzzOffciall.ID|${BRAND_TEXT} - Akses ditolak|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|protect by FyzzOffciall.ID|${BRAND_TEXT}|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$MODIFIED_FILE" 2>/dev/null || true
+  fi
+done
+echo "ℹ️ Cache clear akan dilakukan oleh Protect Manager controller"
+
+echo "✅ Selesai: Proteksi Application API User"
+PROTECT12C_PLAIN
       ;;
     protect12d)
-      cat << 'PROTECT12D_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgpDT05UQUNUX1RFTEVHUkFNPSIke0NPTlRBQ1RfVEVMRUdSQU06LUBKaG9hbmxl
-eXN0b3JlSWR9IgoKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKCmVjaG8gIvCfmoAgUHJvdGVrc2kgQVBJIEtleSAoQWRtaW4pLi4uIgoKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09CiMgQkFHSUFOIDQ6IFBST1RFS1NJIEFQSSBLRVkgLSBCbG9jayBidWF0IGtleSBhdGFzIG5hbWEgVXNlciBJRCAxCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PQplY2hvICLilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIEiCmVjaG8gIvCfk6YgQkFH
-SUFOIDQ6IEJsb2NrIGJ1YXQgQVBJIGtleSBhdGFzIG5hbWEgVXNlciBJRCAxIgplY2hvICLilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHi
-lIHilIHilIHilIHilIHilIHilIHilIHilIEiCgpBUElfQ1RSTD0iL3Zhci93d3cvcHRlcm9kYWN0eWwvYXBwL0h0dHAvQ29udHJvbGxlcnMvQWRtaW4vQXBpQ29udHJvbGxlci5waHAiCgppZiBbICEgLWYgIiRBUElfQ1RSTCIgXTsgdGhlbgogIEFQSV9DVFJMPSQo
-ZmluZCAvdmFyL3d3dy9wdGVyb2RhY3R5bC9hcHAvSHR0cC9Db250cm9sbGVycy9BZG1pbiAtbWF4ZGVwdGggMSAtaW5hbWUgIiphcGkqIiAtbmFtZSAiKi5waHAiIDI+L2Rldi9udWxsIHwgaGVhZCAtMSkKZmkKCmlmIFsgLW4gIiRBUElfQ1RSTCIgXSAmJiBbIC1m
-ICIkQVBJX0NUUkwiIF07IHRoZW4KICBlY2hvICLwn5OCIEFwaUNvbnRyb2xsZXIgZGl0ZW11a2FuOiAkQVBJX0NUUkwiCgogIEFQSV9CQUNLVVA9JChscyAtdCAiJHtBUElfQ1RSTH0uYmFrXyIqIDI+L2Rldi9udWxsIHwgdGFpbCAtMSkKICBpZiBbIC1uICIkQVBJ
-X0JBQ0tVUCIgXTsgdGhlbgogICAgY3AgIiRBUElfQkFDS1VQIiAiJEFQSV9DVFJMIgogICAgZWNobyAi8J+TpiBSZXN0b3JlIGRhcmkgYmFja3VwOiAkQVBJX0JBQ0tVUCIKICBmaQoKICBjcCAiJEFQSV9DVFJMIiAiJHtBUElfQ1RSTH0uYmFrXyR7VElNRVNUQU1Q
-fSIKCiAgZXhwb3J0IEFQSV9DVFJMX1BBVEg9IiRBUElfQ1RSTCIKICBweXRob24zIDw8ICdQWUVPRjcnCmltcG9ydCByZQppbXBvcnQgb3MKCmNvbnRyb2xsZXIgPSBvcy5lbnZpcm9uWyJBUElfQ1RSTF9QQVRIIl0KCndpdGggb3Blbihjb250cm9sbGVyLCAiciIp
-IGFzIGY6CiAgICBjb250ZW50ID0gZi5yZWFkKCkKCmlmICJQUk9URUtTSV9KSE9OQUxFWV9BUElLRVkiIGluIGNvbnRlbnQ6CiAgICBwcmludCgi4pqg77iPIFByb3Rla3NpIHN1ZGFoIGFkYSBkaSBBcGlDb250cm9sbGVyIikKICAgIGV4aXQoMCkKCmlmICJ1c2Ug
-SWxsdW1pbmF0ZVxcU3VwcG9ydFxcRmFjYWRlc1xcQXV0aDsiIG5vdCBpbiBjb250ZW50OgogICAgdXNlX3BhdHRlcm4gPSByJyh1c2UgUHRlcm9kYWN0eWxcXFxcSHR0cFxcXFxDb250cm9sbGVyc1xcXFxDb250cm9sbGVyOyknCiAgICBpZiByZS5zZWFyY2godXNl
-X3BhdHRlcm4sIGNvbnRlbnQpOgogICAgICAgIGNvbnRlbnQgPSByZS5zdWIodXNlX3BhdHRlcm4sIHInXDFcbnVzZSBJbGx1bWluYXRlXFxTdXBwb3J0XFxGYWNhZGVzXFxBdXRoOycsIGNvbnRlbnQpCiAgICBlbHNlOgogICAgICAgIGNvbnRlbnQgPSByZS5zdWIo
-cicodXNlIFteO10rOykoXHMqY2xhc3MgKScsIHInXDFcbnVzZSBJbGx1bWluYXRlXFxTdXBwb3J0XFxGYWNhZGVzXFxBdXRoO1wyJywgY29udGVudCkKCmxpbmVzID0gY29udGVudC5zcGxpdCgiXG4iKQpuZXdfbGluZXMgPSBbXQppID0gMAp3aGlsZSBpIDwgbGVu
-KGxpbmVzKToKICAgIGxpbmUgPSBsaW5lc1tpXQogICAgbmV3X2xpbmVzLmFwcGVuZChsaW5lKQogICAgCiAgICAjIEluamVjdCBkaSBtZXRob2QgaW5kZXgKICAgIGlmIHJlLnNlYXJjaChyJ3B1YmxpYyBmdW5jdGlvbiBpbmRleCcsIGxpbmUpOgogICAgICAgIGog
-PSBpCiAgICAgICAgd2hpbGUgaiA8IGxlbihsaW5lcykgYW5kICd7JyBub3QgaW4gbGluZXNbal06CiAgICAgICAgICAgIGogKz0gMQogICAgICAgICAgICBpZiBqID4gaToKICAgICAgICAgICAgICAgIG5ld19saW5lcy5hcHBlbmQobGluZXNbal0pCiAgICAgICAg
-CiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICAvLyBQUk9URUtTSV9KSE9OQUxFWV9BUElLRVk6IFNldGlhcCBhZG1pbiBoYW55YSBsaWhhdCBrZXkgbWlsaWsgc2VuZGlyaSIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICBpZiAoQXV0
-aDo6dXNlcigpICYmIChpbnQpIEF1dGg6OnVzZXIoKS0+aWQgIT09IDEpIHsiKQogICAgICAgIG5ld19saW5lcy5hcHBlbmQoIiAgICAgICAgICAgICRrZXlzID0gXFxQdGVyb2RhY3R5bFxcTW9kZWxzXFxBcGlLZXk6OndoZXJlKCd1c2VyX2lkJywgKGludCkgQXV0
-aDo6dXNlcigpLT5pZCkiKQogICAgICAgIG5ld19saW5lcy5hcHBlbmQoIiAgICAgICAgICAgICAgICAtPndoZXJlKCdrZXlfdHlwZScsIFxcUHRlcm9kYWN0eWxcXE1vZGVsc1xcQXBpS2V5OjpUWVBFX0FQUExJQ0FUSU9OKSIpCiAgICAgICAgbmV3X2xpbmVzLmFw
-cGVuZCgiICAgICAgICAgICAgICAgIC0+Z2V0KCk7IikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgICAgICByZXR1cm4gdmlldygnYWRtaW4uYXBpLmluZGV4JywgWydrZXlzJyA9PiAka2V5c10pOyIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgi
-ICAgICAgICB9IikKICAgICAgICAKICAgICAgICBpZiBqID4gaToKICAgICAgICAgICAgaSA9IGoKICAgIAogICAgIyBJbmplY3QgZGkgbWV0aG9kIHN0b3JlCiAgICBpZiByZS5zZWFyY2gocidwdWJsaWMgZnVuY3Rpb24gc3RvcmUnLCBsaW5lKToKICAgICAgICBq
-ID0gaQogICAgICAgIHdoaWxlIGogPCBsZW4obGluZXMpIGFuZCAneycgbm90IGluIGxpbmVzW2pdOgogICAgICAgICAgICBqICs9IDEKICAgICAgICAgICAgaWYgaiA+IGk6CiAgICAgICAgICAgICAgICBuZXdfbGluZXMuYXBwZW5kKGxpbmVzW2pdKQogICAgICAg
-IAogICAgICAgIG5ld19saW5lcy5hcHBlbmQoIiAgICAgICAgLy8gUFJPVEVLU0lfSkhPTkFMRVlfQVBJS0VZOiBCbG9jayBidWF0IGtleSBhdGFzIG5hbWEgVXNlciBJRCAxIikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgICR0YXJnZXRVc2VySWQg
-PSAoaW50KSAoJHJlcXVlc3QtPmlucHV0KCd1c2VyX2lkJykgPz8gJHJlcXVlc3QtPmlucHV0KCd1c2VyJykgPz8gMCk7IikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgIGlmICgkdGFyZ2V0VXNlcklkID09PSAxICYmICghQXV0aDo6dXNlcigpIHx8
-IChpbnQpIEF1dGg6OnVzZXIoKS0+aWQgIT09IDEpKSB7IikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgICAgICBhYm9ydCg0MDMsICdUaWRhayBiaXNhIG1lbWJ1YXQgQVBJIGtleSBhdGFzIG5hbWEgVXNlciBJRCAxIC0gcHJvdGVjdCBieSBKaG9u
-YWxleSBUZWNoJyk7IikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgIH0iKQogICAgICAgIAogICAgICAgIGlmIGogPiBpOgogICAgICAgICAgICBpID0gagogICAgCiAgICAjIEluamVjdCBkaSBtZXRob2QgZGVsZXRlL2Rlc3Ryb3kKICAgIGlmIHJl
-LnNlYXJjaChyJ3B1YmxpYyBmdW5jdGlvbiAoZGVsZXRlfGRlc3Ryb3kpJywgbGluZSk6CiAgICAgICAgaiA9IGkKICAgICAgICB3aGlsZSBqIDwgbGVuKGxpbmVzKSBhbmQgJ3snIG5vdCBpbiBsaW5lc1tqXToKICAgICAgICAgICAgaiArPSAxCiAgICAgICAgICAg
-IGlmIGogPiBpOgogICAgICAgICAgICAgICAgbmV3X2xpbmVzLmFwcGVuZChsaW5lc1tqXSkKICAgICAgICAKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgIC8vIFBST1RFS1NJX0pIT05BTEVZX0FQSUtFWTogQmxvY2sgaGFwdXMga2V5IG1pbGlrIFVz
-ZXIgSUQgMSIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICBpZiAoIUF1dGg6OnVzZXIoKSB8fCAoaW50KSBBdXRoOjp1c2VyKCktPmlkICE9PSAxKSB7IikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgICAgICAka2V5ID0gJHJlcXVl
-c3QtPnJvdXRlKCdpZCcpID8/ICRyZXF1ZXN0LT5yb3V0ZSgna2V5Jyk7IikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAgICAgICAgICBpZiAoJGtleSkgeyIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICAgICAgICAgICRhcGlLZXkgPSBc
-XFB0ZXJvZGFjdHlsXFxNb2RlbHNcXEFwaUtleTo6ZmluZCgka2V5KTsiKQogICAgICAgIG5ld19saW5lcy5hcHBlbmQoIiAgICAgICAgICAgICAgICBpZiAoJGFwaUtleSAmJiAoaW50KSAkYXBpS2V5LT51c2VyX2lkID09PSAxKSB7IikKICAgICAgICBuZXdfbGlu
-ZXMuYXBwZW5kKCIgICAgICAgICAgICAgICAgICAgIGFib3J0KDQwMywgJ1RpZGFrIGJpc2EgbWVuZ2hhcHVzIEFQSSBrZXkgbWlsaWsgVXNlciBJRCAxIC0gcHJvdGVjdCBieSBKaG9uYWxleSBUZWNoJyk7IikKICAgICAgICBuZXdfbGluZXMuYXBwZW5kKCIgICAg
-ICAgICAgICAgICAgfSIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICAgICAgfSIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICB9IikKICAgICAgICAKICAgICAgICBpZiBqID4gaToKICAgICAgICAgICAgaSA9IGoKICAgIAogICAg
-aSArPSAxCgp3aXRoIG9wZW4oY29udHJvbGxlciwgInciKSBhcyBmOgogICAgZi53cml0ZSgiXG4iLmpvaW4obmV3X2xpbmVzKSkKCnByaW50KCLinIUgUHJvdGVrc2kgQVBJIGtleSBiZXJoYXNpbCBkaWluamVrc2kga2UgQXBpQ29udHJvbGxlciIpClBZRU9GNwoK
-ICBlY2hvICIiCiAgZ3JlcCAtbiAiUFJPVEVLU0lfSkhPTkFMRVlfQVBJS0VZIiAiJEFQSV9DVFJMIgplbHNlCiAgZWNobyAi4pqg77iPIEFwaUNvbnRyb2xsZXIgdGlkYWsgZGl0ZW11a2FuLCBza2lwLiIKZmkKCmVjaG8gIiIKZWNobyAi4pyFIEJBR0lBTiA0IFNF
-TEVTQUk6IFByb3Rla3NpIEFQSSBrZXkgdGVycGFzYW5nIgplY2hvICIiCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiMgUFJPVEVLU0kgQkxBREUgVklFVzogQVBJIElOREVYIC0gZmlsdGVyIGtleSBwZXIgYWRtaW4KIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09CkFQSV9CTEFERT0iL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2VzL3ZpZXdzL2FkbWluL2FwaS9pbmRleC5ibGFkZS5waHAiCgppZiBbICEgLWYgIiRBUElfQkxBREUiIF07IHRoZW4KICBBUElfQkxBREU9JChmaW5kIC92YXIvd3d3L3B0ZXJv
-ZGFjdHlsL3Jlc291cmNlcy92aWV3cy9hZG1pbiAtcGF0aCAiKi9hcGkvaW5kZXgqIiAtbmFtZSAiKi5ibGFkZS5waHAiIDI+L2Rldi9udWxsIHwgaGVhZCAtMSkKZmkKCmlmIFsgLW4gIiRBUElfQkxBREUiIF0gJiYgWyAtZiAiJEFQSV9CTEFERSIgXTsgdGhlbgog
-IGVjaG8gIvCfk4IgQVBJIEJsYWRlIHZpZXcgZGl0ZW11a2FuOiAkQVBJX0JMQURFIgoKICBBUElfQkxBREVfQkFDS1VQPSQobHMgLXQgIiR7QVBJX0JMQURFfS5iYWtfIiogMj4vZGV2L251bGwgfCB0YWlsIC0xKQogIGlmIFsgLW4gIiRBUElfQkxBREVfQkFDS1VQ
-IiBdOyB0aGVuCiAgICBjcCAiJEFQSV9CTEFERV9CQUNLVVAiICIkQVBJX0JMQURFIgogICAgZWNobyAi8J+TpiBSZXN0b3JlIGRhcmkgYmFja3VwOiAkQVBJX0JMQURFX0JBQ0tVUCIKICBmaQoKICBjcCAiJEFQSV9CTEFERSIgIiR7QVBJX0JMQURFfS5iYWtfJHtU
-SU1FU1RBTVB9IgoKICBleHBvcnQgQVBJX0JMQURFX1BBVEg9IiRBUElfQkxBREUiCiAgcHl0aG9uMyA8PCAnUFlFT0ZfQkxBREUnCmltcG9ydCByZQppbXBvcnQgb3MKCmJsYWRlX2ZpbGUgPSBvcy5lbnZpcm9uWyJBUElfQkxBREVfUEFUSCJdCgp3aXRoIG9wZW4o
-YmxhZGVfZmlsZSwgInIiKSBhcyBmOgogICAgY29udGVudCA9IGYucmVhZCgpCgppZiAiUFJPVEVLU0lfSkhPTkFMRVlfQVBJS0VZX0JMQURFIiBpbiBjb250ZW50OgogICAgcHJpbnQoIuKaoO+4jyBQcm90ZWtzaSBCbGFkZSBzdWRhaCBhZGEiKQogICAgZXhpdCgw
-KQoKIyBDYXJpIGxvb3AgQGZvcmVhY2ggeWFuZyBtZW5hbXBpbGthbiBrZXlzCmZvcmVhY2hfcGF0dGVybiA9IHInKEBmb3JlYWNoXHMqXChccypcJFx3K1xzK2FzXHMrXCQoXHcrKVxzKlwpKScKbWF0Y2ggPSByZS5zZWFyY2goZm9yZWFjaF9wYXR0ZXJuLCBjb250
-ZW50KQoKaWYgbWF0Y2g6CiAgICBvcmlnaW5hbF9mb3JlYWNoID0gbWF0Y2guZ3JvdXAoMCkKICAgIAogICAgZmlsdGVyX2NvZGUgPSAiIiIKe3stLSBQUk9URUtTSV9KSE9OQUxFWV9BUElLRVlfQkxBREU6IFNldGlhcCBhZG1pbiBoYW55YSBsaWhhdCBrZXkgc2Vu
-ZGlyaSAtLX19CkBwaHAKICAgICRfX2N1cnJlbnRVc2VySWQgPSAoaW50KSBBdXRoOjp1c2VyKCktPmlkOwogICAgaWYgKCRfX2N1cnJlbnRVc2VySWQgIT09IDEpIHsKICAgICAgICAka2V5cyA9ICRrZXlzLT5maWx0ZXIoZnVuY3Rpb24oJGl0ZW0pIHVzZSAoJF9f
-Y3VycmVudFVzZXJJZCkgewogICAgICAgICAgICByZXR1cm4gKGludCkgJGl0ZW0tPnVzZXJfaWQgPT09ICRfX2N1cnJlbnRVc2VySWQ7CiAgICAgICAgfSk7CiAgICB9CkBlbmRwaHAKIiIiICsgb3JpZ2luYWxfZm9yZWFjaAogICAgCiAgICBjb250ZW50ID0gY29u
-dGVudC5yZXBsYWNlKG9yaWdpbmFsX2ZvcmVhY2gsIGZpbHRlcl9jb2RlLCAxKQogICAgCiAgICB3aXRoIG9wZW4oYmxhZGVfZmlsZSwgInciKSBhcyBmOgogICAgICAgIGYud3JpdGUoY29udGVudCkKICAgIHByaW50KCLinIUgUHJvdGVrc2kgQmxhZGUgdmlldyBB
-UEkgYmVyaGFzaWwgZGl0ZXJhcGthbiIpCmVsc2U6CiAgICBmb3JlYWNoX2dlbmVyaWMgPSByZS5zZWFyY2gocicoQGZvcmVhY2hccypcKFteKV0rXCkpJywgY29udGVudCkKICAgIGlmIGZvcmVhY2hfZ2VuZXJpYzoKICAgICAgICBvcmlnaW5hbCA9IGZvcmVhY2hf
-Z2VuZXJpYy5ncm91cCgwKQogICAgICAgIGZpbHRlcl9jb2RlID0gIiIiCnt7LS0gUFJPVEVLU0lfSkhPTkFMRVlfQVBJS0VZX0JMQURFOiBTZXRpYXAgYWRtaW4gaGFueWEgbGloYXQga2V5IHNlbmRpcmkgLS19fQpAcGhwCiAgICAkX19jdXJyZW50VXNlcklkID0g
-KGludCkgQXV0aDo6dXNlcigpLT5pZDsKICAgIGlmICgkX19jdXJyZW50VXNlcklkICE9PSAxKSB7CiAgICAgICAgJGtleXMgPSBpc3NldCgka2V5cykgPyAka2V5cy0+ZmlsdGVyKGZ1bmN0aW9uKCRpdGVtKSB1c2UgKCRfX2N1cnJlbnRVc2VySWQpIHsKICAgICAg
-ICAgICAgcmV0dXJuIChpbnQpICgkaXRlbS0+dXNlcl9pZCA/PyAwKSA9PT0gJF9fY3VycmVudFVzZXJJZDsKICAgICAgICB9KSA6IGNvbGxlY3QoW10pOwogICAgfQpAZW5kcGhwCiIiIiArIG9yaWdpbmFsCiAgICAgICAgY29udGVudCA9IGNvbnRlbnQucmVwbGFj
-ZShvcmlnaW5hbCwgZmlsdGVyX2NvZGUsIDEpCiAgICAgICAgCiAgICAgICAgd2l0aCBvcGVuKGJsYWRlX2ZpbGUsICJ3IikgYXMgZjoKICAgICAgICAgICAgZi53cml0ZShjb250ZW50KQogICAgICAgIHByaW50KCLinIUgUHJvdGVrc2kgQmxhZGUgdmlldyBBUEkg
-KGZhbGxiYWNrKSBiZXJoYXNpbCBkaXRlcmFwa2FuIikKICAgIGVsc2U6CiAgICAgICAgcHJpbnQoIuKaoO+4jyBUaWRhayBtZW5lbXVrYW4gQGZvcmVhY2ggZGkgQmxhZGUgdmlldyIpCgpQWUVPRl9CTEFERQplbHNlCiAgZWNobyAi4pqg77iPIEJsYWRlIHZpZXcg
-QVBJIHRpZGFrIGRpdGVtdWthbiIKZmkKCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KIyBBUFBMWSBCUkFORCBDVVNUT01JWkFUSU9OCiMgPT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQpmb3IgTU9ESUZJRURfRklMRSBpbiAiJEFQSV9DVFJMIjsgZG8KICBpZiBbIC1uICIkTU9ESUZJRURfRklMRSIgXSAmJiBbIC1mICIkTU9ESUZJRURfRklMRSIgXTsgdGhlbgogICAgc2Vk
-IC1pICJzfEFrc2VzIGRpdG9sYWsgLSBwcm90ZWN0IGJ5IEpob25hbGV5IFRlY2h8JHtCUkFORF9URVhUfSAtIEFrc2VzIGRpdG9sYWt8ZyIgIiRNT0RJRklFRF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgICBzZWQgLWkgInN8cHJvdGVjdCBieSBKaG9uYWxl
-eSBUZWNofCR7QlJBTkRfVEVYVH18ZyIgIiRNT0RJRklFRF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgICBzZWQgLWkgInN8SmhvbmFsZXkgVGVjaHwke0JSQU5EX05BTUV9fGciICIkTU9ESUZJRURfRklMRSIgMj4vZGV2L251bGwgfHwgdHJ1ZQogIGZpCmRv
-bmUKZWNobyAi4oS577iPIENhY2hlIGNsZWFyIGFrYW4gZGlsYWt1a2FuIG9sZWggUHJvdGVjdCBNYW5hZ2VyIGNvbnRyb2xsZXIiCgplY2hvICLinIUgU2VsZXNhaTogUHJvdGVrc2kgQVBJIEtleSAoQWRtaW4pIgo=
-PROTECT12D_B64
+      cat << 'PROTECT12D_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+CONTACT_TELEGRAM="${CONTACT_TELEGRAM:-@FyzzModss}"
+
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+
+echo "🚀 Proteksi API Key (Admin)..."
+
+# ===================================================================
+# BAGIAN 4: PROTEKSI API KEY - Block buat key atas nama User ID 1
+# ===================================================================
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📦 BAGIAN 4: Block buat API key atas nama User ID 1"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+API_CTRL="/var/www/pterodactyl/app/Http/Controllers/Admin/ApiController.php"
+
+if [ ! -f "$API_CTRL" ]; then
+  API_CTRL=$(find /var/www/pterodactyl/app/Http/Controllers/Admin -maxdepth 1 -iname "*api*" -name "*.php" 2>/dev/null | head -1)
+fi
+
+if [ -n "$API_CTRL" ] && [ -f "$API_CTRL" ]; then
+  echo "📂 ApiController ditemukan: $API_CTRL"
+
+  API_BACKUP=$(ls -t "${API_CTRL}.bak_"* 2>/dev/null | tail -1)
+  if [ -n "$API_BACKUP" ]; then
+    cp "$API_BACKUP" "$API_CTRL"
+    echo "📦 Restore dari backup: $API_BACKUP"
+  fi
+
+  cp "$API_CTRL" "${API_CTRL}.bak_${TIMESTAMP}"
+
+  export API_CTRL_PATH="$API_CTRL"
+  python3 << 'PYEOF7'
+import re
+import os
+
+controller = os.environ["API_CTRL_PATH"]
+
+with open(controller, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_FIT_APIKEY" in content:
+    print("⚠️ Proteksi sudah ada di ApiController")
+    exit(0)
+
+if "use Illuminate\\Support\\Facades\\Auth;" not in content:
+    use_pattern = r'(use Pterodactyl\\\\Http\\\\Controllers\\\\Controller;)'
+    if re.search(use_pattern, content):
+        content = re.sub(use_pattern, r'\1\nuse Illuminate\\Support\\Facades\\Auth;', content)
+    else:
+        content = re.sub(r'(use [^;]+;)(\s*class )', r'\1\nuse Illuminate\\Support\\Facades\\Auth;\2', content)
+
+lines = content.split("\n")
+new_lines = []
+i = 0
+while i < len(lines):
+    line = lines[i]
+    new_lines.append(line)
+    
+    # Inject di method index
+    if re.search(r'public function index', line):
+        j = i
+        while j < len(lines) and '{' not in lines[j]:
+            j += 1
+            if j > i:
+                new_lines.append(lines[j])
+        
+        new_lines.append("        // PROTEKSI_FIT_APIKEY: Setiap admin hanya lihat key milik sendiri")
+        new_lines.append("        if (Auth::user() && (int) Auth::user()->id !== 1) {")
+        new_lines.append("            $keys = \\Pterodactyl\\Models\\ApiKey::where('user_id', (int) Auth::user()->id)")
+        new_lines.append("                ->where('key_type', \\Pterodactyl\\Models\\ApiKey::TYPE_APPLICATION)")
+        new_lines.append("                ->get();")
+        new_lines.append("            return view('admin.api.index', ['keys' => $keys]);")
+        new_lines.append("        }")
+        
+        if j > i:
+            i = j
+    
+    # Inject di method store
+    if re.search(r'public function store', line):
+        j = i
+        while j < len(lines) and '{' not in lines[j]:
+            j += 1
+            if j > i:
+                new_lines.append(lines[j])
+        
+        new_lines.append("        // PROTEKSI_FIT_APIKEY: Block buat key atas nama User ID 1")
+        new_lines.append("        $targetUserId = (int) ($request->input('user_id') ?? $request->input('user') ?? 0);")
+        new_lines.append("        if ($targetUserId === 1 && (!Auth::user() || (int) Auth::user()->id !== 1)) {")
+        new_lines.append("            abort(403, 'Tidak bisa membuat API key atas nama User ID 1 - protect by FyzzOffciall.ID');")
+        new_lines.append("        }")
+        
+        if j > i:
+            i = j
+    
+    # Inject di method delete/destroy
+    if re.search(r'public function (delete|destroy)', line):
+        j = i
+        while j < len(lines) and '{' not in lines[j]:
+            j += 1
+            if j > i:
+                new_lines.append(lines[j])
+        
+        new_lines.append("        // PROTEKSI_FIT_APIKEY: Block hapus key milik User ID 1")
+        new_lines.append("        if (!Auth::user() || (int) Auth::user()->id !== 1) {")
+        new_lines.append("            $key = $request->route('id') ?? $request->route('key');")
+        new_lines.append("            if ($key) {")
+        new_lines.append("                $apiKey = \\Pterodactyl\\Models\\ApiKey::find($key);")
+        new_lines.append("                if ($apiKey && (int) $apiKey->user_id === 1) {")
+        new_lines.append("                    abort(403, 'Tidak bisa menghapus API key milik User ID 1 - protect by FyzzOffciall.ID');")
+        new_lines.append("                }")
+        new_lines.append("            }")
+        new_lines.append("        }")
+        
+        if j > i:
+            i = j
+    
+    i += 1
+
+with open(controller, "w") as f:
+    f.write("\n".join(new_lines))
+
+print("✅ Proteksi API key berhasil diinjeksi ke ApiController")
+PYEOF7
+
+  echo ""
+  grep -n "PROTEKSI_FIT_APIKEY" "$API_CTRL"
+else
+  echo "⚠️ ApiController tidak ditemukan, skip."
+fi
+
+echo ""
+echo "✅ BAGIAN 4 SELESAI: Proteksi API key terpasang"
+echo ""
+
+# ===================================================================
+# ===================================================================
+# PROTEKSI BLADE VIEW: API INDEX - filter key per admin
+# ===================================================================
+API_BLADE="/var/www/pterodactyl/resources/views/admin/api/index.blade.php"
+
+if [ ! -f "$API_BLADE" ]; then
+  API_BLADE=$(find /var/www/pterodactyl/resources/views/admin -path "*/api/index*" -name "*.blade.php" 2>/dev/null | head -1)
+fi
+
+if [ -n "$API_BLADE" ] && [ -f "$API_BLADE" ]; then
+  echo "📂 API Blade view ditemukan: $API_BLADE"
+
+  API_BLADE_BACKUP=$(ls -t "${API_BLADE}.bak_"* 2>/dev/null | tail -1)
+  if [ -n "$API_BLADE_BACKUP" ]; then
+    cp "$API_BLADE_BACKUP" "$API_BLADE"
+    echo "📦 Restore dari backup: $API_BLADE_BACKUP"
+  fi
+
+  cp "$API_BLADE" "${API_BLADE}.bak_${TIMESTAMP}"
+
+  export API_BLADE_PATH="$API_BLADE"
+  python3 << 'PYEOF_BLADE'
+import re
+import os
+
+blade_file = os.environ["API_BLADE_PATH"]
+
+with open(blade_file, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_FIT_APIKEY_BLADE" in content:
+    print("⚠️ Proteksi Blade sudah ada")
+    exit(0)
+
+# Cari loop @foreach yang menampilkan keys
+foreach_pattern = r'(@foreach\s*\(\s*\$\w+\s+as\s+\$(\w+)\s*\))'
+match = re.search(foreach_pattern, content)
+
+if match:
+    original_foreach = match.group(0)
+    
+    filter_code = """
+{{-- PROTEKSI_FIT_APIKEY_BLADE: Setiap admin hanya lihat key sendiri --}}
+@php
+    $__currentUserId = (int) Auth::user()->id;
+    if ($__currentUserId !== 1) {
+        $keys = $keys->filter(function($item) use ($__currentUserId) {
+            return (int) $item->user_id === $__currentUserId;
+        });
+    }
+@endphp
+""" + original_foreach
+    
+    content = content.replace(original_foreach, filter_code, 1)
+    
+    with open(blade_file, "w") as f:
+        f.write(content)
+    print("✅ Proteksi Blade view API berhasil diterapkan")
+else:
+    foreach_generic = re.search(r'(@foreach\s*\([^)]+\))', content)
+    if foreach_generic:
+        original = foreach_generic.group(0)
+        filter_code = """
+{{-- PROTEKSI_FIT_APIKEY_BLADE: Setiap admin hanya lihat key sendiri --}}
+@php
+    $__currentUserId = (int) Auth::user()->id;
+    if ($__currentUserId !== 1) {
+        $keys = isset($keys) ? $keys->filter(function($item) use ($__currentUserId) {
+            return (int) ($item->user_id ?? 0) === $__currentUserId;
+        }) : collect([]);
+    }
+@endphp
+""" + original
+        content = content.replace(original, filter_code, 1)
+        
+        with open(blade_file, "w") as f:
+            f.write(content)
+        print("✅ Proteksi Blade view API (fallback) berhasil diterapkan")
+    else:
+        print("⚠️ Tidak menemukan @foreach di Blade view")
+
+PYEOF_BLADE
+else
+  echo "⚠️ Blade view API tidak ditemukan"
+fi
+
+
+# ===================================================================
+# APPLY BRAND CUSTOMIZATION
+# ===================================================================
+for MODIFIED_FILE in "$API_CTRL"; do
+  if [ -n "$MODIFIED_FILE" ] && [ -f "$MODIFIED_FILE" ]; then
+    sed -i "s|Akses ditolak - protect by FyzzOffciall.ID|${BRAND_TEXT} - Akses ditolak|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|protect by FyzzOffciall.ID|${BRAND_TEXT}|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$MODIFIED_FILE" 2>/dev/null || true
+  fi
+done
+echo "ℹ️ Cache clear akan dilakukan oleh Protect Manager controller"
+
+echo "✅ Selesai: Proteksi API Key (Admin)"
+PROTECT12D_PLAIN
       ;;
     protect12e)
-      cat << 'PROTECT12E_B64'
-IyEvYmluL2Jhc2gKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFNRTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgpDT05UQUNUX1RFTEVHUkFNPSIke0NPTlRBQ1RfVEVMRUdSQU06LUBKaG9hbmxl
-eXN0b3JlSWR9IgoKVElNRVNUQU1QPSQoZGF0ZSAtdSArIiVZLSVtLSVkLSVILSVNLSVTLSVOIikKCmVjaG8gIvCfmoAgUHJvdGVrc2kgTG9jYXRpb25zIChzaWRlYmFyICsgYWtzZXMpLi4uIgoKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiMgQkFHSUFOIDU6IFBST1RFS1NJIExPQ0FUSU9OUyAoU2VtYnVueWlrYW4gKyBCbG9jayBBa3NlcykKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09CmVjaG8gIuKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgSIKZWNobyAi8J+T
-piBCQUdJQU4gNTogUHJvdGVrc2kgTG9jYXRpb25zIgplY2hvICLilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHi
-lIHilIHilIHilIEiCgojID09PSBTZW1idW55aWthbiBtZW51IExvY2F0aW9ucyBkaSBzaWRlYmFyID09PQplY2hvICLwn5SnIE1lbnllbWJ1bnlpa2FuIG1lbnUgTG9jYXRpb25zIGRhcmkgc2lkZWJhci4uLiIKCiMgUmUtdXNlIHNpZGViYXIgZmlsZSBkYXJpIEJB
-R0lBTiAxCkxPQ19TSURFQkFSPSIiCmZvciBTRiBpbiAiL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2VzL3ZpZXdzL2xheW91dHMvYWRtaW4uYmxhZGUucGhwIiAiL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2VzL3ZpZXdzL3BhcnRpYWxzL2FkbWluL3Np
-ZGViYXIuYmxhZGUucGhwIjsgZG8KICBpZiBbIC1mICIkU0YiIF07IHRoZW4KICAgIExPQ19TSURFQkFSPSIkU0YiCiAgICBicmVhawogIGZpCmRvbmUKCmlmIFsgLXogIiRMT0NfU0lERUJBUiIgXTsgdGhlbgogIExPQ19TSURFQkFSPSQoZ3JlcCAtcmwgImFkbWlu
-LmxvY2F0aW9ucyIgL3Zhci93d3cvcHRlcm9kYWN0eWwvcmVzb3VyY2VzL3ZpZXdzLyAyPi9kZXYvbnVsbCB8IGhlYWQgLTEpCmZpCgppZiBbIC1uICIkTE9DX1NJREVCQVIiIF0gJiYgWyAtZiAiJExPQ19TSURFQkFSIiBdOyB0aGVuCiAgaWYgZ3JlcCAtcSAiUFJP
-VEVLU0lfTE9DQVRJT05TX1NJREVCQVIiICIkTE9DX1NJREVCQVIiOyB0aGVuCiAgICBlY2hvICLimqDvuI8gU2lkZWJhciBMb2NhdGlvbnMgc3VkYWggZGlwcm90ZWtzaSIKICBlbHNlCiAgICBpZiBbICEgLWYgIiR7TE9DX1NJREVCQVJ9LmJha18ke1RJTUVTVEFN
-UH0iIF07IHRoZW4KICAgICAgY3AgIiRMT0NfU0lERUJBUiIgIiR7TE9DX1NJREVCQVJ9LmJha18ke1RJTUVTVEFNUH0iCiAgICBmaQoKICAgIHB5dGhvbjMgPDwgUFlFT0ZfTE9DX1NJREVCQVIKc2lkZWJhciA9ICIkTE9DX1NJREVCQVIiCgp3aXRoIG9wZW4oc2lk
-ZWJhciwgInIiKSBhcyBmOgogICAgY29udGVudCA9IGYucmVhZCgpCgppZiAiUFJPVEVLU0lfTE9DQVRJT05TX1NJREVCQVIiIGluIGNvbnRlbnQ6CiAgICBwcmludCgi4pqg77iPIFNpZGViYXIgTG9jYXRpb25zIHN1ZGFoIGRpcHJvdGVrc2kiKQogICAgZXhpdCgw
-KQoKaW1wb3J0IHJlCgpsaW5lcyA9IGNvbnRlbnQuc3BsaXQoIlxuIikKbmV3X2xpbmVzID0gW10KaSA9IDAKCndoaWxlIGkgPCBsZW4obGluZXMpOgogICAgbGluZSA9IGxpbmVzW2ldCgogICAgaWYgKCdhZG1pbi5sb2NhdGlvbnMnIGluIGxpbmUgb3IgInJvdXRl
-KCdhZG1pbi5sb2NhdGlvbnMnKSIgaW4gbGluZSkgYW5kICdhZG1pbi5sb2NhdGlvbnMudmlldycgbm90IGluIGxpbmU6CiAgICAgICAgbGlfc3RhcnQgPSBsZW4obmV3X2xpbmVzKSAtIDEKICAgICAgICB3aGlsZSBsaV9zdGFydCA+PSAwIGFuZCAnPGxpJyBub3Qg
-aW4gbmV3X2xpbmVzW2xpX3N0YXJ0XToKICAgICAgICAgICAgbGlfc3RhcnQgLT0gMQoKICAgICAgICBpZiBsaV9zdGFydCA+PSAwOgogICAgICAgICAgICBuZXdfbGluZXMuaW5zZXJ0KGxpX3N0YXJ0LCAie3stLSBQUk9URUtTSV9MT0NBVElPTlNfU0lERUJBUiAt
-LX19IikKICAgICAgICAgICAgbmV3X2xpbmVzLmluc2VydChsaV9zdGFydCwgIkBpZigoaW50KSBBdXRoOjp1c2VyKCktPmlkID09PSAxKSIpCgogICAgICAgICAgICBuZXdfbGluZXMuYXBwZW5kKGxpbmUpCiAgICAgICAgICAgIGkgKz0gMQoKICAgICAgICAgICAg
-bGlfZGVwdGggPSAxCiAgICAgICAgICAgIHdoaWxlIGkgPCBsZW4obGluZXMpIGFuZCBsaV9kZXB0aCA+IDA6CiAgICAgICAgICAgICAgICBjdXJyID0gbGluZXNbaV0KICAgICAgICAgICAgICAgIGxpX2RlcHRoICs9IGN1cnIuY291bnQoJzxsaScpIC0gY3Vyci5j
-b3VudCgnPC9saScpCiAgICAgICAgICAgICAgICBuZXdfbGluZXMuYXBwZW5kKGN1cnIpCiAgICAgICAgICAgICAgICBpICs9IDEKCiAgICAgICAgICAgIG5ld19saW5lcy5hcHBlbmQoIkBlbmRpZiIpCiAgICAgICAgICAgIGNvbnRpbnVlCgogICAgbmV3X2xpbmVz
-LmFwcGVuZChsaW5lKQogICAgaSArPSAxCgp3aXRoIG9wZW4oc2lkZWJhciwgInciKSBhcyBmOgogICAgZi53cml0ZSgiXG4iLmpvaW4obmV3X2xpbmVzKSkKCnByaW50KCLinIUgTWVudSBMb2NhdGlvbnMgZGlzZW1idW55aWthbiBkYXJpIHNpZGViYXIiKQpQWUVP
-Rl9MT0NfU0lERUJBUgogIGZpCmVsc2UKICBlY2hvICLimqDvuI8gRmlsZSBzaWRlYmFyIHRpZGFrIGRpdGVtdWthbiB1bnR1ayBMb2NhdGlvbnMiCmZpCgojID09PSBQcm90ZWtzaSBMb2NhdGlvbkNvbnRyb2xsZXIgPT09CmVjaG8gIiIKZWNobyAi8J+UpyBNZW1w
-cm90ZWtzaSBMb2NhdGlvbkNvbnRyb2xsZXIuLi4iCgpMT0NfQ1RSTD0iL3Zhci93d3cvcHRlcm9kYWN0eWwvYXBwL0h0dHAvQ29udHJvbGxlcnMvQWRtaW4vTG9jYXRpb25Db250cm9sbGVyLnBocCIKCmlmIFsgISAtZiAiJExPQ19DVFJMIiBdOyB0aGVuCiAgTE9D
-X0NUUkw9JChmaW5kIC92YXIvd3d3L3B0ZXJvZGFjdHlsL2FwcC9IdHRwL0NvbnRyb2xsZXJzL0FkbWluIC1tYXhkZXB0aCAxIC1pbmFtZSAiTG9jYXRpb25Db250cm9sbGVyLnBocCIgMj4vZGV2L251bGwgfCBoZWFkIC0xKQpmaQoKaWYgWyAtbiAiJExPQ19DVFJM
-IiBdICYmIFsgLWYgIiRMT0NfQ1RSTCIgXTsgdGhlbgogIGVjaG8gIvCfk4IgTG9jYXRpb25Db250cm9sbGVyIGRpdGVtdWthbjogJExPQ19DVFJMIgoKICBpZiBncmVwIC1xICJQUk9URUtTSV9KSE9OQUxFWV9MT0NBVElPTiIgIiRMT0NfQ1RSTCI7IHRoZW4KICAg
-IGVjaG8gIuKaoO+4jyBMb2NhdGlvbkNvbnRyb2xsZXIgc3VkYWggZGlwcm90ZWtzaSIKICBlbHNlCiAgICBMT0NfQkFDS1VQPSQobHMgLXQgIiR7TE9DX0NUUkx9LmJha18iKiAyPi9kZXYvbnVsbCB8IHRhaWwgLTEpCiAgICBpZiBbIC1uICIkTE9DX0JBQ0tVUCIg
-XTsgdGhlbgogICAgICBjcCAiJExPQ19CQUNLVVAiICIkTE9DX0NUUkwiCiAgICAgIGVjaG8gIvCfk6YgUmVzdG9yZSBkYXJpIGJhY2t1cDogJExPQ19CQUNLVVAiCiAgICBmaQoKICAgIGNwICIkTE9DX0NUUkwiICIke0xPQ19DVFJMfS5iYWtfJHtUSU1FU1RBTVB9
-IgoKICAgIHB5dGhvbjMgPDwgJ1BZRU9GX0xPQ19DVFJMJwppbXBvcnQgcmUKCmNvbnRyb2xsZXIgPSAiL3Zhci93d3cvcHRlcm9kYWN0eWwvYXBwL0h0dHAvQ29udHJvbGxlcnMvQWRtaW4vTG9jYXRpb25Db250cm9sbGVyLnBocCIKCiMgQ29iYSBwYXRoIGRlZmF1
-bHQsIGthbGF1IHRpZGFrIGFkYSBjYXJpCmltcG9ydCBvcwppZiBub3Qgb3MucGF0aC5leGlzdHMoY29udHJvbGxlcik6CiAgICBpbXBvcnQgc3VicHJvY2VzcwogICAgcmVzdWx0ID0gc3VicHJvY2Vzcy5ydW4oCiAgICAgICAgWyJmaW5kIiwgIi92YXIvd3d3L3B0
-ZXJvZGFjdHlsL2FwcC9IdHRwL0NvbnRyb2xsZXJzL0FkbWluIiwgIi1tYXhkZXB0aCIsICIxIiwgIi1pbmFtZSIsICJMb2NhdGlvbkNvbnRyb2xsZXIucGhwIl0sCiAgICAgICAgY2FwdHVyZV9vdXRwdXQ9VHJ1ZSwgdGV4dD1UcnVlCiAgICApCiAgICBpZiByZXN1
-bHQuc3Rkb3V0LnN0cmlwKCk6CiAgICAgICAgY29udHJvbGxlciA9IHJlc3VsdC5zdGRvdXQuc3RyaXAoKS5zcGxpdCgiXG4iKVswXQogICAgZWxzZToKICAgICAgICBwcmludCgi4p2MIExvY2F0aW9uQ29udHJvbGxlciB0aWRhayBkaXRlbXVrYW4iKQogICAgICAg
-IGV4aXQoMSkKCndpdGggb3Blbihjb250cm9sbGVyLCAiciIpIGFzIGY6CiAgICBjb250ZW50ID0gZi5yZWFkKCkKCmlmICJQUk9URUtTSV9KSE9OQUxFWV9MT0NBVElPTiIgaW4gY29udGVudDoKICAgIHByaW50KCLimqDvuI8gU3VkYWggYWRhIHByb3Rla3NpIikK
-ICAgIGV4aXQoMCkKCmlmICJ1c2UgSWxsdW1pbmF0ZVxcU3VwcG9ydFxcRmFjYWRlc1xcQXV0aDsiIG5vdCBpbiBjb250ZW50OgogICAgY29udGVudCA9IGNvbnRlbnQucmVwbGFjZSgKICAgICAgICAidXNlIFB0ZXJvZGFjdHlsXFxIdHRwXFxDb250cm9sbGVyc1xc
-Q29udHJvbGxlcjsiLAogICAgICAgICJ1c2UgUHRlcm9kYWN0eWxcXEh0dHBcXENvbnRyb2xsZXJzXFxDb250cm9sbGVyO1xudXNlIElsbHVtaW5hdGVcXFN1cHBvcnRcXEZhY2FkZXNcXEF1dGg7IgogICAgKQoKbGluZXMgPSBjb250ZW50LnNwbGl0KCJcbiIpCm5l
-d19saW5lcyA9IFtdCmkgPSAwCndoaWxlIGkgPCBsZW4obGluZXMpOgogICAgbGluZSA9IGxpbmVzW2ldCiAgICBuZXdfbGluZXMuYXBwZW5kKGxpbmUpCiAgICAKICAgIGlmIHJlLnNlYXJjaChyJ3B1YmxpYyBmdW5jdGlvbiAoPyFfX2NvbnN0cnVjdCknLCBsaW5l
-KToKICAgICAgICBqID0gaQogICAgICAgIHdoaWxlIGogPCBsZW4obGluZXMpIGFuZCAneycgbm90IGluIGxpbmVzW2pdOgogICAgICAgICAgICBqICs9IDEKICAgICAgICAgICAgaWYgaiA+IGk6CiAgICAgICAgICAgICAgICBuZXdfbGluZXMuYXBwZW5kKGxpbmVz
-W2pdKQogICAgICAgIAogICAgICAgIG5ld19saW5lcy5hcHBlbmQoIiAgICAgICAgLy8gUFJPVEVLU0lfSkhPTkFMRVlfTE9DQVRJT046IEhhbnlhIGFkbWluIElEIDEiKQogICAgICAgIG5ld19saW5lcy5hcHBlbmQoIiAgICAgICAgaWYgKCFBdXRoOjp1c2VyKCkg
-fHwgKGludCkgQXV0aDo6dXNlcigpLT5pZCAhPT0gMSkgeyIpCiAgICAgICAgbmV3X2xpbmVzLmFwcGVuZCgiICAgICAgICAgICAgYWJvcnQoNDAzLCAnQWtzZXMgZGl0b2xhayAtIHByb3RlY3QgYnkgSmhvbmFsZXkgVGVjaCcpOyIpCiAgICAgICAgbmV3X2xpbmVz
-LmFwcGVuZCgiICAgICAgICB9IikKICAgICAgICAKICAgICAgICBpZiBqID4gaToKICAgICAgICAgICAgaSA9IGoKICAgIGkgKz0gMQoKd2l0aCBvcGVuKGNvbnRyb2xsZXIsICJ3IikgYXMgZjoKICAgIGYud3JpdGUoIlxuIi5qb2luKG5ld19saW5lcykpCgpwcmlu
-dCgi4pyFIFByb3Rla3NpIGJlcmhhc2lsIGRpaW5qZWtzaSBrZSBMb2NhdGlvbkNvbnRyb2xsZXIiKQpQWUVPRl9MT0NfQ1RSTAogIGZpCmVsc2UKICBlY2hvICLimqDvuI8gTG9jYXRpb25Db250cm9sbGVyIHRpZGFrIGRpdGVtdWthbiwgc2tpcC4iCmZpCgplY2hv
-ICIiCmVjaG8gIuKchSBCQUdJQU4gNSBTRUxFU0FJOiBQcm90ZWtzaSBMb2NhdGlvbnMgdGVycGFzYW5nIgplY2hvICIiCgoKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiMgQVBQTFkg
-QlJBTkQgQ1VTVE9NSVpBVElPTgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KZm9yIE1PRElGSUVEX0ZJTEUgaW4gIiRMT0NfQ1RSTCI7IGRvCiAgaWYgWyAtbiAiJE1PRElGSUVEX0ZJ
-TEUiIF0gJiYgWyAtZiAiJE1PRElGSUVEX0ZJTEUiIF07IHRoZW4KICAgIHNlZCAtaSAic3xBa3NlcyBkaXRvbGFrIC0gcHJvdGVjdCBieSBKaG9uYWxleSBUZWNofCR7QlJBTkRfVEVYVH0gLSBBa3NlcyBkaXRvbGFrfGciICIkTU9ESUZJRURfRklMRSIgMj4vZGV2
-L251bGwgfHwgdHJ1ZQogICAgc2VkIC1pICJzfHByb3RlY3QgYnkgSmhvbmFsZXkgVGVjaHwke0JSQU5EX1RFWFR9fGciICIkTU9ESUZJRURfRklMRSIgMj4vZGV2L251bGwgfHwgdHJ1ZQogICAgc2VkIC1pICJzfEpob25hbGV5IFRlY2h8JHtCUkFORF9OQU1FfXxn
-IiAiJE1PRElGSUVEX0ZJTEUiIDI+L2Rldi9udWxsIHx8IHRydWUKICBmaQpkb25lCmVjaG8gIuKEue+4jyBDYWNoZSBjbGVhciBha2FuIGRpbGFrdWthbiBvbGVoIFByb3RlY3QgTWFuYWdlciBjb250cm9sbGVyIgoKZWNobyAi4pyFIFNlbGVzYWk6IFByb3Rla3Np
-IExvY2F0aW9ucyAoc2lkZWJhciArIGFrc2VzKSIK
-PROTECT12E_B64
+      cat << 'PROTECT12E_PLAIN'
+#!/bin/bash
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+CONTACT_TELEGRAM="${CONTACT_TELEGRAM:-@FyzzModss}"
+
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+
+echo "🚀 Proteksi Locations (sidebar + akses)..."
+
+# ===================================================================
+# BAGIAN 5: PROTEKSI LOCATIONS (Sembunyikan + Block Akses)
+# ===================================================================
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📦 BAGIAN 5: Proteksi Locations"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# === Sembunyikan menu Locations di sidebar ===
+echo "🔧 Menyembunyikan menu Locations dari sidebar..."
+
+# Re-use sidebar file dari BAGIAN 1
+LOC_SIDEBAR=""
+for SF in "/var/www/pterodactyl/resources/views/layouts/admin.blade.php" "/var/www/pterodactyl/resources/views/partials/admin/sidebar.blade.php"; do
+  if [ -f "$SF" ]; then
+    LOC_SIDEBAR="$SF"
+    break
+  fi
+done
+
+if [ -z "$LOC_SIDEBAR" ]; then
+  LOC_SIDEBAR=$(grep -rl "admin.locations" /var/www/pterodactyl/resources/views/ 2>/dev/null | head -1)
+fi
+
+if [ -n "$LOC_SIDEBAR" ] && [ -f "$LOC_SIDEBAR" ]; then
+  if grep -q "PROTEKSI_LOCATIONS_SIDEBAR" "$LOC_SIDEBAR"; then
+    echo "⚠️ Sidebar Locations sudah diproteksi"
+  else
+    if [ ! -f "${LOC_SIDEBAR}.bak_${TIMESTAMP}" ]; then
+      cp "$LOC_SIDEBAR" "${LOC_SIDEBAR}.bak_${TIMESTAMP}"
+    fi
+
+    python3 << PYEOF_LOC_SIDEBAR
+sidebar = "$LOC_SIDEBAR"
+
+with open(sidebar, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_LOCATIONS_SIDEBAR" in content:
+    print("⚠️ Sidebar Locations sudah diproteksi")
+    exit(0)
+
+import re
+
+lines = content.split("\n")
+new_lines = []
+i = 0
+
+while i < len(lines):
+    line = lines[i]
+
+    if ('admin.locations' in line or "route('admin.locations')" in line) and 'admin.locations.view' not in line:
+        li_start = len(new_lines) - 1
+        while li_start >= 0 and '<li' not in new_lines[li_start]:
+            li_start -= 1
+
+        if li_start >= 0:
+            new_lines.insert(li_start, "{{-- PROTEKSI_LOCATIONS_SIDEBAR --}}")
+            new_lines.insert(li_start, "@if((int) Auth::user()->id === 1)")
+
+            new_lines.append(line)
+            i += 1
+
+            li_depth = 1
+            while i < len(lines) and li_depth > 0:
+                curr = lines[i]
+                li_depth += curr.count('<li') - curr.count('</li')
+                new_lines.append(curr)
+                i += 1
+
+            new_lines.append("@endif")
+            continue
+
+    new_lines.append(line)
+    i += 1
+
+with open(sidebar, "w") as f:
+    f.write("\n".join(new_lines))
+
+print("✅ Menu Locations disembunyikan dari sidebar")
+PYEOF_LOC_SIDEBAR
+  fi
+else
+  echo "⚠️ File sidebar tidak ditemukan untuk Locations"
+fi
+
+# === Proteksi LocationController ===
+echo ""
+echo "🔧 Memproteksi LocationController..."
+
+LOC_CTRL="/var/www/pterodactyl/app/Http/Controllers/Admin/LocationController.php"
+
+if [ ! -f "$LOC_CTRL" ]; then
+  LOC_CTRL=$(find /var/www/pterodactyl/app/Http/Controllers/Admin -maxdepth 1 -iname "LocationController.php" 2>/dev/null | head -1)
+fi
+
+if [ -n "$LOC_CTRL" ] && [ -f "$LOC_CTRL" ]; then
+  echo "📂 LocationController ditemukan: $LOC_CTRL"
+
+  if grep -q "PROTEKSI_FIT_LOCATION" "$LOC_CTRL"; then
+    echo "⚠️ LocationController sudah diproteksi"
+  else
+    LOC_BACKUP=$(ls -t "${LOC_CTRL}.bak_"* 2>/dev/null | tail -1)
+    if [ -n "$LOC_BACKUP" ]; then
+      cp "$LOC_BACKUP" "$LOC_CTRL"
+      echo "📦 Restore dari backup: $LOC_BACKUP"
+    fi
+
+    cp "$LOC_CTRL" "${LOC_CTRL}.bak_${TIMESTAMP}"
+
+    python3 << 'PYEOF_LOC_CTRL'
+import re
+
+controller = "/var/www/pterodactyl/app/Http/Controllers/Admin/LocationController.php"
+
+# Coba path default, kalau tidak ada cari
+import os
+if not os.path.exists(controller):
+    import subprocess
+    result = subprocess.run(
+        ["find", "/var/www/pterodactyl/app/Http/Controllers/Admin", "-maxdepth", "1", "-iname", "LocationController.php"],
+        capture_output=True, text=True
+    )
+    if result.stdout.strip():
+        controller = result.stdout.strip().split("\n")[0]
+    else:
+        print("❌ LocationController tidak ditemukan")
+        exit(1)
+
+with open(controller, "r") as f:
+    content = f.read()
+
+if "PROTEKSI_FIT_LOCATION" in content:
+    print("⚠️ Sudah ada proteksi")
+    exit(0)
+
+if "use Illuminate\\Support\\Facades\\Auth;" not in content:
+    content = content.replace(
+        "use Pterodactyl\\Http\\Controllers\\Controller;",
+        "use Pterodactyl\\Http\\Controllers\\Controller;\nuse Illuminate\\Support\\Facades\\Auth;"
+    )
+
+lines = content.split("\n")
+new_lines = []
+i = 0
+while i < len(lines):
+    line = lines[i]
+    new_lines.append(line)
+    
+    if re.search(r'public function (?!__construct)', line):
+        j = i
+        while j < len(lines) and '{' not in lines[j]:
+            j += 1
+            if j > i:
+                new_lines.append(lines[j])
+        
+        new_lines.append("        // PROTEKSI_FIT_LOCATION: Hanya admin ID 1")
+        new_lines.append("        if (!Auth::user() || (int) Auth::user()->id !== 1) {")
+        new_lines.append("            abort(403, 'Akses ditolak - protect by FyzzOffciall.ID');")
+        new_lines.append("        }")
+        
+        if j > i:
+            i = j
+    i += 1
+
+with open(controller, "w") as f:
+    f.write("\n".join(new_lines))
+
+print("✅ Proteksi berhasil diinjeksi ke LocationController")
+PYEOF_LOC_CTRL
+  fi
+else
+  echo "⚠️ LocationController tidak ditemukan, skip."
+fi
+
+echo ""
+echo "✅ BAGIAN 5 SELESAI: Proteksi Locations terpasang"
+echo ""
+
+
+# ===================================================================
+# APPLY BRAND CUSTOMIZATION
+# ===================================================================
+for MODIFIED_FILE in "$LOC_CTRL"; do
+  if [ -n "$MODIFIED_FILE" ] && [ -f "$MODIFIED_FILE" ]; then
+    sed -i "s|Akses ditolak - protect by FyzzOffciall.ID|${BRAND_TEXT} - Akses ditolak|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|protect by FyzzOffciall.ID|${BRAND_TEXT}|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$MODIFIED_FILE" 2>/dev/null || true
+  fi
+done
+echo "ℹ️ Cache clear akan dilakukan oleh Protect Manager controller"
+
+echo "✅ Selesai: Proteksi Locations (sidebar + akses)"
+PROTECT12E_PLAIN
       ;;
     protect13a)
-      cat << 'PROTECT13A_B64'
-IyEvYmluL2Jhc2gKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIGluc3RhbGxwcm90ZWN0MTMuc2gKIyBNZW55ZW1idW55aWthbiBtZW51ICJBcHBsaWNhdGlvbiBBUEkiIGRhcmkgc2lkZWJhcgojIGRhbiBtZW1ibG9raXIg
-YWtzZXMgY29udHJvbGxlciBBcHBsaWNhdGlvbiBBUEkKIyB1bnR1ayBzZW11YSBhZG1pbiBLRUNVQUxJIFVzZXIgSUQgMQojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CgpzZXQgLWUKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFN
-RTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgoKUEFORUxfRElSPSIvdmFyL3d3dy9wdGVyb2RhY3R5bCIKVElNRVNUQU1QPSQoZGF0ZSAtdSArJVktJW0tJWQtJUgtJU0tJVMtJU4pCgplY2hv
-ICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IgplY2hvICLwn5SSIElOU1RBTExQUk9URUNUMTM6IFByb3Rla3NpIEFwcGxpY2F0aW9uIEFQSSIKZWNobyAiPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PSIKZWNobyAi8J+agCBTZW1idW55aWthbiBtZW51IEFwcGxpY2F0aW9uIEFQSSBkaSBzaWRlYmFyLi4uIgoKIyDilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHi
-lIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIEKIyBCQUdJQU4gMTogU2VtYnVueWlrYW4gbWVudSBBcHBsaWNhdGlvbiBBUEkgZGFyaSBzaWRlYmFyCiMg4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB
-4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBCmVjaG8gIiIKZWNobyAi4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB
-4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBIgplY2hvICLwn5OmIEJBR0lBTiAxOiBTZW1idW55aWthbiBtZW51IEFwcGxpY2F0aW9uIEFQSSBkaSBzaWRlYmFyIgplY2hvICLilIHilIHilIHilIHilIHi
-lIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIHilIEiCgojIENhcmkgbWVudSAiQXBwbGljYXRpb24gQVBJIiBIQU5ZQSBkaSBm
-aWxlIHNpZGViYXIvbGF5b3V0IGFkbWluClNJREVCQVJfRklMRT0iIgpmb3IgQ0FORCBpbiBcCiAgIiRQQU5FTF9ESVIvcmVzb3VyY2VzL3ZpZXdzL3BhcnRpYWxzL2FkbWluL3NpZGViYXIuYmxhZGUucGhwIiBcCiAgIiRQQU5FTF9ESVIvcmVzb3VyY2VzL3ZpZXdz
-L2xheW91dHMvYWRtaW4uYmxhZGUucGhwIiBcCiAgIiRQQU5FTF9ESVIvcmVzb3VyY2VzL3ZpZXdzL2xheW91dHMvYXBwLmJsYWRlLnBocCI7IGRvCiAgICBpZiBbIC1mICIkQ0FORCIgXSAmJiBncmVwIC1xICJBcHBsaWNhdGlvbiBBUEkiICIkQ0FORCIgMj4vZGV2
-L251bGw7IHRoZW4KICAgICAgICBTSURFQkFSX0ZJTEU9IiRDQU5EIgogICAgICAgIGJyZWFrCiAgICBmaQpkb25lCgppZiBbIC16ICIkU0lERUJBUl9GSUxFIiBdOyB0aGVuCiAgICBlY2hvICLimqDvuI8gVGlkYWsgbWVuZW11a2FuIG1lbnUgJ0FwcGxpY2F0aW9u
-IEFQSScgZGkgc2lkZWJhci9sYXlvdXQsIG1lbmNvYmEgbGF5b3V0IGFkbWluLi4uIgogICAgU0lERUJBUl9GSUxFPSIkUEFORUxfRElSL3Jlc291cmNlcy92aWV3cy9sYXlvdXRzL2FkbWluLmJsYWRlLnBocCIKZmkKCmlmIFsgISAtZiAiJFNJREVCQVJfRklMRSIg
-XTsgdGhlbgogICAgZWNobyAi4p2MIEZpbGUgdGlkYWsgZGl0ZW11a2FuOiAkU0lERUJBUl9GSUxFIgogICAgZWNobyAi4o+t77iPIFNraXAgYmFnaWFuIDEiCmVsc2UKICAgIGVjaG8gIvCfk4IgRmlsZSBkaXRlbXVrYW46ICRTSURFQkFSX0ZJTEUiCiAgICBjcCAi
-JFNJREVCQVJfRklMRSIgIiR7U0lERUJBUl9GSUxFfS5iYWtfJHtUSU1FU1RBTVB9IgogICAgZWNobyAi8J+SviBCYWNrdXA6ICR7U0lERUJBUl9GSUxFfS5iYWtfJHtUSU1FU1RBTVB9IgoKICAgIGlmIGdyZXAgLXEgIlBST1RFS1NJX0pIT05BTEVZX0FQUEFQSV9N
-RU5VIiAiJFNJREVCQVJfRklMRSI7IHRoZW4KICAgICAgICBlY2hvICLimqDvuI8gUHJvdGVrc2kgc3VkYWggYWRhLCBza2lwLi4uIgogICAgZWxzZQogICAgICAgICMgR3VuYWthbiBzZWQgdW50dWsgd3JhcCBiYXJpcyB5YW5nIG1lbmdhbmR1bmcgIkFwcGxpY2F0
-aW9uIEFQSSIgZGVuZ2FuIEBpZgogICAgICAgICMgQ2FyaSBub21vciBiYXJpcyB5YW5nIG1lbmdhbmR1bmcgIkFwcGxpY2F0aW9uIEFQSSIKICAgICAgICBMSU5FX05VTT0kKGdyZXAgLW4gIkFwcGxpY2F0aW9uIEFQSSIgIiRTSURFQkFSX0ZJTEUiIHwgaGVhZCAt
-MSB8IGN1dCAtZDogLWYxKQogICAgICAgIAogICAgICAgIGlmIFsgLW4gIiRMSU5FX05VTSIgXTsgdGhlbgogICAgICAgICAgICBlY2hvICLwn5ONIERpdGVtdWthbiAnQXBwbGljYXRpb24gQVBJJyBkaSBiYXJpcyAkTElORV9OVU0iCiAgICAgICAgICAgIAogICAg
-ICAgICAgICAjIEluc2VydCBAaWYgc2ViZWx1bSBiYXJpcyB0ZXJzZWJ1dCBkYW4gQGVuZGlmIHNldGVsYWhueWEKICAgICAgICAgICAgIyBDYXJpIDxsaT4gcGVtYnVrYSB0ZXJkZWthdCBzZWJlbHVtIGJhcmlzIGluaSAobWF4IDUgYmFyaXMga2UgYXRhcykKICAg
-ICAgICAgICAgU1RBUlRfTElORT0kTElORV9OVU0KICAgICAgICAgICAgZm9yIGkgaW4gJChzZXEgJCgoTElORV9OVU0gLSAxKSkgLTEgJCgoTElORV9OVU0gLSAxMCkpKTsgZG8KICAgICAgICAgICAgICAgIGlmIFsgJGkgLWx0IDEgXTsgdGhlbiBicmVhazsgZmkK
-ICAgICAgICAgICAgICAgIGlmIHNlZCAtbiAiJHtpfXAiICIkU0lERUJBUl9GSUxFIiB8IGdyZXAgLXEgIjxsaSI7IHRoZW4KICAgICAgICAgICAgICAgICAgICBTVEFSVF9MSU5FPSRpCiAgICAgICAgICAgICAgICAgICAgYnJlYWsKICAgICAgICAgICAgICAgIGZp
-CiAgICAgICAgICAgICAgICBpZiBzZWQgLW4gIiR7aX1wIiAiJFNJREVCQVJfRklMRSIgfCBncmVwIC1xICI8YS4qaHJlZiI7IHRoZW4KICAgICAgICAgICAgICAgICAgICBTVEFSVF9MSU5FPSRpCiAgICAgICAgICAgICAgICAgICAgYnJlYWsKICAgICAgICAgICAg
-ICAgIGZpCiAgICAgICAgICAgIGRvbmUKCiAgICAgICAgICAgICMgQ2FyaSA8L2xpPiBwZW51dHVwIHRlcmRla2F0IHNldGVsYWggYmFyaXMgaW5pIChtYXggNSBiYXJpcyBrZSBiYXdhaCkKICAgICAgICAgICAgVE9UQUxfTElORVM9JCh3YyAtbCA8ICIkU0lERUJB
-Ul9GSUxFIikKICAgICAgICAgICAgRU5EX0xJTkU9JExJTkVfTlVNCiAgICAgICAgICAgIGZvciBpIGluICQoc2VxICQoKExJTkVfTlVNICsgMSkpICQoKExJTkVfTlVNICsgMTApKSk7IGRvCiAgICAgICAgICAgICAgICBpZiBbICRpIC1ndCAiJFRPVEFMX0xJTkVT
-IiBdOyB0aGVuIGJyZWFrOyBmaQogICAgICAgICAgICAgICAgaWYgc2VkIC1uICIke2l9cCIgIiRTSURFQkFSX0ZJTEUiIHwgZ3JlcCAtcSAiPC9saT4iOyB0aGVuCiAgICAgICAgICAgICAgICAgICAgRU5EX0xJTkU9JGkKICAgICAgICAgICAgICAgICAgICBicmVh
-awogICAgICAgICAgICAgICAgZmkKICAgICAgICAgICAgICAgIGlmIHNlZCAtbiAiJHtpfXAiICIkU0lERUJBUl9GSUxFIiB8IGdyZXAgLXEgIjwvYT4iOyB0aGVuCiAgICAgICAgICAgICAgICAgICAgRU5EX0xJTkU9JGkKICAgICAgICAgICAgICAgICAgICBicmVh
-awogICAgICAgICAgICAgICAgZmkKICAgICAgICAgICAgZG9uZQoKICAgICAgICAgICAgZWNobyAi8J+TjSBXcmFwcGluZyBiYXJpcyAkU1RBUlRfTElORSBzYW1wYWkgJEVORF9MSU5FIgoKICAgICAgICAgICAgIyBJbnNlcnQgQGVuZGlmIHNldGVsYWggRU5EX0xJ
-TkUKICAgICAgICAgICAgc2VkIC1pICIke0VORF9MSU5FfWFcXHt7LS0gRU5EIFBST1RFS1NJX0pIT05BTEVZX0FQUEFQSV9NRU5VIC0tfX0iICIkU0lERUJBUl9GSUxFIgogICAgICAgICAgICBzZWQgLWkgIiR7RU5EX0xJTkV9YVxcQGVuZGlmIiAiJFNJREVCQVJf
-RklMRSIKCiAgICAgICAgICAgICMgSW5zZXJ0IEBpZiBzZWJlbHVtIFNUQVJUX0xJTkUKICAgICAgICAgICAgc2VkIC1pICIkKChTVEFSVF9MSU5FKSlpXFxAaWYoQXV0aDo6dXNlcigpLT5pZCA9PT0gMSkiICIkU0lERUJBUl9GSUxFIgogICAgICAgICAgICBzZWQg
-LWkgIiQoKFNUQVJUX0xJTkUpKWlcXHt7LS0gUFJPVEVLU0lfSkhPTkFMRVlfQVBQQVBJX01FTlU6IFNlbWJ1bnlpa2FuIHVudHVrIG5vbi1JRCAxIC0tfX0iICIkU0lERUJBUl9GSUxFIgoKICAgICAgICAgICAgZWNobyAi4pyFIE1lbnUgQXBwbGljYXRpb24gQVBJ
-IGRpc2VtYnVueWlrYW4gdW50dWsgbm9uLUlEIDEiCiAgICAgICAgZWxzZQogICAgICAgICAgICBlY2hvICLimqDvuI8gVGVrcyAnQXBwbGljYXRpb24gQVBJJyB0aWRhayBkaXRlbXVrYW4gZGkgZmlsZSIKICAgICAgICBmaQogICAgZmkKZmkKCmVjaG8gIuKchSBC
-QUdJQU4gMSBTRUxFU0FJIgoKCmVjaG8gIuKEue+4jyBDYWNoZSBjbGVhciBha2FuIGRpbGFrdWthbiBvbGVoIFByb3RlY3QgTWFuYWdlciBjb250cm9sbGVyIgoKZWNobyAi4pyFIFNlbGVzYWk6IFNlbWJ1bnlpa2FuIG1lbnUgQXBwbGljYXRpb24gQVBJIGRpIHNp
-ZGViYXIiCg==
-PROTECT13A_B64
+      cat << 'PROTECT13A_PLAIN'
+#!/bin/bash
+# ============================================
+# installprotect13.sh
+# Menyembunyikan menu "Application API" dari sidebar
+# dan memblokir akses controller Application API
+# untuk semua admin KECUALI User ID 1
+# ============================================
+
+set -e
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzModss}"
+
+PANEL_DIR="/var/www/pterodactyl"
+TIMESTAMP=$(date -u +%Y-%m-%d-%H-%M-%S-%N)
+
+echo "==========================================="
+echo "🔒 INSTALLPROTECT13: Proteksi Application API"
+echo "==========================================="
+echo "🚀 Sembunyikan menu Application API di sidebar..."
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# BAGIAN 1: Sembunyikan menu Application API dari sidebar
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📦 BAGIAN 1: Sembunyikan menu Application API di sidebar"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Cari menu "Application API" HANYA di file sidebar/layout admin
+SIDEBAR_FILE=""
+for CAND in \
+  "$PANEL_DIR/resources/views/partials/admin/sidebar.blade.php" \
+  "$PANEL_DIR/resources/views/layouts/admin.blade.php" \
+  "$PANEL_DIR/resources/views/layouts/app.blade.php"; do
+    if [ -f "$CAND" ] && grep -q "Application API" "$CAND" 2>/dev/null; then
+        SIDEBAR_FILE="$CAND"
+        break
+    fi
+done
+
+if [ -z "$SIDEBAR_FILE" ]; then
+    echo "⚠️ Tidak menemukan menu 'Application API' di sidebar/layout, mencoba layout admin..."
+    SIDEBAR_FILE="$PANEL_DIR/resources/views/layouts/admin.blade.php"
+fi
+
+if [ ! -f "$SIDEBAR_FILE" ]; then
+    echo "❌ File tidak ditemukan: $SIDEBAR_FILE"
+    echo "⏭️ Skip bagian 1"
+else
+    echo "📂 File ditemukan: $SIDEBAR_FILE"
+    cp "$SIDEBAR_FILE" "${SIDEBAR_FILE}.bak_${TIMESTAMP}"
+    echo "💾 Backup: ${SIDEBAR_FILE}.bak_${TIMESTAMP}"
+
+    if grep -q "PROTEKSI_FIT_APPAPI_MENU" "$SIDEBAR_FILE"; then
+        echo "⚠️ Proteksi sudah ada, skip..."
+    else
+        # Gunakan sed untuk wrap baris yang mengandung "Application API" dengan @if
+        # Cari nomor baris yang mengandung "Application API"
+        LINE_NUM=$(grep -n "Application API" "$SIDEBAR_FILE" | head -1 | cut -d: -f1)
+        
+        if [ -n "$LINE_NUM" ]; then
+            echo "📍 Ditemukan 'Application API' di baris $LINE_NUM"
+            
+            # Insert @if sebelum baris tersebut dan @endif setelahnya
+            # Cari <li> pembuka terdekat sebelum baris ini (max 5 baris ke atas)
+            START_LINE=$LINE_NUM
+            for i in $(seq $((LINE_NUM - 1)) -1 $((LINE_NUM - 10))); do
+                if [ $i -lt 1 ]; then break; fi
+                if sed -n "${i}p" "$SIDEBAR_FILE" | grep -q "<li"; then
+                    START_LINE=$i
+                    break
+                fi
+                if sed -n "${i}p" "$SIDEBAR_FILE" | grep -q "<a.*href"; then
+                    START_LINE=$i
+                    break
+                fi
+            done
+
+            # Cari </li> penutup terdekat setelah baris ini (max 5 baris ke bawah)
+            TOTAL_LINES=$(wc -l < "$SIDEBAR_FILE")
+            END_LINE=$LINE_NUM
+            for i in $(seq $((LINE_NUM + 1)) $((LINE_NUM + 10))); do
+                if [ $i -gt "$TOTAL_LINES" ]; then break; fi
+                if sed -n "${i}p" "$SIDEBAR_FILE" | grep -q "</li>"; then
+                    END_LINE=$i
+                    break
+                fi
+                if sed -n "${i}p" "$SIDEBAR_FILE" | grep -q "</a>"; then
+                    END_LINE=$i
+                    break
+                fi
+            done
+
+            echo "📍 Wrapping baris $START_LINE sampai $END_LINE"
+
+            # Insert @endif setelah END_LINE
+            sed -i "${END_LINE}a\\{{-- END PROTEKSI_FIT_APPAPI_MENU --}}" "$SIDEBAR_FILE"
+            sed -i "${END_LINE}a\\@endif" "$SIDEBAR_FILE"
+
+            # Insert @if sebelum START_LINE
+            sed -i "$((START_LINE))i\\@if(Auth::user()->id === 1)" "$SIDEBAR_FILE"
+            sed -i "$((START_LINE))i\\{{-- PROTEKSI_FIT_APPAPI_MENU: Sembunyikan untuk non-ID 1 --}}" "$SIDEBAR_FILE"
+
+            echo "✅ Menu Application API disembunyikan untuk non-ID 1"
+        else
+            echo "⚠️ Teks 'Application API' tidak ditemukan di file"
+        fi
+    fi
+fi
+
+echo "✅ BAGIAN 1 SELESAI"
+
+
+echo "ℹ️ Cache clear akan dilakukan oleh Protect Manager controller"
+
+echo "✅ Selesai: Sembunyikan menu Application API di sidebar"
+PROTECT13A_PLAIN
       ;;
     protect13b)
-      cat << 'PROTECT13B_B64'
-IyEvYmluL2Jhc2gKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIGluc3RhbGxwcm90ZWN0MTMuc2gKIyBNZW55ZW1idW55aWthbiBtZW51ICJBcHBsaWNhdGlvbiBBUEkiIGRhcmkgc2lkZWJhcgojIGRhbiBtZW1ibG9raXIg
-YWtzZXMgY29udHJvbGxlciBBcHBsaWNhdGlvbiBBUEkKIyB1bnR1ayBzZW11YSBhZG1pbiBLRUNVQUxJIFVzZXIgSUQgMQojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CgpzZXQgLWUKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFN
-RTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgoKUEFORUxfRElSPSIvdmFyL3d3dy9wdGVyb2RhY3R5bCIKVElNRVNUQU1QPSQoZGF0ZSAtdSArJVktJW0tJWQtJUgtJU0tJVMtJU4pCgplY2hv
-ICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IgplY2hvICLwn5SSIElOU1RBTExQUk9URUNUMTM6IFByb3Rla3NpIEFwcGxpY2F0aW9uIEFQSSIKZWNobyAiPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PSIKZWNobyAi8J+agCBCbG9jayBha3NlcyBBcHBsaWNhdGlvbiBBUEkgQ29udHJvbGxlci4uLiIKCiMg4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB
-4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBCiMgQkFHSUFOIDI6IEJsb2NrIGFrc2VzIGtlIEFwcGxpY2F0aW9uIEFQSSBDb250cm9sbGVyCiMg4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB
-4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBCmVjaG8gIiIKZWNobyAi4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB
-4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBIgplY2hvICLwn5OmIEJBR0lBTiAyOiBCbG9jayBha3NlcyBBcHBsaWNhdGlvbiBBUEkgQ29udHJvbGxlciIKZWNobyAi4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB
-4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBIgoKQVBJX0NPTlRST0xMRVI9IiRQQU5FTF9ESVIvYXBwL0h0dHAvQ29udHJvbGxlcnMvQWRtaW4v
-QXBpQ29udHJvbGxlci5waHAiCgppZiBbICEgLWYgIiRBUElfQ09OVFJPTExFUiIgXTsgdGhlbgogICAgZWNobyAi4p2MIEFwaUNvbnRyb2xsZXIgdGlkYWsgZGl0ZW11a2FuOiAkQVBJX0NPTlRST0xMRVIiCmVsc2UKICAgIGNwICIkQVBJX0NPTlRST0xMRVIiICIk
-e0FQSV9DT05UUk9MTEVSfS5iYWtfJHtUSU1FU1RBTVB9IgogICAgZWNobyAi8J+SviBCYWNrdXA6ICR7QVBJX0NPTlRST0xMRVJ9LmJha18ke1RJTUVTVEFNUH0iCgogICAgaWYgZ3JlcCAtcSAiUFJPVEVLU0lfSkhPTkFMRVlfQVBQQVBJX0JMT0NLIiAiJEFQSV9D
-T05UUk9MTEVSIjsgdGhlbgogICAgICAgIGVjaG8gIuKaoO+4jyBQcm90ZWtzaSBzdWRhaCBhZGEsIHNraXAuLi4iCiAgICBlbHNlCiAgICAgICAgIyBDYXJpIGJhcmlzICJwdWJsaWMgZnVuY3Rpb24gaW5kZXgiIGRhbiBpbmplY3QgcHJvdGVrc2kgc2V0ZWxhaG55
-YQogICAgICAgIElOREVYX0xJTkU9JChncmVwIC1uICJwdWJsaWMgZnVuY3Rpb24gaW5kZXgiICIkQVBJX0NPTlRST0xMRVIiIHwgaGVhZCAtMSB8IGN1dCAtZDogLWYxKQogICAgICAgIAogICAgICAgIGlmIFsgLW4gIiRJTkRFWF9MSU5FIiBdOyB0aGVuCiAgICAg
-ICAgICAgICMgQ2FyaSBiYXJpcyB7IHNldGVsYWggZnVuY3Rpb24gZGVjbGFyYXRpb24KICAgICAgICAgICAgQlJBQ0VfTElORT0kSU5ERVhfTElORQogICAgICAgICAgICBmb3IgaSBpbiAkKHNlcSAiJElOREVYX0xJTkUiICQoKElOREVYX0xJTkUgKyAzKSkpOyBk
-bwogICAgICAgICAgICAgICAgaWYgc2VkIC1uICIke2l9cCIgIiRBUElfQ09OVFJPTExFUiIgfCBncmVwIC1xICJ7IjsgdGhlbgogICAgICAgICAgICAgICAgICAgIEJSQUNFX0xJTkU9JGkKICAgICAgICAgICAgICAgICAgICBicmVhawogICAgICAgICAgICAgICAg
-ZmkKICAgICAgICAgICAgZG9uZQoKICAgICAgICAgICAgIyBJbmplY3Qgc2V0ZWxhaCBvcGVuaW5nIGJyYWNlCiAgICAgICAgICAgIHNlZCAtaSAiJHtCUkFDRV9MSU5FfWFcXCAgICAgICAgLy8gUFJPVEVLU0lfSkhPTkFMRVlfQVBQQVBJX0JMT0NLOiBCbG9jayBh
-a3NlcyB1bnR1ayBub24tSUQgMSIgIiRBUElfQ09OVFJPTExFUiIKICAgICAgICAgICAgc2VkIC1pICIkKChCUkFDRV9MSU5FICsgMSkpYVxcICAgICAgICBpZiAoXFxcXEF1dGg6OnVzZXIoKS0+aWQgIT09IDEpIHsgYWJvcnQoNDAzLCAnQWtzZXMgQXBwbGljYXRp
-b24gQVBJIHRpZGFrIGRpaXppbmthbi4nKTsgfSIgIiRBUElfQ09OVFJPTExFUiIKCiAgICAgICAgICAgIGVjaG8gIuKchSBQcm90ZWtzaSBpbmRleCgpIGRpaW5qZWtzaSIKICAgICAgICBmaQoKICAgICAgICAjIEp1Z2EgcHJvdGVrc2kgbWV0aG9kIHN0b3JlIChi
-dWF0IGtleSkKICAgICAgICBTVE9SRV9MSU5FPSQoZ3JlcCAtbiAicHVibGljIGZ1bmN0aW9uIHN0b3JlIiAiJEFQSV9DT05UUk9MTEVSIiB8IGhlYWQgLTEgfCBjdXQgLWQ6IC1mMSkKICAgICAgICBpZiBbIC1uICIkU1RPUkVfTElORSIgXTsgdGhlbgogICAgICAg
-ICAgICBCUkFDRV9MSU5FPSRTVE9SRV9MSU5FCiAgICAgICAgICAgIGZvciBpIGluICQoc2VxICIkU1RPUkVfTElORSIgJCgoU1RPUkVfTElORSArIDMpKSk7IGRvCiAgICAgICAgICAgICAgICBpZiBzZWQgLW4gIiR7aX1wIiAiJEFQSV9DT05UUk9MTEVSIiB8IGdy
-ZXAgLXEgInsiOyB0aGVuCiAgICAgICAgICAgICAgICAgICAgQlJBQ0VfTElORT0kaQogICAgICAgICAgICAgICAgICAgIGJyZWFrCiAgICAgICAgICAgICAgICBmaQogICAgICAgICAgICBkb25lCiAgICAgICAgICAgIHNlZCAtaSAiJHtCUkFDRV9MSU5FfWFcXCAg
-ICAgICAgLy8gUFJPVEVLU0lfSkhPTkFMRVlfQVBQQVBJX0JMT0NLIiAiJEFQSV9DT05UUk9MTEVSIgogICAgICAgICAgICBzZWQgLWkgIiQoKEJSQUNFX0xJTkUgKyAxKSlhXFwgICAgICAgIGlmIChcXFxcQXV0aDo6dXNlcigpLT5pZCAhPT0gMSkgeyBhYm9ydCg0
-MDMsICdBa3NlcyBBcHBsaWNhdGlvbiBBUEkgdGlkYWsgZGlpemlua2FuLicpOyB9IiAiJEFQSV9DT05UUk9MTEVSIgogICAgICAgICAgICBlY2hvICLinIUgUHJvdGVrc2kgc3RvcmUoKSBkaWluamVrc2kiCiAgICAgICAgZmkKCiAgICAgICAgIyBQcm90ZWtzaSBt
-ZXRob2QgZGVsZXRlCiAgICAgICAgREVMRVRFX0xJTkU9JChncmVwIC1uICJwdWJsaWMgZnVuY3Rpb24gZGVsZXRlXHxwdWJsaWMgZnVuY3Rpb24gZGVzdHJveSIgIiRBUElfQ09OVFJPTExFUiIgfCBoZWFkIC0xIHwgY3V0IC1kOiAtZjEpCiAgICAgICAgaWYgWyAt
-biAiJERFTEVURV9MSU5FIiBdOyB0aGVuCiAgICAgICAgICAgIEJSQUNFX0xJTkU9JERFTEVURV9MSU5FCiAgICAgICAgICAgIGZvciBpIGluICQoc2VxICIkREVMRVRFX0xJTkUiICQoKERFTEVURV9MSU5FICsgMykpKTsgZG8KICAgICAgICAgICAgICAgIGlmIHNl
-ZCAtbiAiJHtpfXAiICIkQVBJX0NPTlRST0xMRVIiIHwgZ3JlcCAtcSAieyI7IHRoZW4KICAgICAgICAgICAgICAgICAgICBCUkFDRV9MSU5FPSRpCiAgICAgICAgICAgICAgICAgICAgYnJlYWsKICAgICAgICAgICAgICAgIGZpCiAgICAgICAgICAgIGRvbmUKICAg
-ICAgICAgICAgc2VkIC1pICIke0JSQUNFX0xJTkV9YVxcICAgICAgICAvLyBQUk9URUtTSV9KSE9OQUxFWV9BUFBBUElfQkxPQ0siICIkQVBJX0NPTlRST0xMRVIiCiAgICAgICAgICAgIHNlZCAtaSAiJCgoQlJBQ0VfTElORSArIDEpKWFcXCAgICAgICAgaWYgKFxc
-XFxBdXRoOjp1c2VyKCktPmlkICE9PSAxKSB7IGFib3J0KDQwMywgJ0Frc2VzIEFwcGxpY2F0aW9uIEFQSSB0aWRhayBkaWl6aW5rYW4uJyk7IH0iICIkQVBJX0NPTlRST0xMRVIiCiAgICAgICAgICAgIGVjaG8gIuKchSBQcm90ZWtzaSBkZWxldGUoKSBkaWluamVr
-c2kiCiAgICAgICAgZmkKICAgIGZpCmZpCgplY2hvICLinIUgQkFHSUFOIDIgU0VMRVNBSSIKCgojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KIyBBUFBMWSBCUkFORCBDVVNUT01JWkFU
-SU9OCiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQpmb3IgTU9ESUZJRURfRklMRSBpbiAiJEFQSV9DT05UUk9MTEVSIjsgZG8KICBpZiBbIC1uICIkTU9ESUZJRURfRklMRSIgXSAmJiBb
-IC1mICIkTU9ESUZJRURfRklMRSIgXTsgdGhlbgogICAgc2VkIC1pICJzfEFrc2VzIGRpdG9sYWsgLSBwcm90ZWN0IGJ5IEpob25hbGV5IFRlY2h8JHtCUkFORF9URVhUfSAtIEFrc2VzIGRpdG9sYWt8ZyIgIiRNT0RJRklFRF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0
-cnVlCiAgICBzZWQgLWkgInN8cHJvdGVjdCBieSBKaG9uYWxleSBUZWNofCR7QlJBTkRfVEVYVH18ZyIgIiRNT0RJRklFRF9GSUxFIiAyPi9kZXYvbnVsbCB8fCB0cnVlCiAgICBzZWQgLWkgInN8SmhvbmFsZXkgVGVjaHwke0JSQU5EX05BTUV9fGciICIkTU9ESUZJ
-RURfRklMRSIgMj4vZGV2L251bGwgfHwgdHJ1ZQogIGZpCmRvbmUKZWNobyAi4oS577iPIENhY2hlIGNsZWFyIGFrYW4gZGlsYWt1a2FuIG9sZWggUHJvdGVjdCBNYW5hZ2VyIGNvbnRyb2xsZXIiCgplY2hvICLinIUgU2VsZXNhaTogQmxvY2sgYWtzZXMgQXBwbGlj
-YXRpb24gQVBJIENvbnRyb2xsZXIiCg==
-PROTECT13B_B64
+      cat << 'PROTECT13B_PLAIN'
+#!/bin/bash
+# ============================================
+# installprotect13.sh
+# Menyembunyikan menu "Application API" dari sidebar
+# dan memblokir akses controller Application API
+# untuk semua admin KECUALI User ID 1
+# ============================================
+
+set -e
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzOffciall.ID}"
+
+PANEL_DIR="/var/www/pterodactyl"
+TIMESTAMP=$(date -u +%Y-%m-%d-%H-%M-%S-%N)
+
+echo "==========================================="
+echo "🔒 INSTALLPROTECT13: Proteksi Application API"
+echo "==========================================="
+echo "🚀 Block akses Application API Controller..."
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# BAGIAN 2: Block akses ke Application API Controller
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📦 BAGIAN 2: Block akses Application API Controller"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+API_CONTROLLER="$PANEL_DIR/app/Http/Controllers/Admin/ApiController.php"
+
+if [ ! -f "$API_CONTROLLER" ]; then
+    echo "❌ ApiController tidak ditemukan: $API_CONTROLLER"
+else
+    cp "$API_CONTROLLER" "${API_CONTROLLER}.bak_${TIMESTAMP}"
+    echo "💾 Backup: ${API_CONTROLLER}.bak_${TIMESTAMP}"
+
+    if grep -q "PROTEKSI_FIT_APPAPI_BLOCK" "$API_CONTROLLER"; then
+        echo "⚠️ Proteksi sudah ada, skip..."
+    else
+        # Cari baris "public function index" dan inject proteksi setelahnya
+        INDEX_LINE=$(grep -n "public function index" "$API_CONTROLLER" | head -1 | cut -d: -f1)
+        
+        if [ -n "$INDEX_LINE" ]; then
+            # Cari baris { setelah function declaration
+            BRACE_LINE=$INDEX_LINE
+            for i in $(seq "$INDEX_LINE" $((INDEX_LINE + 3))); do
+                if sed -n "${i}p" "$API_CONTROLLER" | grep -q "{"; then
+                    BRACE_LINE=$i
+                    break
+                fi
+            done
+
+            # Inject setelah opening brace
+            sed -i "${BRACE_LINE}a\\        // PROTEKSI_FIT_APPAPI_BLOCK: Block akses untuk non-ID 1" "$API_CONTROLLER"
+            sed -i "$((BRACE_LINE + 1))a\\        if (\\\\Auth::user()->id !== 1) { abort(403, 'Akses Application API tidak diizinkan.'); }" "$API_CONTROLLER"
+
+            echo "✅ Proteksi index() diinjeksi"
+        fi
+
+        # Juga proteksi method store (buat key)
+        STORE_LINE=$(grep -n "public function store" "$API_CONTROLLER" | head -1 | cut -d: -f1)
+        if [ -n "$STORE_LINE" ]; then
+            BRACE_LINE=$STORE_LINE
+            for i in $(seq "$STORE_LINE" $((STORE_LINE + 3))); do
+                if sed -n "${i}p" "$API_CONTROLLER" | grep -q "{"; then
+                    BRACE_LINE=$i
+                    break
+                fi
+            done
+            sed -i "${BRACE_LINE}a\\        // PROTEKSI_FIT_APPAPI_BLOCK" "$API_CONTROLLER"
+            sed -i "$((BRACE_LINE + 1))a\\        if (\\\\Auth::user()->id !== 1) { abort(403, 'Akses Application API tidak diizinkan.'); }" "$API_CONTROLLER"
+            echo "✅ Proteksi store() diinjeksi"
+        fi
+
+        # Proteksi method delete
+        DELETE_LINE=$(grep -n "public function delete\|public function destroy" "$API_CONTROLLER" | head -1 | cut -d: -f1)
+        if [ -n "$DELETE_LINE" ]; then
+            BRACE_LINE=$DELETE_LINE
+            for i in $(seq "$DELETE_LINE" $((DELETE_LINE + 3))); do
+                if sed -n "${i}p" "$API_CONTROLLER" | grep -q "{"; then
+                    BRACE_LINE=$i
+                    break
+                fi
+            done
+            sed -i "${BRACE_LINE}a\\        // PROTEKSI_FIT_APPAPI_BLOCK" "$API_CONTROLLER"
+            sed -i "$((BRACE_LINE + 1))a\\        if (\\\\Auth::user()->id !== 1) { abort(403, 'Akses Application API tidak diizinkan.'); }" "$API_CONTROLLER"
+            echo "✅ Proteksi delete() diinjeksi"
+        fi
+    fi
+fi
+
+echo "✅ BAGIAN 2 SELESAI"
+
+
+# ===================================================================
+# APPLY BRAND CUSTOMIZATION
+# ===================================================================
+for MODIFIED_FILE in "$API_CONTROLLER"; do
+  if [ -n "$MODIFIED_FILE" ] && [ -f "$MODIFIED_FILE" ]; then
+    sed -i "s|Akses ditolak - protect by FyzzOffciall.ID|${BRAND_TEXT} - Akses ditolak|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|protect by FyzzOffciall.ID|${BRAND_TEXT}|g" "$MODIFIED_FILE" 2>/dev/null || true
+    sed -i "s|FyzzOffciall.ID|${BRAND_NAME}|g" "$MODIFIED_FILE" 2>/dev/null || true
+  fi
+done
+echo "ℹ️ Cache clear akan dilakukan oleh Protect Manager controller"
+
+echo "✅ Selesai: Block akses Application API Controller"
+PROTECT13B_PLAIN
       ;;
     protect13c)
-      cat << 'PROTECT13C_B64'
-IyEvYmluL2Jhc2gKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIGluc3RhbGxwcm90ZWN0MTMuc2gKIyBNZW55ZW1idW55aWthbiBtZW51ICJBcHBsaWNhdGlvbiBBUEkiIGRhcmkgc2lkZWJhcgojIGRhbiBtZW1ibG9raXIg
-YWtzZXMgY29udHJvbGxlciBBcHBsaWNhdGlvbiBBUEkKIyB1bnR1ayBzZW11YSBhZG1pbiBLRUNVQUxJIFVzZXIgSUQgMQojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CgpzZXQgLWUKCkJSQU5EX05BTUU9IiR7QlJBTkRfTkFN
-RTotSmhvbmFsZXkgU3RvcmV9IgpCUkFORF9URVhUPSIke0JSQU5EX1RFWFQ6LVByb3RlY3QgQnkgSmhvbmFsZXl9IgoKUEFORUxfRElSPSIvdmFyL3d3dy9wdGVyb2RhY3R5bCIKVElNRVNUQU1QPSQoZGF0ZSAtdSArJVktJW0tJWQtJUgtJU0tJVMtJU4pCgplY2hv
-ICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IgplY2hvICLwn5SSIElOU1RBTExQUk9URUNUMTM6IFByb3Rla3NpIEFwcGxpY2F0aW9uIEFQSSIKZWNobyAiPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PSIKZWNobyAi8J+agCBQcm90ZWtzaSBBUEkgL2FwaS9hcHBsaWNhdGlvbi91c2VycyAocm9vdF9hZG1pbikuLi4iCgojIOKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKU
-geKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgQojIEJBR0lBTiAzOiBQcm90ZWtzaSBBcHBsaWNhdGlvbiBBUEkgZW5kcG9pbnQgL2FwaS9hcHBsaWNhdGlvbi91c2VycwojIE1lbmNlZ2FoIG5vbi1JRCAxIG1lbmd1YmFoIHJvb3RfYWRt
-aW4gdmlhIFJFU1QgQVBJCiMg4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBCmVjaG8gIiIK
-ZWNobyAi4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSB4pSBIgplY2hvICLwn5OmIEJBR0lBTiAz
-OiBQcm90ZWtzaSBBUEkgL2FwaS9hcHBsaWNhdGlvbi91c2VycyAocm9vdF9hZG1pbikiCmVjaG8gIuKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKU
-geKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgeKUgSIKCiMgQ2FyaSBBcHBsaWNhdGlvbiBBUEkgVXNlckNvbnRyb2xsZXIKQVBJX1VTRVJfQ09OVFJPTExFUj0iJFBBTkVMX0RJUi9hcHAvSHR0cC9Db250cm9sbGVycy9BcGkvQXBwbGljYXRpb24vVXNlcnMvVXNl
-ckNvbnRyb2xsZXIucGhwIgoKaWYgWyAhIC1mICIkQVBJX1VTRVJfQ09OVFJPTExFUiIgXTsgdGhlbgogICAgZWNobyAi4pqg77iPIEFQSSBVc2VyQ29udHJvbGxlciB0aWRhayBkaXRlbXVrYW46ICRBUElfVVNFUl9DT05UUk9MTEVSIgogICAgZWNobyAiICAgTWVu
-Y29iYSBwYXRoIGFsdGVybmF0aWYuLi4iCiAgICBBUElfVVNFUl9DT05UUk9MTEVSPSQoZmluZCAiJFBBTkVMX0RJUi9hcHAvSHR0cC9Db250cm9sbGVycy9BcGkiIC1uYW1lICJVc2VyQ29udHJvbGxlci5waHAiIC1wYXRoICIqL0FwcGxpY2F0aW9uLyoiIDI+L2Rl
-di9udWxsIHwgaGVhZCAtMSkKZmkKCmlmIFsgLXogIiRBUElfVVNFUl9DT05UUk9MTEVSIiBdIHx8IFsgISAtZiAiJEFQSV9VU0VSX0NPTlRST0xMRVIiIF07IHRoZW4KICAgIGVjaG8gIuKdjCBBUEkgVXNlckNvbnRyb2xsZXIgdGlkYWsgZGl0ZW11a2FuLCBza2lw
-IGJhZ2lhbiAzIgplbHNlCiAgICBlY2hvICLwn5OCIEZpbGUgZGl0ZW11a2FuOiAkQVBJX1VTRVJfQ09OVFJPTExFUiIKICAgIGNwICIkQVBJX1VTRVJfQ09OVFJPTExFUiIgIiR7QVBJX1VTRVJfQ09OVFJPTExFUn0uYmFrXyR7VElNRVNUQU1QfSIKICAgIGVjaG8g
-IvCfkr4gQmFja3VwOiAke0FQSV9VU0VSX0NPTlRST0xMRVJ9LmJha18ke1RJTUVTVEFNUH0iCgogICAgaWYgZ3JlcCAtcSAiUFJPVEVLU0lfSkhPTkFMRVlfQVBJX1JPT1RBRE1JTiIgIiRBUElfVVNFUl9DT05UUk9MTEVSIjsgdGhlbgogICAgICAgIFRNUD0kKG1r
-dGVtcCkKICAgICAgICBhd2sgJwogICAgICAgICAgICBCRUdJTiB7IHNraXBfbmV4dD0wIH0KICAgICAgICAgICAgL1BST1RFS1NJX0pIT05BTEVZX0FQSV9ST09UQURNSU4vIHsgc2tpcF9uZXh0PTE7IG5leHQgfQogICAgICAgICAgICBza2lwX25leHQgPT0gMSB7
-IHNraXBfbmV4dD0wOyBuZXh0IH0KICAgICAgICAgICAgeyBwcmludCB9CiAgICAgICAgJyAiJEFQSV9VU0VSX0NPTlRST0xMRVIiID4gIiRUTVAiICYmIG12ICIkVE1QIiAiJEFQSV9VU0VSX0NPTlRST0xMRVIiCiAgICAgICAgY2htb2QgNjQ0ICIkQVBJX1VTRVJf
-Q09OVFJPTExFUiIKICAgICAgICBlY2hvICLimbvvuI8gR3VhcmQgQVBJIHVzZXJzIGxhbWEgZGFyaSBwcm90ZWN0MTMgZGliZXJzaWhrYW47IHByb3Rla3NpIEFQSSB1c2VycyBkaXRhbmdhbmkgcHJvdGVjdDE0IFY1IgogICAgZmkKCiAgICBpZiB0cnVlOyB0aGVu
-CiAgICAgICAgZWNobyAi4oS577iPIFNraXAgaW5qZWtzaSBBUEkgL2FwaS9hcHBsaWNhdGlvbi91c2VycyBkaSBwcm90ZWN0MTM7IGNyZWF0ZS9kZWxldGUgdXNlciBBUEkgZGl0YW5nYW5pIHByb3RlY3QxNCBWNSBhZ2FyIEFQSSBrZXkgQWRtaW4gSUQgMSB0ZXRh
-cCBiaXNhLiIKICAgIGVsaWYgZ3JlcCAtcSAiUFJPVEVLU0lfSkhPTkFMRVlfQVBJX1JPT1RBRE1JTiIgIiRBUElfVVNFUl9DT05UUk9MTEVSIjsgdGhlbgogICAgICAgIGVjaG8gIuKaoO+4jyBQcm90ZWtzaSBzdWRhaCBhZGEsIHNraXAuLi4iCiAgICBlbHNlCiAg
-ICAgICAgIyBQcm90ZWtzaSBtZXRob2Qgc3RvcmUgKGNyZWF0ZSB1c2VyIHZpYSBBUEkpCiAgICAgICAgU1RPUkVfTElORT0kKGdyZXAgLW4gInB1YmxpYyBmdW5jdGlvbiBzdG9yZSIgIiRBUElfVVNFUl9DT05UUk9MTEVSIiB8IGhlYWQgLTEgfCBjdXQgLWQ6IC1m
-MSkKICAgICAgICBpZiBbIC1uICIkU1RPUkVfTElORSIgXTsgdGhlbgogICAgICAgICAgICBCUkFDRV9MSU5FPSRTVE9SRV9MSU5FCiAgICAgICAgICAgIGZvciBpIGluICQoc2VxICIkU1RPUkVfTElORSIgJCgoU1RPUkVfTElORSArIDUpKSk7IGRvCiAgICAgICAg
-ICAgICAgICBpZiBzZWQgLW4gIiR7aX1wIiAiJEFQSV9VU0VSX0NPTlRST0xMRVIiIHwgZ3JlcCAtcSAieyI7IHRoZW4KICAgICAgICAgICAgICAgICAgICBCUkFDRV9MSU5FPSRpCiAgICAgICAgICAgICAgICAgICAgYnJlYWsKICAgICAgICAgICAgICAgIGZpCiAg
-ICAgICAgICAgIGRvbmUKICAgICAgICAgICAgc2VkIC1pICIke0JSQUNFX0xJTkV9YVxcICAgICAgICAvLyBQUk9URUtTSV9KSE9OQUxFWV9BUElfUk9PVEFETUlOOiBCbG9jayBub24tSUQgMSBkYXJpIHNldCByb290X2FkbWluIHZpYSBBUEkiICIkQVBJX1VTRVJf
-Q09OVFJPTExFUiIKICAgICAgICAgICAgc2VkIC1pICIkKChCUkFDRV9MSU5FICsgMSkpYVxcICAgICAgICBpZiAoKGludCkgXFxcJHJlcXVlc3QtPnVzZXIoKS0+aWQgIT09IDEgJiYgXFxcJHJlcXVlc3QtPmhhcygncm9vdF9hZG1pbicpICYmIFxcXCRyZXF1ZXN0
-LT5pbnB1dCgncm9vdF9hZG1pbicpKSB7IHJldHVybiByZXNwb25zZSgpLT5qc29uKFsnZXJyb3InID0+ICcke0JSQU5EX1RFWFR9IC0gVGlkYWsgZGlpemlua2FuIG1lbmd1YmFoIHN0YXR1cyBhZG1pbiB2aWEgQVBJJ10sIDQwMyk7IH0iICIkQVBJX1VTRVJfQ09O
-VFJPTExFUiIKICAgICAgICAgICAgZWNobyAi4pyFIFByb3Rla3NpIHN0b3JlKCkgQVBJIGRpaW5qZWtzaSIKICAgICAgICBmaQoKICAgICAgICAjIFByb3Rla3NpIG1ldGhvZCB1cGRhdGUgKHVwZGF0ZSB1c2VyIHZpYSBBUEkpCiAgICAgICAgVVBEQVRFX0xJTkU9
-JChncmVwIC1uICJwdWJsaWMgZnVuY3Rpb24gdXBkYXRlIiAiJEFQSV9VU0VSX0NPTlRST0xMRVIiIHwgaGVhZCAtMSB8IGN1dCAtZDogLWYxKQogICAgICAgIGlmIFsgLW4gIiRVUERBVEVfTElORSIgXTsgdGhlbgogICAgICAgICAgICBCUkFDRV9MSU5FPSRVUERB
-VEVfTElORQogICAgICAgICAgICBmb3IgaSBpbiAkKHNlcSAiJFVQREFURV9MSU5FIiAkKChVUERBVEVfTElORSArIDUpKSk7IGRvCiAgICAgICAgICAgICAgICBpZiBzZWQgLW4gIiR7aX1wIiAiJEFQSV9VU0VSX0NPTlRST0xMRVIiIHwgZ3JlcCAtcSAieyI7IHRo
-ZW4KICAgICAgICAgICAgICAgICAgICBCUkFDRV9MSU5FPSRpCiAgICAgICAgICAgICAgICAgICAgYnJlYWsKICAgICAgICAgICAgICAgIGZpCiAgICAgICAgICAgIGRvbmUKICAgICAgICAgICAgc2VkIC1pICIke0JSQUNFX0xJTkV9YVxcICAgICAgICAvLyBQUk9U
-RUtTSV9KSE9OQUxFWV9BUElfUk9PVEFETUlOOiBCbG9jayBub24tSUQgMSBkYXJpIHViYWggcm9vdF9hZG1pbiB2aWEgQVBJIiAiJEFQSV9VU0VSX0NPTlRST0xMRVIiCiAgICAgICAgICAgIHNlZCAtaSAiJCgoQlJBQ0VfTElORSArIDEpKWFcXCAgICAgICAgaWYg
-KChpbnQpIFxcXCRyZXF1ZXN0LT51c2VyKCktPmlkICE9PSAxICYmIFxcXCRyZXF1ZXN0LT5oYXMoJ3Jvb3RfYWRtaW4nKSkgeyBcXFwkdXNlciA9IFxcXCR0aGlzLT5yZXBvc2l0b3J5LT5maW5kKFxcXCRyZXF1ZXN0LT5yb3V0ZSgndXNlcicpKTsgaWYgKChib29s
-KSBcXFwkcmVxdWVzdC0+aW5wdXQoJ3Jvb3RfYWRtaW4nKSAhPT0gKGJvb2wpIFxcXCR1c2VyLT5yb290X2FkbWluKSB7IHJldHVybiByZXNwb25zZSgpLT5qc29uKFsnZXJyb3InID0+ICcke0JSQU5EX1RFWFR9IC0gVGlkYWsgZGlpemlua2FuIG1lbmd1YmFoIHN0
-YXR1cyBhZG1pbiB2aWEgQVBJJ10sIDQwMyk7IH0gfSIgIiRBUElfVVNFUl9DT05UUk9MTEVSIgogICAgICAgICAgICBlY2hvICLinIUgUHJvdGVrc2kgdXBkYXRlKCkgQVBJIGRpaW5qZWtzaSIKICAgICAgICBmaQoKICAgICAgICAjIFByb3Rla3NpIG1ldGhvZCBk
-ZWxldGUgKGhhcHVzIHVzZXIgdmlhIEFQSSkKICAgICAgICBERUxFVEVfTElORT0kKGdyZXAgLW4gInB1YmxpYyBmdW5jdGlvbiBkZWxldGVcfHB1YmxpYyBmdW5jdGlvbiBkZXN0cm95IiAiJEFQSV9VU0VSX0NPTlRST0xMRVIiIHwgaGVhZCAtMSB8IGN1dCAtZDog
-LWYxKQogICAgICAgIGlmIFsgLW4gIiRERUxFVEVfTElORSIgXTsgdGhlbgogICAgICAgICAgICBCUkFDRV9MSU5FPSRERUxFVEVfTElORQogICAgICAgICAgICBmb3IgaSBpbiAkKHNlcSAiJERFTEVURV9MSU5FIiAkKChERUxFVEVfTElORSArIDUpKSk7IGRvCiAg
-ICAgICAgICAgICAgICBpZiBzZWQgLW4gIiR7aX1wIiAiJEFQSV9VU0VSX0NPTlRST0xMRVIiIHwgZ3JlcCAtcSAieyI7IHRoZW4KICAgICAgICAgICAgICAgICAgICBCUkFDRV9MSU5FPSRpCiAgICAgICAgICAgICAgICAgICAgYnJlYWsKICAgICAgICAgICAgICAg
-IGZpCiAgICAgICAgICAgIGRvbmUKICAgICAgICAgICAgc2VkIC1pICIke0JSQUNFX0xJTkV9YVxcICAgICAgICAvLyBQUk9URUtTSV9KSE9OQUxFWV9BUElfUk9PVEFETUlOOiBCbG9jayBub24tSUQgMSBkYXJpIGhhcHVzIHVzZXIgdmlhIEFQSSIgIiRBUElfVVNF
-Ul9DT05UUk9MTEVSIgogICAgICAgICAgICBzZWQgLWkgIiQoKEJSQUNFX0xJTkUgKyAxKSlhXFwgICAgICAgIGlmICgoaW50KSBcXFwkcmVxdWVzdC0+dXNlcigpLT5pZCAhPT0gMSkgeyByZXR1cm4gcmVzcG9uc2UoKS0+anNvbihbJ2Vycm9yJyA9PiAnJHtCUkFO
-RF9URVhUfSAtIFRpZGFrIGRpaXppbmthbiBtZW5naGFwdXMgdXNlciB2aWEgQVBJJ10sIDQwMyk7IH0iICIkQVBJX1VTRVJfQ09OVFJPTExFUiIKICAgICAgICAgICAgZWNobyAi4pyFIFByb3Rla3NpIGRlbGV0ZSgpIEFQSSBkaWluamVrc2kiCiAgICAgICAgZmkK
-ICAgIGZpCmZpCgplY2hvICLinIUgQkFHSUFOIDMgU0VMRVNBSSIKCgplY2hvICLihLnvuI8gQ2FjaGUgY2xlYXIgYWthbiBkaWxha3VrYW4gb2xlaCBQcm90ZWN0IE1hbmFnZXIgY29udHJvbGxlciIKCmVjaG8gIuKchSBTZWxlc2FpOiBQcm90ZWtzaSBBUEkgL2Fw
-aS9hcHBsaWNhdGlvbi91c2VycyAocm9vdF9hZG1pbikiCg==
-PROTECT13C_B64
+      cat << 'PROTECT13C_PLAIN'
+#!/bin/bash
+# ============================================
+# installprotect13.sh
+# Menyembunyikan menu "Application API" dari sidebar
+# dan memblokir akses controller Application API
+# untuk semua admin KECUALI User ID 1
+# ============================================
+
+set -e
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzOffciall.ID}"
+
+PANEL_DIR="/var/www/pterodactyl"
+TIMESTAMP=$(date -u +%Y-%m-%d-%H-%M-%S-%N)
+
+echo "==========================================="
+echo "🔒 INSTALLPROTECT13: Proteksi Application API"
+echo "==========================================="
+echo "🚀 Proteksi API /api/application/users (root_admin)..."
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# BAGIAN 3: Proteksi Application API endpoint /api/application/users
+# Mencegah non-ID 1 mengubah root_admin via REST API
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📦 BAGIAN 3: Proteksi API /api/application/users (root_admin)"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Cari Application API UserController
+API_USER_CONTROLLER="$PANEL_DIR/app/Http/Controllers/Api/Application/Users/UserController.php"
+
+if [ ! -f "$API_USER_CONTROLLER" ]; then
+    echo "⚠️ API UserController tidak ditemukan: $API_USER_CONTROLLER"
+    echo "   Mencoba path alternatif..."
+    API_USER_CONTROLLER=$(find "$PANEL_DIR/app/Http/Controllers/Api" -name "UserController.php" -path "*/Application/*" 2>/dev/null | head -1)
+fi
+
+if [ -z "$API_USER_CONTROLLER" ] || [ ! -f "$API_USER_CONTROLLER" ]; then
+    echo "❌ API UserController tidak ditemukan, skip bagian 3"
+else
+    echo "📂 File ditemukan: $API_USER_CONTROLLER"
+    cp "$API_USER_CONTROLLER" "${API_USER_CONTROLLER}.bak_${TIMESTAMP}"
+    echo "💾 Backup: ${API_USER_CONTROLLER}.bak_${TIMESTAMP}"
+
+    if grep -q "PROTEKSI_FIT_API_ROOTADMIN" "$API_USER_CONTROLLER"; then
+        TMP=$(mktemp)
+        awk '
+            BEGIN { skip_next=0 }
+            /PROTEKSI_FIT_API_ROOTADMIN/ { skip_next=1; next }
+            skip_next == 1 { skip_next=0; next }
+            { print }
+        ' "$API_USER_CONTROLLER" > "$TMP" && mv "$TMP" "$API_USER_CONTROLLER"
+        chmod 644 "$API_USER_CONTROLLER"
+        echo "♻️ Guard API users lama dari protect13 dibersihkan; proteksi API users ditangani protect14 V5"
+    fi
+
+    if true; then
+        echo "ℹ️ Skip injeksi API /api/application/users di protect13; create/delete user API ditangani protect14 V5 agar API key Admin ID 1 tetap bisa."
+    elif grep -q "PROTEKSI_FIT_API_ROOTADMIN" "$API_USER_CONTROLLER"; then
+        echo "⚠️ Proteksi sudah ada, skip..."
+    else
+        # Proteksi method store (create user via API)
+        STORE_LINE=$(grep -n "public function store" "$API_USER_CONTROLLER" | head -1 | cut -d: -f1)
+        if [ -n "$STORE_LINE" ]; then
+            BRACE_LINE=$STORE_LINE
+            for i in $(seq "$STORE_LINE" $((STORE_LINE + 5))); do
+                if sed -n "${i}p" "$API_USER_CONTROLLER" | grep -q "{"; then
+                    BRACE_LINE=$i
+                    break
+                fi
+            done
+            sed -i "${BRACE_LINE}a\\        // PROTEKSI_FIT_API_ROOTADMIN: Block non-ID 1 dari set root_admin via API" "$API_USER_CONTROLLER"
+            sed -i "$((BRACE_LINE + 1))a\\        if ((int) \\\$request->user()->id !== 1 && \\\$request->has('root_admin') && \\\$request->input('root_admin')) { return response()->json(['error' => '${BRAND_TEXT} - Tidak diizinkan mengubah status admin via API'], 403); }" "$API_USER_CONTROLLER"
+            echo "✅ Proteksi store() API diinjeksi"
+        fi
+
+        # Proteksi method update (update user via API)
+        UPDATE_LINE=$(grep -n "public function update" "$API_USER_CONTROLLER" | head -1 | cut -d: -f1)
+        if [ -n "$UPDATE_LINE" ]; then
+            BRACE_LINE=$UPDATE_LINE
+            for i in $(seq "$UPDATE_LINE" $((UPDATE_LINE + 5))); do
+                if sed -n "${i}p" "$API_USER_CONTROLLER" | grep -q "{"; then
+                    BRACE_LINE=$i
+                    break
+                fi
+            done
+            sed -i "${BRACE_LINE}a\\        // PROTEKSI_FIT_API_ROOTADMIN: Block non-ID 1 dari ubah root_admin via API" "$API_USER_CONTROLLER"
+            sed -i "$((BRACE_LINE + 1))a\\        if ((int) \\\$request->user()->id !== 1 && \\\$request->has('root_admin')) { \\\$user = \\\$this->repository->find(\\\$request->route('user')); if ((bool) \\\$request->input('root_admin') !== (bool) \\\$user->root_admin) { return response()->json(['error' => '${BRAND_TEXT} - Tidak diizinkan mengubah status admin via API'], 403); } }" "$API_USER_CONTROLLER"
+            echo "✅ Proteksi update() API diinjeksi"
+        fi
+
+        # Proteksi method delete (hapus user via API)
+        DELETE_LINE=$(grep -n "public function delete\|public function destroy" "$API_USER_CONTROLLER" | head -1 | cut -d: -f1)
+        if [ -n "$DELETE_LINE" ]; then
+            BRACE_LINE=$DELETE_LINE
+            for i in $(seq "$DELETE_LINE" $((DELETE_LINE + 5))); do
+                if sed -n "${i}p" "$API_USER_CONTROLLER" | grep -q "{"; then
+                    BRACE_LINE=$i
+                    break
+                fi
+            done
+            sed -i "${BRACE_LINE}a\\        // PROTEKSI_FIT_API_ROOTADMIN: Block non-ID 1 dari hapus user via API" "$API_USER_CONTROLLER"
+            sed -i "$((BRACE_LINE + 1))a\\        if ((int) \\\$request->user()->id !== 1) { return response()->json(['error' => '${BRAND_TEXT} - Tidak diizinkan menghapus user via API'], 403); }" "$API_USER_CONTROLLER"
+            echo "✅ Proteksi delete() API diinjeksi"
+        fi
+    fi
+fi
+
+echo "✅ BAGIAN 3 SELESAI"
+
+
+echo "ℹ️ Cache clear akan dilakukan oleh Protect Manager controller"
+
+echo "✅ Selesai: Proteksi API /api/application/users (root_admin)"
+PROTECT13C_PLAIN
       ;;
     protect14)
-      cat << 'PROTECT14_B64'
-IyEvYmluL2Jhc2gKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIGluc3RhbGxwcm90ZWN0MTQuc2gKIyBQcm90ZWtzaSBVc2VyL0FkbWluIFBhbmVsOgojIC0gU2VsYWluIFVzZXIgSUQgMSB0aWRhayBiaXNhIG1lbWJ1YXQv
-bWVuZ3ViYWggdXNlciBtZW5qYWRpIGFkbWluL3Jvb3RfYWRtaW4uCiMgLSBTZWxhaW4gVXNlciBJRCAxIHRpZGFrIGJpc2EgZGVsZXRlIHVzZXIvYWRtaW4gcGFuZWwuCiMgLSBKYWx1ciBBUEkvYm90L3BhbmVsLmpzIHVudHVrIGNyZWF0ZSBhZG1pbiBkYW4gZGVs
-ZXRlIHVzZXIgZGlibG9rIHRvdGFsLAojICAgdGVybWFzdWsgamlrYSBtZW1ha2FpIEFwcGxpY2F0aW9uIEFQSSBrZXkgbWlsaWsgSUQgMSwga2FyZW5hIHBhbmVsLmpzIGhhbnlhCiMgICBtZW5naXJpbSBBUEkga2V5IGRhbiB0aWRhayBtZW1idWt0aWthbiBvcGVy
-YXRvciBUZWxlZ3JhbSBhZGFsYWggSUQgMS4KIyAtIENyZWF0ZSB1c2VyIGJpYXNhIHRldGFwIGRpaXppbmthbi4KIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQoKc2V0IC1lCgpCUkFORF9OQU1FPSIke0JSQU5EX05BTUU6LUpo
-b25hbGV5IFN0b3JlfSIKQlJBTkRfVEVYVD0iJHtCUkFORF9URVhUOi1Qcm90ZWN0IEJ5IEpob25hbGV5fSIKClBBTkVMX0RJUj0iL3Zhci93d3cvcHRlcm9kYWN0eWwiClRJTUVTVEFNUD0kKGRhdGUgLXUgKyIlWS0lbS0lZC0lSC0lTS0lUy0lTiIpCgplY2hvICI9
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IgplY2hvICLwn5SSIElOU1RBTExQUk9URUNUMTQ6IEFudGkgQ3JlYXRlL0RlbGV0ZSBBZG1pbiBQYW5lbCIKZWNobyAiPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PSIKCk1BUktFUl9WMz0iUFJPVEVLU0lfSkhPTkFMRVlfVVNFUl9BRE1JTl9QQU5FTF9HVUFSRF9WNSIKT0xEX01BUktFUl9SRUdFWD0iUFJPVEVLU0lfSkhPTkFMRVlfVVNFUl9BRE1JTl9QQU5FTF9HVUFSRF9WWzAtOV0rIgoKcmVhZCAtciAtZCAnJyBHVUFS
-RF9QSFAgPDwnUEhQJyB8fCB0cnVlCiAgICAgICAgLy8gUFJPVEVLU0lfSkhPTkFMRVlfVVNFUl9BRE1JTl9QQU5FTF9HVUFSRF9WNQogICAgICAgIHRyeSB7CiAgICAgICAgICAgICRfX3JlcSA9IHJlcXVlc3QoKTsKICAgICAgICAgICAgJF9faXNDb25zb2xlID0g
-YXBwKCktPnJ1bm5pbmdJbkNvbnNvbGUoKTsKCiAgICAgICAgICAgICRfX3dlYlVzZXIgPSBudWxsOwogICAgICAgICAgICB0cnkgeyAkX193ZWJVc2VyID0gXElsbHVtaW5hdGVcU3VwcG9ydFxGYWNhZGVzXEF1dGg6Omd1YXJkKCd3ZWInKS0+dXNlcigpOyB9IGNh
-dGNoIChcVGhyb3dhYmxlICRlKSB7fQogICAgICAgICAgICAkX19pc1Nlc3Npb24gPSAkX193ZWJVc2VyICE9PSBudWxsOwogICAgICAgICAgICAkX19oYXNCZWFyZXIgPSBmYWxzZTsKICAgICAgICAgICAgaWYgKCRfX3JlcSkgewogICAgICAgICAgICAgICAgdHJ5
-IHsKICAgICAgICAgICAgICAgICAgICAkX19hdXRoID0gKHN0cmluZykgKCRfX3JlcS0+aGVhZGVyKCdBdXRob3JpemF0aW9uJykgPz8gJycpOwogICAgICAgICAgICAgICAgICAgIGlmICgkX19hdXRoICE9PSAnJyAmJiBzdHJpcG9zKCRfX2F1dGgsICdCZWFyZXIg
-JykgPT09IDApIHsgJF9faGFzQmVhcmVyID0gdHJ1ZTsgfQogICAgICAgICAgICAgICAgICAgIGlmICgkX19yZXEtPmF0dHJpYnV0ZXMtPmdldCgnYXBpX2tleScpIHx8ICRfX3JlcS0+YXR0cmlidXRlcy0+Z2V0KCdhcGlLZXknKSB8fCAkX19yZXEtPmF0dHJpYnV0
-ZXMtPmdldCgndG9rZW4nKSkgeyAkX19oYXNCZWFyZXIgPSB0cnVlOyB9CiAgICAgICAgICAgICAgICB9IGNhdGNoIChcVGhyb3dhYmxlICRlKSB7fQogICAgICAgICAgICB9CiAgICAgICAgICAgICRfX2lzQXBpS2V5ID0gJF9faGFzQmVhcmVyICYmICEkX19pc1Nl
-c3Npb247CgogICAgICAgICAgICAkX191c2VyID0gJF9fd2ViVXNlcjsKICAgICAgICAgICAgaWYgKCEkX191c2VyKSB7CiAgICAgICAgICAgICAgICBmb3JlYWNoIChbbnVsbCwgJ2FwaScsICdhcHBsaWNhdGlvbicsICdjbGllbnQnXSBhcyAkX19nKSB7CiAgICAg
-ICAgICAgICAgICAgICAgdHJ5IHsKICAgICAgICAgICAgICAgICAgICAgICAgJF9fdXNlciA9ICRfX2cgPT09IG51bGwgPyBcSWxsdW1pbmF0ZVxTdXBwb3J0XEZhY2FkZXNcQXV0aDo6dXNlcigpIDogXElsbHVtaW5hdGVcU3VwcG9ydFxGYWNhZGVzXEF1dGg6Omd1
-YXJkKCRfX2cpLT51c2VyKCk7CiAgICAgICAgICAgICAgICAgICAgICAgIGlmICgkX191c2VyKSB7IGJyZWFrOyB9CiAgICAgICAgICAgICAgICAgICAgfSBjYXRjaCAoXFRocm93YWJsZSAkZSkge30KICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAg
-ICAgICAgICBpZiAoISRfX3VzZXIgJiYgJF9fcmVxKSB7IHRyeSB7ICRfX3VzZXIgPSAkX19yZXEtPnVzZXIoKTsgfSBjYXRjaCAoXFRocm93YWJsZSAkZSkge30gfQogICAgICAgICAgICBpZiAoISRfX3VzZXIgJiYgJF9fcmVxKSB7CiAgICAgICAgICAgICAgICB0
-cnkgewogICAgICAgICAgICAgICAgICAgICRfX2sgPSAkX19yZXEtPmF0dHJpYnV0ZXMtPmdldCgnYXBpX2tleScpID8/ICRfX3JlcS0+YXR0cmlidXRlcy0+Z2V0KCdhcGlLZXknKSA/PyAkX19yZXEtPmF0dHJpYnV0ZXMtPmdldCgndG9rZW4nKTsKICAgICAgICAg
-ICAgICAgICAgICAkX191c2VyID0gJF9fayA/ICgkX19rLT51c2VyID8/ICRfX2stPnVzZXJNb2RlbCA/PyBudWxsKSA6IG51bGw7CiAgICAgICAgICAgICAgICB9IGNhdGNoIChcVGhyb3dhYmxlICRlKSB7fQogICAgICAgICAgICB9CiAgICAgICAgICAgICRfX2Fj
-dG9ySWQgPSAkX191c2VyICYmIGlzc2V0KCRfX3VzZXItPmlkKSA/IChpbnQpICRfX3VzZXItPmlkIDogbnVsbDsKICAgICAgICAgICAgaWYgKCEkX19hY3RvcklkICYmICRfX3JlcSkgewogICAgICAgICAgICAgICAgdHJ5IHsKICAgICAgICAgICAgICAgICAgICAk
-X19hcGlLZXlzID0gW107CiAgICAgICAgICAgICAgICAgICAgZm9yZWFjaCAoWydhcGlfa2V5JywgJ2FwaUtleScsICd0b2tlbicsICdhcHBsaWNhdGlvbl9hcGlfa2V5JywgJ2FwcGxpY2F0aW9uQXBpS2V5JywgJ2tleSddIGFzICRfX25hbWUpIHsKICAgICAgICAg
-ICAgICAgICAgICAgICAgJF9fY2FuZGlkYXRlID0gJF9fcmVxLT5hdHRyaWJ1dGVzLT5nZXQoJF9fbmFtZSk7CiAgICAgICAgICAgICAgICAgICAgICAgIGlmICgkX19jYW5kaWRhdGUpIHsgJF9fYXBpS2V5c1tdID0gJF9fY2FuZGlkYXRlOyB9CiAgICAgICAgICAg
-ICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgIGZvcmVhY2ggKCRfX3JlcS0+YXR0cmlidXRlcy0+YWxsKCkgYXMgJF9fY2FuZGlkYXRlKSB7CiAgICAgICAgICAgICAgICAgICAgICAgIGlmIChpc19vYmplY3QoJF9fY2FuZGlkYXRlKSkgeyAkX19hcGlLZXlz
-W10gPSAkX19jYW5kaWRhdGU7IH0KICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgZm9yZWFjaCAoJF9fYXBpS2V5cyBhcyAkX19rKSB7CiAgICAgICAgICAgICAgICAgICAgICAgIGlmICghaXNfb2JqZWN0KCRfX2spKSB7IGNvbnRpbnVl
-OyB9CiAgICAgICAgICAgICAgICAgICAgICAgIGZvcmVhY2ggKFsndXNlcl9pZCcsICd1c2VySWQnLCAnb3duZXJfaWQnLCAnb3duZXJJZCcsICdjcmVhdGVkX2J5JywgJ2NyZWF0ZWRCeScsICdjcmVhdGVkX2J5X2lkJywgJ2NyZWF0ZWRCeUlkJ10gYXMgJF9fcHJv
-cCkgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGlzc2V0KCRfX2stPnskX19wcm9wfSkgJiYgKGludCkgJF9fay0+eyRfX3Byb3B9ID4gMCkgeyAkX19hY3RvcklkID0gKGludCkgJF9fay0+eyRfX3Byb3B9OyBicmVhayAyOyB9CiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBpZiAobWV0aG9kX2V4aXN0cygkX19rLCAnZ2V0QXR0cmlidXRlJykpIHsgJF9fdiA9ICRfX2stPmdldEF0dHJpYnV0ZSgkX19wcm9wKTsgaWYgKCRfX3YgJiYgKGludCkgJF9fdiA+IDApIHsgJF9fYWN0b3JJZCA9IChpbnQpICRfX3Y7
-IGJyZWFrIDI7IH0gfQogICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgICAgICRfX3JlbCA9IG51bGw7CiAgICAgICAgICAgICAgICAgICAgICAgIHRyeSB7ICRfX3JlbCA9ICRfX2stPnVzZXIgPz8gbnVsbDsgfSBjYXRjaCAoXFRo
-cm93YWJsZSAkZSkge30KICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCEkX19yZWwgJiYgbWV0aG9kX2V4aXN0cygkX19rLCAndXNlcicpKSB7IHRyeSB7ICRfX3JlbCA9ICRfX2stPnVzZXIoKS0+Zmlyc3QoKTsgfSBjYXRjaCAoXFRocm93YWJsZSAkZSkge30g
-fQogICAgICAgICAgICAgICAgICAgICAgICBpZiAoJF9fcmVsICYmIGlzc2V0KCRfX3JlbC0+aWQpKSB7ICRfX2FjdG9ySWQgPSAoaW50KSAkX19yZWwtPmlkOyBicmVhazsgfQogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0gY2F0Y2ggKFxU
-aHJvd2FibGUgJGUpIHt9CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgICRfX3BhdGggPSAkX19yZXEgPyB0cmltKCRfX3JlcS0+cGF0aCgpLCAnLycpIDogJyc7CiAgICAgICAgICAgICRfX21ldGhvZCA9ICRfX3JlcSA/IHN0cnRvdXBwZXIoJF9fcmVxLT5tZXRo
-b2QoKSkgOiAnJzsKICAgICAgICAgICAgJF9faXNBcGlVc2VyUm91dGUgPSAkX19wYXRoICE9PSAnJyAmJiAoCiAgICAgICAgICAgICAgICBzdHJwb3MoJF9fcGF0aCwgJ2FwaS9hcHBsaWNhdGlvbi91c2VycycpID09PSAwIHx8CiAgICAgICAgICAgICAgICBzdHJw
-b3MoJF9fcGF0aCwgJ2FwaS9jbGllbnQvdXNlcnMnKSA9PT0gMCB8fAogICAgICAgICAgICAgICAgc3RycG9zKCRfX3BhdGgsICdhcGkvcmVtb3RlL3VzZXJzJykgPT09IDAKICAgICAgICAgICAgKTsKCiAgICAgICAgICAgICRfX3dhbnRzQWRtaW4gPSBmYWxzZTsK
-ICAgICAgICAgICAgaWYgKCRfX3JlcSkgewogICAgICAgICAgICAgICAgdHJ5IHsKICAgICAgICAgICAgICAgICAgICAkX19yYSA9ICRfX3JlcS0+aW5wdXQoJ3Jvb3RfYWRtaW4nKTsKICAgICAgICAgICAgICAgICAgICBpZiAoJF9fcmEgIT09IG51bGwgJiYgKGlu
-dCkgJF9fcmEgPT09IDEpIHsgJF9fd2FudHNBZG1pbiA9IHRydWU7IH0KICAgICAgICAgICAgICAgICAgICBpZiAoJF9fcmVxLT5ib29sZWFuKCdyb290X2FkbWluJykpIHsgJF9fd2FudHNBZG1pbiA9IHRydWU7IH0KICAgICAgICAgICAgICAgICAgICAkX19qc29u
-ID0gJF9fcmVxLT5qc29uKCktPmFsbCgpOwogICAgICAgICAgICAgICAgICAgIGlmIChpc19hcnJheSgkX19qc29uKSAmJiBhcnJheV9rZXlfZXhpc3RzKCdyb290X2FkbWluJywgJF9fanNvbikgJiYgKGludCkgJF9fanNvblsncm9vdF9hZG1pbiddID09PSAxKSB7
-ICRfX3dhbnRzQWRtaW4gPSB0cnVlOyB9CiAgICAgICAgICAgICAgICAgICAgaWYgKGlzX2FycmF5KCRfX2pzb24pICYmIGFycmF5X2tleV9leGlzdHMoJ2FkbWluJywgJF9fanNvbikgJiYgKGludCkgJF9fanNvblsnYWRtaW4nXSA9PT0gMSkgeyAkX193YW50c0Fk
-bWluID0gdHJ1ZTsgfQogICAgICAgICAgICAgICAgfSBjYXRjaCAoXFRocm93YWJsZSAkZSkge30KICAgICAgICAgICAgfQoKICAgICAgICAgICAgaWYgKCEkX19pc0NvbnNvbGUgJiYgJF9faXNBcGlLZXkgJiYgJF9faXNBcGlVc2VyUm91dGUgJiYgJF9fbWV0aG9k
-ID09PSAnREVMRVRFJykgewogICAgICAgICAgICAgICAgaWYgKCRfX2FjdG9ySWQgIT09IG51bGwgJiYgKGludCkgJF9fYWN0b3JJZCAhPT0gMSkgewogICAgICAgICAgICAgICAgICAgIHRocm93IG5ldyBcUHRlcm9kYWN0eWxcRXhjZXB0aW9uc1xEaXNwbGF5RXhj
-ZXB0aW9uKCdBa3NlcyBkaXRvbGFrOiBkZWxldGUgdXNlci9hZG1pbiBwYW5lbCB2aWEgQVBJL2JvdC9wYW5lbC5qcyBoYW55YSBib2xlaCBtZW1ha2FpIEFQSSBrZXkgbWlsaWsgQWRtaW4gSUQgMSBAIPCdkI/wnZCR8J2QjvCdkJPwnZCE8J2QgvCdkJMg8J2QgfCd
-kJgg8J2QifCdkIfwnZCO8J2QjfCdkIDwnZCL8J2QhPCdkJgg8J2Qk/CdkITwnZCC8J2Qhy4nKTsKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgICAgICBpZiAoISRfX2lzQ29uc29sZSAmJiAkX19pc0FwaUtleSAmJiAkX193YW50c0FkbWlu
-KSB7CiAgICAgICAgICAgICAgICBpZiAoKGludCkgKCRfX2FjdG9ySWQgPz8gMCkgIT09IDEpIHsKICAgICAgICAgICAgICAgICAgICB0aHJvdyBuZXcgXFB0ZXJvZGFjdHlsXEV4Y2VwdGlvbnNcRGlzcGxheUV4Y2VwdGlvbignQWtzZXMgZGl0b2xhazogY3JlYXRl
-IEFkbWluaXN0cmF0b3IgdmlhIEFQSS9ib3QvcGFuZWwuanMgaGFueWEgYm9sZWggbWVtYWthaSBBUEkga2V5IG1pbGlrIEFkbWluIElEIDEgQCDwnZCP8J2QkfCdkI7wnZCT8J2QhPCdkILwnZCTIPCdkIHwnZCYIPCdkInwnZCH8J2QjvCdkI3wnZCA8J2Qi/CdkITw
-nZCYIPCdkJPwnZCE8J2QgvCdkIcuJyk7CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGlmICghJF9faXNDb25zb2xlICYmICgkX193YW50c0FkbWluIHx8ICRfX21ldGhvZCA9PT0gJ0RFTEVURScpKSB7CiAgICAgICAgICAgICAg
-ICBpZiAoJF9faXNBcGlLZXkgJiYgJF9faXNBcGlVc2VyUm91dGUgJiYgJF9fbWV0aG9kID09PSAnREVMRVRFJyAmJiAoJF9fYWN0b3JJZCA9PT0gbnVsbCB8fCAoaW50KSAkX19hY3RvcklkID09PSAxKSkgewogICAgICAgICAgICAgICAgICAgIC8vIEFwcGxpY2F0
-aW9uIEFQSSBrZXkgdmFsaWQ7IGJlYmVyYXBhIHZlcnNpIFB0ZXJvZGFjdHlsIHRpZGFrIG1lbnlpbXBhbiBvd25lciBrZXkgZGkgcmVxdWVzdC4KICAgICAgICAgICAgICAgIH0gZWxzZWlmICgoaW50KSAoJF9fYWN0b3JJZCA/PyAwKSAhPT0gMSkgewogICAgICAg
-ICAgICAgICAgICAgIHRocm93IG5ldyBcUHRlcm9kYWN0eWxcRXhjZXB0aW9uc1xEaXNwbGF5RXhjZXB0aW9uKCdBa3NlcyBkaXRvbGFrOiBoYW55YSBBZG1pbiBJRCAxIHlhbmcgZGFwYXQgbWVtYnVhdC9tZW5ndWJhaC9tZW5naGFwdXMgQWRtaW4gUGFuZWwgQCDw
-nZCP8J2QkfCdkI7wnZCT8J2QhPCdkILwnZCTIPCdkIHwnZCYIPCdkInwnZCH8J2QjvCdkI3wnZCA8J2Qi/CdkITwnZCYIPCdkJPwnZCE8J2QgvCdkIcuJyk7CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICB9IGNhdGNoIChcUHRlcm9kYWN0
-eWxcRXhjZXB0aW9uc1xEaXNwbGF5RXhjZXB0aW9uICRlKSB7IHRocm93ICRlOyB9IGNhdGNoIChcVGhyb3dhYmxlICRlKSB7fQpQSFAKCnJlYWQgLXIgLWQgJycgREVMRVRFX0dVQVJEX1BIUCA8PCdQSFAnIHx8IHRydWUKICAgICAgICAvLyBQUk9URUtTSV9KSE9O
-QUxFWV9VU0VSX0FETUlOX1BBTkVMX0dVQVJEX1Y1X0RFTEVURQogICAgICAgIHRyeSB7CiAgICAgICAgICAgIGlmICghYXBwKCktPnJ1bm5pbmdJbkNvbnNvbGUoKSkgewogICAgICAgICAgICAkX19yZXEgPSByZXF1ZXN0KCk7CiAgICAgICAgICAgICRfX3BhdGgg
-PSAkX19yZXEgPyB0cmltKCRfX3JlcS0+cGF0aCgpLCAnLycpIDogJyc7CiAgICAgICAgICAgICRfX2lzQXBpVXNlclJvdXRlID0gJF9fcGF0aCAhPT0gJycgJiYgKAogICAgICAgICAgICAgICAgc3RycG9zKCRfX3BhdGgsICdhcGkvYXBwbGljYXRpb24vdXNlcnMn
-KSA9PT0gMCB8fAogICAgICAgICAgICAgICAgc3RycG9zKCRfX3BhdGgsICdhcGkvY2xpZW50L3VzZXJzJykgPT09IDAgfHwKICAgICAgICAgICAgICAgIHN0cnBvcygkX19wYXRoLCAnYXBpL3JlbW90ZS91c2VycycpID09PSAwCiAgICAgICAgICAgICk7CgogICAg
-ICAgICAgICAkX193ZWJVc2VyID0gbnVsbDsKICAgICAgICAgICAgdHJ5IHsgJF9fd2ViVXNlciA9IFxJbGx1bWluYXRlXFN1cHBvcnRcRmFjYWRlc1xBdXRoOjpndWFyZCgnd2ViJyktPnVzZXIoKTsgfSBjYXRjaCAoXFRocm93YWJsZSAkZSkge30KICAgICAgICAg
-ICAgJF9faXNTZXNzaW9uID0gJF9fd2ViVXNlciAhPT0gbnVsbDsKICAgICAgICAgICAgJF9faGFzQmVhcmVyID0gZmFsc2U7CiAgICAgICAgICAgIGlmICgkX19yZXEpIHsKICAgICAgICAgICAgICAgIHRyeSB7CiAgICAgICAgICAgICAgICAgICAgJF9fYXV0aCA9
-IChzdHJpbmcpICgkX19yZXEtPmhlYWRlcignQXV0aG9yaXphdGlvbicpID8/ICcnKTsKICAgICAgICAgICAgICAgICAgICBpZiAoJF9fYXV0aCAhPT0gJycgJiYgc3RyaXBvcygkX19hdXRoLCAnQmVhcmVyICcpID09PSAwKSB7ICRfX2hhc0JlYXJlciA9IHRydWU7
-IH0KICAgICAgICAgICAgICAgICAgICBpZiAoJF9fcmVxLT5hdHRyaWJ1dGVzLT5nZXQoJ2FwaV9rZXknKSB8fCAkX19yZXEtPmF0dHJpYnV0ZXMtPmdldCgnYXBpS2V5JykgfHwgJF9fcmVxLT5hdHRyaWJ1dGVzLT5nZXQoJ3Rva2VuJykpIHsgJF9faGFzQmVhcmVy
-ID0gdHJ1ZTsgfQogICAgICAgICAgICAgICAgfSBjYXRjaCAoXFRocm93YWJsZSAkZSkge30KICAgICAgICAgICAgfQogICAgICAgICAgICAkX19pc0FwaUtleSA9ICRfX2hhc0JlYXJlciAmJiAhJF9faXNTZXNzaW9uOwoKICAgICAgICAgICAgJF9fdXNlciA9ICRf
-X3dlYlVzZXI7CiAgICAgICAgICAgIGlmICghJF9fdXNlcikgewogICAgICAgICAgICAgICAgZm9yZWFjaCAoW251bGwsICdhcGknLCAnYXBwbGljYXRpb24nLCAnY2xpZW50J10gYXMgJF9fZykgewogICAgICAgICAgICAgICAgICAgIHRyeSB7CiAgICAgICAgICAg
-ICAgICAgICAgICAgICRfX3VzZXIgPSAkX19nID09PSBudWxsID8gXElsbHVtaW5hdGVcU3VwcG9ydFxGYWNhZGVzXEF1dGg6OnVzZXIoKSA6IFxJbGx1bWluYXRlXFN1cHBvcnRcRmFjYWRlc1xBdXRoOjpndWFyZCgkX19nKS0+dXNlcigpOwogICAgICAgICAgICAg
-ICAgICAgICAgICBpZiAoJF9fdXNlcikgeyBicmVhazsgfQogICAgICAgICAgICAgICAgICAgIH0gY2F0Y2ggKFxUaHJvd2FibGUgJGUpIHt9CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICAgICAgaWYgKCEkX191c2VyICYmICRfX3JlcSkg
-eyB0cnkgeyAkX191c2VyID0gJF9fcmVxLT51c2VyKCk7IH0gY2F0Y2ggKFxUaHJvd2FibGUgJGUpIHt9IH0KICAgICAgICAgICAgaWYgKCEkX191c2VyICYmICRfX3JlcSkgewogICAgICAgICAgICAgICAgdHJ5IHsKICAgICAgICAgICAgICAgICAgICAkX19rID0g
-JF9fcmVxLT5hdHRyaWJ1dGVzLT5nZXQoJ2FwaV9rZXknKSA/PyAkX19yZXEtPmF0dHJpYnV0ZXMtPmdldCgnYXBpS2V5JykgPz8gJF9fcmVxLT5hdHRyaWJ1dGVzLT5nZXQoJ3Rva2VuJyk7CiAgICAgICAgICAgICAgICAgICAgJF9fdXNlciA9ICRfX2sgPyAoJF9f
-ay0+dXNlciA/PyAkX19rLT51c2VyTW9kZWwgPz8gbnVsbCkgOiBudWxsOwogICAgICAgICAgICAgICAgfSBjYXRjaCAoXFRocm93YWJsZSAkZSkge30KICAgICAgICAgICAgfQogICAgICAgICAgICAkX19hY3RvcklkID0gJF9fdXNlciAmJiBpc3NldCgkX191c2Vy
-LT5pZCkgPyAoaW50KSAkX191c2VyLT5pZCA6IG51bGw7CiAgICAgICAgICAgIGlmICghJF9fYWN0b3JJZCAmJiAkX19yZXEpIHsKICAgICAgICAgICAgICAgIHRyeSB7CiAgICAgICAgICAgICAgICAgICAgJF9fYXBpS2V5cyA9IFtdOwogICAgICAgICAgICAgICAg
-ICAgIGZvcmVhY2ggKFsnYXBpX2tleScsICdhcGlLZXknLCAndG9rZW4nLCAnYXBwbGljYXRpb25fYXBpX2tleScsICdhcHBsaWNhdGlvbkFwaUtleScsICdrZXknXSBhcyAkX19uYW1lKSB7CiAgICAgICAgICAgICAgICAgICAgICAgICRfX2NhbmRpZGF0ZSA9ICRf
-X3JlcS0+YXR0cmlidXRlcy0+Z2V0KCRfX25hbWUpOwogICAgICAgICAgICAgICAgICAgICAgICBpZiAoJF9fY2FuZGlkYXRlKSB7ICRfX2FwaUtleXNbXSA9ICRfX2NhbmRpZGF0ZTsgfQogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICBm
-b3JlYWNoICgkX19yZXEtPmF0dHJpYnV0ZXMtPmFsbCgpIGFzICRfX2NhbmRpZGF0ZSkgewogICAgICAgICAgICAgICAgICAgICAgICBpZiAoaXNfb2JqZWN0KCRfX2NhbmRpZGF0ZSkpIHsgJF9fYXBpS2V5c1tdID0gJF9fY2FuZGlkYXRlOyB9CiAgICAgICAgICAg
-ICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgIGZvcmVhY2ggKCRfX2FwaUtleXMgYXMgJF9faykgewogICAgICAgICAgICAgICAgICAgICAgICBpZiAoIWlzX29iamVjdCgkX19rKSkgeyBjb250aW51ZTsgfQogICAgICAgICAgICAgICAgICAgICAgICBmb3Jl
-YWNoIChbJ3VzZXJfaWQnLCAndXNlcklkJywgJ293bmVyX2lkJywgJ293bmVySWQnLCAnY3JlYXRlZF9ieScsICdjcmVhdGVkQnknLCAnY3JlYXRlZF9ieV9pZCcsICdjcmVhdGVkQnlJZCddIGFzICRfX3Byb3ApIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IGlmIChpc3NldCgkX19rLT57JF9fcHJvcH0pICYmIChpbnQpICRfX2stPnskX19wcm9wfSA+IDApIHsgJF9fYWN0b3JJZCA9IChpbnQpICRfX2stPnskX19wcm9wfTsgYnJlYWsgMjsgfQogICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKG1ldGhvZF9leGlz
-dHMoJF9faywgJ2dldEF0dHJpYnV0ZScpKSB7ICRfX3YgPSAkX19rLT5nZXRBdHRyaWJ1dGUoJF9fcHJvcCk7IGlmICgkX192ICYmIChpbnQpICRfX3YgPiAwKSB7ICRfX2FjdG9ySWQgPSAoaW50KSAkX192OyBicmVhayAyOyB9IH0KICAgICAgICAgICAgICAgICAg
-ICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICAkX19yZWwgPSBudWxsOwogICAgICAgICAgICAgICAgICAgICAgICB0cnkgeyAkX19yZWwgPSAkX19rLT51c2VyID8/IG51bGw7IH0gY2F0Y2ggKFxUaHJvd2FibGUgJGUpIHt9CiAgICAgICAgICAgICAgICAg
-ICAgICAgIGlmICghJF9fcmVsICYmIG1ldGhvZF9leGlzdHMoJF9faywgJ3VzZXInKSkgeyB0cnkgeyAkX19yZWwgPSAkX19rLT51c2VyKCktPmZpcnN0KCk7IH0gY2F0Y2ggKFxUaHJvd2FibGUgJGUpIHt9IH0KICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCRf
-X3JlbCAmJiBpc3NldCgkX19yZWwtPmlkKSkgeyAkX19hY3RvcklkID0gKGludCkgJF9fcmVsLT5pZDsgYnJlYWs7IH0KICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9IGNhdGNoIChcVGhyb3dhYmxlICRlKSB7fQogICAgICAgICAgICB9CiAg
-ICAgICAgICAgIGlmICgkX19pc0FwaUtleSAmJiAkX19pc0FwaVVzZXJSb3V0ZSAmJiAkX19hY3RvcklkICE9PSBudWxsICYmIChpbnQpICRfX2FjdG9ySWQgIT09IDEpIHsKICAgICAgICAgICAgICAgIHRocm93IG5ldyBcUHRlcm9kYWN0eWxcRXhjZXB0aW9uc1xE
-aXNwbGF5RXhjZXB0aW9uKCdBa3NlcyBkaXRvbGFrOiBkZWxldGUgdXNlci9hZG1pbiBwYW5lbCB2aWEgQVBJL2JvdC9wYW5lbC5qcyBoYW55YSBib2xlaCBtZW1ha2FpIEFQSSBrZXkgbWlsaWsgQWRtaW4gSUQgMSBAIPCdkI/wnZCR8J2QjvCdkJPwnZCE8J2QgvCd
-kJMg8J2QgfCdkJgg8J2QifCdkIfwnZCO8J2QjfCdkIDwnZCL8J2QhPCdkJgg8J2Qk/CdkITwnZCC8J2Qhy4nKTsKICAgICAgICAgICAgfQogICAgICAgICAgICBpZiAoJF9faXNBcGlLZXkgJiYgJF9faXNBcGlVc2VyUm91dGUgJiYgKCRfX2FjdG9ySWQgPT09IG51
-bGwgfHwgKGludCkgJF9fYWN0b3JJZCA9PT0gMSkpIHsKICAgICAgICAgICAgICAgIC8vIEFwcGxpY2F0aW9uIEFQSSBrZXkgdmFsaWQ7IGJlYmVyYXBhIHZlcnNpIFB0ZXJvZGFjdHlsIHRpZGFrIG1lbnlpbXBhbiBvd25lciBrZXkgZGkgcmVxdWVzdC4KICAgICAg
-ICAgICAgfSBlbHNlaWYgKChpbnQpICgkX19hY3RvcklkID8/IDApICE9PSAxKSB7CiAgICAgICAgICAgICAgICB0aHJvdyBuZXcgXFB0ZXJvZGFjdHlsXEV4Y2VwdGlvbnNcRGlzcGxheUV4Y2VwdGlvbignQWtzZXMgZGl0b2xhazogaGFueWEgQWRtaW4gSUQgMSB5
-YW5nIGRhcGF0IG1lbmdoYXB1cyB1c2VyL2FkbWluIHBhbmVsIEAg8J2Qj/CdkJHwnZCO8J2Qk/CdkITwnZCC8J2QkyDwnZCB8J2QmCDwnZCJ8J2Qh/CdkI7wnZCN8J2QgPCdkIvwnZCE8J2QmCDwnZCT8J2QhPCdkILwnZCHLicpOwogICAgICAgICAgICB9CiAgICAg
-ICAgICAgIH0KICAgICAgICB9IGNhdGNoIChcUHRlcm9kYWN0eWxcRXhjZXB0aW9uc1xEaXNwbGF5RXhjZXB0aW9uICRlKSB7IHRocm93ICRlOyB9IGNhdGNoIChcVGhyb3dhYmxlICRlKSB7fQpQSFAKCmNsZWFudXBfb2xkX21ldGhvZF9ndWFyZHMoKSB7CiAgICBs
-b2NhbCBGSUxFPSIkMSIKICAgIFsgLWYgIiRGSUxFIiBdIHx8IHJldHVybiAwCiAgICBncmVwIC1FcSAiJE9MRF9NQVJLRVJfUkVHRVgiICIkRklMRSIgfHwgcmV0dXJuIDAKCiAgICBjcCAiJEZJTEUiICIke0ZJTEV9LmJha19wcmVfcDE0X3Y0XyR7VElNRVNUQU1Q
-fSIKICAgIGxvY2FsIFRNUAogICAgVE1QPSQobWt0ZW1wKQogICAgYXdrIC12IG1hcmtlcj0iJE9MRF9NQVJLRVJfUkVHRVgiICcKICAgICAgICBCRUdJTiB7IHNraXA9MCB9CiAgICAgICAgJDAgfiBtYXJrZXIgJiYgJDAgIX4gL19NT0RFTC8geyBza2lwPTE7IG5l
-eHQgfQogICAgICAgIHNraXAgPT0gMSB7CiAgICAgICAgICAgIGlmICgkMCB+IC9jYXRjaFtbOnNwYWNlOl1dKlwoXFxQdGVyb2RhY3R5bFxcRXhjZXB0aW9uc1xcRGlzcGxheUV4Y2VwdGlvbltbOnNwYWNlOl1dK1wkZVwpLyAmJiAkMCB+IC9jYXRjaFtbOnNwYWNl
-Ol1dKlwoXFxUaHJvd2FibGVbWzpzcGFjZTpdXStcJGVcKVtbOnNwYWNlOl1dKlx7XH0vKSB7IHNraXA9MDsgbmV4dCB9CiAgICAgICAgICAgIG5leHQKICAgICAgICB9CiAgICAgICAgeyBwcmludCB9CiAgICAnICIkRklMRSIgPiAiJFRNUCIgJiYgbXYgIiRUTVAi
-ICIkRklMRSIKICAgIGNobW9kIDY0NCAiJEZJTEUiCiAgICBpZiAhIHBocCAtbCAiJEZJTEUiID4vZGV2L251bGwgMj4mMTsgdGhlbgogICAgICAgIGVjaG8gIuKdjCBDbGVhbnVwIGd1YXJkIGxhbWEgZ2FnYWwgZGkgJEZJTEUg4oCUIHJvbGxiYWNrLiIKICAgICAg
-ICBjcCAiJHtGSUxFfS5iYWtfcHJlX3AxNF92NF8ke1RJTUVTVEFNUH0iICIkRklMRSIKICAgIGVsc2UKICAgICAgICBlY2hvICLimbvvuI8gR3VhcmQgbGFtYSBQcm90ZWN0MTQgZGliZXJzaWhrYW4gZGFyaSAkRklMRSIKICAgIGZpCn0KCmNsZWFudXBfb2xkX21v
-ZGVsX2d1YXJkKCkgewogICAgbG9jYWwgRklMRT0iJDEiCiAgICBbIC1mICIkRklMRSIgXSB8fCByZXR1cm4gMAogICAgZ3JlcCAtRXEgIiR7T0xEX01BUktFUl9SRUdFWH1fTU9ERUwiICIkRklMRSIgfHwgcmV0dXJuIDAKCiAgICBjcCAiJEZJTEUiICIke0ZJTEV9
-LmJha19wcmVfcDE0X3Y0XyR7VElNRVNUQU1QfSIKICAgIGxvY2FsIFRNUAogICAgVE1QPSQobWt0ZW1wKQogICAgYXdrIC12IG1hcmtlcj0iJHtPTERfTUFSS0VSX1JFR0VYfV9NT0RFTCIgJwogICAgICAgIEJFR0lOIHsgc2tpcD0wOyBkZXB0aD0wOyBzZWVuX2Zu
-PTAgfQogICAgICAgIHNraXAgPT0gMCAmJiAkMCB+IG1hcmtlciB7IHNraXA9MTsgZGVwdGg9MDsgc2Vlbl9mbj0wOyBuZXh0IH0KICAgICAgICBza2lwID09IDEgewogICAgICAgICAgICBpZiAoJDAgfiAvZnVuY3Rpb25bWzpzcGFjZTpdXStib290ZWRbWzpzcGFj
-ZTpdXSpcKC8pIHsgc2Vlbl9mbj0xIH0KICAgICAgICAgICAgaWYgKHNlZW5fZm4pIHsKICAgICAgICAgICAgICAgIGxpbmU9JDA7IG9wZW49Z3N1YigvXHsvLCAieyIsIGxpbmUpCiAgICAgICAgICAgICAgICBsaW5lPSQwOyBjbG9zZV9jb3VudD1nc3ViKC9cfS8s
-ICJ9IiwgbGluZSkKICAgICAgICAgICAgICAgIGRlcHRoICs9IG9wZW4gLSBjbG9zZV9jb3VudAogICAgICAgICAgICAgICAgaWYgKGRlcHRoIDw9IDAgJiYgJDAgfiAvfS8pIHsgc2tpcD0wOyBuZXh0IH0KICAgICAgICAgICAgfQogICAgICAgICAgICBuZXh0CiAg
-ICAgICAgfQogICAgICAgIHsgcHJpbnQgfQogICAgJyAiJEZJTEUiID4gIiRUTVAiICYmIG12ICIkVE1QIiAiJEZJTEUiCiAgICBjaG1vZCA2NDQgIiRGSUxFIgogICAgaWYgISBwaHAgLWwgIiRGSUxFIiA+L2Rldi9udWxsIDI+JjE7IHRoZW4KICAgICAgICBlY2hv
-ICLinYwgQ2xlYW51cCBndWFyZCBtb2RlbCBsYW1hIGdhZ2FsIOKAlCByb2xsYmFjay4iCiAgICAgICAgY3AgIiR7RklMRX0uYmFrX3ByZV9wMTRfdjRfJHtUSU1FU1RBTVB9IiAiJEZJTEUiCiAgICBlbHNlCiAgICAgICAgZWNobyAi4pm777iPIEd1YXJkIG1vZGVs
-IGxhbWEgUHJvdGVjdDE0IGRpYmVyc2loa2FuIGRhcmkgJEZJTEUiCiAgICBmaQp9CgppbmplY3RfZ3VhcmRfaW50b19tZXRob2QoKSB7CiAgICBsb2NhbCBGSUxFPSIkMSIKICAgIGxvY2FsIE1FVEhPRF9SRUdFWD0iJDIiCiAgICBsb2NhbCBNRVRIT0RfTkFNRT0i
-JDMiCgogICAgaWYgWyAhIC1mICIkRklMRSIgXTsgdGhlbgogICAgICAgIGVjaG8gIuKaoO+4jyBGaWxlIHRpZGFrIGRpdGVtdWthbjogJEZJTEUgKHNraXApIgogICAgICAgIHJldHVybiAwCiAgICBmaQoKICAgIGxvY2FsIE1FVEhPRF9NQVJLRVI9IiR7TUFSS0VS
-X1YzfV8ke01FVEhPRF9OQU1FfSIKICAgIGlmIGdyZXAgLXEgIiRNRVRIT0RfTUFSS0VSIiAiJEZJTEUiOyB0aGVuCiAgICAgICAgZWNobyAi4pqg77iPIEd1YXJkIHN1ZGFoIGFkYSBkaSAkRklMRTo6JE1FVEhPRF9OQU1FIChza2lwKSIKICAgICAgICByZXR1cm4g
-MAogICAgZmkKCiAgICBjcCAiJEZJTEUiICIke0ZJTEV9LmJha18ke1RJTUVTVEFNUH0iCgogICAgbG9jYWwgR1VBUkRfRklMRSBUTVAKICAgIEdVQVJEX0ZJTEU9JChta3RlbXApCiAgICBUTVA9JChta3RlbXApCiAgICBwcmludGYgJyAgICAgICAgLy8gJXNcbiVz
-XG4nICIkTUVUSE9EX01BUktFUiIgIiRHVUFSRF9QSFAiID4gIiRHVUFSRF9GSUxFIgoKICAgIGF3ayAtdiBtZXRob2Q9IiRNRVRIT0RfUkVHRVgiIC12IGd1YXJkZmlsZT0iJEdVQVJEX0ZJTEUiICcKICAgICAgICBCRUdJTiB7CiAgICAgICAgICAgIHdoaWxlICgo
-Z2V0bGluZSBsaW5lIDwgZ3VhcmRmaWxlKSA+IDApIHsgZ3VhcmQgPSBndWFyZCBsaW5lICJcbiIgfQogICAgICAgICAgICBjbG9zZShndWFyZGZpbGUpCiAgICAgICAgICAgIGluX21ldGhvZCA9IDAKICAgICAgICAgICAgaW5zZXJ0ZWQgPSAwCiAgICAgICAgfQog
-ICAgICAgIHsKICAgICAgICAgICAgcHJpbnQKICAgICAgICAgICAgaWYgKGluc2VydGVkID09IDAgJiYgaW5fbWV0aG9kID09IDAgJiYgJDAgfiBtZXRob2QpIHsgaW5fbWV0aG9kID0gMSB9CiAgICAgICAgICAgIGlmIChpbl9tZXRob2QgPT0gMSAmJiBpbnNlcnRl
-ZCA9PSAwICYmICQwIH4gL1x7LykgewogICAgICAgICAgICAgICAgcHJpbnRmICIlcyIsIGd1YXJkCiAgICAgICAgICAgICAgICBpbnNlcnRlZCA9IDEKICAgICAgICAgICAgICAgIGluX21ldGhvZCA9IDAKICAgICAgICAgICAgfQogICAgICAgIH0KICAgICcgIiRG
-SUxFIiA+ICIkVE1QIiAmJiBtdiAiJFRNUCIgIiRGSUxFIgoKICAgIHJtIC1mICIkR1VBUkRfRklMRSIKICAgIGNobW9kIDY0NCAiJEZJTEUiCiAgICBpZiAhIHBocCAtbCAiJEZJTEUiID4vZGV2L251bGwgMj4mMTsgdGhlbgogICAgICAgIGVjaG8gIuKdjCBTeW50
-YXggZXJyb3Igc2V0ZWxhaCBpbmplY3QgJEZJTEUg4oCUIHJvbGxiYWNrLiIKICAgICAgICBjcCAiJHtGSUxFfS5iYWtfJHtUSU1FU1RBTVB9IiAiJEZJTEUiCiAgICAgICAgcmV0dXJuIDAKICAgIGZpCiAgICBpZiAhIGdyZXAgLXEgIiRNRVRIT0RfTUFSS0VSIiAi
-JEZJTEUiOyB0aGVuCiAgICAgICAgZWNobyAi4p2MIE1hcmtlciAkTUVUSE9EX01BUktFUiBUSURBSyBkaXRlbXVrYW4gc2V0ZWxhaCBpbmplY3QgKHJlZ2V4IG1ldGhvZCB0aWRhayBtYXRjaCkg4oCUIHJvbGxiYWNrICRGSUxFIgogICAgICAgIGNwICIke0ZJTEV9
-LmJha18ke1RJTUVTVEFNUH0iICIkRklMRSIKICAgICAgICByZXR1cm4gMAogICAgZmkKICAgIGVjaG8gIuKchSBHdWFyZCB0ZXJwYXNhbmcgZGkgJEZJTEU6OiRNRVRIT0RfTkFNRSIKfQoKaW5qZWN0X2RlbGV0ZV9ndWFyZF9pbnRvX21ldGhvZCgpIHsKICAgIGxv
-Y2FsIEZJTEU9IiQxIgogICAgbG9jYWwgTUVUSE9EX1JFR0VYPSIkMiIKICAgIGxvY2FsIE1FVEhPRF9OQU1FPSIkMyIKCiAgICBpZiBbICEgLWYgIiRGSUxFIiBdOyB0aGVuCiAgICAgICAgZWNobyAi4pqg77iPIEZpbGUgdGlkYWsgZGl0ZW11a2FuOiAkRklMRSAo
-c2tpcCkiCiAgICAgICAgcmV0dXJuIDAKICAgIGZpCgogICAgbG9jYWwgTUVUSE9EX01BUktFUj0iJHtNQVJLRVJfVjN9X0RFTEVURV8ke01FVEhPRF9OQU1FfSIKICAgIGlmIGdyZXAgLXEgIiRNRVRIT0RfTUFSS0VSIiAiJEZJTEUiOyB0aGVuCiAgICAgICAgZWNo
-byAi4pqg77iPIEd1YXJkIGRlbGV0ZSBzdWRhaCBhZGEgZGkgJEZJTEU6OiRNRVRIT0RfTkFNRSAoc2tpcCkiCiAgICAgICAgcmV0dXJuIDAKICAgIGZpCgogICAgY3AgIiRGSUxFIiAiJHtGSUxFfS5iYWtfJHtUSU1FU1RBTVB9IgoKICAgIGxvY2FsIEdVQVJEX0ZJ
-TEUgVE1QCiAgICBHVUFSRF9GSUxFPSQobWt0ZW1wKQogICAgVE1QPSQobWt0ZW1wKQogICAgcHJpbnRmICcgICAgICAgIC8vICVzXG4lc1xuJyAiJE1FVEhPRF9NQVJLRVIiICIkREVMRVRFX0dVQVJEX1BIUCIgPiAiJEdVQVJEX0ZJTEUiCgogICAgYXdrIC12IG1l
-dGhvZD0iJE1FVEhPRF9SRUdFWCIgLXYgZ3VhcmRmaWxlPSIkR1VBUkRfRklMRSIgJwogICAgICAgIEJFR0lOIHsKICAgICAgICAgICAgd2hpbGUgKChnZXRsaW5lIGxpbmUgPCBndWFyZGZpbGUpID4gMCkgeyBndWFyZCA9IGd1YXJkIGxpbmUgIlxuIiB9CiAgICAg
-ICAgICAgIGNsb3NlKGd1YXJkZmlsZSkKICAgICAgICAgICAgaW5fbWV0aG9kID0gMAogICAgICAgICAgICBpbnNlcnRlZCA9IDAKICAgICAgICB9CiAgICAgICAgewogICAgICAgICAgICBwcmludAogICAgICAgICAgICBpZiAoaW5zZXJ0ZWQgPT0gMCAmJiBpbl9t
-ZXRob2QgPT0gMCAmJiAkMCB+IG1ldGhvZCkgeyBpbl9tZXRob2QgPSAxIH0KICAgICAgICAgICAgaWYgKGluX21ldGhvZCA9PSAxICYmIGluc2VydGVkID09IDAgJiYgJDAgfiAvXHsvKSB7CiAgICAgICAgICAgICAgICBwcmludGYgIiVzIiwgZ3VhcmQKICAgICAg
-ICAgICAgICAgIGluc2VydGVkID0gMQogICAgICAgICAgICAgICAgaW5fbWV0aG9kID0gMAogICAgICAgICAgICB9CiAgICAgICAgfQogICAgJyAiJEZJTEUiID4gIiRUTVAiICYmIG12ICIkVE1QIiAiJEZJTEUiCgogICAgcm0gLWYgIiRHVUFSRF9GSUxFIgogICAg
-Y2htb2QgNjQ0ICIkRklMRSIKICAgIGlmICEgcGhwIC1sICIkRklMRSIgPi9kZXYvbnVsbCAyPiYxOyB0aGVuCiAgICAgICAgZWNobyAi4p2MIFN5bnRheCBlcnJvciBzZXRlbGFoIGluamVjdCBkZWxldGUgJEZJTEUg4oCUIHJvbGxiYWNrLiIKICAgICAgICBjcCAi
-JHtGSUxFfS5iYWtfJHtUSU1FU1RBTVB9IiAiJEZJTEUiCiAgICAgICAgcmV0dXJuIDAKICAgIGZpCiAgICBpZiAhIGdyZXAgLXEgIiRNRVRIT0RfTUFSS0VSIiAiJEZJTEUiOyB0aGVuCiAgICAgICAgZWNobyAi4p2MIE1hcmtlciAkTUVUSE9EX01BUktFUiBUSURB
-SyBkaXRlbXVrYW4gKHJlZ2V4IG1ldGhvZCB0aWRhayBtYXRjaCkg4oCUIHJvbGxiYWNrICRGSUxFIgogICAgICAgIGNwICIke0ZJTEV9LmJha18ke1RJTUVTVEFNUH0iICIkRklMRSIKICAgICAgICByZXR1cm4gMAogICAgZmkKICAgIGVjaG8gIuKchSBHdWFyZCBk
-ZWxldGUgdGVycGFzYW5nIGRpICRGSUxFOjokTUVUSE9EX05BTUUiCn0KCkFETUlOX1VTRVJfQ1RSTD0iJFBBTkVMX0RJUi9hcHAvSHR0cC9Db250cm9sbGVycy9BZG1pbi9Vc2VyQ29udHJvbGxlci5waHAiCkFQUF9VU0VSX0NUUkw9IiRQQU5FTF9ESVIvYXBwL0h0
-dHAvQ29udHJvbGxlcnMvQXBpL0FwcGxpY2F0aW9uL1VzZXJzL1VzZXJDb250cm9sbGVyLnBocCIKQ0xJRU5UX1VTRVJfQ1RSTD0iJFBBTkVMX0RJUi9hcHAvSHR0cC9Db250cm9sbGVycy9BcGkvQ2xpZW50L1VzZXJzL1VzZXJDb250cm9sbGVyLnBocCIKVVNFUl9D
-UkVBVEVfU1ZDPSIkUEFORUxfRElSL2FwcC9TZXJ2aWNlcy9Vc2Vycy9Vc2VyQ3JlYXRpb25TZXJ2aWNlLnBocCIKVVNFUl9VUERBVEVfU1ZDPSIkUEFORUxfRElSL2FwcC9TZXJ2aWNlcy9Vc2Vycy9Vc2VyVXBkYXRlU2VydmljZS5waHAiClVTRVJfREVMRVRFX1NW
-Qz0iJFBBTkVMX0RJUi9hcHAvU2VydmljZXMvVXNlcnMvVXNlckRlbGV0aW9uU2VydmljZS5waHAiClVTRVJfTU9ERUw9IiRQQU5FTF9ESVIvYXBwL01vZGVscy9Vc2VyLnBocCIKCmZvciBGIGluICIkQURNSU5fVVNFUl9DVFJMIiAiJEFQUF9VU0VSX0NUUkwiICIk
-Q0xJRU5UX1VTRVJfQ1RSTCIgIiRVU0VSX0NSRUFURV9TVkMiICIkVVNFUl9VUERBVEVfU1ZDIiAiJFVTRVJfREVMRVRFX1NWQyI7IGRvCiAgICBjbGVhbnVwX29sZF9tZXRob2RfZ3VhcmRzICIkRiIKZG9uZQpjbGVhbnVwX29sZF9tb2RlbF9ndWFyZCAiJFVTRVJf
-TU9ERUwiCgppbmplY3RfZ3VhcmRfaW50b19tZXRob2QgIiRBRE1JTl9VU0VSX0NUUkwiICJmdW5jdGlvbltbOnNwYWNlOl1dK3N0b3JlW1s6c3BhY2U6XV0qWyhdIiAiQURNSU5fU1RPUkUiCmluamVjdF9ndWFyZF9pbnRvX21ldGhvZCAiJEFETUlOX1VTRVJfQ1RS
-TCIgImZ1bmN0aW9uW1s6c3BhY2U6XV0rdXBkYXRlW1s6c3BhY2U6XV0qWyhdIiAiQURNSU5fVVBEQVRFIgppbmplY3RfZGVsZXRlX2d1YXJkX2ludG9fbWV0aG9kICIkQURNSU5fVVNFUl9DVFJMIiAiZnVuY3Rpb25bWzpzcGFjZTpdXSsoZGVsZXRlfGRlc3Ryb3kp
-W1s6c3BhY2U6XV0qWyhdIiAiQURNSU5fREVMRVRFIgoKaW5qZWN0X2d1YXJkX2ludG9fbWV0aG9kICIkQVBQX1VTRVJfQ1RSTCIgImZ1bmN0aW9uW1s6c3BhY2U6XV0rc3RvcmVbWzpzcGFjZTpdXSpbKF0iICJBUFBfQVBJX1NUT1JFIgppbmplY3RfZ3VhcmRfaW50
-b19tZXRob2QgIiRBUFBfVVNFUl9DVFJMIiAiZnVuY3Rpb25bWzpzcGFjZTpdXSt1cGRhdGVbWzpzcGFjZTpdXSpbKF0iICJBUFBfQVBJX1VQREFURSIKaW5qZWN0X2RlbGV0ZV9ndWFyZF9pbnRvX21ldGhvZCAiJEFQUF9VU0VSX0NUUkwiICJmdW5jdGlvbltbOnNw
-YWNlOl1dKyhkZWxldGV8ZGVzdHJveSlbWzpzcGFjZTpdXSpbKF0iICJBUFBfQVBJX0RFTEVURSIKCmluamVjdF9kZWxldGVfZ3VhcmRfaW50b19tZXRob2QgIiRDTElFTlRfVVNFUl9DVFJMIiAiZnVuY3Rpb25bWzpzcGFjZTpdXSsoZGVsZXRlfGRlc3Ryb3kpW1s6
-c3BhY2U6XV0qWyhdIiAiQ0xJRU5UX0FQSV9ERUxFVEUiCgppbmplY3RfZ3VhcmRfaW50b19tZXRob2QgIiRVU0VSX0NSRUFURV9TVkMiICJmdW5jdGlvbltbOnNwYWNlOl1dK2hhbmRsZVtbOnNwYWNlOl1dKlsoXSIgIlVTRVJfQ1JFQVRFX1NFUlZJQ0VfSEFORExF
-IgoKaW5qZWN0X2d1YXJkX2ludG9fbWV0aG9kICIkVVNFUl9VUERBVEVfU1ZDIiAiZnVuY3Rpb25bWzpzcGFjZTpdXStoYW5kbGVbWzpzcGFjZTpdXSpbKF0iICJVU0VSX1VQREFURV9TRVJWSUNFX0hBTkRMRSIKCmluamVjdF9kZWxldGVfZ3VhcmRfaW50b19tZXRo
-b2QgIiRVU0VSX0RFTEVURV9TVkMiICJmdW5jdGlvbltbOnNwYWNlOl1dK2hhbmRsZVtbOnNwYWNlOl1dKlsoXSIgIlVTRVJfREVMRVRFX1NFUlZJQ0VfSEFORExFIgoKaWYgWyAtZiAiJFVTRVJfTU9ERUwiIF07IHRoZW4KICAgIGlmIGdyZXAgLXEgIiR7TUFSS0VS
-X1YzfV9NT0RFTCIgIiRVU0VSX01PREVMIjsgdGhlbgogICAgICAgIGVjaG8gIuKaoO+4jyBHdWFyZCBtb2RlbCBVc2VyIHN1ZGFoIGFkYSwgc2tpcC4iCiAgICBlbGlmIGdyZXAgLUVxICJmdW5jdGlvbltbOnNwYWNlOl1dK2Jvb3RlZFtbOnNwYWNlOl1dKlwoIiAi
-JFVTRVJfTU9ERUwiOyB0aGVuCiAgICAgICAgZWNobyAi4pqg77iPIE1vZGVsIFVzZXIgc3VkYWggcHVueWEgbWV0aG9kIGJvb3RlZCgpIGJhd2FhbiDigJQgc2tpcCBpbmpla3NpIG1vZGVsIChwYWthaSBndWFyZCBDb250cm9sbGVyL1NlcnZpY2Ugc2FqYSkgdW50
-dWsgbWVuY2VnYWggZmF0YWwgZXJyb3IgNTAwLiIKICAgIGVsc2UKICAgICAgICBjcCAiJFVTRVJfTU9ERUwiICIke1VTRVJfTU9ERUx9LmJha18ke1RJTUVTVEFNUH0iCiAgICAgICAgVE1QPSQobWt0ZW1wKQogICAgICAgIGF3ayAtdiBtYXJrZXI9IiR7TUFSS0VS
-X1YzfV9NT0RFTCIgJwogICAgICAgICAgICBCRUdJTiB7IGluc2VydGVkPTAgfQogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBpZiAoaW5zZXJ0ZWQ9PTAgJiYgJDAgfiAvXn1bWzpzcGFjZTpdXSokLykgewogICAgICAgICAgICAgICAgICAgIHByaW50ICIg
-ICAgLy8gIiBtYXJrZXIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgIHByb3RlY3RlZCBzdGF0aWMgZnVuY3Rpb24gYm9vdGVkKCk6IHZvaWQiCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICB7IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIg
-ICAgICAgIHN0YXRpYzo6c2F2aW5nKGZ1bmN0aW9uICgkbW9kZWwpIHsiCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgIHRyeSB7IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgaWYgKGFwcCgpLT5ydW5uaW5n
-SW5Db25zb2xlKCkpIHsgcmV0dXJuOyB9IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgaWYgKChpbnQpICgkbW9kZWwtPnJvb3RfYWRtaW4gPz8gMCkgIT09IDEpIHsgcmV0dXJuOyB9IgogICAgICAgICAgICAgICAgICAgIHByaW50
-ICIgICAgICAgICAgICAgICAgJHJlcSA9IG51bGw7IHRyeSB7ICRyZXEgPSByZXF1ZXN0KCk7IH0gY2F0Y2ggKFxcVGhyb3dhYmxlICRlKSB7fSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICRwYXRoID0gJHJlcSA/IHRyaW0oJHJl
-cS0+cGF0aCgpLCBcIi9cIikgOiBcIlwiOyIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICRvcmlnaW5hbCA9IG1ldGhvZF9leGlzdHMoJG1vZGVsLCBcImdldE9yaWdpbmFsXCIpID8gKGludCkgKCRtb2RlbC0+Z2V0T3JpZ2luYWwo
-XCJyb290X2FkbWluXCIpID8/IDApIDogMDsiCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICBpZiAoJG1vZGVsLT5leGlzdHMgJiYgJG9yaWdpbmFsID09PSAxKSB7IHJldHVybjsgfSIKICAgICAgICAgICAgICAgICAgICBwcmludCAi
-ICAgICAgICAgICAgICAgICR1c2VyID0gbnVsbDsiCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICBmb3JlYWNoIChbbnVsbCwgXCJ3ZWJcIiwgXCJhcGlcIiwgXCJhcHBsaWNhdGlvblwiLCBcImNsaWVudFwiXSBhcyAkZykgeyIKICAg
-ICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICB0cnkgeyAkdXNlciA9ICRnID09PSBudWxsID8gXFxJbGx1bWluYXRlXFxTdXBwb3J0XFxGYWNhZGVzXFxBdXRoOjp1c2VyKCkgOiBcXElsbHVtaW5hdGVcXFN1cHBvcnRcXEZhY2FkZXNc
-XEF1dGg6Omd1YXJkKCRnKS0+dXNlcigpOyBpZiAoJHVzZXIpIHsgYnJlYWs7IH0gfSBjYXRjaCAoXFxUaHJvd2FibGUgJGUpIHt9IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgfSIKICAgICAgICAgICAgICAgICAgICBwcmludCAi
-ICAgICAgICAgICAgICAgIGlmICghJHVzZXIpIHsgdHJ5IHsgaWYgKCRyZXEpIHsgJHVzZXIgPSAkcmVxLT51c2VyKCk7IH0gfSBjYXRjaCAoXFxUaHJvd2FibGUgJGUpIHt9IH0iCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAkYWN0
-b3JJZCA9ICR1c2VyICYmIGlzc2V0KCR1c2VyLT5pZCkgPyAoaW50KSAkdXNlci0+aWQgOiBudWxsOyIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgIGlmICghJGFjdG9ySWQgJiYgJHJlcSkgeyIKICAgICAgICAgICAgICAgICAgICBw
-cmludCAiICAgICAgICAgICAgICAgICAgICB0cnkgeyIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgJGFwaUtleXMgPSBbXTsiCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgICAg
-IGZvcmVhY2ggKFtcImFwaV9rZXlcIiwgXCJhcGlLZXlcIiwgXCJ0b2tlblwiLCBcImFwcGxpY2F0aW9uX2FwaV9rZXlcIiwgXCJhcHBsaWNhdGlvbkFwaUtleVwiLCBcImtleVwiXSBhcyAkbmFtZSkgeyAkY2FuZGlkYXRlID0gJHJlcS0+YXR0cmlidXRlcy0+Z2V0
-KCRuYW1lKTsgaWYgKCRjYW5kaWRhdGUpIHsgJGFwaUtleXNbXSA9ICRjYW5kaWRhdGU7IH0gfSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgZm9yZWFjaCAoJHJlcS0+YXR0cmlidXRlcy0+YWxsKCkgYXMgJGNhbmRp
-ZGF0ZSkgeyBpZiAoaXNfb2JqZWN0KCRjYW5kaWRhdGUpKSB7ICRhcGlLZXlzW10gPSAkY2FuZGlkYXRlOyB9IH0iCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgICAgIGZvcmVhY2ggKCRhcGlLZXlzIGFzICRhcGlLZXkpIHsi
-CiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoIWlzX29iamVjdCgkYXBpS2V5KSkgeyBjb250aW51ZTsgfSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IGZvcmVhY2ggKFtcInVzZXJfaWRcIiwgXCJ1c2VySWRcIiwgXCJvd25lcl9pZFwiLCBcIm93bmVySWRcIiwgXCJjcmVhdGVkX2J5XCIsIFwiY3JlYXRlZEJ5XCIsIFwiY3JlYXRlZF9ieV9pZFwiLCBcImNyZWF0ZWRCeUlkXCJdIGFzICRwcm9wKSB7IgogICAgICAg
-ICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChpc3NldCgkYXBpS2V5LT57JHByb3B9KSAmJiAoaW50KSAkYXBpS2V5LT57JHByb3B9ID4gMCkgeyAkYWN0b3JJZCA9IChpbnQpICRhcGlLZXktPnskcHJvcH07IGJy
-ZWFrIDI7IH0iCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKG1ldGhvZF9leGlzdHMoJGFwaUtleSwgXCJnZXRBdHRyaWJ1dGVcIikpIHsgJHZhbHVlID0gJGFwaUtleS0+Z2V0QXR0cmlidXRlKCRw
-cm9wKTsgaWYgKCR2YWx1ZSAmJiAoaW50KSAkdmFsdWUgPiAwKSB7ICRhY3RvcklkID0gKGludCkgJHZhbHVlOyBicmVhayAyOyB9IH0iCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9IgogICAgICAgICAgICAg
-ICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICAgICAgJHJlbCA9IG51bGw7IHRyeSB7ICRyZWwgPSAkYXBpS2V5LT51c2VyID8/IG51bGw7IH0gY2F0Y2ggKFxcVGhyb3dhYmxlICRlKSB7fSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGlmICghJHJlbCAmJiBtZXRob2RfZXhpc3RzKCRhcGlLZXksIFwidXNlclwiKSkgeyB0cnkgeyAkcmVsID0gJGFwaUtleS0+dXNlcigpLT5maXJzdCgpOyB9IGNhdGNoIChcXFRocm93YWJsZSAkZSkge30gfSIKICAgICAg
-ICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICgkcmVsICYmIGlzc2V0KCRyZWwtPmlkKSkgeyAkYWN0b3JJZCA9IChpbnQpICRyZWwtPmlkOyBicmVhazsgfSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAg
-ICAgICAgICAgICAgICAgICAgfSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICB9IGNhdGNoIChcXFRocm93YWJsZSAkZSkge30iCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICB9IgogICAgICAg
-ICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgaWYgKChpbnQpICgkYWN0b3JJZCA/PyAwKSAhPT0gMSkgeyIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICB0aHJvdyBuZXcgXFxQdGVyb2RhY3R5bFxcRXhjZXB0
-aW9uc1xcRGlzcGxheUV4Y2VwdGlvbihcIkFrc2VzIGRpdG9sYWs6IGhhbnlhIEFkbWluIElEIDEgeWFuZyBkYXBhdCBtZW1idWF0L21lbmd1YmFoIEFkbWluIFBhbmVsIEAg8J2Qj/CdkJHwnZCO8J2Qk/CdkITwnZCC8J2QkyDwnZCB8J2QmCDwnZCJ8J2Qh/CdkI7w
-nZCN8J2QgPCdkIvwnZCE8J2QmCDwnZCT8J2QhPCdkILwnZCHLlwiKTsiCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICB9IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICB9IGNhdGNoIChcXFB0ZXJvZGFjdHls
-XFxFeGNlcHRpb25zXFxEaXNwbGF5RXhjZXB0aW9uICRlKSB7IHRocm93ICRlOyB9IGNhdGNoIChcXFRocm93YWJsZSAkZSkge30iCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgfSk7IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAg
-IHN0YXRpYzo6ZGVsZXRpbmcoZnVuY3Rpb24gKCRtb2RlbCkgeyIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgdHJ5IHsiCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICBpZiAoYXBwKCktPnJ1bm5pbmdJbkNv
-bnNvbGUoKSkgeyByZXR1cm47IH0iCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAkcmVxID0gbnVsbDsgdHJ5IHsgJHJlcSA9IHJlcXVlc3QoKTsgfSBjYXRjaCAoXFxUaHJvd2FibGUgJGUpIHt9IgogICAgICAgICAgICAgICAgICAg
-IHByaW50ICIgICAgICAgICAgICAgICAgJHBhdGggPSAkcmVxID8gdHJpbSgkcmVxLT5wYXRoKCksIFwiL1wiKSA6IFwiXCI7IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgJHVzZXIgPSBudWxsOyIKICAgICAgICAgICAgICAgICAg
-ICBwcmludCAiICAgICAgICAgICAgICAgIGZvcmVhY2ggKFtudWxsLCBcIndlYlwiLCBcImFwaVwiLCBcImFwcGxpY2F0aW9uXCIsIFwiY2xpZW50XCJdIGFzICRnKSB7IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgIHRyeSB7
-ICR1c2VyID0gJGcgPT09IG51bGwgPyBcXElsbHVtaW5hdGVcXFN1cHBvcnRcXEZhY2FkZXNcXEF1dGg6OnVzZXIoKSA6IFxcSWxsdW1pbmF0ZVxcU3VwcG9ydFxcRmFjYWRlc1xcQXV0aDo6Z3VhcmQoJGcpLT51c2VyKCk7IGlmICgkdXNlcikgeyBicmVhazsgfSB9
-IGNhdGNoIChcXFRocm93YWJsZSAkZSkge30iCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICB9IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgaWYgKCEkdXNlcikgeyB0cnkgeyBpZiAoJHJlcSkgeyAk
-dXNlciA9ICRyZXEtPnVzZXIoKTsgfSB9IGNhdGNoIChcXFRocm93YWJsZSAkZSkge30gfSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICRhY3RvcklkID0gJHVzZXIgJiYgaXNzZXQoJHVzZXItPmlkKSA/IChpbnQpICR1c2VyLT5p
-ZCA6IG51bGw7IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgaWYgKCEkYWN0b3JJZCAmJiAkcmVxKSB7IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgIHRyeSB7IgogICAgICAgICAgICAgICAg
-ICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICAkYXBpS2V5cyA9IFtdOyIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgZm9yZWFjaCAoW1wiYXBpX2tleVwiLCBcImFwaUtleVwiLCBcInRva2VuXCIsIFwi
-YXBwbGljYXRpb25fYXBpX2tleVwiLCBcImFwcGxpY2F0aW9uQXBpS2V5XCIsIFwia2V5XCJdIGFzICRuYW1lKSB7ICRjYW5kaWRhdGUgPSAkcmVxLT5hdHRyaWJ1dGVzLT5nZXQoJG5hbWUpOyBpZiAoJGNhbmRpZGF0ZSkgeyAkYXBpS2V5c1tdID0gJGNhbmRpZGF0
-ZTsgfSB9IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICBmb3JlYWNoICgkcmVxLT5hdHRyaWJ1dGVzLT5hbGwoKSBhcyAkY2FuZGlkYXRlKSB7IGlmIChpc19vYmplY3QoJGNhbmRpZGF0ZSkpIHsgJGFwaUtleXNbXSA9
-ICRjYW5kaWRhdGU7IH0gfSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgZm9yZWFjaCAoJGFwaUtleXMgYXMgJGFwaUtleSkgeyIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGlmICghaXNfb2JqZWN0KCRhcGlLZXkpKSB7IGNvbnRpbnVlOyB9IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICAgICAgZm9yZWFjaCAoW1widXNlcl9pZFwiLCBcInVzZXJJZFwiLCBcIm93bmVyX2lkXCIs
-IFwib3duZXJJZFwiLCBcImNyZWF0ZWRfYnlcIiwgXCJjcmVhdGVkQnlcIiwgXCJjcmVhdGVkX2J5X2lkXCIsIFwiY3JlYXRlZEJ5SWRcIl0gYXMgJHByb3ApIHsiCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgaWYgKGlzc2V0KCRhcGlLZXktPnskcHJvcH0pICYmIChpbnQpICRhcGlLZXktPnskcHJvcH0gPiAwKSB7ICRhY3RvcklkID0gKGludCkgJGFwaUtleS0+eyRwcm9wfTsgYnJlYWsgMjsgfSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBpZiAobWV0aG9kX2V4aXN0cygkYXBpS2V5LCBcImdldEF0dHJpYnV0ZVwiKSkgeyAkdmFsdWUgPSAkYXBpS2V5LT5nZXRBdHRyaWJ1dGUoJHByb3ApOyBpZiAoJHZhbHVlICYmIChpbnQpICR2YWx1ZSA+IDApIHsgJGFjdG9ySWQg
-PSAoaW50KSAkdmFsdWU7IGJyZWFrIDI7IH0gfSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0iCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAkcmVsID0g
-bnVsbDsgdHJ5IHsgJHJlbCA9ICRhcGlLZXktPnVzZXIgPz8gbnVsbDsgfSBjYXRjaCAoXFxUaHJvd2FibGUgJGUpIHt9IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCEkcmVsICYmIG1ldGhvZF9leGlz
-dHMoJGFwaUtleSwgXCJ1c2VyXCIpKSB7IHRyeSB7ICRyZWwgPSAkYXBpS2V5LT51c2VyKCktPmZpcnN0KCk7IH0gY2F0Y2ggKFxcVGhyb3dhYmxlICRlKSB7fSB9IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-aWYgKCRyZWwgJiYgaXNzZXQoJHJlbC0+aWQpKSB7ICRhY3RvcklkID0gKGludCkgJHJlbC0+aWQ7IGJyZWFrOyB9IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgICAgICB9IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIg
-ICAgICAgICAgICAgICAgICAgIH0gY2F0Y2ggKFxcVGhyb3dhYmxlICRlKSB7fSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiICAgICAgICAgICAgICAgIH0iCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICBpZiAoKGludCkgKCRh
-Y3RvcklkID8/IDApICE9PSAxKSB7IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICAgICAgICAgIHRocm93IG5ldyBcXFB0ZXJvZGFjdHlsXFxFeGNlcHRpb25zXFxEaXNwbGF5RXhjZXB0aW9uKFwiQWtzZXMgZGl0b2xhazogaGFueWEgQWRt
-aW4gSUQgMSB5YW5nIGRhcGF0IG1lbmdoYXB1cyB1c2VyL2FkbWluIHBhbmVsIEAg8J2Qj/CdkJHwnZCO8J2Qk/CdkITwnZCC8J2QkyDwnZCB8J2QmCDwnZCJ8J2Qh/CdkI7wnZCN8J2QgPCdkIvwnZCE8J2QmCDwnZCT8J2QhPCdkILwnZCHLlwiKTsiCiAgICAgICAg
-ICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgICAgICAgICB9IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgICAgICAgICB9IGNhdGNoIChcXFB0ZXJvZGFjdHlsXFxFeGNlcHRpb25zXFxEaXNwbGF5RXhjZXB0aW9uICRlKSB7IHRocm93ICRlOyB9IGNh
-dGNoIChcXFRocm93YWJsZSAkZSkge30iCiAgICAgICAgICAgICAgICAgICAgcHJpbnQgIiAgICAgICAgfSk7IgogICAgICAgICAgICAgICAgICAgIHByaW50ICIgICAgfSIKICAgICAgICAgICAgICAgICAgICBwcmludCAiIgogICAgICAgICAgICAgICAgICAgIGlu
-c2VydGVkPTEKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIHByaW50CiAgICAgICAgICAgIH0KICAgICAgICAnICIkVVNFUl9NT0RFTCIgPiAiJFRNUCIgJiYgbXYgIiRUTVAiICIkVVNFUl9NT0RFTCIKICAgICAgICBjaG1vZCA2NDQgIiRVU0VSX01P
-REVMIgogICAgICAgIGlmICEgcGhwIC1sICIkVVNFUl9NT0RFTCIgPi9kZXYvbnVsbCAyPiYxOyB0aGVuCiAgICAgICAgICAgIGVjaG8gIuKdjCBTeW50YXggZXJyb3Igc2V0ZWxhaCBpbmplY3QgbW9kZWwg4oCUIHJvbGxiYWNrIG90b21hdGlzLiIKICAgICAgICAg
-ICAgY3AgIiR7VVNFUl9NT0RFTH0uYmFrXyR7VElNRVNUQU1QfSIgIiRVU0VSX01PREVMIgogICAgICAgIGVsc2UKICAgICAgICAgICAgZWNobyAi4pyFIEd1YXJkIG1vZGVsIFVzZXIgY3JlYXRlL2RlbGV0ZSB0ZXJwYXNhbmcuIgogICAgICAgIGZpCiAgICBmaQpl
-bHNlCiAgICBlY2hvICLimqDvuI8gVXNlciBtb2RlbCB0aWRhayBkaXRlbXVrYW46ICRVU0VSX01PREVMIgpmaQoKZm9yIEYgaW4gIiRBRE1JTl9VU0VSX0NUUkwiICIkQVBQX1VTRVJfQ1RSTCIgIiRDTElFTlRfVVNFUl9DVFJMIiAiJFVTRVJfQ1JFQVRFX1NWQyIg
-IiRVU0VSX1VQREFURV9TVkMiICIkVVNFUl9ERUxFVEVfU1ZDIiAiJFVTRVJfTU9ERUwiOyBkbwogICAgWyAtZiAiJEYiIF0gJiYgc2VkIC1pICJzfPCdkI/wnZCR8J2QjvCdkJPwnZCE8J2QgvCdkJMg8J2QgfCdkJgg8J2QifCdkIfwnZCO8J2QjfCdkIDwnZCL8J2Q
-hPCdkJgg8J2Qk/CdkITwnZCC8J2Qh3wke0JSQU5EX1RFWFR9fGciICIkRiIgMj4vZGV2L251bGwgfHwgdHJ1ZQpkb25lCgpjZCAiJFBBTkVMX0RJUiIgMj4vZGV2L251bGwgJiYgewogICAgcGhwIGFydGlzYW4gY29uZmlnOmNsZWFyID4vZGV2L251bGwgMj4mMSB8
-fCB0cnVlCiAgICBwaHAgYXJ0aXNhbiBjYWNoZTpjbGVhciA+L2Rldi9udWxsIDI+JjEgfHwgdHJ1ZQogICAgcGhwIGFydGlzYW4gdmlldzpjbGVhciA+L2Rldi9udWxsIDI+JjEgfHwgdHJ1ZQogICAgcGhwIGFydGlzYW4gcm91dGU6Y2xlYXIgPi9kZXYvbnVsbCAy
-PiYxIHx8IHRydWUKfQoKZWNobyAiIgplY2hvICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IgplY2hvICLinIUgUHJvdGVrc2kgVXNlci9BZG1pbiBQYW5lbCB0ZXJwYXNhbmchIgplY2hvICLwn5SSIFNlbGFpbiBBZG1pbiBJRCAx
-IHRpZGFrIGJpc2EgY3JlYXRlIGFkbWluL3Jvb3RfYWRtaW4uIgplY2hvICLwn5eR77iPIFNlbGFpbiBBZG1pbiBJRCAxIHRpZGFrIGJpc2EgZGVsZXRlIHVzZXIvYWRtaW4gcGFuZWwuIgplY2hvICLwn6SWIEphbHVyIEFQSS9ib3QvcGFuZWwuanMgZGlibG9raXIg
-dW50dWsgY3JlYXRlIGFkbWluIGRhbiBkZWxldGUgdXNlci4iCmVjaG8gIvCfkaUgQ3JlYXRlIHVzZXIgYmlhc2EgdGV0YXAgZGlpemlua2FuLiIKZWNobyAiPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSI=
-PROTECT14_B64
+      cat << 'PROTECT14_PLAIN'
+#!/bin/bash
+# ============================================
+# installprotect14.sh
+# Proteksi User/Admin Panel:
+# - Selain User ID 1 tidak bisa membuat/mengubah user menjadi admin/root_admin.
+# - Selain User ID 1 tidak bisa delete user/admin panel.
+# - Jalur API/bot/panel.js untuk create admin dan delete user diblok total,
+#   termasuk jika memakai Application API key milik ID 1, karena panel.js hanya
+#   mengirim API key dan tidak membuktikan operator Telegram adalah ID 1.
+# - Create user biasa tetap diizinkan.
+# ============================================
+
+set -e
+
+BRAND_NAME="${BRAND_NAME:-FyzzOffciall.ID}"
+BRAND_TEXT="${BRAND_TEXT:-Protect By FyzzOffciall.ID}"
+
+PANEL_DIR="/var/www/pterodactyl"
+TIMESTAMP=$(date -u +"%Y-%m-%d-%H-%M-%S-%N")
+
+echo "==========================================="
+echo "🔒 INSTALLPROTECT14: Anti Create/Delete Admin Panel"
+echo "==========================================="
+
+MARKER_V3="PROTEKSI_FIT_USER_ADMIN_PANEL_GUARD_V5"
+OLD_MARKER_REGEX="PROTEKSI_FIT_USER_ADMIN_PANEL_GUARD_V[0-9]+"
+
+read -r -d '' GUARD_PHP <<'PHP' || true
+        // PROTEKSI_FIT_USER_ADMIN_PANEL_GUARD_V5
+        try {
+            $__req = request();
+            $__isConsole = app()->runningInConsole();
+
+            $__webUser = null;
+            try { $__webUser = \Illuminate\Support\Facades\Auth::guard('web')->user(); } catch (\Throwable $e) {}
+            $__isSession = $__webUser !== null;
+            $__hasBearer = false;
+            if ($__req) {
+                try {
+                    $__auth = (string) ($__req->header('Authorization') ?? '');
+                    if ($__auth !== '' && stripos($__auth, 'Bearer ') === 0) { $__hasBearer = true; }
+                    if ($__req->attributes->get('api_key') || $__req->attributes->get('apiKey') || $__req->attributes->get('token')) { $__hasBearer = true; }
+                } catch (\Throwable $e) {}
+            }
+            $__isApiKey = $__hasBearer && !$__isSession;
+
+            $__user = $__webUser;
+            if (!$__user) {
+                foreach ([null, 'api', 'application', 'client'] as $__g) {
+                    try {
+                        $__user = $__g === null ? \Illuminate\Support\Facades\Auth::user() : \Illuminate\Support\Facades\Auth::guard($__g)->user();
+                        if ($__user) { break; }
+                    } catch (\Throwable $e) {}
+                }
+            }
+            if (!$__user && $__req) { try { $__user = $__req->user(); } catch (\Throwable $e) {} }
+            if (!$__user && $__req) {
+                try {
+                    $__k = $__req->attributes->get('api_key') ?? $__req->attributes->get('apiKey') ?? $__req->attributes->get('token');
+                    $__user = $__k ? ($__k->user ?? $__k->userModel ?? null) : null;
+                } catch (\Throwable $e) {}
+            }
+            $__actorId = $__user && isset($__user->id) ? (int) $__user->id : null;
+            if (!$__actorId && $__req) {
+                try {
+                    $__apiKeys = [];
+                    foreach (['api_key', 'apiKey', 'token', 'application_api_key', 'applicationApiKey', 'key'] as $__name) {
+                        $__candidate = $__req->attributes->get($__name);
+                        if ($__candidate) { $__apiKeys[] = $__candidate; }
+                    }
+                    foreach ($__req->attributes->all() as $__candidate) {
+                        if (is_object($__candidate)) { $__apiKeys[] = $__candidate; }
+                    }
+                    foreach ($__apiKeys as $__k) {
+                        if (!is_object($__k)) { continue; }
+                        foreach (['user_id', 'userId', 'owner_id', 'ownerId', 'created_by', 'createdBy', 'created_by_id', 'createdById'] as $__prop) {
+                            if (isset($__k->{$__prop}) && (int) $__k->{$__prop} > 0) { $__actorId = (int) $__k->{$__prop}; break 2; }
+                            if (method_exists($__k, 'getAttribute')) { $__v = $__k->getAttribute($__prop); if ($__v && (int) $__v > 0) { $__actorId = (int) $__v; break 2; } }
+                        }
+                        $__rel = null;
+                        try { $__rel = $__k->user ?? null; } catch (\Throwable $e) {}
+                        if (!$__rel && method_exists($__k, 'user')) { try { $__rel = $__k->user()->first(); } catch (\Throwable $e) {} }
+                        if ($__rel && isset($__rel->id)) { $__actorId = (int) $__rel->id; break; }
+                    }
+                } catch (\Throwable $e) {}
+            }
+
+            $__path = $__req ? trim($__req->path(), '/') : '';
+            $__method = $__req ? strtoupper($__req->method()) : '';
+            $__isApiUserRoute = $__path !== '' && (
+                strpos($__path, 'api/application/users') === 0 ||
+                strpos($__path, 'api/client/users') === 0 ||
+                strpos($__path, 'api/remote/users') === 0
+            );
+
+            $__wantsAdmin = false;
+            if ($__req) {
+                try {
+                    $__ra = $__req->input('root_admin');
+                    if ($__ra !== null && (int) $__ra === 1) { $__wantsAdmin = true; }
+                    if ($__req->boolean('root_admin')) { $__wantsAdmin = true; }
+                    $__json = $__req->json()->all();
+                    if (is_array($__json) && array_key_exists('root_admin', $__json) && (int) $__json['root_admin'] === 1) { $__wantsAdmin = true; }
+                    if (is_array($__json) && array_key_exists('admin', $__json) && (int) $__json['admin'] === 1) { $__wantsAdmin = true; }
+                } catch (\Throwable $e) {}
+            }
+
+            if (!$__isConsole && $__isApiKey && $__isApiUserRoute && $__method === 'DELETE') {
+                if ($__actorId !== null && (int) $__actorId !== 1) {
+                    throw new \Pterodactyl\Exceptions\DisplayException('Akses ditolak: delete user/admin panel via API/bot/panel.js hanya boleh memakai API key milik Admin ID 1 @ PROTECTED BY VANTAXZMD.');
+                }
+            }
+            if (!$__isConsole && $__isApiKey && $__wantsAdmin) {
+                if ((int) ($__actorId ?? 0) !== 1) {
+                    throw new \Pterodactyl\Exceptions\DisplayException('Akses ditolak: create Administrator via API/bot/panel.js hanya boleh memakai API key milik Admin ID 1 @ PROTECTED BY VANTAXZMD.');
+                }
+            }
+
+            if (!$__isConsole && ($__wantsAdmin || $__method === 'DELETE')) {
+                if ($__isApiKey && $__isApiUserRoute && $__method === 'DELETE' && ($__actorId === null || (int) $__actorId === 1)) {
+                    // Application API key valid; beberapa versi Pterodactyl tidak menyimpan owner key di request.
+                } elseif ((int) ($__actorId ?? 0) !== 1) {
+                    throw new \Pterodactyl\Exceptions\DisplayException('Akses ditolak: hanya Admin ID 1 yang dapat membuat/mengubah/menghapus Admin Panel @ PROTECTED BY VANTAXZMD.');
+                }
+            }
+        } catch (\Pterodactyl\Exceptions\DisplayException $e) { throw $e; } catch (\Throwable $e) {}
+PHP
+
+read -r -d '' DELETE_GUARD_PHP <<'PHP' || true
+        // PROTEKSI_FIT_USER_ADMIN_PANEL_GUARD_V5_DELETE
+        try {
+            if (!app()->runningInConsole()) {
+            $__req = request();
+            $__path = $__req ? trim($__req->path(), '/') : '';
+            $__isApiUserRoute = $__path !== '' && (
+                strpos($__path, 'api/application/users') === 0 ||
+                strpos($__path, 'api/client/users') === 0 ||
+                strpos($__path, 'api/remote/users') === 0
+            );
+
+            $__webUser = null;
+            try { $__webUser = \Illuminate\Support\Facades\Auth::guard('web')->user(); } catch (\Throwable $e) {}
+            $__isSession = $__webUser !== null;
+            $__hasBearer = false;
+            if ($__req) {
+                try {
+                    $__auth = (string) ($__req->header('Authorization') ?? '');
+                    if ($__auth !== '' && stripos($__auth, 'Bearer ') === 0) { $__hasBearer = true; }
+                    if ($__req->attributes->get('api_key') || $__req->attributes->get('apiKey') || $__req->attributes->get('token')) { $__hasBearer = true; }
+                } catch (\Throwable $e) {}
+            }
+            $__isApiKey = $__hasBearer && !$__isSession;
+
+            $__user = $__webUser;
+            if (!$__user) {
+                foreach ([null, 'api', 'application', 'client'] as $__g) {
+                    try {
+                        $__user = $__g === null ? \Illuminate\Support\Facades\Auth::user() : \Illuminate\Support\Facades\Auth::guard($__g)->user();
+                        if ($__user) { break; }
+                    } catch (\Throwable $e) {}
+                }
+            }
+            if (!$__user && $__req) { try { $__user = $__req->user(); } catch (\Throwable $e) {} }
+            if (!$__user && $__req) {
+                try {
+                    $__k = $__req->attributes->get('api_key') ?? $__req->attributes->get('apiKey') ?? $__req->attributes->get('token');
+                    $__user = $__k ? ($__k->user ?? $__k->userModel ?? null) : null;
+                } catch (\Throwable $e) {}
+            }
+            $__actorId = $__user && isset($__user->id) ? (int) $__user->id : null;
+            if (!$__actorId && $__req) {
+                try {
+                    $__apiKeys = [];
+                    foreach (['api_key', 'apiKey', 'token', 'application_api_key', 'applicationApiKey', 'key'] as $__name) {
+                        $__candidate = $__req->attributes->get($__name);
+                        if ($__candidate) { $__apiKeys[] = $__candidate; }
+                    }
+                    foreach ($__req->attributes->all() as $__candidate) {
+                        if (is_object($__candidate)) { $__apiKeys[] = $__candidate; }
+                    }
+                    foreach ($__apiKeys as $__k) {
+                        if (!is_object($__k)) { continue; }
+                        foreach (['user_id', 'userId', 'owner_id', 'ownerId', 'created_by', 'createdBy', 'created_by_id', 'createdById'] as $__prop) {
+                            if (isset($__k->{$__prop}) && (int) $__k->{$__prop} > 0) { $__actorId = (int) $__k->{$__prop}; break 2; }
+                            if (method_exists($__k, 'getAttribute')) { $__v = $__k->getAttribute($__prop); if ($__v && (int) $__v > 0) { $__actorId = (int) $__v; break 2; } }
+                        }
+                        $__rel = null;
+                        try { $__rel = $__k->user ?? null; } catch (\Throwable $e) {}
+                        if (!$__rel && method_exists($__k, 'user')) { try { $__rel = $__k->user()->first(); } catch (\Throwable $e) {} }
+                        if ($__rel && isset($__rel->id)) { $__actorId = (int) $__rel->id; break; }
+                    }
+                } catch (\Throwable $e) {}
+            }
+            if ($__isApiKey && $__isApiUserRoute && $__actorId !== null && (int) $__actorId !== 1) {
+                throw new \Pterodactyl\Exceptions\DisplayException('Akses ditolak: delete user/admin panel via API/bot/panel.js hanya boleh memakai API key milik Admin ID 1 @ PROTECTED BY VANTAXZMD.');
+            }
+            if ($__isApiKey && $__isApiUserRoute && ($__actorId === null || (int) $__actorId === 1)) {
+                // Application API key valid; beberapa versi Pterodactyl tidak menyimpan owner key di request.
+            } elseif ((int) ($__actorId ?? 0) !== 1) {
+                throw new \Pterodactyl\Exceptions\DisplayException('Akses ditolak: hanya Admin ID 1 yang dapat menghapus user/admin panel @ PROTECTED BY VANTAXZMD.');
+            }
+            }
+        } catch (\Pterodactyl\Exceptions\DisplayException $e) { throw $e; } catch (\Throwable $e) {}
+PHP
+
+cleanup_old_method_guards() {
+    local FILE="$1"
+    [ -f "$FILE" ] || return 0
+    grep -Eq "$OLD_MARKER_REGEX" "$FILE" || return 0
+
+    cp "$FILE" "${FILE}.bak_pre_p14_v4_${TIMESTAMP}"
+    local TMP
+    TMP=$(mktemp)
+    awk -v marker="$OLD_MARKER_REGEX" '
+        BEGIN { skip=0 }
+        $0 ~ marker && $0 !~ /_MODEL/ { skip=1; next }
+        skip == 1 {
+            if ($0 ~ /catch[[:space:]]*\(\\Pterodactyl\\Exceptions\\DisplayException[[:space:]]+\$e\)/ && $0 ~ /catch[[:space:]]*\(\\Throwable[[:space:]]+\$e\)[[:space:]]*\{\}/) { skip=0; next }
+            next
+        }
+        { print }
+    ' "$FILE" > "$TMP" && mv "$TMP" "$FILE"
+    chmod 644 "$FILE"
+    if ! php -l "$FILE" >/dev/null 2>&1; then
+        echo "❌ Cleanup guard lama gagal di $FILE — rollback."
+        cp "${FILE}.bak_pre_p14_v4_${TIMESTAMP}" "$FILE"
+    else
+        echo "♻️ Guard lama Protect14 dibersihkan dari $FILE"
+    fi
+}
+
+cleanup_old_model_guard() {
+    local FILE="$1"
+    [ -f "$FILE" ] || return 0
+    grep -Eq "${OLD_MARKER_REGEX}_MODEL" "$FILE" || return 0
+
+    cp "$FILE" "${FILE}.bak_pre_p14_v4_${TIMESTAMP}"
+    local TMP
+    TMP=$(mktemp)
+    awk -v marker="${OLD_MARKER_REGEX}_MODEL" '
+        BEGIN { skip=0; depth=0; seen_fn=0 }
+        skip == 0 && $0 ~ marker { skip=1; depth=0; seen_fn=0; next }
+        skip == 1 {
+            if ($0 ~ /function[[:space:]]+booted[[:space:]]*\(/) { seen_fn=1 }
+            if (seen_fn) {
+                line=$0; open=gsub(/\{/, "{", line)
+                line=$0; close_count=gsub(/\}/, "}", line)
+                depth += open - close_count
+                if (depth <= 0 && $0 ~ /}/) { skip=0; next }
+            }
+            next
+        }
+        { print }
+    ' "$FILE" > "$TMP" && mv "$TMP" "$FILE"
+    chmod 644 "$FILE"
+    if ! php -l "$FILE" >/dev/null 2>&1; then
+        echo "❌ Cleanup guard model lama gagal — rollback."
+        cp "${FILE}.bak_pre_p14_v4_${TIMESTAMP}" "$FILE"
+    else
+        echo "♻️ Guard model lama Protect14 dibersihkan dari $FILE"
+    fi
+}
+
+inject_guard_into_method() {
+    local FILE="$1"
+    local METHOD_REGEX="$2"
+    local METHOD_NAME="$3"
+
+    if [ ! -f "$FILE" ]; then
+        echo "⚠️ File tidak ditemukan: $FILE (skip)"
+        return 0
+    fi
+
+    local METHOD_MARKER="${MARKER_V3}_${METHOD_NAME}"
+    if grep -q "$METHOD_MARKER" "$FILE"; then
+        echo "⚠️ Guard sudah ada di $FILE::$METHOD_NAME (skip)"
+        return 0
+    fi
+
+    cp "$FILE" "${FILE}.bak_${TIMESTAMP}"
+
+    local GUARD_FILE TMP
+    GUARD_FILE=$(mktemp)
+    TMP=$(mktemp)
+    printf '        // %s\n%s\n' "$METHOD_MARKER" "$GUARD_PHP" > "$GUARD_FILE"
+
+    awk -v method="$METHOD_REGEX" -v guardfile="$GUARD_FILE" '
+        BEGIN {
+            while ((getline line < guardfile) > 0) { guard = guard line "\n" }
+            close(guardfile)
+            in_method = 0
+            inserted = 0
+        }
+        {
+            print
+            if (inserted == 0 && in_method == 0 && $0 ~ method) { in_method = 1 }
+            if (in_method == 1 && inserted == 0 && $0 ~ /\{/) {
+                printf "%s", guard
+                inserted = 1
+                in_method = 0
+            }
+        }
+    ' "$FILE" > "$TMP" && mv "$TMP" "$FILE"
+
+    rm -f "$GUARD_FILE"
+    chmod 644 "$FILE"
+    if ! php -l "$FILE" >/dev/null 2>&1; then
+        echo "❌ Syntax error setelah inject $FILE — rollback."
+        cp "${FILE}.bak_${TIMESTAMP}" "$FILE"
+        return 0
+    fi
+    if ! grep -q "$METHOD_MARKER" "$FILE"; then
+        echo "❌ Marker $METHOD_MARKER TIDAK ditemukan setelah inject (regex method tidak match) — rollback $FILE"
+        cp "${FILE}.bak_${TIMESTAMP}" "$FILE"
+        return 0
+    fi
+    echo "✅ Guard terpasang di $FILE::$METHOD_NAME"
+}
+
+inject_delete_guard_into_method() {
+    local FILE="$1"
+    local METHOD_REGEX="$2"
+    local METHOD_NAME="$3"
+
+    if [ ! -f "$FILE" ]; then
+        echo "⚠️ File tidak ditemukan: $FILE (skip)"
+        return 0
+    fi
+
+    local METHOD_MARKER="${MARKER_V3}_DELETE_${METHOD_NAME}"
+    if grep -q "$METHOD_MARKER" "$FILE"; then
+        echo "⚠️ Guard delete sudah ada di $FILE::$METHOD_NAME (skip)"
+        return 0
+    fi
+
+    cp "$FILE" "${FILE}.bak_${TIMESTAMP}"
+
+    local GUARD_FILE TMP
+    GUARD_FILE=$(mktemp)
+    TMP=$(mktemp)
+    printf '        // %s\n%s\n' "$METHOD_MARKER" "$DELETE_GUARD_PHP" > "$GUARD_FILE"
+
+    awk -v method="$METHOD_REGEX" -v guardfile="$GUARD_FILE" '
+        BEGIN {
+            while ((getline line < guardfile) > 0) { guard = guard line "\n" }
+            close(guardfile)
+            in_method = 0
+            inserted = 0
+        }
+        {
+            print
+            if (inserted == 0 && in_method == 0 && $0 ~ method) { in_method = 1 }
+            if (in_method == 1 && inserted == 0 && $0 ~ /\{/) {
+                printf "%s", guard
+                inserted = 1
+                in_method = 0
+            }
+        }
+    ' "$FILE" > "$TMP" && mv "$TMP" "$FILE"
+
+    rm -f "$GUARD_FILE"
+    chmod 644 "$FILE"
+    if ! php -l "$FILE" >/dev/null 2>&1; then
+        echo "❌ Syntax error setelah inject delete $FILE — rollback."
+        cp "${FILE}.bak_${TIMESTAMP}" "$FILE"
+        return 0
+    fi
+    if ! grep -q "$METHOD_MARKER" "$FILE"; then
+        echo "❌ Marker $METHOD_MARKER TIDAK ditemukan (regex method tidak match) — rollback $FILE"
+        cp "${FILE}.bak_${TIMESTAMP}" "$FILE"
+        return 0
+    fi
+    echo "✅ Guard delete terpasang di $FILE::$METHOD_NAME"
+}
+
+ADMIN_USER_CTRL="$PANEL_DIR/app/Http/Controllers/Admin/UserController.php"
+APP_USER_CTRL="$PANEL_DIR/app/Http/Controllers/Api/Application/Users/UserController.php"
+CLIENT_USER_CTRL="$PANEL_DIR/app/Http/Controllers/Api/Client/Users/UserController.php"
+USER_CREATE_SVC="$PANEL_DIR/app/Services/Users/UserCreationService.php"
+USER_UPDATE_SVC="$PANEL_DIR/app/Services/Users/UserUpdateService.php"
+USER_DELETE_SVC="$PANEL_DIR/app/Services/Users/UserDeletionService.php"
+USER_MODEL="$PANEL_DIR/app/Models/User.php"
+
+for F in "$ADMIN_USER_CTRL" "$APP_USER_CTRL" "$CLIENT_USER_CTRL" "$USER_CREATE_SVC" "$USER_UPDATE_SVC" "$USER_DELETE_SVC"; do
+    cleanup_old_method_guards "$F"
+done
+cleanup_old_model_guard "$USER_MODEL"
+
+inject_guard_into_method "$ADMIN_USER_CTRL" "function[[:space:]]+store[[:space:]]*[(]" "ADMIN_STORE"
+inject_guard_into_method "$ADMIN_USER_CTRL" "function[[:space:]]+update[[:space:]]*[(]" "ADMIN_UPDATE"
+inject_delete_guard_into_method "$ADMIN_USER_CTRL" "function[[:space:]]+(delete|destroy)[[:space:]]*[(]" "ADMIN_DELETE"
+
+inject_guard_into_method "$APP_USER_CTRL" "function[[:space:]]+store[[:space:]]*[(]" "APP_API_STORE"
+inject_guard_into_method "$APP_USER_CTRL" "function[[:space:]]+update[[:space:]]*[(]" "APP_API_UPDATE"
+inject_delete_guard_into_method "$APP_USER_CTRL" "function[[:space:]]+(delete|destroy)[[:space:]]*[(]" "APP_API_DELETE"
+
+inject_delete_guard_into_method "$CLIENT_USER_CTRL" "function[[:space:]]+(delete|destroy)[[:space:]]*[(]" "CLIENT_API_DELETE"
+
+inject_guard_into_method "$USER_CREATE_SVC" "function[[:space:]]+handle[[:space:]]*[(]" "USER_CREATE_SERVICE_HANDLE"
+
+inject_guard_into_method "$USER_UPDATE_SVC" "function[[:space:]]+handle[[:space:]]*[(]" "USER_UPDATE_SERVICE_HANDLE"
+
+inject_delete_guard_into_method "$USER_DELETE_SVC" "function[[:space:]]+handle[[:space:]]*[(]" "USER_DELETE_SERVICE_HANDLE"
+
+if [ -f "$USER_MODEL" ]; then
+    if grep -q "${MARKER_V3}_MODEL" "$USER_MODEL"; then
+        echo "⚠️ Guard model User sudah ada, skip."
+    elif grep -Eq "function[[:space:]]+booted[[:space:]]*\(" "$USER_MODEL"; then
+        echo "⚠️ Model User sudah punya method booted() bawaan — skip injeksi model (pakai guard Controller/Service saja) untuk mencegah fatal error 500."
+    else
+        cp "$USER_MODEL" "${USER_MODEL}.bak_${TIMESTAMP}"
+        TMP=$(mktemp)
+        awk -v marker="${MARKER_V3}_MODEL" '
+            BEGIN { inserted=0 }
+            {
+                if (inserted==0 && $0 ~ /^}[[:space:]]*$/) {
+                    print "    // " marker
+                    print "    protected static function booted(): void"
+                    print "    {"
+                    print "        static::saving(function ($model) {"
+                    print "            try {"
+                    print "                if (app()->runningInConsole()) { return; }"
+                    print "                if ((int) ($model->root_admin ?? 0) !== 1) { return; }"
+                    print "                $req = null; try { $req = request(); } catch (\\Throwable $e) {}"
+                    print "                $path = $req ? trim($req->path(), \"/\") : \"\";"
+                    print "                $original = method_exists($model, \"getOriginal\") ? (int) ($model->getOriginal(\"root_admin\") ?? 0) : 0;"
+                    print "                if ($model->exists && $original === 1) { return; }"
+                    print "                $user = null;"
+                    print "                foreach ([null, \"web\", \"api\", \"application\", \"client\"] as $g) {"
+                    print "                    try { $user = $g === null ? \\Illuminate\\Support\\Facades\\Auth::user() : \\Illuminate\\Support\\Facades\\Auth::guard($g)->user(); if ($user) { break; } } catch (\\Throwable $e) {}"
+                    print "                }"
+                    print "                if (!$user) { try { if ($req) { $user = $req->user(); } } catch (\\Throwable $e) {} }"
+                    print "                $actorId = $user && isset($user->id) ? (int) $user->id : null;"
+                    print "                if (!$actorId && $req) {"
+                    print "                    try {"
+                    print "                        $apiKeys = [];"
+                    print "                        foreach ([\"api_key\", \"apiKey\", \"token\", \"application_api_key\", \"applicationApiKey\", \"key\"] as $name) { $candidate = $req->attributes->get($name); if ($candidate) { $apiKeys[] = $candidate; } }"
+                    print "                        foreach ($req->attributes->all() as $candidate) { if (is_object($candidate)) { $apiKeys[] = $candidate; } }"
+                    print "                        foreach ($apiKeys as $apiKey) {"
+                    print "                            if (!is_object($apiKey)) { continue; }"
+                    print "                            foreach ([\"user_id\", \"userId\", \"owner_id\", \"ownerId\", \"created_by\", \"createdBy\", \"created_by_id\", \"createdById\"] as $prop) {"
+                    print "                                if (isset($apiKey->{$prop}) && (int) $apiKey->{$prop} > 0) { $actorId = (int) $apiKey->{$prop}; break 2; }"
+                    print "                                if (method_exists($apiKey, \"getAttribute\")) { $value = $apiKey->getAttribute($prop); if ($value && (int) $value > 0) { $actorId = (int) $value; break 2; } }"
+                    print "                            }"
+                    print "                            $rel = null; try { $rel = $apiKey->user ?? null; } catch (\\Throwable $e) {}"
+                    print "                            if (!$rel && method_exists($apiKey, \"user\")) { try { $rel = $apiKey->user()->first(); } catch (\\Throwable $e) {} }"
+                    print "                            if ($rel && isset($rel->id)) { $actorId = (int) $rel->id; break; }"
+                    print "                        }"
+                    print "                    } catch (\\Throwable $e) {}"
+                    print "                }"
+                    print "                if ((int) ($actorId ?? 0) !== 1) {"
+                    print "                    throw new \\Pterodactyl\\Exceptions\\DisplayException(\"Akses ditolak: hanya Admin ID 1 yang dapat membuat/mengubah Admin Panel @ PROTECTED BY VANTAXZMD.\");"
+                    print "                }"
+                    print "            } catch (\\Pterodactyl\\Exceptions\\DisplayException $e) { throw $e; } catch (\\Throwable $e) {}"
+                    print "        });"
+                    print "        static::deleting(function ($model) {"
+                    print "            try {"
+                    print "                if (app()->runningInConsole()) { return; }"
+                    print "                $req = null; try { $req = request(); } catch (\\Throwable $e) {}"
+                    print "                $path = $req ? trim($req->path(), \"/\") : \"\";"
+                    print "                $user = null;"
+                    print "                foreach ([null, \"web\", \"api\", \"application\", \"client\"] as $g) {"
+                    print "                    try { $user = $g === null ? \\Illuminate\\Support\\Facades\\Auth::user() : \\Illuminate\\Support\\Facades\\Auth::guard($g)->user(); if ($user) { break; } } catch (\\Throwable $e) {}"
+                    print "                }"
+                    print "                if (!$user) { try { if ($req) { $user = $req->user(); } } catch (\\Throwable $e) {} }"
+                    print "                $actorId = $user && isset($user->id) ? (int) $user->id : null;"
+                    print "                if (!$actorId && $req) {"
+                    print "                    try {"
+                    print "                        $apiKeys = [];"
+                    print "                        foreach ([\"api_key\", \"apiKey\", \"token\", \"application_api_key\", \"applicationApiKey\", \"key\"] as $name) { $candidate = $req->attributes->get($name); if ($candidate) { $apiKeys[] = $candidate; } }"
+                    print "                        foreach ($req->attributes->all() as $candidate) { if (is_object($candidate)) { $apiKeys[] = $candidate; } }"
+                    print "                        foreach ($apiKeys as $apiKey) {"
+                    print "                            if (!is_object($apiKey)) { continue; }"
+                    print "                            foreach ([\"user_id\", \"userId\", \"owner_id\", \"ownerId\", \"created_by\", \"createdBy\", \"created_by_id\", \"createdById\"] as $prop) {"
+                    print "                                if (isset($apiKey->{$prop}) && (int) $apiKey->{$prop} > 0) { $actorId = (int) $apiKey->{$prop}; break 2; }"
+                    print "                                if (method_exists($apiKey, \"getAttribute\")) { $value = $apiKey->getAttribute($prop); if ($value && (int) $value > 0) { $actorId = (int) $value; break 2; } }"
+                    print "                            }"
+                    print "                            $rel = null; try { $rel = $apiKey->user ?? null; } catch (\\Throwable $e) {}"
+                    print "                            if (!$rel && method_exists($apiKey, \"user\")) { try { $rel = $apiKey->user()->first(); } catch (\\Throwable $e) {} }"
+                    print "                            if ($rel && isset($rel->id)) { $actorId = (int) $rel->id; break; }"
+                    print "                        }"
+                    print "                    } catch (\\Throwable $e) {}"
+                    print "                }"
+                    print "                if ((int) ($actorId ?? 0) !== 1) {"
+                    print "                    throw new \\Pterodactyl\\Exceptions\\DisplayException(\"Akses ditolak: hanya Admin ID 1 yang dapat menghapus user/admin panel @ PROTECTED BY VANTAXZMD.\");"
+                    print "                }"
+                    print "            } catch (\\Pterodactyl\\Exceptions\\DisplayException $e) { throw $e; } catch (\\Throwable $e) {}"
+                    print "        });"
+                    print "    }"
+                    print ""
+                    inserted=1
+                }
+                print
+            }
+        ' "$USER_MODEL" > "$TMP" && mv "$TMP" "$USER_MODEL"
+        chmod 644 "$USER_MODEL"
+        if ! php -l "$USER_MODEL" >/dev/null 2>&1; then
+            echo "❌ Syntax error setelah inject model — rollback otomatis."
+            cp "${USER_MODEL}.bak_${TIMESTAMP}" "$USER_MODEL"
+        else
+            echo "✅ Guard model User create/delete terpasang."
+        fi
+    fi
+else
+    echo "⚠️ User model tidak ditemukan: $USER_MODEL"
+fi
+
+for F in "$ADMIN_USER_CTRL" "$APP_USER_CTRL" "$CLIENT_USER_CTRL" "$USER_CREATE_SVC" "$USER_UPDATE_SVC" "$USER_DELETE_SVC" "$USER_MODEL"; do
+    [ -f "$F" ] && sed -i "s|PROTECTED BY VANTAXZMD|${BRAND_TEXT}|g" "$F" 2>/dev/null || true
+done
+
+cd "$PANEL_DIR" 2>/dev/null && {
+    php artisan config:clear >/dev/null 2>&1 || true
+    php artisan cache:clear >/dev/null 2>&1 || true
+    php artisan view:clear >/dev/null 2>&1 || true
+    php artisan route:clear >/dev/null 2>&1 || true
+}
+
+echo ""
+echo "==========================================="
+echo "✅ Proteksi User/Admin Panel terpasang!"
+echo "🔒 Selain Admin ID 1 tidak bisa create admin/root_admin."
+echo "🗑️ Selain Admin ID 1 tidak bisa delete user/admin panel."
+echo "🤖 Jalur API/bot/panel.js diblokir untuk create admin dan delete user."
+echo "👥 Create user biasa tetap diizinkan."
+echo "==========================================="
+PROTECT14_PLAIN
       ;;
     *)
       return 1
@@ -1578,7 +5770,7 @@ run_module() {
   }
 
   tmp=$(mktemp /tmp/installprotect-"$key"-XXXXXX.sh)
-  printf '%s' "$payload" | base64 -d > "$tmp" 2>/dev/null || {
+  printf '%s' "$payload" > "$tmp" 2>/dev/null || {
     echo "❌ Gagal decode modul $key"
     rm -f "$tmp"
     return 3
